@@ -2,6 +2,8 @@ workspace "Gemstone"
 	configurations {"Debug", "Release"}
 	platforms {"x64"}
 
+	startproject "Sandbox"
+
 	filter "platforms:x64"
 	architecture "x64"
 
