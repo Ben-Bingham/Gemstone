@@ -4,8 +4,8 @@ project "Sandbox"
 
 	cppdialect "C++17"
 
-	targetdir ("build/bin/outputdir/%{prj.name}")
-	objdir ("build/bin-int/outputdir/%{prj.name}")
+	targetdir ("%{wks.location}/build/bin/%{prj.name}")
+	objdir ("%{wks.location}/build/bin-int/%{prj.name}")
 
 	files {
 		"src/**.h",
@@ -14,4 +14,13 @@ project "Sandbox"
 
 	includedirs {
 		"src"
+	}
+
+	-- Dependencies
+	links {
+		"Malachite"
+	}
+
+	includedirs {
+		"%{wks.location}/Malachite/src"
 	}
