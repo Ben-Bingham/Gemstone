@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+
 namespace Malachite {
 	template<typename T>
 	class Vector2 {
@@ -11,30 +13,147 @@ namespace Malachite {
 		T x{ };
 		T y{ };
 
-		Vector2<T>& operator-() {
-			return Vector2<T>{ -this->x, -this->y };
+		// Negation
+		Vector2<T> operator-() const {
+			return Vector2<T>{ -x, -y };
 		}
 
-		Vector2<T>& operator+=(Vector2<T> other) {
+		// +=
+		Vector2<T>& operator+=(const Vector2<T>& other) {
 			this->x += other.x;
 			this->y += other.y;
 			return *this;
 		}
 
-		Vector2<T>& operator-=(Vector2<T> other) {
-			this->operator+=(-other);
+		Vector2<T>& operator+=(const T& scaler) {
+			this->x += scaler;
+			this->y += scaler;
 			return *this;
 		}
 
-		Vector2<T>& operator*=(Vector2<T> other) {
+		// -=
+		Vector2<T>& operator-=(const Vector2<T>& other) {
+			this->x -= other.x;
+			this->y -= other.y;
+			return *this;
+		}
+
+		Vector2<T>& operator-=(const T& scaler) {
+			this->x -= scaler;
+			this->y -= scaler;
+			return *this;
+		}
+
+		// *=
+		Vector2<T>& operator*=(const Vector2<T>& other) {
 			this->x *= other.x;
 			this->y *= other.y;
 			return *this;
 		}
 
-		Vector2<T>& operator/=(Vector2<T> other) {
-			this->operator*=(1 / other);
+		Vector2<T>& operator*=(const T& scaler) {
+			this->x *= scaler;
+			this->y *= scaler;
+			return *this;
+		}
+
+		// /=
+		Vector2<T>& operator/=(const Vector2<T>& other) {
+			this->x /= other.x;
+			this->y /= other.y;
+			return *this;
+		}
+
+		Vector2<T>& operator/=(const T& scaler) {
+			this->x /= scaler;
+			this->y /= scaler;
+			return *this;
+		}
+
+		// Comparison
+		bool operator==(const Vector2<T> other) const {
+			return x == other.x && y == other.y;
+		}
+
+		bool operator!=(const Vector2<T> other) const {
+			return !operator==(other);
+		}
+
+		// Utility
+		T length() const {
+			return (T)sqrt(x * x + y * y);
+		}
+
+		Vector2<T>& normalize() {
+			*this *= (1 / length());
 			return *this;
 		}
 	};
+
+	// <<
+	template<typename T>
+	inline std::ostream& operator<<(std::ostream& os, const Vector2<T>& vector) {
+		return (os << "X: " << vector.x << " Y: " << vector.y);
+	}
+
+	// +
+	template<typename T>
+	inline Vector2<T> operator+(const Vector2<T>& vec1, const Vector2<T>& vec2) {
+		return Vector2<T>(vec1.x + vec2.x, vec1.y + vec2.y);
+	}
+
+	template<typename T>
+	inline Vector2<T> operator+(const Vector2<T>& vec, const T& scaler) {
+		return Vector2<T>(vec.x + scaler, vec.y + scaler);
+	}
+
+	// -
+	template<typename T>
+	inline Vector2<T> operator-(const Vector2<T>& vec1, const Vector2<T>& vec2) {
+		return Vector2<T>(vec1.x - vec2.x, vec1.y - vec2.y);
+	}
+
+	template<typename T>
+	inline Vector2<T> operator-(const Vector2<T>& vec, const T& scaler) {
+		return Vector2<T>(vec.x - scaler, vec.y - scaler);
+	}
+
+	// *
+	template<typename T>
+	inline Vector2<T> operator*(const Vector2<T>& vec1, const Vector2<T>& vec2) {
+		return Vector2<T>(vec1.x * vec2.x, vec1.y * vec2.y);
+	}
+
+	template<typename T>
+	inline Vector2<T> operator*(const Vector2<T>& vec, const T& scaler) {
+		return Vector2<T>(vec.x * scaler, vec.y * scaler);
+	}
+
+	template<typename T>
+	inline Vector2<T> operator*(const T& scaler, const Vector2<T>& vec) {
+		return vec * scaler;
+	}
+
+	// /
+	template<typename T>
+	inline Vector2<T> operator/(const Vector2<T>& vec1, const Vector2<T>& vec2) {
+		return Vector2<T>(vec1.x / vec2.x, vec1.y / vec2.y);
+	}
+
+	template<typename T>
+	inline Vector2<T> operator/(const Vector2<T>& vec, const T& scaler) {
+		return Vector2<T>(vec.x / scaler, vec.y / scaler);
+	}
+
+	// Dot
+	template<typename T>
+	T dot(const Vector2<T>& vec1, const Vector2<T>& vec2) {
+		return vec1.x * vec2.x + vec1.y * vec2.y;
+	}
+
+	// Normalize
+	template<typename T>
+	Vector2<T>& normalize(Vector2<T>& vec) {
+		return vec *= (1 / vec.length());
+	}
 }
