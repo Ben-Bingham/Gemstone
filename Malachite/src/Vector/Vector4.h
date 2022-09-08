@@ -138,13 +138,13 @@ namespace Malachite {
 
 	// *
 	template<typename T>
-	inline Vector4<T> operator*(const Vector3<T>& vec1, const Vector3<T>& vec2) {
-		return Vector3<T>(vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z);
+	inline Vector4<T> operator*(const Vector4<T>& vec1, const Vector4<T>& vec2) {
+		return Vector4<T>(vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z, vec1.w * vec2.w);
 	}
 
 	template<typename T>
-	inline Vector4<T> operator*(const Vector3<T>& vec, const T& scaler) {
-		return Vector3<T>(vec.x * scaler, vec.y * scaler, vec.z * scaler);
+	inline Vector4<T> operator*(const Vector4<T>& vec, const T& scaler) {
+		return Vector4<T>(vec.x * scaler, vec.y * scaler, vec.z * scaler, vec.w * scaler);
 	}
 
 	template<typename T>
@@ -154,30 +154,24 @@ namespace Malachite {
 
 	// /
 	template<typename T>
-	inline Vector3<T> operator/(const Vector3<T>& vec1, const Vector3<T>& vec2) {
-		return Vector3<T>(vec1.x / vec2.x, vec1.y / vec2.y, vec1.z / vec2.z);
+	inline Vector4<T> operator/(const Vector4<T>& vec1, const Vector4<T>& vec2) {
+		return Vector4<T>(vec1.x / vec2.x, vec1.y / vec2.y, vec1.z / vec2.z, vec1.w / vec2.w);
 	}
 
 	template<typename T>
-	inline Vector3<T> operator/(const Vector3<T>& vec, const T& scaler) {
-		return Vector3<T>(vec.x / scaler, vec.y / scaler, vec.z / scaler);
+	inline Vector4<T> operator/(const Vector4<T>& vec, const T& scaler) {
+		return Vector4<T>(vec.x / scaler, vec.y / scaler, vec.z / scaler, vec.w / scaler);
 	}
 
 	// Dot
 	template<typename T>
-	T dot(const Vector3<T>& vec1, const Vector3<T>& vec2) {
-		return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
-	}
-
-	// Cross
-	template<typename T>
-	Vector3<T>& cross(const Vector3<T>& vec1, const Vector3<T>& vec2) {
-		return Vector3<T>{ vec1.y* vec2.z - vec1.z * vec2.y, vec1.z* vec2.x - vec1.x * vec2.z, vec1.x* vec2.y - vec1.y * vec2.x };
+	T dot(const Vector4<T>& vec1, const Vector4<T>& vec2) {
+		return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z + vec1.w * vec2.w;
 	}
 
 	// Normalize
 	template<typename T>
-	Vector3<T>& normalize(Vector3<T>& vec) {
+	Vector4<T>& normalize(Vector4<T>& vec) {
 		return vec *= (1 / vec.length());
 	}
 }
