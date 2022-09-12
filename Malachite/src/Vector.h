@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "Vector/Vector2.h"
+#include "Vector/Vector3.h"
+#include "Vector/Vector4.h"
 
 namespace Malachite {
 	using Vector2f = Vector2<float>;
