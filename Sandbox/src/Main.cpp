@@ -1,6 +1,8 @@
 #include <iostream>
 
-#include "vector/Vector.h"
+#include "Vector.h"
+#include "Matrix.h"
+#include "Angles.h"
 
 int main() {
 	std::cout << "Hello World!" << std::endl;
