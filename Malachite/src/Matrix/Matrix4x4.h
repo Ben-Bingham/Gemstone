@@ -1,6 +1,7 @@
 #pragma once
+#include <iostream>
 
-#include "vector/Vector.h"
+#include "Vector.h"
 
 namespace Malachite {
 	template<typename T>
@@ -27,15 +28,13 @@ namespace Malachite {
 		Vector4<T> row2{ };
 		Vector4<T> row3{ };
 		Vector4<T> row4{ };
-
-		Matrix4x4<T>& operator*=(const Matrix4x4<T>& mat) {
-			row1 *= mat.row1;
-			row2 *= mat.row2;
-			row3 *= mat.row3;
-			row4 *= mat.row4;
-			return *this;
-		}
 	};
+
+	// <<
+	template<typename T>
+	inline std::ostream& operator<<(std::ostream& os, const Matrix4x4<T>& matrix) {
+		return (os << matrix.row1 << '\n' << matrix.row2 << '\n' << matrix.row3 << '\n' << matrix.row4);
+	}
 
 	// *
 	template<typename T>
@@ -63,7 +62,7 @@ namespace Malachite {
 			mat1.row4.x * mat2.row1.x + mat1.row4.y * mat2.row2.x + mat1.row4.z * mat2.row3.x + mat1.row4.w * mat2.row4.x,
 			mat1.row4.x * mat2.row1.y + mat1.row4.y * mat2.row2.y + mat1.row4.z * mat2.row3.y + mat1.row4.w * mat2.row4.y,
 			mat1.row4.x * mat2.row1.z + mat1.row4.y * mat2.row2.z + mat1.row4.z * mat2.row3.z + mat1.row4.w * mat2.row4.z,
-			mat1.row4.x * mat2.row1.w + mat1.row4.y * mat2.row2.w + mat1.row4.z * mat2.row3.w + mat1.row4.w * mat2.row4.w,
+			mat1.row4.x * mat2.row1.w + mat1.row4.y * mat2.row2.w + mat1.row4.z * mat2.row3.w + mat1.row4.w * mat2.row4.w
 			);
 	}
 }
