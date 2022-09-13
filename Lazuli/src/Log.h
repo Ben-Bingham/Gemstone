@@ -8,7 +8,8 @@ namespace Lazuli {
 	enum class LogLevel {
 		INFO,
 		WARNING,
-		ERROR
+		ERROR,
+		TERMINAL
 	};
 
 	class Log {

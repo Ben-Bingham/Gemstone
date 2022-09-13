@@ -1,5 +1,6 @@
 #include <Windows.h>
 
+#include <stdlib.h>
 #include <iostream>
 
 #include "Log.h"
@@ -54,6 +55,22 @@ namespace Lazuli {
 
 				SetConsoleTextAttribute(hConsole, 7);
 
+				break;
+			case LogLevel::TERMINAL:
+				SetConsoleTextAttribute(hConsole, 13);
+				if (m_PrintFilePath) {
+					std::cout << "[TERMINAL" << boilerPlate << message << std::endl;
+				}
+				else {
+					std::cout << "[TERMINAL] " << message << std::endl;
+				}
+
+				SetConsoleTextAttribute(hConsole, 7);
+
+				std::cout << "Press enter to terminate the program." << std::endl;
+				std::cin.get();
+
+				exit(EXIT_FAILURE);
 				break;
 			}
 		}
