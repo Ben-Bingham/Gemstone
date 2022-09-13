@@ -8,7 +8,7 @@ namespace Malachite {
 	class Matrix4x4 {
 	public:
 		Matrix4x4() {}
-		Matrix4x4(T val) : row1(val), row2(val), row3(val), row4(val) {}
+		Matrix4x4(T val) : row1(val, 0, 0, 0), row2(0, val, 0, 0), row3(0, 0, val, 0), row4(0, 0, 0, val) {}
 		Matrix4x4(Vector4<T> Row1, Vector4<T> Row2, Vector4<T> Row3, Vector4<T> Row4) : row1(Row1), row2(Row2), row3(Row3), row4(Row4) {}
 
 		Matrix4x4(
@@ -28,6 +28,32 @@ namespace Malachite {
 		Vector4<T> row2{ };
 		Vector4<T> row3{ };
 		Vector4<T> row4{ };
+
+		// Translation
+		Matrix4x4<T>& translate(const Vector3<T>& vector) {
+			row4 += Vector4<T>{ vector.x, vector.y, vector.z, 0 };
+			return *this;
+		}
+
+		Matrix4x4<T>& translate(const T& x, const T& y, const T& z) {
+			row4 += Vector4<T>{ x, y, z, 0 };
+			return *this;
+		}
+
+		// Scale
+		Matrix4x4<T>& scale(const Vector3<T>& vector) {
+			row1.x *= vector.x;
+			row2.y *= vector.y;
+			row3.z *= vector.z;
+			return *this;
+		}
+
+		Matrix4x4<T>& scale(const T& x, const T& y, const T& z) {
+			row1.x *= x;
+			row2.y *= y;
+			row3.z *= z;			
+			return *this;
+		}
 	};
 
 	// <<
@@ -38,7 +64,7 @@ namespace Malachite {
 
 	// *
 	template<typename T>
-	inline Matrix4x4<T> operator*(const Matrix4x4<T>& mat1, const Matrix4x4<T>& mat2) { //TODO testing
+	inline Matrix4x4<T> operator*(const Matrix4x4<T>& mat1, const Matrix4x4<T>& mat2) {
 		return Matrix4x4<T>(
 			// Row 1
 			mat1.row1.x * mat2.row1.x + mat1.row1.y * mat2.row2.x + mat1.row1.z * mat2.row3.x + mat1.row1.w * mat2.row4.x,
@@ -63,6 +89,20 @@ namespace Malachite {
 			mat1.row4.x * mat2.row1.y + mat1.row4.y * mat2.row2.y + mat1.row4.z * mat2.row3.y + mat1.row4.w * mat2.row4.y,
 			mat1.row4.x * mat2.row1.z + mat1.row4.y * mat2.row2.z + mat1.row4.z * mat2.row3.z + mat1.row4.w * mat2.row4.z,
 			mat1.row4.x * mat2.row1.w + mat1.row4.y * mat2.row2.w + mat1.row4.z * mat2.row3.w + mat1.row4.w * mat2.row4.w
-			);
+		);
+	}
+	
+	template<typename T>
+	inline Vector4<T> operator*(const Vector4<T>& vec, const Matrix4x4<T>& mat) {
+		return Vector4<T>(
+			// X
+			vec.x * mat.row1.x + vec.y * mat.row2.x + vec.z * mat.row3.x + vec.w * mat.row4.x,
+			// Y
+			vec.x * mat.row1.y + vec.y * mat.row2.y + vec.z * mat.row3.y + vec.w * mat.row4.y,
+			// Z
+			vec.x * mat.row1.z + vec.y * mat.row2.z + vec.z * mat.row3.z + vec.w * mat.row4.z,
+			// W
+			vec.x * mat.row1.w + vec.y * mat.row2.w + vec.z * mat.row3.w + vec.w * mat.row4.w
+		);
 	}
 }
