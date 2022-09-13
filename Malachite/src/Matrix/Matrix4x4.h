@@ -73,6 +73,8 @@ namespace Malachite {
 			result.row4.x = -dot(s, eye);
 			result.row4.y = -dot(relativeUp, eye);
 			result.row4.z = dot(direction, eye);
+			*this = result;
+			return *this;
 		}
 
 		static Matrix4x4<T>& perspective(T fov, T aspectRatio, T zNear, T zFar) { //TODO testing
