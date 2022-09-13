@@ -1,6 +1,12 @@
 #include <iostream>
-#include "test.h"
+#include "Window.h"
 
 int main() {
-	std::cin.get();
+	Ruby::Window window{ };
+
+	while (true) {
+		window.pollEvents();
+
+		window.swapBuffers();
+	}
 }
