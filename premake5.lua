@@ -8,9 +8,19 @@ workspace "Gemstone"
 		architecture "x64"
 
 	filter "configurations:Debug"
+		defines { 
+			"MALACHITE_DEBUG",
+			"LAZULI_DEBUG",
+			"RUBY_DEBUG"
+		}
 		symbols "On"
 		
 	filter "configurations:Release"
+		defines { 
+			"MALACHITE_RELEASE",
+			"LAZULI_RELEASE",
+			"RUBY_RELEASE"
+		}
 		optimize "On"
 
 
