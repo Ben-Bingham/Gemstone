@@ -4,6 +4,16 @@ project "Ruby"
 
 	cppdialect "C++17"
 
+	filter "configurations:Debug"
+		defines { "DEBUG", "GLEW_STATIC", "RUBY_DEBUG"}
+		symbols "On"
+		
+	filter "configurations:Release"
+		defines { "NDEBUG", "GLEW_STATIC", "RUBY_RELEASE" }
+		optimize "On"
+
+	filter {}
+
 	targetdir ("%{wks.location}/build/bin/%{prj.name}")
 	objdir ("%{wks.location}/build/bin-int/%{prj.name}")
 
@@ -14,9 +24,12 @@ project "Ruby"
 
 	includedirs {
 		"src",
+		-- Vendor
 		"%{wks.location}/vendor/GLFW/include",
 		"%{wks.location}/vendor/glew-2.1.0/include",
-		"%{wks.location}/Malachite/src"
+		-- Dependencies
+		"%{wks.location}/Malachite/src",
+		"%{wks.location}/Lazuli/src"
 	}
 
 	libdirs {
@@ -25,8 +38,11 @@ project "Ruby"
 	}
 
 	links {
-		"Malachite",
+		-- Vendor
 		"glfw3",
 		"glew32s",
-		"opengl32"
+		"opengl32",
+		-- Dependencies
+		"Malachite",
+		"Lazuli"
 	}

@@ -13,18 +13,18 @@ project "Sandbox"
 	}
 
 	includedirs {
-		"src"
-	}
-
-	-- Dependencies
-	links {
-		"Malachite",
-		"Ruby"
-	}
-
-	includedirs {
+		"src",
+		-- Vendor
+		"%{wks.location}/vendor/GLFW/include",
+		"%{wks.location}/vendor/glew-2.1.0/include",
+		-- Dependencies
 		"%{wks.location}/Malachite/src",
 		"%{wks.location}/Ruby/src",
-		"%{wks.location}/vendor/GLFW/include",
-		"%{wks.location}/vendor/glew-2.1.0/include"
+		"%{wks.location}/Lazuli/src"
+	}
+
+	links {
+		-- Dependencies
+		"Malachite",
+		"Ruby"
 	}
