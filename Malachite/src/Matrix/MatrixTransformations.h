@@ -21,7 +21,7 @@ namespace Malachite {
 		result.row4.x = -dot(s, eye);
 		result.row4.y = -dot(relativeUp, eye);
 		result.row4.z = dot(direction, eye);
-		return result;
+		return result; //Might not work returning local variable
 	}
 
 	template<typename T>
@@ -34,6 +34,6 @@ namespace Malachite {
 		result.row3.z = -(zFar + zNear) / (zFar - zNear);
 		result.row3.w = -1;
 		result.row4.z = -(2 * zFar * zNear) / (zFar - zNear);
-		return result;
+		return result; //Might not work returning local variable
 	}
 }
