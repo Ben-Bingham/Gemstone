@@ -18,9 +18,13 @@ project "Sandbox"
 
 	-- Dependencies
 	links {
-		"Malachite"
+		"Malachite",
+		"Ruby"
 	}
 
 	includedirs {
-		"%{wks.location}/Malachite/src"
+		"%{wks.location}/Malachite/src",
+		"%{wks.location}/Ruby/src",
+		"%{wks.location}/vendor/GLFW/include",
+		"%{wks.location}/vendor/glew-2.1.0/include"
 	}
