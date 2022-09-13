@@ -8,3 +8,4 @@ build/
 **.sln
 **.vcxproj
 **.vcxproj.user
+**.vcxproj.filters
