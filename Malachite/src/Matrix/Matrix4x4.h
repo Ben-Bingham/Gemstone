@@ -60,7 +60,7 @@ namespace Malachite {
 			Vector3<T> s(normalize(cross(direction, up))); // side??
 			Vector3<T> relativeUp(cross(s, direction));
 
-			Matrix4x4<T> result{ 1.0f };
+			Matrix4x4<T> result{ 1 };
 			result.row1.x = s.x;
 			result.row2.x = s.y;
 			result.row3.x = s.z;
@@ -78,7 +78,7 @@ namespace Malachite {
 		}
 
 		static Matrix4x4<T>& perspective(T fov, T aspectRatio, T zNear, T zFar) { //TODO testing
-			T tanHalfFov = tan(fov / 2);
+			T tanHalfFov = (T)tan(fov / 2);
 
 			Matrix4x4<T> result{ };
 			result.row1.x = 1 / (aspectRatio * tanHalfFov);
