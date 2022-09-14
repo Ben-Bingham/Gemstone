@@ -23,8 +23,18 @@ project "Sandbox"
 		"%{wks.location}/Lazuli/src"
 	}
 
+	libdirs {
+		"%{wks.location}/vendor/GLFW/lib-vc2022",
+		"%{wks.location}/vendor/glew-2.1.0/lib/Release/x64"
+	}
+
 	links {
+		-- Vendor
+		"glfw3",
+		"glew32s",
+		"opengl32",
 		-- Dependencies
 		"Malachite",
-		"Ruby"
+		"Ruby",
+		"Lazuli"
 	}

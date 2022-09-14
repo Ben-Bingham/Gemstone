@@ -1,39 +1,46 @@
 #include <iostream>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include "Window.h"
 #include "Log.h"
+#include "Renderer.h"
 
 int main() {
 	Ruby::Window window{ };
 
-	Ruby::CubeRenderable cube{/*position, width, height, depth*/};
+	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
 	Ruby::Renderer renderer{/*maybe window?*/};
+	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 	while (window.isOpen()) {
 		window.pollEvents();
 
 		{ // Rendering
-			renderer.prep();
+			//renderer.prep();
 
-			{ // Lighting
+			//renderer.render();
 
-				renderer.prepLightingPass();
+		//	{ // Lighting
 
-				renderer.drawLightingPass(cube);
+		//		renderer.prepLightingPass();
 
-				renderer.finishLightingPass();
-			}
-			
-			{ // Normal Rendering
-				renderer.prepNormalPass();
+		//		renderer.drawLightingPass(cube);
 
-				renderer.drawNormalPass(cube);
+		//		renderer.finishLightingPass();
+		//	}
+		//	
+		//	{ // Normal Rendering
+		//		renderer.prepNormalPass();
 
-				renderer.finishNormalPass();
-			}
+		//		renderer.drawNormalPass(cube);
 
-			renderer.finish();
+		//		renderer.finishNormalPass();
+		//	}
+
+			//renderer.finish();
 		}
 
 		window.swapBuffers();
