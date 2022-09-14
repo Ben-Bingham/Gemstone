@@ -4,9 +4,15 @@
 
 namespace Ruby {
 	Window::Window(unsigned int width, unsigned int height, std::string name) {
-		glfwInit();
+		if (!glfwInit()) {
+			LOG("GLFW failed to initialize.", Lazuli::LogLevel::TERMINAL);
+		}
 
 		m_Window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
+
+		if (!m_Window) {
+			LOG("Window could not be initialized.", Lazuli::LogLevel::TERMINAL);
+		}
 
 		glfwMakeContextCurrent(m_Window);
 		glfwSwapInterval(1);
