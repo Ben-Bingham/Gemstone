@@ -13,7 +13,6 @@ int main() {
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
 	Ruby::Renderer renderer{/*maybe window?*/};
-	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 	while (window.isOpen()) {
 		window.pollEvents();
@@ -21,7 +20,7 @@ int main() {
 		{ // Rendering
 			//renderer.prep();
 
-			//renderer.render();
+			renderer.render();
 
 		//	{ // Lighting
 
