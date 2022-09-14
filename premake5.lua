@@ -11,7 +11,8 @@ workspace "Gemstone"
 		defines { 
 			"MALACHITE_DEBUG",
 			"LAZULI_DEBUG",
-			"RUBY_DEBUG"
+			"RUBY_DEBUG",
+			"GLEW_STATIC"
 		}
 		symbols "On"
 		
@@ -19,7 +20,8 @@ workspace "Gemstone"
 		defines { 
 			"MALACHITE_RELEASE",
 			"LAZULI_RELEASE",
-			"RUBY_RELEASE"
+			"RUBY_RELEASE",
+			"GLEW_STATIC"
 		}
 		optimize "On"
 
