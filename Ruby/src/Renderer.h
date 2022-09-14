@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 
 #include "Log.h"
+#include "Shaders/VertexShader.h"
+#include "Shaders/FragmentShader.h"
 
 namespace Ruby {
 	class Renderer {
@@ -12,42 +14,27 @@ namespace Ruby {
                 LOG("GLEW failed to initialize.", Lazuli::LogLevel::TERMINAL);
             }
 
-            unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-            glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-            glCompileShader(vertexShader);
-            // check for shader compile errors
-            int success;
-            char infoLog[512];
-            glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-            if (!success) {
-                glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-                LOG("Vertex shader failed to compile.\n" + std::string(infoLog));
-            }
-
-            // fragment shader
-            unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-            glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-            glCompileShader(fragmentShader);
-            // check for shader compile errors
-            glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-            if (!success) {
-                glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-                LOG("Fragment shader failed to compile.\n" + std::string(infoLog));
-            }
+            FragmentShader fragmentShader{ TextFile{ "..\\Ruby\\assets\\shaders\\Default.frag" } };
+            VertexShader vertexShader{ TextFile{ "..\\Ruby\\assets\\shaders\\Default.vert" } };
 
             // link shaders
+            int success;
+            char infoLog[512];
+
             shaderProgram = glCreateProgram();
-            glAttachShader(shaderProgram, vertexShader);
-            glAttachShader(shaderProgram, fragmentShader);
+            glAttachShader(shaderProgram, vertexShader.getShader());
+            glAttachShader(shaderProgram, fragmentShader.getShader());
             glLinkProgram(shaderProgram);
+
             // check for linking errors
             glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
             if (!success) {
                 glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
                 LOG("ERROR::SHADER::PROGRAM::LINKING_FAILED\n" + std::string(infoLog));
             }
-            glDeleteShader(vertexShader);
-            glDeleteShader(fragmentShader);
+            
+            vertexShader.dispose();
+            fragmentShader.dispose();
 
             float vertices[] = {
                  0.5f,  0.5f, 0.0f,  // top right
