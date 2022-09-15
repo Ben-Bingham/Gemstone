@@ -17,7 +17,7 @@ namespace Ruby {
                 -0.5f, -0.5f, 0.0f,  // bottom left
                 -0.5f,  0.5f, 0.0f   // top left 
             };
-            unsigned int indices[] = {  // note that we start from 0!
+            unsigned int indices[] = {
                 0, 1, 3,  // first Triangle
                 1, 2, 3   // second Triangle
             };
