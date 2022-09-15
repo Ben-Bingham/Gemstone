@@ -4,10 +4,6 @@
 
 namespace Ruby {
 	Window::Window(unsigned int width, unsigned int height, std::string name) {
-		if (!glfwInit()) {
-			LOG("GLFW failed to initialize.", Lazuli::LogLevel::TERMINAL);
-		}
-
 		m_Window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
 
 		if (!m_Window) {
