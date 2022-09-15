@@ -7,18 +7,10 @@
 #include "Log.h"
 #include "Renderer.h"
 
-#include "GLEW.h"
-#include "GLFW.h"
-
 #include "Vector.h"
 
 int main() {
-	Ruby::GLEW GLEW{ };
-	Ruby::GLFW GLFW{ };
-
-	GLFW.start();
-	Ruby::Window window{ }; //TODO make this not have to be between the two startups
-	GLEW.start();
+	Ruby::Window window{ };
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
@@ -55,5 +47,5 @@ int main() {
 		window.swapBuffers();
 	}
 
-	GLFW.stop();
+	//GLFW.stop();
 }
