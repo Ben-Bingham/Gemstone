@@ -5,37 +5,12 @@
 #include "Log.h"
 #include "Shaders/VertexShader.h"
 #include "Shaders/FragmentShader.h"
+#include "Shaders/ShaderProgram.h"
 
 namespace Ruby {
 	class Renderer {
 	public:
-		Renderer() {
-            if (glewInit() != GLEW_OK) {
-                LOG("GLEW failed to initialize.", Lazuli::LogLevel::TERMINAL);
-            }
-
-            FragmentShader fragmentShader{ TextFile{ "..\\Ruby\\assets\\shaders\\Default.frag" } };
-            VertexShader vertexShader{ TextFile{ "..\\Ruby\\assets\\shaders\\Default.vert" } };
-
-            // link shaders
-            int success;
-            char infoLog[512];
-
-            shaderProgram = glCreateProgram();
-            glAttachShader(shaderProgram, vertexShader.getShader());
-            glAttachShader(shaderProgram, fragmentShader.getShader());
-            glLinkProgram(shaderProgram);
-
-            // check for linking errors
-            glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-            if (!success) {
-                glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-                LOG("ERROR::SHADER::PROGRAM::LINKING_FAILED\n" + std::string(infoLog));
-            }
-            
-            vertexShader.dispose();
-            fragmentShader.dispose();
-
+		Renderer() : shaderProgram(initProgram()) {
             float vertices[] = {
                  0.5f,  0.5f, 0.0f,  // top right
                  0.5f, -0.5f, 0.0f,  // bottom right
@@ -78,13 +53,20 @@ namespace Ruby {
             glClear(GL_COLOR_BUFFER_BIT);
 
             // draw our first triangle
-            glUseProgram(shaderProgram);
+            shaderProgram.use();
             glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
             
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		}
 
-        unsigned int shaderProgram;
+        ShaderProgram initProgram() {
+            FragmentShader fragmentShader{ TextFile{"..\\Ruby\\assets\\shaders\\Default.frag"} };
+            VertexShader vertexShader{ TextFile{ "..\\Ruby\\assets\\shaders\\Default.vert" } };
+
+            return ShaderProgram{ vertexShader, fragmentShader };
+        }
+
+        ShaderProgram shaderProgram;
         unsigned int VBO, VAO, EBO;
 	};
 }
