@@ -9,8 +9,7 @@
 namespace Ruby {
 	class RenderableObject {
 	public:
-		RenderableObject(std::shared_ptr<ShaderProgram> shaderProgram, std::vector<float>& verticies, std::vector<unsigned int>& indicies, std::vector<Attribute>& attributes) 
-			: program(shaderProgram) {
+		RenderableObject(std::vector<float>& verticies, std::vector<unsigned int>& indicies, std::vector<Attribute> attributes) {
 			VAO.bind();
 
 			VBO.bind();
@@ -27,8 +26,7 @@ namespace Ruby {
 			VAO.compileAttributes();
 		}
 
-		void render() {
-			program->use();
+		void render() const {
 			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 		}
 
@@ -39,7 +37,6 @@ namespace Ruby {
 		}
 
 	private:
-		std::shared_ptr<ShaderProgram> program;
 		VertexAttributeObject VAO{ };
 		VertexBufferObject VBO{ };
 		ElementBufferObject EBO{ };
