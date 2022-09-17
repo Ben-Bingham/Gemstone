@@ -6,11 +6,7 @@
 #include "Log.h"
 
 namespace Ruby {
-	enum class AttributeType {
-		FLOAT,
-		INT,
-		UNSIGNED_INT
-	};
+	using Attribute = unsigned int;
 
 	class VertexAttributeObject {
 	public:
@@ -22,37 +18,31 @@ namespace Ruby {
 		void bind() const { glBindVertexArray(m_VAO); }
 		static void unbind() { glBindVertexArray(0); }
 
-		void enableAttributePointer(unsigned int size, AttributeType type, unsigned int stride) {
-			int glType;
-			unsigned int bytesInType;
+		void addAttribute(Attribute attribute) { m_Attributes.push_back(attribute); }
 
-			switch (type) {
-			default:
-				LOG("Unknown type given during attribute pointer creation. Float assumed.", Lazuli::LogLevel::WARNING);
-				__fallthrough;
-			case AttributeType::FLOAT: 
-				glType = GL_FLOAT;
-				bytesInType = sizeof(float);
-				break;
-			case AttributeType::INT: 
-				glType = GL_INT;
-				bytesInType = sizeof(int);
-				break;
-			case AttributeType::UNSIGNED_INT: 
-				glType = GL_UNSIGNED_INT;
-				bytesInType = sizeof(unsigned int);
-				break;
+		void compileAttributes() {
+			unsigned int stride{ 0 };
+
+			for (Attribute& attribute : m_Attributes) {
+				stride += attribute * sizeof(float);
 			}
 
-			glVertexAttribPointer(numberOfAttributes, size, glType, GL_FALSE, stride, (void*)lastAttributeStride);
-			glEnableVertexAttribArray(numberOfAttributes);
-			numberOfAttributes++;
-			lastAttributeStride = size * sizeof(char) * bytesInType + lastAttributeStride;
+			unsigned int i = 0;
+			for (Attribute& attribute : m_Attributes) {
+				enableAttributePointer(i, attribute, stride);
+				i++;
+			}
 		}
 
 	private:
+		void enableAttributePointer(unsigned int index, Attribute attribute, unsigned int stride) {
+			glVertexAttribPointer(index, attribute, GL_FLOAT, GL_FALSE, stride, (void*)m_LastAttributeWidth);
+			glEnableVertexAttribArray(index);
+			m_LastAttributeWidth = attribute * sizeof(float) + m_LastAttributeWidth;
+		}
+
 		unsigned int m_VAO;
-		unsigned int numberOfAttributes{ 0 };
-		unsigned int lastAttributeStride{ 0 };
+		unsigned __int64 m_LastAttributeWidth{ 0 };
+		std::vector<Attribute> m_Attributes;
 	};
 }
