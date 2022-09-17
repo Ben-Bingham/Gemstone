@@ -6,14 +6,12 @@
 #include "Window.h"
 #include "Log.h"
 #include "Renderer.h"
-#include "RenderableObject.h"
+#include "Renderable Objects/RenderableObject.h"
 
 #include "Vector.h"
 
 int main() {
 	Ruby::Window window{ };
-
-	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
 	Ruby::Renderer renderer{};
 
@@ -21,7 +19,7 @@ int main() {
 		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   // top right
 		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   // bottom right
 		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 0.0f,   // bottom left
-		-0.5f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f    // top left 
+		-0.5f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f    // top left
 	};
 
 	std::vector<unsigned int> indices{
@@ -31,13 +29,11 @@ int main() {
 
 	Ruby::FragmentShader fragmentShader{ TextFile{"..\\Ruby\\assets\\shaders\\Default.frag"} };
 	Ruby::VertexShader vertexShader{ TextFile{ "..\\Ruby\\assets\\shaders\\Default.vert" } };
-	std::shared_ptr<Ruby::ShaderProgram> shaderProgram = std::make_shared<Ruby::ShaderProgram>(vertexShader, fragmentShader);
+	Ruby::ShaderProgram shaderProgram = Ruby::ShaderProgram{ vertexShader, fragmentShader, std::vector<Ruby::Attribute>{ 3, 3 } };
 
-	std::vector<Ruby::Attribute> attributes;
-	attributes.push_back(3);
-	attributes.push_back(3);
+	Ruby::RenderableObject rectangle{ verticies, indices, shaderProgram.getAttributes() };
 
-	Ruby::RenderableObject renderable{ shaderProgram, verticies, indices, attributes };
+	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
 	while (window.isOpen()) {
 		window.pollEvents();
@@ -45,7 +41,8 @@ int main() {
 		{ // Rendering
 			renderer.prep();
 
-			renderer.render(renderable);
+			shaderProgram.use();
+			renderer.render(rectangle);
 
 		//	{ // Lighting
 
@@ -70,5 +67,5 @@ int main() {
 		window.swapBuffers();
 	}
 
-	renderable.dispose();
+	rectangle.dispose();
 }

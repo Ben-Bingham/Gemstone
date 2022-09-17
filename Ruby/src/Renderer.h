@@ -4,7 +4,7 @@
 
 #include "Log.h"
 
-#include "RenderableObject.h"
+#include "Renderable Objects/RenderableObject.h"
 
 namespace Ruby {
 	class Renderer {
