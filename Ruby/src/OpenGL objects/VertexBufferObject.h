@@ -6,16 +6,14 @@
 namespace Ruby {
 	class VertexBufferObject {
 	public:
-		VertexBufferObject(const std::vector<float>& vertices) {
-			glGenBuffers(1, &m_VBO);
+		VertexBufferObject() { glGenBuffers(1, &m_VBO); }
 
-			bind();
-
+		void setData(const std::vector<float>& vertices) {
 			glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
 		}
 
 		void bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_VBO); }
-		static void unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+		void unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 		void dispose() { glDeleteBuffers(1, &m_VBO); }
 
 	private:
