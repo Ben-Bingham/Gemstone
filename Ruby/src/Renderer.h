@@ -16,10 +16,10 @@ namespace Ruby {
 	public:
 		Renderer() : shaderProgram(initProgram()) {
             std::vector<float> verticies{
-                 0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 1.0f, // top right
-                 0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 1.0f, // bottom right
-                -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 0.0f, // bottom left
-                -0.5f,  0.5f, 0.0f,  0.0f, 0.0f, 0.0f  // top left 
+                 0.5f,  0.5f, 0.0f, // top right
+                 0.5f, -0.5f, 0.0f, // bottom right
+                -0.5f, -0.5f, 0.0f, // bottom left
+                -0.5f,  0.5f, 0.0f // top left 
             };
 
             std::vector<unsigned int> indices{
@@ -36,8 +36,7 @@ namespace Ruby {
 
             EBO.bind();
 
-            VAO.enableAttributePointer(3, AttributeType::FLOAT, 6 * sizeof(float));
-            VAO.enableAttributePointer(3, AttributeType::FLOAT, 6 * sizeof(float));
+            VAO.enableAttributePointer(3, AttributeType::FLOAT, 3 * sizeof(float));
 		}
 
 		void render() {
