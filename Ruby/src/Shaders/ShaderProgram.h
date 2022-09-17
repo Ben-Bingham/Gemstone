@@ -8,13 +8,19 @@
 #include "Vector.h"
 #include "Matrix.h"
 
+#include "OpenGL objects/VertexAttributeObject.h"
+
 namespace Ruby {
 	class ShaderProgram {
 	public:
-		ShaderProgram(VertexShader& vertexShader, FragmentShader& fragmentShader);
+		ShaderProgram(VertexShader& vertexShader, FragmentShader& fragmentShader, const std::vector<Attribute>& attributes);
 
-		void use() { glUseProgram(m_Program); }
+		void use() const { glUseProgram(m_Program); }
 		void dispose() { glDeleteProgram(m_Program); }
+
+		std::vector<Attribute> getAttributes() const {
+			return m_Attributes;
+		}
 
 		void setInt(const std::string& variableName, const int value) const {
 			glUniform1i(glGetUniformLocation(m_Program, variableName.c_str()), value);
@@ -38,5 +44,6 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Program;
+		std::vector<Attribute> m_Attributes;
 	};
 }

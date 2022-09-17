@@ -2,7 +2,8 @@
 #include "Log.h"
 
 namespace Ruby {
-	ShaderProgram::ShaderProgram(VertexShader& vertexShader, FragmentShader& fragmentShader) {
+	ShaderProgram::ShaderProgram(VertexShader& vertexShader, FragmentShader& fragmentShader, const std::vector<Attribute>& attributes) 
+		: m_Attributes(attributes) {
 		int success;
 		char infoLog[512];
 
