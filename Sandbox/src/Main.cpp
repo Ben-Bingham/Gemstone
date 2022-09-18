@@ -12,6 +12,8 @@
 
 #include "Matrix/MatrixTransformations.h"
 
+#include "Camera.h"
+
 int main() {
 	Ruby::Window window{ };
 
@@ -83,8 +85,11 @@ int main() {
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
 	Malachite::Matrix4f projection = Malachite::perspective(90.0f, (640.0f / 480.0f), 0.01f, 100.0f);
-	Malachite::Matrix4f view = Malachite::lookAt(Malachite::Vector3f{ 0.0f, 0.0f, -3.0f }, Malachite::Vector3f{ 0.0f }, Malachite::Vector3f::Up);
 	Malachite::Matrix4f model = Malachite::Matrix4f{ 1.0f };
+
+	Ruby::Camera camera{ };
+
+	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, -3.0f };
 
 	while (window.isOpen()) {
 		window.pollEvents();
@@ -97,7 +102,7 @@ int main() {
 
 			renderer.solidShader.use();
 			renderer.solidShader.setMatrix4f("model", model);
-			renderer.solidShader.setMatrix4f("view", view);
+			renderer.solidShader.setMatrix4f("view", camera.getViewMatrix());
 			renderer.solidShader.setMatrix4f("projection", projection);
 			renderer.render(cube);
 
