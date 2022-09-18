@@ -10,6 +10,8 @@
 
 #include "Vector.h"
 
+#include "Matrix/MatrixTransformations.h"
+
 int main() {
 	Ruby::Window window{ };
 
@@ -27,13 +29,62 @@ int main() {
 		1, 2, 3   // second Triangle
 	};
 
-	Ruby::FragmentShader fragmentShader{ TextFile{"..\\Ruby\\assets\\shaders\\Default.frag"} };
-	Ruby::VertexShader vertexShader{ TextFile{ "..\\Ruby\\assets\\shaders\\Default.vert" } };
-	Ruby::ShaderProgram shaderProgram = Ruby::ShaderProgram{ vertexShader, fragmentShader, std::vector<Ruby::Attribute>{ 3, 3 } };
+	std::vector<float> cubeVerticies{
+		-0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 1.0f, 1.0f,
+							   
+		 0.5f, -0.5f,  0.5f,   1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,   1.0f,  0.0f,  0.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,   1.0f,  0.0f,  0.0f, 1.0f, 1.0f,
+							  
+		-0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0, 0.0f, 0.0,
+		-0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0, 0.0f, 1.0,
+		-0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0, 1.0f, 0.0,
+		-0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0, 1.0f, 1.0,
+							  
+		-0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f, 0.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f, 1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f, 1.0f, 1.0f,
+							   
+		 0.5f, -0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 0.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 1.0f, 1.0f,
+							   
+		-0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f, 1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f, 1.0f, 1.0f
+	};
 
-	Ruby::RenderableObject rectangle{ verticies, indices, shaderProgram.getAttributes() };
+	std::vector<unsigned int> cubeIndices{
+		0,  1,  2,
+		1,  3,  2,
+		4,  5,  6,
+		5,  7,  6,
+		8,  9, 10,
+		9, 11, 10,
+		12, 13, 14,
+		13, 15, 14,
+		16, 17, 18,
+		17, 19, 18,
+		20, 21, 22,
+		21, 23, 22,
+	};
+
+	Ruby::RenderableObject rectangle{ verticies, indices, renderer.normalShader.getAttributes() };
+
+	Ruby::RenderableObject cube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
+
+	Malachite::Matrix4f projection = Malachite::perspective(90.0f, (640.0f / 480.0f), 0.01f, 100.0f);
+	Malachite::Matrix4f view = Malachite::lookAt(Malachite::Vector3f{ 0.0f, 0.0f, -3.0f }, Malachite::Vector3f{ 0.0f }, Malachite::Vector3f::Up);
+	Malachite::Matrix4f model = Malachite::Matrix4f{ 1.0f };
 
 	while (window.isOpen()) {
 		window.pollEvents();
@@ -41,8 +92,14 @@ int main() {
 		{ // Rendering
 			renderer.prep();
 
-			shaderProgram.use();
-			renderer.render(rectangle);
+			/*renderer.normalShader.use();
+			renderer.render(rectangle);*/
+
+			renderer.solidShader.use();
+			renderer.solidShader.setMatrix4f("model", model);
+			renderer.solidShader.setMatrix4f("view", view);
+			renderer.solidShader.setMatrix4f("projection", projection);
+			renderer.render(cube);
 
 		//	{ // Lighting
 
@@ -68,4 +125,5 @@ int main() {
 	}
 
 	rectangle.dispose();
+	cube.dispose();
 }
