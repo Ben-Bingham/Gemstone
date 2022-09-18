@@ -27,6 +27,7 @@ namespace Ruby {
 		}
 
 		void render() const {
+			VAO.bind();
 			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 		}
 
