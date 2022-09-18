@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Matrix/Matrix4x4.h"
+#include "Matrix/MatrixTransformations.h"
 
 namespace Malachite {
 	using Matrix4f = Matrix4x4<float>;
