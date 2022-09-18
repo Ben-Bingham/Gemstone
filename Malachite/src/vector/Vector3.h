@@ -97,7 +97,28 @@ namespace Malachite {
 			*this *= (1 / length());
 			return *this;
 		}
+
+		// Basic vectors
+		static const Vector3<T> Up       /*{ (T) 0.0, (T) 1.0, (T) 0.0 }*/;
+		static const Vector3<T> Down     /*{ (T) 0.0, (T)-1.0, (T) 0.0 }*/;
+		static const Vector3<T> Right    /*{ (T) 1.0, (T) 0.0, (T) 0.0 }*/;
+		static const Vector3<T> Left     /*{ (T)-1.0, (T) 0.0, (T) 0.0 }*/;
+		static const Vector3<T> Forward  /*{ (T) 0.0, (T) 0.0, (T) 1.0 }*/;
+		static const Vector3<T> Backward /*{ (T) 0.0, (T) 0.0, (T)-1.0 }*/;
 	};
+
+	template<typename T>
+	const Vector3<T> Vector3<T>::Up{ (T)0.0, (T)1.0, (T)0.0 };
+	template<typename T>
+	const Vector3<T> Vector3<T>::Down{ (T)0.0, (T)-1.0, (T)0.0 };
+	template<typename T>
+	const Vector3<T> Vector3<T>::Right{ (T)1.0, (T)0.0, (T)0.0 };
+	template<typename T>
+	const Vector3<T> Vector3<T>::Left{ (T)-1.0, (T)0.0, (T)0.0 };
+	template<typename T>
+	const Vector3<T> Vector3<T>::Forward{ (T)0.0, (T)0.0, (T)1.0 };
+	template<typename T>
+	const Vector3<T> Vector3<T>::Backward{ (T)0.0, (T)0.0, (T)-1.0 };
 
 	// <<
 	template<typename T>
