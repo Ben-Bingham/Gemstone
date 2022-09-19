@@ -18,7 +18,7 @@ namespace Ruby {
 		}
 
 		void updateCameraVectors() {
-			right = Malachite::normalize(Malachite::cross(front, Malachite::Vector3f::Up));
+			right = Malachite::normalize(Malachite::cross(front, Malachite::Vector3f{ 0.0f, 1.0f, 0.0f }));
 			up = Malachite::normalize(Malachite::cross(right, front));
 		}
 
