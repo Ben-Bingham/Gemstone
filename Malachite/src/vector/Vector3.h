@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <string>
 
 namespace Malachite {
 	template<typename T>
@@ -98,27 +99,10 @@ namespace Malachite {
 			return *this;
 		}
 
-		// Basic vectors
-		static const Vector3<T> Up       /*{ (T) 0.0, (T) 1.0, (T) 0.0 }*/;
-		static const Vector3<T> Down     /*{ (T) 0.0, (T)-1.0, (T) 0.0 }*/;
-		static const Vector3<T> Right    /*{ (T) 1.0, (T) 0.0, (T) 0.0 }*/;
-		static const Vector3<T> Left     /*{ (T)-1.0, (T) 0.0, (T) 0.0 }*/;
-		static const Vector3<T> Forward  /*{ (T) 0.0, (T) 0.0, (T) 1.0 }*/;
-		static const Vector3<T> Backward /*{ (T) 0.0, (T) 0.0, (T)-1.0 }*/;
+		std::string toString() {
+			return std::string{ "X: " + std::to_string(x) + ", Y: " + std::to_string(y) + ", Z: " + std::to_string(z) };
+		}
 	};
-
-	template<typename T>
-	const Vector3<T> Vector3<T>::Up{ (T)0.0, (T)1.0, (T)0.0 };
-	template<typename T>
-	const Vector3<T> Vector3<T>::Down{ (T)0.0, (T)-1.0, (T)0.0 };
-	template<typename T>
-	const Vector3<T> Vector3<T>::Right{ (T)1.0, (T)0.0, (T)0.0 };
-	template<typename T>
-	const Vector3<T> Vector3<T>::Left{ (T)-1.0, (T)0.0, (T)0.0 };
-	template<typename T>
-	const Vector3<T> Vector3<T>::Forward{ (T)0.0, (T)0.0, (T)1.0 };
-	template<typename T>
-	const Vector3<T> Vector3<T>::Backward{ (T)0.0, (T)0.0, (T)-1.0 };
 
 	// <<
 	template<typename T>
@@ -190,6 +174,7 @@ namespace Malachite {
 	// Normalize
 	template<typename T>
 	Vector3<T>& normalize(Vector3<T>& vec) {
-		return vec *= (1 / vec.length());
+		T inverseLength = (T)1 / vec.length();
+		return vec *= inverseLength;
 	}
 }
