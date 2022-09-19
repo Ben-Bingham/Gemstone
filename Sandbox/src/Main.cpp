@@ -228,10 +228,13 @@ int main() {
 		{ // Rendering
 			renderer.prep();
 
-			renderer.solidShader.use();
-			renderer.solidShader.setMatrix4f("model", model);
-			renderer.solidShader.setMatrix4f("view", camera.getViewMatrix());
-			renderer.solidShader.setMatrix4f("projection", projection);
+			renderer.testShader.use();
+			renderer.testShader.setMatrix4f("model", model);
+			renderer.testShader.setMatrix4f("view", camera.getViewMatrix());
+			renderer.testShader.setMatrix4f("projection", projection);
+
+			renderer.testShader.setVector4f("objectColour", Malachite::Vector4f{ 0.0f, 1.0f, 0.0f, 1.0f });
+
 			renderer.render(cube);
 
 		//	{ // Lighting
