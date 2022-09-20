@@ -14,7 +14,7 @@ namespace Ruby {
 			stbi_set_flip_vertically_on_load(flipVertically);
 
 			unsigned char* data = stbi_load(m_Path.c_str(), &m_Width, &m_Height, &m_Channels, 0);
-			m_Content.resize(m_Width * m_Height * m_Channels);
+			m_Content.resize((size_t)(m_Width * m_Height * m_Channels));
 
 			memcpy(&m_Content[0], data, m_Content.size());
 
@@ -29,6 +29,8 @@ namespace Ruby {
 		int getWidth() const { return m_Width; }
 		int getHeight() const { return m_Height; }
 		int getChannels() const { return m_Channels; }
+
+		static const Image noImage;
 
 	private:
 		std::vector<unsigned char> m_Content;
