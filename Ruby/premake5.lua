@@ -27,6 +27,7 @@ project "Ruby"
 		-- Vendor
 		"%{wks.location}/vendor/GLFW/include",
 		"%{wks.location}/vendor/glew-2.1.0/include",
+		"%{wks.location}/vendor/stb_image",
 		-- Dependencies
 		"%{wks.location}/Malachite/src",
 		"%{wks.location}/Lazuli/src"
