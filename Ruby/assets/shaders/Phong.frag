@@ -1,11 +1,29 @@
 #version 330 core //TODO optimizations
-
+/*
 struct Material {
 	sampler2D diffuse;
 	sampler2D specular;
 	float shininess;
 };
+*/
 
+// Material
+uniform sampler2D	materialDiffuse;
+uniform sampler2D	materialSpecular;
+uniform float		materialShininess;
+
+// Point light
+struct PointLight {
+	vec3 position;
+	
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+};
+
+uniform PointLight pointLight;
+
+/*
 struct PointLight {
     vec3 position;
     
@@ -28,9 +46,9 @@ struct DirectionalLight {
 
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir);
-
-#define MAX_POINT_LIGHTS 16
-#define MAX_DIRECTIONAL_LIGHTS 16
+*/
+//#define MAX_POINT_LIGHTS 16
+//#define MAX_DIRECTIONAL_LIGHTS 16
 
 out vec4 FragColor;
 
@@ -38,7 +56,7 @@ in vec3 normal;
 in vec3 fragmentPosition;
 in vec2 textureCordinates;
 
-in vec4 fragmentPositionInLightSpace;
+//in vec4 fragmentPositionInLightSpace;
 
 //uniform sampler2D shadowMap; //TODO make an array
 //uniform samplerCube pointShadowMap; //TODO make an array
@@ -46,13 +64,13 @@ in vec4 fragmentPositionInLightSpace;
 //uniform float farPlane;
 
 uniform vec3 cameraPosition;
-uniform Material material;
+//uniform Material material;
 
-uniform int numberOfPointLights;
-uniform PointLight pointLights[MAX_POINT_LIGHTS];
+//uniform int numberOfPointLights;
+//uniform PointLight pointLights[MAX_POINT_LIGHTS];
 
-uniform int numberOfDirectionalLights;
-uniform DirectionalLight directionalLights[MAX_DIRECTIONAL_LIGHTS];
+//uniform int numberOfDirectionalLights;
+//uniform DirectionalLight directionalLights[MAX_DIRECTIONAL_LIGHTS];
 /*
 float directionalShadowCalculation(vec4 fragPosInLight, vec3 lightDir) {
 	vec3 projCords = fragPosInLight.xyz / fragPosInLight.w;
@@ -113,22 +131,45 @@ float pointShadowCalculation(vec3 fragPos, PointLight light) {
 	return shadow;
 }
 */
+vec3 calcPointLight(PointLight);
+
 void main() {
 	vec3 result = vec3(0.0, 0.0, 0.0);
-		
+	result = calcPointLight(pointLight);
+
+	/*	
 	for (int i = 0; i < numberOfPointLights; i++) {
 		result += CalcPointLight(pointLights[i], normal, fragmentPosition, cameraPosition);
 	}
-	
-	vec3 viewDir = normalize(cameraPosition - fragmentPosition);
-	
+	*/
+	//vec3 viewDir = normalize(cameraPosition - fragmentPosition);
+	/*
 	for (int i = 0; i < numberOfDirectionalLights; i++) {
 		result += CalcDirLight(directionalLights[i], normal, viewDir);
 	}
-	
+		*/
 	FragColor = vec4(result, 1.0);
 }
 
+vec3 calcPointLight(PointLight pointLight) {
+	// Ambient
+	vec3 ambient = pointLight.ambient * texture(materialDiffuse, textureCordinates).rgb;
+	
+	// Diffuse
+	vec3 lightDirection = normalize(pointLight.position - fragmentPosition);
+	float angleOfNormAndLightDir = max(dot(normal, lightDirection), 0.0);
+	vec3 diffuse = pointLight.diffuse * angleOfNormAndLightDir * texture(materialDiffuse, textureCordinates).rgb;
+
+	// Specular
+	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
+	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
+	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), materialShininess);
+	vec3 specular = pointLight.specular * (specularAmount * texture(materialSpecular, textureCordinates).rgb);
+
+	// Total
+	return ambient + diffuse + specular;
+}
+/*
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 cameraPosition) {
 	vec3 ambient = light.ambient * texture(material.diffuse, textureCordinates).rgb;
 
@@ -178,4 +219,4 @@ vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
 	vec3 lighting = ambient * diffuse * specular;
 
 	return lighting;
-}
+}*/

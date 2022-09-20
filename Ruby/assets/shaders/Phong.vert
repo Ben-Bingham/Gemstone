@@ -17,10 +17,13 @@ uniform mat4 projection;
 uniform mat4 lightSpaceMatrix;
 
 void main() {
-	gl_Position = projection * view * model * vec4(inputPositon, 1.0);
-	normal = transpose(inverse(mat3(model))) * inputNormal;
-	normal = normalize(normal);
+	normal = normalize(transpose(inverse(mat3(model))) * inputNormal);
+
 	fragmentPosition = vec3(model * vec4(inputPositon, 1.0));
+
 	textureCordinates = inputTextureCords;
+
 	fragmentPositionInLightSpace = lightSpaceMatrix * vec4(fragmentPosition, 1.0);
+
+	gl_Position = projection * view * model * vec4(inputPositon, 1.0);
 }
