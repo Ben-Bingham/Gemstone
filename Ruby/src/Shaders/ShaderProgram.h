@@ -22,6 +22,7 @@ namespace Ruby {
 			return m_Attributes;
 		}
 
+		// Basic uniforms
 		void setInt(const std::string& variableName, const int value) const {
 			glUniform1i(glGetUniformLocation(m_Program, variableName.c_str()), value);
 		}
