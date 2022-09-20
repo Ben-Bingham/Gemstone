@@ -10,11 +10,32 @@ namespace Ruby {
 
 	class VertexAttributeObject {
 	public:
-		VertexAttributeObject() {
-			glGenVertexArrays(1, &m_VAO);
+		VertexAttributeObject() { glGenVertexArrays(1, &m_VAO); }
+		VertexAttributeObject(VertexAttributeObject&) = delete;
+		VertexAttributeObject& operator=(VertexAttributeObject&) = delete;
+		VertexAttributeObject& operator=(VertexAttributeObject&& other) noexcept {
+			m_VAO = std::move(other.m_VAO);
+			other.m_VAO = 0;
+
+			m_LastAttributeWidth = std::move(other.m_LastAttributeWidth);
+			other.m_LastAttributeWidth = 0;
+
+			m_Attributes = std::move(other.m_Attributes);
+			other.m_Attributes.clear();
 		}
 
-		void dispose() { glDeleteVertexArrays(1, &m_VAO); }
+		VertexAttributeObject(VertexAttributeObject&& other) noexcept
+			: m_VAO(std::move(other.m_VAO)), 
+			m_LastAttributeWidth(std::move(other.m_LastAttributeWidth)), 
+			m_Attributes(std::move(other.m_Attributes)) {
+
+			other.m_VAO = 0;
+			other.m_LastAttributeWidth = 0;
+			other.m_Attributes.clear();
+		}
+
+		~VertexAttributeObject() { glDeleteBuffers(1, &m_VAO); }
+
 		void bind() const { glBindVertexArray(m_VAO); }
 		static void unbind() { glBindVertexArray(0); }
 
