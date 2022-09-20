@@ -95,7 +95,8 @@ namespace Malachite {
 		}
 
 		Vector3<T>& normalize() {
-			*this *= (1 / length());
+			T inverseLength = (T)1 / this->length();
+			*this *= inverseLength;
 			return *this;
 		}
 
