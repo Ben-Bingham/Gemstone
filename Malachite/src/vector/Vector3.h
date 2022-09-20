@@ -167,7 +167,7 @@ namespace Malachite {
 
 	// Cross
 	template<typename T>
-	Vector3<T>& cross(const Vector3<T>& vec1, const Vector3<T>& vec2) {
+	Vector3<T> cross(const Vector3<T>& vec1, const Vector3<T>& vec2) {
 		return Vector3<T>{ vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x * vec2.z, vec1.x * vec2.y - vec1.y * vec2.x };
 	}
 
