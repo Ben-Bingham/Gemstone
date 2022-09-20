@@ -16,6 +16,8 @@
 
 #include "Angles.h"
 
+#include "Texture.h"
+
 Ruby::Camera camera{ };
 bool firstMouse = true;
 int lastX = 0;
@@ -186,6 +188,8 @@ int main() {
 
 	Ruby::RenderableObject cube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
 
+	Ruby::Texture containerTexture{ Ruby::Image{ "assets\\container2.png" } };
+
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
 	Malachite::Matrix4f projection = Malachite::perspective(45.0f, (640.0f / 480.0f), 0.01f, 100.0f);
@@ -233,7 +237,9 @@ int main() {
 			renderer.testShader.setMatrix4f("view", camera.getViewMatrix());
 			renderer.testShader.setMatrix4f("projection", projection);
 
-			renderer.testShader.setVector4f("objectColour", Malachite::Vector4f{ 0.0f, 1.0f, 0.0f, 1.0f });
+			containerTexture.activateUnit(0);
+			containerTexture.bind();
+			renderer.testShader.setInt("ambient", 0);
 
 			renderer.render(cube);
 

@@ -2,8 +2,10 @@
 
 out vec4 FragColor;
 
-uniform vec4 objectColour;
+uniform sampler2D ambient;
+
+in vec2 textureCords;
 
 void main() {
-	FragColor = objectColour;
+	FragColor = texture(ambient, textureCords);
 }
