@@ -31,12 +31,6 @@ namespace Ruby {
 			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 		}
 
-		void dispose() {
-			VAO.dispose();
-			VBO.dispose();
-			EBO.dispose();
-		}
-
 	private:
 		VertexAttributeObject VAO{ };
 		VertexBufferObject VBO{ };
