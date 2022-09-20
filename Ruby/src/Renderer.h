@@ -22,18 +22,12 @@ namespace Ruby {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
 
-        void render(RenderableObject renderable) {
+        void render(const RenderableObject& renderable) const {
             renderable.render();
         }
 
         void finish() {
 
-        }
-
-        void dispose() {
-            phongShader.dispose();
-            solidShader.dispose();
-            testShader.dispose();
         }
 
         ShaderProgram phongShader; // once there are many more shaders they can be moved into a shader Library class
