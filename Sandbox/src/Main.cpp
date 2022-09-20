@@ -7,16 +7,13 @@
 #include "Log.h"
 #include "Renderer.h"
 #include "Renderable Objects/RenderableObject.h"
-
 #include "Vector.h"
-
 #include "Matrix/MatrixTransformations.h"
-
 #include "Camera.h"
-
 #include "Angles.h"
-
 #include "Texture.h"
+#include "Lights.h"
+
 
 Ruby::Camera camera{ };
 bool firstMouse = true;
@@ -186,9 +183,9 @@ int main() {
 		21, 23, 22,
 	};
 
-	Malachite::Vector3f lightPos{ 2.0f };
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
 	Malachite::Matrix4f projection = Malachite::perspective(45.0f, (640.0f / 480.0f), 0.01f, 100.0f);
+	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
 
 	// Cube setup
 	Ruby::RenderableObject cube{ cubeVerticies, cubeIndices, renderer.phongShader.getAttributes() };
@@ -197,23 +194,19 @@ int main() {
 	Malachite::Matrix4f cubeModel = Malachite::Matrix4f{ 1.0f };
 
 	renderer.phongShader.use();
-	renderer.phongShader.setMatrix4f("projection", projection);
+	renderer.phongShader.upload("projection", projection);
 
-	renderer.phongShader.setVector3f("pointLight.position", lightPos);
-
-	renderer.phongShader.setVector3f("pointLight.ambient", Malachite::Vector3f{ 0.2f });
-	renderer.phongShader.setVector3f("pointLight.diffuse", Malachite::Vector3f{ 0.5f });
-	renderer.phongShader.setVector3f("pointLight.specular", Malachite::Vector3f{ 1.0f });
+	renderer.phongShader.upload("pointLight", pointLight);
 
 	// LightCube setup
 	Ruby::RenderableObject lightCube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
 
 	Malachite::Matrix4f lightModel = Malachite::Matrix4f{ 1.0f };
 	lightModel.scale(0.2f);
-	lightModel.translate(lightPos);
+	lightModel.translate(pointLight.position);
 
 	renderer.solidShader.use();
-	renderer.solidShader.setMatrix4f("projection", projection);
+	renderer.solidShader.upload("projection", projection);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
 
@@ -257,32 +250,32 @@ int main() {
 
 			// Matrices
 			cubeModel = Malachite::Matrix4f{ 1.0f };
-			cubeModel.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f(sin(glfwGetTime()), 1.0f, 0.0f));
-			renderer.phongShader.setMatrix4f("view", camera.getViewMatrix());
-			renderer.phongShader.setMatrix4f("model", cubeModel);
+			cubeModel.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
+			renderer.phongShader.upload("view", camera.getViewMatrix());
+			renderer.phongShader.upload("model", cubeModel);
 
 			// Material
 			containerTexture.activateUnit(0);
 			containerTexture.bind();
-			renderer.phongShader.setInt("materialDiffuse", 0);
+			renderer.phongShader.upload("materialDiffuse", 0);
 
 			containerSpecularTexture.activateUnit(1);
 			containerSpecularTexture.bind();
-			renderer.phongShader.setInt("materialSpecular", 1);
+			renderer.phongShader.upload("materialSpecular", 1);
 
-			renderer.phongShader.setFloat("materialShininess", 32.0f);
+			renderer.phongShader.upload("materialShininess", 32.0f);
 
 			// Extra
-			renderer.phongShader.setVector3f("cameraPosition", camera.position);
+			renderer.phongShader.upload("cameraPosition", camera.position);
 
 			renderer.render(cube);
 
 			// Light
 			renderer.solidShader.use();
-			renderer.solidShader.setMatrix4f("model", lightModel);
-			renderer.solidShader.setMatrix4f("view", camera.getViewMatrix());
+			renderer.solidShader.upload("model", lightModel);
+			renderer.solidShader.upload("view", camera.getViewMatrix());
 
-			renderer.solidShader.setVector4f("objectColour", Malachite::Vector4f(1.0f, 1.0f, 1.0f, 1.0f));
+			renderer.solidShader.upload("objectColour", Malachite::Vector4f(1.0f, 1.0f, 1.0f, 1.0f));
 
 			renderer.render(lightCube);
 

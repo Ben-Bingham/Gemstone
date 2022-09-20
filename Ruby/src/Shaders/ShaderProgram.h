@@ -44,6 +44,15 @@ namespace Ruby {
 			glUniform4fv(glGetUniformLocation(m_Program, variableName.c_str()), 1, &vector.x);
 		}
 
+		// Advanced uniforms
+		void upload(const std::string& variableName, const PointLight& pointLight) const {
+			upload(variableName + ".position", pointLight.position);
+
+			upload(variableName + ".ambient", pointLight.ambient);
+			upload(variableName + ".diffuse", pointLight.diffuse);
+			upload(variableName + ".specular", pointLight.specular);
+		}
+
 	private:
 		unsigned int m_Program;
 		std::vector<Attribute> m_Attributes;
