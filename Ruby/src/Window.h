@@ -8,12 +8,27 @@ namespace Ruby {
 	class Window {
 	public:
 		Window(unsigned int width = 640, unsigned int height = 480, std::string name = "Window");
+		Window(Window&) = delete;
+		Window& operator=(Window&) = delete;
+		Window(Window&& other) noexcept
+			: m_Window(std::move(other.m_Window)) {
+			other.m_Window = nullptr;
+		}
+
+		Window& operator=(Window&& other) noexcept {
+			m_Window = std::move(other.m_Window);
+			other.m_Window = nullptr;
+		}
+
+		~Window() {
+			glfwDestroyWindow(m_Window);
+			glfwTerminate();
+		}
 
 		GLFWwindow* getWindow() const { return m_Window; }
 		bool isOpen() { return !glfwWindowShouldClose(m_Window); }
 		void pollEvents() { glfwPollEvents(); }
 		void swapBuffers() { glfwSwapBuffers(m_Window); }
-		void dispose();
 
 		void disableCursor() { glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); }
 		void close() { glfwSetWindowShouldClose(m_Window, true); }

@@ -26,7 +26,7 @@ namespace Ruby {
 			}
 		}
 
-		Texture(const Image& image) 
+		Texture(const Image& image)
 			: m_Image(std::make_unique<Image>(image)) {
 			glGenTextures(1, &m_Texture);
 
@@ -55,12 +55,25 @@ namespace Ruby {
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 
+		Texture(Texture&) = delete;
+		Texture& operator=(Texture&) = delete;
+		Texture(Texture&& other) noexcept
+			: m_Texture(std::move(other.m_Texture)),
+			m_Image(std::move(other.m_Image)) {
+			other.m_Texture = 0;
+		}
+
+		Texture& operator=(Texture&& other) noexcept {
+			m_Texture = std::move(other.m_Texture);
+			m_Image = std::move(other.m_Image);
+		}
+
+		~Texture() { glDeleteTextures(1, &m_Texture); }
+
 		void bind() const { glBindTexture(GL_TEXTURE_2D, m_Texture); }
 		static void activateUnit(int unit) { glActiveTexture(GL_TEXTURE0 + unit); }
 
 		unsigned int getTexture() { return m_Texture; } //TODO remove
-
-		void dispose() { glDeleteTextures(1, &m_Texture); }
 
 	private:
 		unsigned int m_Texture;

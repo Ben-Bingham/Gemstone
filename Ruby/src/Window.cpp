@@ -22,9 +22,4 @@ namespace Ruby {
 
 		glfwSwapInterval(1);
 	}
-
-	void Window::dispose() {
-		glfwDestroyWindow(m_Window);
-		glfwTerminate();
-	}
 }
