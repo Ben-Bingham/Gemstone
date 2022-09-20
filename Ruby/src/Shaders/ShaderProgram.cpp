@@ -2,7 +2,7 @@
 #include "Log.h"
 
 namespace Ruby {
-	ShaderProgram::ShaderProgram(VertexShader& vertexShader, FragmentShader& fragmentShader, const std::vector<Attribute>& attributes) 
+	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes) 
 		: m_Attributes(attributes) {
 		int success;
 		char infoLog[512];
@@ -19,8 +19,5 @@ namespace Ruby {
 			glGetProgramInfoLog(m_Program, 512, NULL, infoLog);
 			LOG("Shader program failed to link.\n" + std::string(infoLog), Lazuli::LogLevel::ERROR);
 		}
-
-		vertexShader.dispose();
-		fragmentShader.dispose();
 	}
 }

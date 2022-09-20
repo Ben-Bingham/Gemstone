@@ -8,16 +8,31 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "Lights.h"
+#include "Texture.h"
 
 #include "OpenGL objects/VertexAttributeObject.h"
 
 namespace Ruby {
 	class ShaderProgram {
 	public:
-		ShaderProgram(VertexShader& vertexShader, FragmentShader& fragmentShader, const std::vector<Attribute>& attributes);
+		ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes);
+		~ShaderProgram() { glDeleteProgram(m_Program); }
+		ShaderProgram(ShaderProgram&) = delete;
+		ShaderProgram& operator=(ShaderProgram&) = delete;
+		ShaderProgram(ShaderProgram&& other) noexcept 
+			: m_Program(std::move(other.m_Program)),
+			  m_Attributes(std::move(other.m_Attributes)) {
+			other.m_Program = 0;
+		}
+
+		ShaderProgram& operator=(ShaderProgram&& other) noexcept {
+			m_Program = std::move(other.m_Program);
+			other.m_Program = 0;
+
+			m_Attributes = std::move(other.m_Attributes);
+		}
 
 		void use() const { glUseProgram(m_Program); }
-		void dispose() { glDeleteProgram(m_Program); }
 
 		std::vector<Attribute> getAttributes() const {
 			return m_Attributes;
@@ -52,6 +67,16 @@ namespace Ruby {
 			upload(variableName + ".diffuse", pointLight.diffuse);
 			upload(variableName + ".specular", pointLight.specular);
 		}
+
+		void upload(const std::string& variableName, unsigned int unit, const Texture& texture) const {
+			texture.activateUnit(unit);
+			texture.bind();
+			upload("variableName", (int)unit);
+		}
+
+		/*void upload(const std::string& variableName, const Material& material) const {
+
+		}*/
 
 	private:
 		unsigned int m_Program;
