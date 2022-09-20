@@ -3,6 +3,8 @@
 
 #include "Vector.h"
 
+#include "Angles.h"
+
 namespace Malachite {
 	template<typename T>
 	class Matrix4x4 {
@@ -52,6 +54,35 @@ namespace Malachite {
 			row1.x *= x;
 			row2.y *= y;
 			row3.z *= z;			
+			return *this;
+		}
+
+		// Rotation
+		Matrix4x4<T>& rotate(const Radian& angle, Vector3<T>& vector) {
+			T const a = angle;
+			T const c = cos(a);
+			T const s = sin(a);
+			Matrix4x4<T> result;
+
+			Vector3<T> axis = normalize(vector);
+
+			result.row1.x = c + ((T)(1) - c) * axis.x * axis.x;
+			result.row1.y = ((T)(1) - c) * axis.x * axis.y + s * axis.z;
+			result.row1.z = ((T)(1) - c) * axis.x * axis.z - s * axis.y;
+			result.row1.w = (T)(0);
+			
+			result.row2.x = ((T)(1) - c) * axis.y * axis.x - s * axis.z;
+			result.row2.y = c + ((T)(1) - c) * axis.y * axis.y;
+			result.row2.z = ((T)(1) - c) * axis.y * axis.z + s * axis.x;
+			result.row2.w = (T)(0);
+			
+			result.row3.x = ((T)(1) - c) * axis.z * axis.x + s * axis.y;
+			result.row3.y = ((T)(1) - c) * axis.z * axis.y - s * axis.x;
+			result.row3.z = c + ((T)(1) - c) * axis.z * axis.z;
+			result.row3.w = (T)(0);
+
+			result.row4 = Vector4<T>(0, 0, 0, 1);
+			*this = *this * result;
 			return *this;
 		}
 	};
