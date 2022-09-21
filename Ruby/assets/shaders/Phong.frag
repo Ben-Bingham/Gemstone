@@ -20,22 +20,6 @@ struct PointLight {
     float quadratic;
 };
 
-uniform Material material;
-uniform PointLight pointLight;
-
-/*
-struct PointLight {
-    vec3 position;
-    
-    float constant;
-    float linear;
-    float quadratic;
-	
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-};
-
 struct DirectionalLight {
     vec3 direction;
 	
@@ -44,6 +28,11 @@ struct DirectionalLight {
     vec3 specular;
 };
 
+uniform Material material;
+uniform PointLight pointLight;
+uniform DirectionalLight directionalLight;
+
+/*
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir);
 */
@@ -132,10 +121,12 @@ float pointShadowCalculation(vec3 fragPos, PointLight light) {
 }
 */
 vec3 calcPointLight(PointLight);
+vec3 calcDirectionalLight(DirectionalLight);
 
 void main() {
 	vec3 result = vec3(0.0, 0.0, 0.0);
-	result = calcPointLight(pointLight);
+	result += calcPointLight(pointLight);
+	result += calcDirectionalLight(directionalLight);
 
 	/*	
 	for (int i = 0; i < numberOfPointLights; i++) {
@@ -177,6 +168,7 @@ vec3 calcPointLight(PointLight pointLight) {
 	// Total
 	return ambient + diffuse + specular;
 }
+
 /*
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 cameraPosition) {
 	vec3 ambient = light.ambient * texture(material.diffuse, textureCordinates).rgb;
@@ -204,7 +196,26 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 cameraPosi
 	vec3 lighting = ambient * diffuse * specular;
 	return lighting;
 }
+*/
+vec3 calcDirectionalLight(DirectionalLight directionalLight) {
+	// Ambient
+	vec3 ambient = directionalLight.ambient * texture(material.diffuse, textureCordinates).rgb;
 
+	// Diffuse
+	vec3 lightDirection = normalize(-directionalLight.direction);
+	float angleOfNormAndLightDir = max(dot(normal, lightDirection), 0.0);
+	vec3 diffuse = directionalLight.diffuse * angleOfNormAndLightDir * texture(material.diffuse, textureCordinates).rgb;
+
+	// Specular
+	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
+	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
+	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
+	vec3 specular = directionalLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
+
+	// Total
+	return ambient + diffuse + specular;
+}
+/*
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
 	vec3 lightDir = normalize(light.direction);
 

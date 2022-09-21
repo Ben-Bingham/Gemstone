@@ -186,6 +186,7 @@ int main() {
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
 	Malachite::Matrix4f projection = Malachite::perspective(45.0f, (640.0f / 480.0f), 0.01f, 100.0f);
 	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
+	Ruby::DirectionalLight directionalLight{ };
 
 	// Cube setup
 	Ruby::RenderableObject cube{ cubeVerticies, cubeIndices, renderer.phongShader.getAttributes() };
@@ -199,6 +200,7 @@ int main() {
 	renderer.phongShader.use();
 	renderer.phongShader.upload("projection", projection);
 	renderer.phongShader.upload("pointLight", pointLight);
+	renderer.phongShader.upload("directionalLight", directionalLight);
 
 	// LightCube setup
 	Ruby::RenderableObject lightCube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };

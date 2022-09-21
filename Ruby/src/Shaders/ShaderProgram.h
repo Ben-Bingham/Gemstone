@@ -73,6 +73,14 @@ namespace Ruby {
 			upload(structName + ".quadratic", pointLight.quadratic);
 		}
 
+		void upload(const std::string& structName, const DirectionalLight& directionalLight) const {
+			upload(structName + ".direction", directionalLight.direction);
+
+			upload(structName + ".ambient", directionalLight.ambient);
+			upload(structName + ".diffuse", directionalLight.diffuse);
+			upload(structName + ".specular", directionalLight.specular);
+		}
+
 		void upload(const std::string& variableName, unsigned int unit, const Texture& texture) const {
 			texture.activateUnit(unit);
 			texture.bind();
