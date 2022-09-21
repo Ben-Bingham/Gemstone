@@ -27,7 +27,7 @@ namespace Ruby {
 		}
 
 		Texture(const Image& image)
-			: m_Image(std::make_unique<Image>(image)) {
+			: m_Image(&image) {
 			glGenTextures(1, &m_Texture);
 
 			bind();
@@ -77,6 +77,6 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Texture;
-		std::unique_ptr<Image> m_Image;
+		const Image* m_Image;
 	};
 }

@@ -1,16 +1,11 @@
 #version 330 core //TODO optimizations
-/*
+
+// Material
 struct Material {
 	sampler2D diffuse;
 	sampler2D specular;
 	float shininess;
 };
-*/
-
-// Material
-uniform sampler2D	materialDiffuse;
-uniform sampler2D	materialSpecular;
-uniform float		materialShininess;
 
 // Point light
 struct PointLight {
@@ -21,6 +16,7 @@ struct PointLight {
 	vec3 specular;
 };
 
+uniform Material material;
 uniform PointLight pointLight;
 
 /*
@@ -153,18 +149,18 @@ void main() {
 
 vec3 calcPointLight(PointLight pointLight) {
 	// Ambient
-	vec3 ambient = pointLight.ambient * texture(materialDiffuse, textureCordinates).rgb;
+	vec3 ambient = pointLight.ambient * texture(material.diffuse, textureCordinates).rgb;
 	
 	// Diffuse
 	vec3 lightDirection = normalize(pointLight.position - fragmentPosition);
 	float angleOfNormAndLightDir = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuse = pointLight.diffuse * angleOfNormAndLightDir * texture(materialDiffuse, textureCordinates).rgb;
+	vec3 diffuse = pointLight.diffuse * angleOfNormAndLightDir * texture(material.diffuse, textureCordinates).rgb;
 
 	// Specular
 	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
-	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), materialShininess);
-	vec3 specular = pointLight.specular * (specularAmount * texture(materialSpecular, textureCordinates).rgb);
+	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
+	vec3 specular = pointLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
 
 	// Total
 	return ambient + diffuse + specular;

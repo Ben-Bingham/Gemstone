@@ -13,7 +13,7 @@
 #include "Angles.h"
 #include "Texture.h"
 #include "Lights.h"
-
+#include "Materials.h"
 
 Ruby::Camera camera{ };
 bool firstMouse = true;
@@ -189,6 +189,7 @@ int main() {
 
 	// Cube setup
 	Ruby::RenderableObject cube{ cubeVerticies, cubeIndices, renderer.phongShader.getAttributes() };
+
 	Ruby::Texture containerTexture{ Ruby::Image{ "assets\\container2.png" } };
 	Ruby::Texture containerSpecularTexture{ Ruby::Image{ "assets\\container2_specular.png" } };
 	Malachite::Matrix4f cubeModel = Malachite::Matrix4f{ 1.0f };
@@ -255,15 +256,9 @@ int main() {
 			renderer.phongShader.upload("model", cubeModel);
 
 			// Material
-			containerTexture.activateUnit(0);
-			containerTexture.bind();
-			renderer.phongShader.upload("materialDiffuse", 0);
-
-			containerSpecularTexture.activateUnit(1);
-			containerSpecularTexture.bind();
-			renderer.phongShader.upload("materialSpecular", 1);
-
-			renderer.phongShader.upload("materialShininess", 32.0f);
+			renderer.phongShader.upload("material.diffuse", 0, containerTexture);
+			renderer.phongShader.upload("material.specular", 1, containerSpecularTexture);
+			renderer.phongShader.upload("material.shininess", 32.0f);
 
 			// Extra
 			renderer.phongShader.upload("cameraPosition", camera.position);
@@ -301,6 +296,4 @@ int main() {
 
 		window.swapBuffers();
 	}
-
-	cube.dispose();
 }
