@@ -190,13 +190,14 @@ int main() {
 	// Cube setup
 	Ruby::RenderableObject cube{ cubeVerticies, cubeIndices, renderer.phongShader.getAttributes() };
 
-	Ruby::Texture containerTexture{ Ruby::Image{ "assets\\container2.png" } };
-	Ruby::Texture containerSpecularTexture{ Ruby::Image{ "assets\\container2_specular.png" } };
+	Ruby::Image containerImage{ "assets\\container2.png" };
+	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
+
+	Ruby::Material cubeMaterial{ containerImage, containerSpecularImage };
 	Malachite::Matrix4f cubeModel = Malachite::Matrix4f{ 1.0f };
 
 	renderer.phongShader.use();
 	renderer.phongShader.upload("projection", projection);
-
 	renderer.phongShader.upload("pointLight", pointLight);
 
 	// LightCube setup
@@ -254,13 +255,7 @@ int main() {
 			cubeModel.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
 			renderer.phongShader.upload("view", camera.getViewMatrix());
 			renderer.phongShader.upload("model", cubeModel);
-
-			// Material
-			renderer.phongShader.upload("material.diffuse", 0, containerTexture);
-			renderer.phongShader.upload("material.specular", 1, containerSpecularTexture);
-			renderer.phongShader.upload("material.shininess", 32.0f);
-
-			// Extra
+			renderer.phongShader.upload("material", 0, cubeMaterial);
 			renderer.phongShader.upload("cameraPosition", camera.position);
 
 			renderer.render(cube);

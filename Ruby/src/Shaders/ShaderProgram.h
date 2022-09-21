@@ -9,6 +9,7 @@
 #include "Matrix.h"
 #include "Lights.h"
 #include "Texture.h"
+#include "Materials.h"
 
 #include "OpenGL objects/VertexAttributeObject.h"
 
@@ -74,9 +75,11 @@ namespace Ruby {
 			upload("variableName", (int)unit);
 		}
 
-		/*void upload(const std::string& variableName, const Material& material) const {
-
-		}*/
+		void upload(const std::string& variableName, unsigned int startUnit, const Material& material) const {
+			upload(variableName + ".diffuse", startUnit, *material.diffuse);
+			upload(variableName + ".specular", startUnit + 1, *material.specular);
+			upload(variableName + ".shininess", material.shininess);
+		}
 
 	private:
 		unsigned int m_Program;
