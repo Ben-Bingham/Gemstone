@@ -1,13 +1,11 @@
 #version 330 core //TODO optimizations
 
-// Material
 struct Material {
 	sampler2D diffuse;
 	sampler2D specular;
 	float shininess;
 };
 
-// Point light
 struct PointLight {
 	vec3 position;
 
@@ -36,8 +34,6 @@ uniform DirectionalLight directionalLight;
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir);
 */
-//#define MAX_POINT_LIGHTS 16
-//#define MAX_DIRECTIONAL_LIGHTS 16
 
 out vec4 FragColor;
 
@@ -120,13 +116,15 @@ float pointShadowCalculation(vec3 fragPos, PointLight light) {
 	return shadow;
 }
 */
-vec3 calcPointLight(PointLight);
-vec3 calcDirectionalLight(DirectionalLight);
+vec3 calcPointLight(PointLight, vec3);
+vec3 calcDirectionalLight(DirectionalLight, vec3);
 
 void main() {
+	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
+
 	vec3 result = vec3(0.0, 0.0, 0.0);
-	result += calcPointLight(pointLight);
-	result += calcDirectionalLight(directionalLight);
+	result += calcPointLight(pointLight, viewDirection);
+	result += calcDirectionalLight(directionalLight, viewDirection);
 
 	/*	
 	for (int i = 0; i < numberOfPointLights; i++) {
@@ -142,7 +140,7 @@ void main() {
 	FragColor = vec4(result, 1.0);
 }
 
-vec3 calcPointLight(PointLight pointLight) {
+vec3 calcPointLight(PointLight pointLight, vec3 viewDirection) {
 	// Ambient
 	vec3 ambient = pointLight.ambient * texture(material.diffuse, textureCordinates).rgb;
 	
@@ -152,7 +150,6 @@ vec3 calcPointLight(PointLight pointLight) {
 	vec3 diffuse = pointLight.diffuse * angleOfNormAndLightDir * texture(material.diffuse, textureCordinates).rgb;
 
 	// Specular
-	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
 	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
 	vec3 specular = pointLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
@@ -197,7 +194,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 cameraPosi
 	return lighting;
 }
 */
-vec3 calcDirectionalLight(DirectionalLight directionalLight) {
+vec3 calcDirectionalLight(DirectionalLight directionalLight, vec3 viewDirection) {
 	// Ambient
 	vec3 ambient = directionalLight.ambient * texture(material.diffuse, textureCordinates).rgb;
 
@@ -207,7 +204,6 @@ vec3 calcDirectionalLight(DirectionalLight directionalLight) {
 	vec3 diffuse = directionalLight.diffuse * angleOfNormAndLightDir * texture(material.diffuse, textureCordinates).rgb;
 
 	// Specular
-	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
 	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
 	vec3 specular = directionalLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
