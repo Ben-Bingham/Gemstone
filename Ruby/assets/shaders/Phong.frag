@@ -10,10 +10,14 @@ struct Material {
 // Point light
 struct PointLight {
 	vec3 position;
-	
+
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
+
+	float constant;
+    float linear;
+    float quadratic;
 };
 
 uniform Material material;
@@ -161,6 +165,14 @@ vec3 calcPointLight(PointLight pointLight) {
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
 	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
 	vec3 specular = pointLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
+
+	// Attenuation
+	float distanceBetweenLightAndFrag = length(pointLight.position - fragmentPosition);
+    float attenuation = 1.0 / (pointLight.constant + pointLight.linear * distanceBetweenLightAndFrag + pointLight.quadratic * (distanceBetweenLightAndFrag * distanceBetweenLightAndFrag));    
+
+	ambient *= attenuation;
+	diffuse *= attenuation;
+	specular *= attenuation;
 
 	// Total
 	return ambient + diffuse + specular;

@@ -61,12 +61,16 @@ namespace Ruby {
 		}
 
 		// Advanced uniforms
-		void upload(const std::string& variableName, const PointLight& pointLight) const {
-			upload(variableName + ".position", pointLight.position);
+		void upload(const std::string& structName, const PointLight& pointLight) const {
+			upload(structName + ".position", pointLight.position);
 
-			upload(variableName + ".ambient", pointLight.ambient);
-			upload(variableName + ".diffuse", pointLight.diffuse);
-			upload(variableName + ".specular", pointLight.specular);
+			upload(structName + ".ambient", pointLight.ambient);
+			upload(structName + ".diffuse", pointLight.diffuse);
+			upload(structName + ".specular", pointLight.specular);
+
+			upload(structName + ".constant", pointLight.constant);
+			upload(structName + ".linear", pointLight.linear);
+			upload(structName + ".quadratic", pointLight.quadratic);
 		}
 
 		void upload(const std::string& variableName, unsigned int unit, const Texture& texture) const {
@@ -75,10 +79,10 @@ namespace Ruby {
 			upload("variableName", (int)unit);
 		}
 
-		void upload(const std::string& variableName, unsigned int startUnit, const Material& material) const {
-			upload(variableName + ".diffuse", startUnit, *material.diffuse);
-			upload(variableName + ".specular", startUnit + 1, *material.specular);
-			upload(variableName + ".shininess", material.shininess);
+		void upload(const std::string& structName, unsigned int startUnit, const Material& material) const {
+			upload(structName + ".diffuse", startUnit, *material.diffuse);
+			upload(structName + ".specular", startUnit + 1, *material.specular);
+			upload(structName + ".shininess", material.shininess);
 		}
 
 	private:

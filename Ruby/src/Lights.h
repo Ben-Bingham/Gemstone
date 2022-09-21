@@ -9,5 +9,9 @@ namespace Ruby {
 		Malachite::Vector3f ambient{ 0.2f };
 		Malachite::Vector3f diffuse{ 0.5f };
 		Malachite::Vector3f specular{ 1.0f };
+
+		float constant{ 1.0f };
+		float linear{ 0.09f };
+		float quadratic{ 0.032f };
 	};
 }
