@@ -9,7 +9,7 @@
 namespace Ruby {
 	class RenderableObject {
 	public:
-		RenderableObject(std::vector<float>& verticies, std::vector<unsigned int>& indicies, std::vector<Attribute> attributes) {
+		RenderableObject(const std::vector<float>& verticies, const std::vector<unsigned int>& indicies, const std::vector<Attribute>& attributes) {
 			VAO.bind();
 
 			VBO.bind();
