@@ -5,6 +5,7 @@
 #include "Log.h"
 
 #include "Renderable Objects/RenderableObject.h"
+#include "Renderable Objects/PhongRenderable.h"
 
 namespace Ruby {
 	class Renderer {
@@ -26,7 +27,20 @@ namespace Ruby {
             renderable.render();
         }
 
-        void finish() {
+        void end() {
+
+        }
+
+        // Phong rendering
+        void normalRenderingPrep() const {
+
+        }
+
+        void normalRender(const PhongRenderable& renderable) const {
+            renderable.render();
+        }
+
+        void normalRenderingEnd() const {
 
         }
 

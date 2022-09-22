@@ -7,6 +7,7 @@
 #include "Log.h"
 #include "Renderer.h"
 #include "Renderable Objects/RenderableObject.h"
+#include "Renderable Objects/PhongRenderable.h"
 #include "Vector.h"
 #include "Matrix/MatrixTransformations.h"
 #include "Camera.h"
@@ -189,18 +190,17 @@ int main() {
 	Ruby::DirectionalLight directionalLight{ };
 
 	// Cube setup
-	Ruby::RenderableObject cube{ cubeVerticies, cubeIndices, renderer.phongShader.getAttributes() };
-
 	Ruby::Image containerImage{ "assets\\container2.png" };
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
 
-	Ruby::Material cubeMaterial{ containerImage, containerSpecularImage };
-	Malachite::Matrix4f cubeModel = Malachite::Matrix4f{ 1.0f };
+	Ruby::PhongMaterial cubeMaterial{ containerImage, containerSpecularImage };
+	Ruby::PhongRenderable cube{ cubeVerticies, cubeIndices };
+	cube.material = std::move(cubeMaterial);
 
 	renderer.phongShader.use();
-	renderer.phongShader.upload("projection", projection);
-	renderer.phongShader.upload("pointLight", pointLight);
-	renderer.phongShader.upload("directionalLight", directionalLight);
+	Ruby::ShaderProgram::upload("projection", projection);
+	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ pointLight });
+	Ruby::ShaderProgram::upload("directionalLights", std::vector<Ruby::DirectionalLight>{ directionalLight });
 
 	// LightCube setup
 	Ruby::RenderableObject lightCube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
@@ -210,14 +210,14 @@ int main() {
 	lightModel.translate(pointLight.position);
 
 	renderer.solidShader.use();
-	renderer.solidShader.upload("projection", projection);
+	Ruby::ShaderProgram::upload("projection", projection);
 
-	//Ruby::CubeRenderable cube{/*position, width, height, depth*/};
+	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODo
 
 	while (window.isOpen()) {
 		window.pollEvents();
 		float velocity = 0.05f;
-
+		 
 		if (keyW) {
 			camera.position += camera.front * velocity;
 		}
@@ -249,46 +249,44 @@ int main() {
 		{ // Rendering
 			renderer.prep();
 
-			// Cube
-			renderer.phongShader.use();
 
-			// Matrices
-			cubeModel = Malachite::Matrix4f{ 1.0f };
-			cubeModel.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
-			renderer.phongShader.upload("view", camera.getViewMatrix());
-			renderer.phongShader.upload("model", cubeModel);
-			renderer.phongShader.upload("material", 0, cubeMaterial);
-			renderer.phongShader.upload("cameraPosition", camera.position);
+			//	{ // Lighting
 
-			renderer.render(cube);
+			//		renderer.prepLightingPass();
 
-			// Light
-			renderer.solidShader.use();
-			renderer.solidShader.upload("model", lightModel);
-			renderer.solidShader.upload("view", camera.getViewMatrix());
+			//		renderer.drawLightingPass(cube);
 
-			renderer.solidShader.upload("objectColour", Malachite::Vector4f(1.0f, 1.0f, 1.0f, 1.0f));
+			//		renderer.finishLightingPass();
+			//	}
 
-			renderer.render(lightCube);
+			{ // Normal Rendering
+				renderer.normalRenderingPrep();
 
-		//	{ // Lighting
+				// Cube
+				renderer.phongShader.use();
 
-		//		renderer.prepLightingPass();
+				cube.model = Malachite::Matrix4f{ 1.0f };
+				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
 
-		//		renderer.drawLightingPass(cube);
+				Ruby::ShaderProgram::upload("view", camera.getViewMatrix());
+				Ruby::ShaderProgram::upload("cameraPosition", camera.position);
 
-		//		renderer.finishLightingPass();
-		//	}
-		//	
-		//	{ // Normal Rendering
-		//		renderer.prepNormalPass();
+				renderer.normalRender(cube);
 
-		//		renderer.drawNormalPass(cube);
+				renderer.normalRenderingEnd();
+			}
 
-		//		renderer.finishNormalPass();
-		//	}
+			{ // Non default rendering
+				// Light
+				renderer.solidShader.use();
+				Ruby::ShaderProgram::upload("view", camera.getViewMatrix());
+				Ruby::ShaderProgram::upload("model", lightModel);
+				Ruby::ShaderProgram::upload("objectColour", Malachite::Vector4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-			renderer.finish();
+				renderer.render(lightCube);
+			}
+
+			renderer.end();
 		}
 
 		window.swapBuffers();

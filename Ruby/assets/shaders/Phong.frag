@@ -1,10 +1,13 @@
-#version 330 core //TODO optimizations
+#version 330 core
 
 struct Material {
 	sampler2D diffuse;
 	sampler2D specular;
 	float shininess;
 };
+
+#define MAX_POINT_LIGHTS 16
+#define MAX_DIRECTIONAL_LIGHTS 16
 
 struct PointLight {
 	vec3 position;
@@ -27,8 +30,12 @@ struct DirectionalLight {
 };
 
 uniform Material material;
-uniform PointLight pointLight;
-uniform DirectionalLight directionalLight;
+
+uniform PointLight[MAX_POINT_LIGHTS] pointLights;
+uniform int numberOfPointLights;
+
+uniform DirectionalLight[MAX_DIRECTIONAL_LIGHTS] directionalLights;
+uniform int numberOfdirectionalLights;
 
 /*
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
@@ -123,8 +130,14 @@ void main() {
 	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
 
 	vec3 result = vec3(0.0, 0.0, 0.0);
-	result += calcPointLight(pointLight, viewDirection);
-	result += calcDirectionalLight(directionalLight, viewDirection);
+
+	for (int i = 0; i < numberOfPointLights; i++) {
+		result += calcPointLight(pointLights[i], viewDirection);
+	}
+
+	for (int i = 0; i < numberOfdirectionalLights; i++) {
+		result += calcDirectionalLight(directionalLights[i], viewDirection);
+	}
 
 	/*	
 	for (int i = 0; i < numberOfPointLights; i++) {
