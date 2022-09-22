@@ -26,12 +26,13 @@ namespace Ruby {
 			VAO.compileAttributes();
 		}
 
-		void render() const {
+		// The assumption is made that a shader program is bound prior to this being called
+		virtual void render() const {
 			VAO.bind();
 			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 		}
 
-	private:
+	protected:
 		VertexAttributeObject VAO{ };
 		VertexBufferObject VBO{ };
 		ElementBufferObject EBO{ };
