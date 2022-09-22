@@ -7,7 +7,7 @@
 #include "Log.h"
 #include "Renderer.h"
 #include "Renderable Objects/RenderableObject.h"
-#include "Renderable Objects/PhongRenderable.h"
+#include "Renderable Objects/Phong/PhongRenderable.h"
 #include "Vector.h"
 #include "Matrix/MatrixTransformations.h"
 #include "Camera.h"
@@ -194,13 +194,7 @@ int main() {
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
 
 	Ruby::PhongMaterial cubeMaterial{ containerImage, containerSpecularImage };
-	Ruby::PhongRenderable cube{ cubeVerticies, cubeIndices };
-	cube.material = std::move(cubeMaterial);
-
-	renderer.phongShader.use();
-	Ruby::ShaderProgram::upload("projection", projection);
-	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ pointLight });
-	Ruby::ShaderProgram::upload("directionalLights", std::vector<Ruby::DirectionalLight>{ directionalLight });
+	Ruby::PhongRenderable cube{ cubeVerticies, cubeIndices, std::move(cubeMaterial)};
 
 	// LightCube setup
 	Ruby::RenderableObject lightCube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
@@ -208,6 +202,12 @@ int main() {
 	Malachite::Matrix4f lightModel = Malachite::Matrix4f{ 1.0f };
 	lightModel.scale(0.2f);
 	lightModel.translate(pointLight.position);
+
+	// Shader setup
+	renderer.phongShader.use();
+	Ruby::ShaderProgram::upload("projection", projection);
+	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ pointLight });
+	Ruby::ShaderProgram::upload("directionalLights", std::vector<Ruby::DirectionalLight>{ directionalLight });
 
 	renderer.solidShader.use();
 	Ruby::ShaderProgram::upload("projection", projection);
