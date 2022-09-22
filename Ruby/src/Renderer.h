@@ -36,7 +36,7 @@ namespace Ruby {
 
         }
 
-        void normalRender(const PhongRenderable& renderable) const {
+        void normalRender(const Phong::PhongRenderable& renderable) const {
             renderable.render();
         }
 

@@ -15,6 +15,7 @@
 #include "Texture.h"
 #include "Lights.h"
 #include "Materials.h"
+#include "Renderable Objects/Phong/Cube.h"
 
 Ruby::Camera camera{ };
 bool firstMouse = true;
@@ -194,7 +195,7 @@ int main() {
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
 
 	Ruby::PhongMaterial cubeMaterial{ containerImage, containerSpecularImage };
-	Ruby::PhongRenderable cube{ cubeVerticies, cubeIndices, std::move(cubeMaterial)};
+	Ruby::Phong::Cube cube{ cubeMaterial };
 
 	// LightCube setup
 	Ruby::RenderableObject lightCube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
