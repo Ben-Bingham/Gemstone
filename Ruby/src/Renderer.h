@@ -5,7 +5,7 @@
 #include "Log.h"
 
 #include "Renderable Objects/RenderableObject.h"
-#include "Renderable Objects/PhongRenderable.h"
+#include "Renderable Objects/Phong/PhongRenderable.h"
 
 namespace Ruby {
 	class Renderer {
