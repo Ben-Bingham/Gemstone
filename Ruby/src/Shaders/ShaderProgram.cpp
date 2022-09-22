@@ -20,4 +20,6 @@ namespace Ruby {
 			LOG("Shader program failed to link.\n" + std::string(infoLog), Lazuli::LogLevel::ERROR);
 		}
 	}
+
+	ShaderProgram* ShaderProgram::activePorgram{ nullptr };
 }
