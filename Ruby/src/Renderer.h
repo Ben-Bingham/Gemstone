@@ -4,15 +4,16 @@
 
 #include "Log.h"
 
-#include "Renderable Objects/RenderableObject.h"
+#include "Renderable Objects/Renderable.h"
 #include "Renderable Objects/Phong/PhongRenderable.h"
+#include "Renderable Objects/Solid/SolidRenderable.h"
 
 namespace Ruby {
 	class Renderer {
 	public:
 		Renderer() 
             : phongShader(shaderInit("..\\Ruby\\assets\\shaders\\Phong.vert", "..\\Ruby\\assets\\shaders\\Phong.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 })),
-              solidShader(shaderInit("..\\Ruby\\assets\\shaders\\Solid.vert", "..\\Ruby\\assets\\shaders\\Solid.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 })),
+              solidShader(shaderInit("..\\Ruby\\assets\\shaders\\Solid.vert", "..\\Ruby\\assets\\shaders\\Solid.frag", std::vector<Ruby::Attribute>{ 3 })),
               testShader(shaderInit("..\\Ruby\\assets\\shaders\\test.vert", "..\\Ruby\\assets\\shaders\\test.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 }))
         {
             glEnable(GL_DEPTH_TEST);
@@ -23,7 +24,7 @@ namespace Ruby {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
 
-        void render(const RenderableObject& renderable) const {
+        void render(const Renderable& renderable) const {
             renderable.render();
         }
 
@@ -36,11 +37,24 @@ namespace Ruby {
 
         }
 
-        void normalRender(const Phong::PhongRenderable& renderable) const {
+        void normalRender(const PhongRenderable& renderable) const {
             renderable.render();
         }
 
         void normalRenderingEnd() const {
+
+        }
+
+        // Solid rendering
+        void solidRenderingPrep() const {
+
+        }
+
+        void solidRender(const SolidRenderable& renderable) const {
+            renderable.render();
+        }
+
+        void solidRenderingEnd() const {
 
         }
 
