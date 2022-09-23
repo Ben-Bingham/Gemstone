@@ -10,13 +10,14 @@ namespace Ruby {
 
 		}
 
-		virtual void render() const {
+		void render() const override {
 			VAO.bind();
+			ShaderProgram::upload("model", model);
 			ShaderProgram::upload("objectColour", material.colour);
 			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 		}
 
-	protected:
+		Malachite::Matrix4f model{ 1.0f };
 		SolidMaterial material{ };
 	};
 }
