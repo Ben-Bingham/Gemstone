@@ -160,12 +160,12 @@ int main() {
 	lightCube.model.translate(pointLight.position);
 
 	// Shader setup
-	renderer.phongShader.use();
+	renderer.shaders.phongShader.use();
 	Ruby::ShaderProgram::upload("projection", projection);
 	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ pointLight });
 	Ruby::ShaderProgram::upload("directionalLights", std::vector<Ruby::DirectionalLight>{ directionalLight });
 
-	renderer.solidShader.use();
+	renderer.shaders.solidShader.use();
 	Ruby::ShaderProgram::upload("projection", projection);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODo
@@ -205,7 +205,6 @@ int main() {
 		{ // Rendering
 			renderer.prep();
 
-
 			//	{ // Lighting
 
 			//		renderer.prepLightingPass();
@@ -219,7 +218,7 @@ int main() {
 				renderer.normalRenderingPrep();
 
 				// Cube
-				renderer.phongShader.use();
+				renderer.shaders.phongShader.use();
 
 				cube.model = Malachite::Matrix4f{ 1.0f };
 				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
@@ -235,7 +234,7 @@ int main() {
 			{ // Solid Rendering
 				renderer.solidRenderingPrep();
 
-				renderer.solidShader.use();
+				renderer.shaders.solidShader.use();
 				Ruby::ShaderProgram::upload("view", camera.getViewMatrix());
 
 				renderer.solidRender(lightCube);

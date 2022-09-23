@@ -8,14 +8,12 @@
 #include "Renderable Objects/Phong/PhongRenderable.h"
 #include "Renderable Objects/Solid/SolidRenderable.h"
 
+#include "Shaders/ShaderLibrary.h"
+
 namespace Ruby {
 	class Renderer {
 	public:
-		Renderer() 
-            : phongShader(shaderInit("..\\Ruby\\assets\\shaders\\Phong.vert", "..\\Ruby\\assets\\shaders\\Phong.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 })),
-              solidShader(shaderInit("..\\Ruby\\assets\\shaders\\Solid.vert", "..\\Ruby\\assets\\shaders\\Solid.frag", std::vector<Ruby::Attribute>{ 3 })),
-              testShader(shaderInit("..\\Ruby\\assets\\shaders\\test.vert", "..\\Ruby\\assets\\shaders\\test.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 }))
-        {
+		Renderer() {
             glEnable(GL_DEPTH_TEST);
         }
 
@@ -57,14 +55,7 @@ namespace Ruby {
         void solidRenderingEnd() const {
 
         }
-
-        ShaderProgram phongShader; // once there are many more shaders they can be moved into a shader Library class
-        ShaderProgram solidShader; // once there are many more shaders they can be moved into a shader Library class
-        ShaderProgram testShader;
-
-    private:
-        ShaderProgram shaderInit(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const std::vector<Attribute>& attributes) {
-            return ShaderProgram{ VertexShader{vertexShaderPath}, FragmentShader{fragmentShaderPath}, attributes };
-        }
+        
+        ShaderLibrary shaders{ };
 	};
 }
