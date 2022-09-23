@@ -21,5 +21,16 @@ namespace Ruby {
 		}
 
 		glfwSwapInterval(1);
+
+		glfwSetWindowUserPointer(m_Window, (void*)&ioManger);
+
+		// Mouse
+		setMousePositionCallback(mousePositionCallback);
+		setMouseButtonCallback(mouseButtonCallback);
+		setScrollWheelCallback(mouseScrolWheelCallback);
+		setCursorEntersCallback(cursorEnterCallback);
+
+		// Keyboard
+		setKeyCallback(keyCallback);
 	}
 }
