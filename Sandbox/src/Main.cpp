@@ -4,19 +4,9 @@
 #include <GLFW/glfw3.h>
 
 #include "Window.h"
-#include "Log.h"
 #include "Renderer.h"
-#include "Renderable Objects/Renderable.h"
-#include "Renderable Objects/Phong/PhongRenderable.h"
-#include "Vector.h"
-#include "Matrix/MatrixTransformations.h"
 #include "Camera.h"
-#include "Angles.h"
-#include "Texture.h"
-#include "Lights.h"
-#include "Materials.h"
 #include "Renderable Objects/Phong/PhongCube.h"
-#include "Renderable Objects/Solid/SolidRenderable.h"
 #include "Renderable Objects/Solid/SolidCube.h"
 
 Ruby::Camera camera{ };
