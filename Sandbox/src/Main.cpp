@@ -6,7 +6,7 @@
 #include "Window.h"
 #include "Log.h"
 #include "Renderer.h"
-#include "Renderable Objects/RenderableObject.h"
+#include "Renderable Objects/Renderable.h"
 #include "Renderable Objects/Phong/PhongRenderable.h"
 #include "Vector.h"
 #include "Matrix/MatrixTransformations.h"
@@ -15,7 +15,9 @@
 #include "Texture.h"
 #include "Lights.h"
 #include "Materials.h"
-#include "Renderable Objects/Phong/Cube.h"
+#include "Renderable Objects/Phong/PhongCube.h"
+#include "Renderable Objects/Solid/SolidRenderable.h"
+#include "Renderable Objects/Solid/SolidCube.h"
 
 Ruby::Camera camera{ };
 bool firstMouse = true;
@@ -138,36 +140,36 @@ int main() {
 
 	Ruby::Renderer renderer{};
 
-	std::vector<float> cubeVerticies{
-		-0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 1.0f, 1.0f,
-							   
-		 0.5f, -0.5f,  0.5f,   1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
-		 0.5f,  0.5f,  0.5f,   1.0f,  0.0f,  0.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,   1.0f,  0.0f,  0.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,   1.0f,  0.0f,  0.0f, 1.0f, 1.0f,
-							  
-		-0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0, 0.0f, 0.0,
-		-0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0, 0.0f, 1.0,
-		-0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0, 1.0f, 0.0,
-		-0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0, 1.0f, 1.0,
-							  
-		-0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f, 0.0f, 1.0f,
-		 0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f, 1.0f, 1.0f,
-							   
-		 0.5f, -0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 0.0f, 0.0f,
-		 0.5f,  0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f,   0.0f,  0.0f,  -1.0f, 1.0f, 1.0f,
-							   
-		-0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f, 0.0f, 1.0f,
-		 0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f, 1.0f, 0.0f,
-		 0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f, 1.0f, 1.0f
+	std::vector<float> solidCubeVerticies{
+		-0.5f, -0.5f,  0.5f, 
+		-0.5f,  0.5f,  0.5f, 
+		 0.5f, -0.5f,  0.5f, 
+		 0.5f,  0.5f,  0.5f, 
+
+		 0.5f, -0.5f,  0.5f, 
+		 0.5f,  0.5f,  0.5f, 
+		 0.5f, -0.5f, -0.5f, 
+		 0.5f,  0.5f, -0.5f, 
+
+		-0.5f, -0.5f, -0.5f, 
+		-0.5f,  0.5f, -0.5f, 
+		-0.5f, -0.5f,  0.5f, 
+		-0.5f,  0.5f,  0.5f, 
+
+		-0.5f,  0.5f,  0.5f, 
+		-0.5f,  0.5f, -0.5f, 
+		 0.5f,  0.5f,  0.5f, 
+		 0.5f,  0.5f, -0.5f, 
+
+		 0.5f, -0.5f, -0.5f, 
+		 0.5f,  0.5f, -0.5f, 
+		-0.5f, -0.5f, -0.5f, 
+		-0.5f,  0.5f, -0.5f, 
+
+		-0.5f, -0.5f, -0.5f, 
+		-0.5f, -0.5f,  0.5f, 
+		 0.5f, -0.5f, -0.5f, 
+		 0.5f, -0.5f,  0.5f
 	};
 
 	std::vector<unsigned int> cubeIndices{
@@ -195,10 +197,14 @@ int main() {
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
 
 	Ruby::PhongMaterial cubeMaterial{ containerImage, containerSpecularImage };
-	Ruby::Phong::Cube cube{ cubeMaterial };
+	Ruby::PhongCube cube{ cubeMaterial };
 
 	// LightCube setup
-	Ruby::RenderableObject lightCube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
+	Ruby::SolidMaterial lightMaterial{ Malachite::Vector3f(1.0f) };
+
+	//Ruby::Renderable lightCube{ cubeVerticies, cubeIndices, renderer.solidShader.getAttributes() };
+	//Ruby::Solid::SolidRenderable lightCube{ solidCubeVerticies, cubeIndices, lightMaterial };
+	Ruby::SolidCube lightCube{ lightMaterial };
 
 	Malachite::Matrix4f lightModel = Malachite::Matrix4f{ 1.0f };
 	lightModel.scale(0.2f);
@@ -277,14 +283,26 @@ int main() {
 				renderer.normalRenderingEnd();
 			}
 
-			{ // Non default rendering
-				// Light
+			{ // Solid Rendering
+				renderer.solidRenderingPrep();
+
 				renderer.solidShader.use();
 				Ruby::ShaderProgram::upload("view", camera.getViewMatrix());
 				Ruby::ShaderProgram::upload("model", lightModel);
-				Ruby::ShaderProgram::upload("objectColour", Malachite::Vector4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-				renderer.render(lightCube);
+				renderer.solidRender(lightCube);
+
+				renderer.solidRenderingEnd();
+			}
+
+			{ // Non default rendering
+				// Light
+				/*renderer.solidShader.use();
+				Ruby::ShaderProgram::upload("view", camera.getViewMatrix());
+				Ruby::ShaderProgram::upload("model", lightModel);*/
+				//Ruby::ShaderProgram::upload("objectColour", Malachite::Vector4f(1.0f, 1.0f, 1.0f, 1.0f));
+
+				//renderer.render(lightCube);
 			}
 
 			renderer.end();
