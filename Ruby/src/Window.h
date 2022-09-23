@@ -7,6 +7,7 @@
 namespace Ruby {
 	class Window {
 	public:
+<<<<<<< Updated upstream
 		Window(unsigned int width = 640, unsigned int height = 480, std::string name = "Window");
 		Window(Window&) = delete;
 		Window& operator=(Window&) = delete;
@@ -24,6 +25,9 @@ namespace Ruby {
 			glfwDestroyWindow(m_Window);
 			glfwTerminate();
 		}
+=======
+		Window(unsigned int width = 640 * 2, unsigned int height = 480 * 2, std::string name = "Window");
+>>>>>>> Stashed changes
 
 		GLFWwindow* getWindow() const { return m_Window; }
 		bool isOpen() { return !glfwWindowShouldClose(m_Window); }
