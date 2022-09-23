@@ -7,9 +7,9 @@
 #include "OpenGL objects/ElementBufferObject.h"
 
 namespace Ruby {
-	class RenderableObject {
+	class Renderable {
 	public:
-		RenderableObject(const std::vector<float>& verticies, const std::vector<unsigned int>& indicies, const std::vector<Attribute>& attributes) {
+		Renderable(const std::vector<float>& verticies, const std::vector<unsigned int>& indicies, const std::vector<Attribute>& attributes) {
 			VAO.bind();
 
 			VBO.bind();
