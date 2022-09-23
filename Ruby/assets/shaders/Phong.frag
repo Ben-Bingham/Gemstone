@@ -37,11 +37,6 @@ uniform int numberOfPointLights;
 uniform DirectionalLight[MAX_DIRECTIONAL_LIGHTS] directionalLights;
 uniform int numberOfdirectionalLights;
 
-/*
-vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
-vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir);
-*/
-
 out vec4 FragColor;
 
 in vec3 normal;
