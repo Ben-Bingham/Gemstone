@@ -57,9 +57,9 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 int main() {
 	Ruby::Window window{ };
 	Ruby::Mouse* mouse = &window.ioManger.mouse;
-	mouse->addMousePositionCallback(mousePositionCallback, (void*)&fpsController);
-
 	Ruby::Keyboard* keyboard = &window.ioManger.keyboard;
+
+	mouse->addMousePositionCallback(mousePositionCallback, (void*)&fpsController);
 	window.disableCursor();
 
 	Ruby::Renderer renderer{};
