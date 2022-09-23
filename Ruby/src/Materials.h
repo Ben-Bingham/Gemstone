@@ -13,4 +13,11 @@ namespace Ruby {
 		std::unique_ptr<Texture> specular{ std::make_unique<Texture>(Image::noImage) };
 		float shininess{ 32.0f };
 	};
+
+	struct SolidMaterial {
+		SolidMaterial() {}
+		SolidMaterial(Malachite::Vector3f Colour) : colour(Colour) {}
+
+		Malachite::Vector3f colour{ 0.0f };
+	};
 }
