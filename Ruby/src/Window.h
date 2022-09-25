@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Input/IOManager.h"
+#include "Matrix.h"
 
 namespace Ruby {
 	class Window {
@@ -28,6 +29,8 @@ namespace Ruby {
 		}
 
 		GLFWwindow* getWindow() const { return m_Window; }
+		Malachite::Matrix4f getProjectionMatrix() const { return m_ProjectionMatrix; }
+
 		bool isOpen() { return !glfwWindowShouldClose(m_Window); }
 		void pollEvents() { glfwPollEvents(); }
 		void swapBuffers() { glfwSwapBuffers(m_Window); }
@@ -47,5 +50,6 @@ namespace Ruby {
 
 	private:
 		GLFWwindow* m_Window;
+		Malachite::Matrix4f m_ProjectionMatrix;
 	};
 }

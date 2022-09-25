@@ -65,7 +65,8 @@ int main() {
 	Ruby::Renderer renderer{};
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
-	Malachite::Matrix4f projection = Malachite::perspective(45.0f, (640.0f / 480.0f), 0.01f, 100.0f);
+	//Malachite::Matrix4f projection = Malachite::perspective(45.0f, (640.0f / 480.0f), 0.01f, 100.0f);
+
 	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
 	Ruby::DirectionalLight directionalLight{ };
 
@@ -85,12 +86,12 @@ int main() {
 
 	// Shader setup
 	renderer.shaders.phongShader.use();
-	Ruby::ShaderProgram::upload("projection", projection); // Renderer specific
+	Ruby::ShaderProgram::upload("projection", window.getProjectionMatrix()); // Renderer specific
 	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ pointLight }); // Shader specific
 	Ruby::ShaderProgram::upload("directionalLights", std::vector<Ruby::DirectionalLight>{ directionalLight });  // Shader specific
 
 	renderer.shaders.solidShader.use();
-	Ruby::ShaderProgram::upload("projection", projection); // Renderer specific
+	Ruby::ShaderProgram::upload("projection", window.getProjectionMatrix()); // Renderer specific
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODo
 

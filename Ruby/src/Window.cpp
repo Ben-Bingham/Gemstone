@@ -3,7 +3,8 @@
 #include "Log.h"
 
 namespace Ruby {
-	Window::Window(unsigned int width, unsigned int height, std::string name) {
+	Window::Window(unsigned int width, unsigned int height, std::string name) 
+		: m_ProjectionMatrix{Malachite::perspective(45.0f, (float)((float)width / (float)height), 0.1f, 100.0f)} {
 		if (!glfwInit()) {
 			LOG("GLFW failed to initialize.", Lazuli::LogLevel::TERMINAL);
 		}
