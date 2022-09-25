@@ -18,7 +18,7 @@ struct FPSController {
 	Malachite::Degree yaw = -90.0f;
 	Malachite::Degree pitch;
 }; 
-FPSController fpsController;
+FPSController fpsController{ };
 
 void mousePositionCallback(int xpos, int ypos, void* data) {
 	FPSController* controller = (FPSController*)data;
