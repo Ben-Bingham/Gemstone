@@ -6,6 +6,7 @@
 #include <stb_image.h>
 
 #include "Log.h"
+#include "Vector.h"
 
 namespace Ruby {
 	class Image {
@@ -23,6 +24,22 @@ namespace Ruby {
 			}
 
 			stbi_image_free(data);
+		}
+
+		Image(const Malachite::Vector3f& colour, unsigned int width = 1, unsigned int height = 1, unsigned int channels = 3)
+			: m_Path(""), m_Width(width), m_Height(height), m_Channels(channels) {
+
+			unsigned char r = (unsigned char)(colour.x * 255);
+			unsigned char g = (unsigned char)(colour.y * 255);
+			unsigned char b = (unsigned char)(colour.z * 255);
+
+			m_Content.resize(m_Width * m_Height * m_Channels);
+
+			for (unsigned int i = 0; i < width * height * sizeof(unsigned char); i += 3) {
+				m_Content[i + 0] = r;
+				m_Content[i + 1] = g;
+				m_Content[i + 2] = b;
+			}
 		}
 
 		std::vector<unsigned char> getContent() const { return m_Content; }
