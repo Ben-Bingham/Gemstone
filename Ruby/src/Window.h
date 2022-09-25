@@ -9,7 +9,7 @@
 namespace Ruby {
 	class Window {
 	public:
-		Window(unsigned int width = 640 * 2, unsigned int height = 480 * 2, std::string name = "Window");
+		Window(unsigned int width = 640, unsigned int height = 480, std::string name = "Window");
 		Window(Window&) = delete;
 		Window& operator=(Window&) = delete;
 		Window(Window&& other) noexcept
