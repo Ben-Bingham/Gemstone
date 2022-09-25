@@ -36,9 +36,9 @@ namespace Ruby {
 			m_Content.resize(m_Width * m_Height * m_Channels);
 
 			for (unsigned int i = 0; i < width * height * sizeof(unsigned char); i += 3) {
-				m_Content[i + 0] = r;
-				m_Content[i + 1] = g;
-				m_Content[i + 2] = b;
+				m_Content[i + 0u] = r;
+				m_Content[i + 1u] = g;
+				m_Content[i + 2u] = b;
 			}
 		}
 
