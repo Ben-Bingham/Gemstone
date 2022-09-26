@@ -42,7 +42,7 @@ namespace Ruby {
 			return m_Attributes;
 		}
 
-		// Basic uniforms
+		// Basic uniforms Static Versions
 		static void upload(const std::string& variableName, const int value) {
 			glUniform1i(glGetUniformLocation(activePorgram->m_Program, variableName.c_str()), value);
 		}
@@ -89,8 +89,8 @@ namespace Ruby {
 		}
 
 		static void upload(const std::string& variableName, unsigned int startUnit, const PhongMaterial& material) {
-			activePorgram->upload(variableName + ".diffuse", startUnit, *material.diffuse);
-			activePorgram->upload(variableName + ".specular", startUnit + 1, *material.specular);
+			activePorgram->upload(variableName + ".diffuse", startUnit, material.diffuse);
+			activePorgram->upload(variableName + ".specular", startUnit + 1, material.specular);
 			activePorgram->upload(variableName + ".shininess", material.shininess);
 		}
 

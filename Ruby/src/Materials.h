@@ -7,16 +7,16 @@ namespace Ruby {
 		PhongMaterial() {}
 
 		PhongMaterial(const Image& diffuseImage, const Image& specularImage) 
-			: diffuse(std::make_unique<Texture>(diffuseImage)), specular(std::make_unique<Texture>(specularImage)) { }
+			: diffuse(Texture{ diffuseImage }), specular(Texture{ specularImage }) { }
 
-		std::unique_ptr<Texture> diffuse{ std::make_unique<Texture>(Image::noImage) };
-		std::unique_ptr<Texture> specular{ std::make_unique<Texture>(Image::noImage) };
+		Texture diffuse{ Image::noImage };
+		Texture specular{ Image::noImage };
 		float shininess{ 32.0f };
 	};
 
 	struct SolidMaterial {
 		SolidMaterial() {}
-		SolidMaterial(Malachite::Vector3f Colour) : colour(Colour) {}
+		SolidMaterial(Malachite::Vector3f Colour) : colour(Colour) { }
 
 		Malachite::Vector3f colour{ 0.0f };
 	};

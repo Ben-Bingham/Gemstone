@@ -8,6 +8,9 @@
 #include "Camera.h"
 #include "Renderable Objects/Phong/PhongCube.h"
 #include "Renderable Objects/Solid/SolidCube.h"
+#include "Renderable Objects/Image/ImageQuad.h"
+
+#include "OpenGL objects/Framebuffer.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -62,10 +65,9 @@ int main() {
 	mouse->addMousePositionCallback(mousePositionCallback, (void*)&fpsController);
 	window.disableCursor();
 
-	Ruby::Renderer renderer{};
+	Ruby::Renderer renderer{ };
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
-	//Malachite::Matrix4f projection = Malachite::perspective(45.0f, (640.0f / 480.0f), 0.01f, 100.0f);
 
 	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
 	Ruby::DirectionalLight directionalLight{ };
@@ -77,6 +79,10 @@ int main() {
 	Ruby::PhongMaterial cubeMaterial{ containerImage, containerSpecularImage };
 	Ruby::PhongCube cube{ cubeMaterial };
 
+	Ruby::PhongCube floor{ cubeMaterial };
+	floor.model.translate(Malachite::Vector3f{ 0.0f, -2.0f, 0.0f });
+	floor.model.scale(Malachite::Vector3f{ 10.0f, 1.0f, 10.0f });
+
 	// LightCube setup
 	Ruby::SolidMaterial lightMaterial{ Malachite::Vector3f(1.0f) };
 
@@ -86,15 +92,42 @@ int main() {
 
 	// Shader setup
 	renderer.shaders.phongShader.use();
-	Ruby::ShaderProgram::upload("projection", window.getProjectionMatrix()); // Renderer specific
-	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ pointLight }); // Shader specific
+	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ }); // Shader specific
 	Ruby::ShaderProgram::upload("directionalLights", std::vector<Ruby::DirectionalLight>{ directionalLight });  // Shader specific
 
 	renderer.shaders.solidShader.use();
-	Ruby::ShaderProgram::upload("projection", window.getProjectionMatrix()); // Renderer specific
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODo
 
+	// Framebuffer setup
+	const unsigned int shadowWidth = 1024, shadowHeight = 1024;
+	Ruby::Texture framebufferDepthAttachment{ GL_DEPTH_COMPONENT, shadowWidth, shadowHeight };
+
+	Ruby::Framebuffer framebuffer{ };
+
+	framebuffer.bind();
+	framebuffer.attachTexture(framebufferDepthAttachment, GL_DEPTH_ATTACHMENT);
+	framebuffer.setDrawBuffer(GL_NONE);
+	framebuffer.setReadBuffer(GL_NONE);
+	if (!framebuffer.checkStatus()) {
+		LOG("Framebuffer failed to complete", Lazuli::LogLevel::ERROR);
+	}
+
+	framebuffer.unbind();
+
+	Malachite::Matrix4f lightProjection = Malachite::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 10.0f);
+	Malachite::Matrix4f lightView = Malachite::lookAt(Malachite::Vector3f{ 1.0f, 5.0f, 0.0f }, Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 0.0f, 1.0f, 0.0f });
+
+	Malachite::Matrix4f lightSpaceMatrix = lightProjection * lightView;
+
+	Ruby::ImageMaterial imgMat{ framebufferDepthAttachment };
+	Ruby::ImageQuad imageQuad{ imgMat };
+	imageQuad.model.translate(Malachite::Vector3f{ 0.0f, 3.0f, 0.0f });
+
+	// Renderer setup
+	renderer.init(window.getProjectionMatrix());
+
+	// Rendering loop
 	while (window.isOpen()) {
 		window.pollEvents();
 		float velocity = 0.05f;
@@ -128,30 +161,43 @@ int main() {
 		}
 
 		{ // Rendering
-			renderer.prep();
+			renderer.prep(camera.getViewMatrix());
 
-			//	{ // Lighting
+			{ // Lighting
+				renderer.shaders.directionalDepthShader.use();
+				Ruby::ShaderProgram::upload("lightSpaceMatrix", lightSpaceMatrix);
+				
+				glViewport(0, 0, shadowWidth, shadowHeight);
+				framebuffer.bind();
+				glClear(GL_DEPTH_BUFFER_BIT);
 
-			//		renderer.prepLightingPass();
+				renderer.render(cube);
+				renderer.render(floor);
 
-			//		renderer.drawLightingPass(cube);
+				framebuffer.unbind();
 
-			//		renderer.finishLightingPass();
-			//	}
+				glViewport(0, 0, window.getWidth(), window.getHeight());
+
+				glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				/*renderer.prepLightingPass();
+
+				renderer.drawLightingPass(cube);
+
+				renderer.finishLightingPass();*/
+			}
 
 			{ // Normal Rendering
 				renderer.normalRenderingPrep();
 
 				// Cube
-				renderer.shaders.phongShader.use();
+				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
 
 				cube.model = Malachite::Matrix4f{ 1.0f };
 				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
 
-				Ruby::ShaderProgram::upload("view", camera.getViewMatrix()); // Renderer specific
-				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
-
 				renderer.normalRender(cube);
+				renderer.normalRender(floor);
 
 				renderer.normalRenderingEnd();
 			}
@@ -159,12 +205,14 @@ int main() {
 			{ // Solid Rendering
 				renderer.solidRenderingPrep();
 
-				renderer.shaders.solidShader.use();
-				Ruby::ShaderProgram::upload("view", camera.getViewMatrix()); // Renderer specific
-
-				renderer.solidRender(lightCube);
+				//renderer.solidRender(lightCube);
 
 				renderer.solidRenderingEnd();
+			}
+
+			{ // Non default rendering
+				renderer.shaders.imageShader.use();
+				renderer.render(imageQuad);
 			}
 
 			renderer.end();
