@@ -22,8 +22,11 @@ namespace Ruby {
 		~Framebuffer() { glDeleteFramebuffers(1, &m_FBO); }
 
 		// All these functions seem kind of scuffed, should probably be changed
-		bool checkStatus() {
-			return glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+		void  checkStatus() {
+			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+				LOG("Framebuffer failed to complete", Lazuli::LogLevel::ERROR);
+			}
+
 		}
 
 		void attachTexture(const Texture& texture, GLint attachmentType) {

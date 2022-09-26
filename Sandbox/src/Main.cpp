@@ -70,7 +70,7 @@ int main() {
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
 
 	//Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
-	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.0f } };
+	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
 
 	// Cube setup
 	Ruby::Image containerImage{ "assets\\container2.png" };
@@ -82,6 +82,9 @@ int main() {
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
 	Ruby::PhongCube cube{ cubeMaterial };
 
+	Ruby::PhongCube cube1{ cubeMaterial };
+	cube1.model.translate(Malachite::Vector3f{ -2.0f, -1.0f, -0.5f });
+
 	Ruby::PhongCube floor{ cubeMaterial };
 	floor.model.translate(Malachite::Vector3f{ 0.0f, -2.0f, 0.0f });
 	floor.model.scale(Malachite::Vector3f{ 10.0f, 1.0f, 10.0f });
@@ -91,7 +94,6 @@ int main() {
 
 	Ruby::SolidCube lightCube{ lightMaterial };
 	lightCube.model.scale(0.2f);
-	lightCube.model.translate(0.0f);
 
 	// Shader setup
 	renderer.shaders.phongShader.use();
@@ -108,17 +110,15 @@ int main() {
 	Ruby::Framebuffer framebuffer{ };
 
 	framebuffer.bind();
+
 	framebuffer.attachTexture(framebufferDepthAttachment, GL_DEPTH_ATTACHMENT);
 	framebuffer.setDrawBuffer(GL_NONE);
 	framebuffer.setReadBuffer(GL_NONE);
-
-	if (!framebuffer.checkStatus()) {
-		LOG("Framebuffer failed to complete", Lazuli::LogLevel::ERROR);
-	}
+	framebuffer.checkStatus();
 
 	framebuffer.unbind();
 
-	Malachite::Matrix4f lightProjection = Malachite::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 10.0f);
+	Malachite::Matrix4f lightProjection = Malachite::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.001f, 10.0f);
 
 	Ruby::ImageMaterial imgMat{ framebufferDepthAttachment };
 
@@ -198,8 +198,10 @@ int main() {
 				glViewport(0, 0, Ruby::DirectionalLight::SHADOW_WIDTH, Ruby::DirectionalLight::SHADOW_HEIGHT);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-				renderer.render(cube);
-				renderer.render(floor);
+				renderer.directionalLightRender(cube);
+				renderer.directionalLightRender(cube1);
+				renderer.directionalLightRender(floor);
+
 				framebuffer.unbind();
 
 				renderer.directionalLightRenderingEnd(window.getWidth(), window.getHeight());
@@ -210,13 +212,14 @@ int main() {
 
 				// Cube
 				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
-				Ruby::ShaderProgram::upload("lightSpaceMatrix", lightSpaceMatrix);
-				Ruby::ShaderProgram::upload("shadowMap", 2, framebufferDepthAttachment);
+				Ruby::ShaderProgram::upload("lightSpaceMatrix", lightSpaceMatrix); // Light specific
+				Ruby::ShaderProgram::upload("shadowMap", 2, framebufferDepthAttachment); // Light Specific
 
 				cube.model = Malachite::Matrix4f{ 1.0f };
 				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
 
 				renderer.normalRender(cube);
+				renderer.normalRender(cube1);
 				renderer.normalRender(floor);
 
 				renderer.normalRenderingEnd();

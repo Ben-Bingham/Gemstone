@@ -8,7 +8,7 @@
 namespace Ruby {
 	class Texture {
 	public:
-		Texture(int imageFormat, unsigned int width, unsigned int height, int wrapMode = GL_REPEAT, int filter = GL_NEAREST, bool mipmaps = false)
+		Texture(int imageFormat, unsigned int width, unsigned int height, int wrapMode = GL_CLAMP_TO_BORDER, int filter = GL_NEAREST, bool mipmaps = false)
 			: m_Image{ nullptr } {
 			glGenTextures(1, &m_Texture);
 
@@ -16,6 +16,11 @@ namespace Ruby {
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
+
+			if (wrapMode == GL_CLAMP_TO_BORDER) {
+				float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+			}
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);

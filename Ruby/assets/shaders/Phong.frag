@@ -121,7 +121,7 @@ float pointShadowCalculation(vec3 fragPos, PointLight light) {
 */
 vec3 calcPointLight(PointLight, vec3);
 vec3 calcDirectionalLight(DirectionalLight, vec3);
-float shadowCalculation();
+float directionalShadowCalculation(vec3);
 
 void main() {
 	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
@@ -136,22 +136,7 @@ void main() {
 		result += calcDirectionalLight(directionalLights[i], viewDirection);
 	}
 
-	/*	
-	for (int i = 0; i < numberOfPointLights; i++) {
-		result += CalcPointLight(pointLights[i], normal, fragmentPosition, cameraPosition);
-	}
-	*/
-	//vec3 viewDir = normalize(cameraPosition - fragmentPosition);
-	/*
-	for (int i = 0; i < numberOfDirectionalLights; i++) {
-		result += CalcDirLight(directionalLights[i], normal, viewDir);
-	}
-		*/
-
 	FragColor = vec4(result, 1.0);
-	//FragColor = vec4(fragmentPositionInLightSpace);
-	//FragColor = vec4(texture(material.specular, textureCordinates).rgb, 1.0);
-	//FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
 
 vec3 calcPointLight(PointLight pointLight, vec3 viewDirection) {
@@ -179,23 +164,6 @@ vec3 calcPointLight(PointLight pointLight, vec3 viewDirection) {
 	// Total
 	return ambient + diffuse + specular;
 }
-
-float shadowCalculation() {
-    // perform perspective divide
-    vec3 projCoords = fragmentPositionInLightSpace.xyz / fragmentPositionInLightSpace.w;
-    // transform to [0,1] range
-    projCoords = projCoords * 0.5 + 0.5;
-    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-    float closestDepth = texture(shadowMap, projCoords.xy).r; 
-    // get depth of current fragment from light's perspective
-    float currentDepth = projCoords.z;
-    // check whether current frag pos is in shadow
-    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
-
-    return shadow;
-	//return closestDepth;
-}  
-
 
 /*
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 cameraPosition) {
@@ -239,34 +207,37 @@ vec3 calcDirectionalLight(DirectionalLight directionalLight, vec3 viewDirection)
 	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
 	vec3 specular = directionalLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
 
-	float shadow = shadowCalculation();
-
-	return vec3(shadow);
+	float shadow = directionalShadowCalculation(lightDirection);
 
 	// Total
-	//return ambient + diffuse + specular;
+	return ((1.0 - shadow) * (diffuse + specular)) + ambient;
 }
-/*
-vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
-	vec3 lightDir = normalize(light.direction);
 
-    float diff = max(dot(normal, lightDir), 0.0);
 
-	vec3 halfwayDir = normalize(lightDir + viewDir);
-    float spec = pow(max(dot(normal, halfwayDir), 0.0), material.shininess);
+float directionalShadowCalculation(vec3 lightDirection) {
+    vec3 projCoords = fragmentPositionInLightSpace.xyz / fragmentPositionInLightSpace.w;
+    projCoords = projCoords * 0.5 + 0.5;
 
-	vec3 ambient = light.ambient * texture(material.diffuse, textureCordinates).rgb;
-    vec3 diffuse = light.diffuse * texture(material.diffuse, textureCordinates).rgb;  
-    vec3 specular = light.specular * texture(material.specular, textureCordinates).rgb;
+    float closestDepth = texture(shadowMap, projCoords.xy).r; 
+    float currentDepth = projCoords.z;
 
-	//float shadow = directionalShadowCalculation(fragmentPositionInLightSpace, lightDir);
+	float bias = max(0.05 * (1.0 - dot(normal, lightDirection)), 0.005);
 
-	vec3 color = texture(material.diffuse, textureCordinates).rgb;
-	vec3 lightAmb = 0.3 * light.ambient;
+	float shadow = 0.0;
+	vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+	for(int x = -1; x <= 1; ++x)
+	{
+		for(int y = -1; y <= 1; ++y)
+		{
+			float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
+			shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
+		}    
+	}
 
-	//vec3 lighting = (light.ambient + (1.0 - shadow) * ((diff * light.diffuse) + (spec * light.specular)))* diffuse;
+	shadow /= 9.0;
 
-	vec3 lighting = ambient * diffuse * specular;
+	if(projCoords.z > 1.0)
+        shadow = 0.0;
 
-	return lighting;
-}*/
+    return shadow;
+}  

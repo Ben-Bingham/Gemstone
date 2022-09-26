@@ -16,6 +16,9 @@ namespace Ruby {
 	public:
 		Renderer() {
             glEnable(GL_DEPTH_TEST);
+
+            glEnable(GL_CULL_FACE);
+            glFrontFace(GL_CW);
         }
 
         Renderer(Renderer&) = delete;
@@ -52,10 +55,6 @@ namespace Ruby {
             ShaderProgram::upload("view", viewMatrix);
         }
 
-        void render(const Renderable& renderable) const {
-            renderable.render();
-        }
-
         void end() {
 
         }
@@ -63,6 +62,7 @@ namespace Ruby {
         // Directional lighting rendering
         void directionalLightRenderingPrep() {
             shaders.directionalDepthShader.use();
+
         }
 
         void directionalLightRender(const Renderable& renderable) const {
