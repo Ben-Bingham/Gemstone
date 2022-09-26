@@ -27,6 +27,9 @@ struct DirectionalLight {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+	mat4 lightSpaceMatrix;
+	sampler2D shadowMap;
 };
 
 uniform Material material;
@@ -43,9 +46,9 @@ in vec3 normal;
 in vec3 fragmentPosition;
 in vec2 textureCordinates;
 
-in vec4 fragmentPositionInLightSpace;
+//in vec4 fragmentPositionInLightSpace;
 
-uniform sampler2D shadowMap;
+//uniform sampler2D shadowMap;
 //uniform sampler2D shadowMap; //TODO make an array
 //uniform samplerCube pointShadowMap; //TODO make an array
 
@@ -121,7 +124,7 @@ float pointShadowCalculation(vec3 fragPos, PointLight light) {
 */
 vec3 calcPointLight(PointLight, vec3);
 vec3 calcDirectionalLight(DirectionalLight, vec3);
-float directionalShadowCalculation(vec3);
+float directionalShadowCalculation(DirectionalLight, vec3);
 
 void main() {
 	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
@@ -207,29 +210,31 @@ vec3 calcDirectionalLight(DirectionalLight directionalLight, vec3 viewDirection)
 	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
 	vec3 specular = directionalLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
 
-	float shadow = directionalShadowCalculation(lightDirection);
+	float shadow = directionalShadowCalculation(directionalLight, lightDirection);
 
 	// Total
 	return ((1.0 - shadow) * (diffuse + specular)) + ambient;
 }
 
 
-float directionalShadowCalculation(vec3 lightDirection) {
+float directionalShadowCalculation(DirectionalLight dirLight, vec3 lightDirection) {
+	vec4 fragmentPositionInLightSpace = dirLight.lightSpaceMatrix * vec4(fragmentPosition, 1.0);
+
     vec3 projCoords = fragmentPositionInLightSpace.xyz / fragmentPositionInLightSpace.w;
     projCoords = projCoords * 0.5 + 0.5;
 
-    float closestDepth = texture(shadowMap, projCoords.xy).r; 
+    float closestDepth = texture(dirLight.shadowMap, projCoords.xy).r; 
     float currentDepth = projCoords.z;
 
 	float bias = max(0.05 * (1.0 - dot(normal, lightDirection)), 0.005);
 
 	float shadow = 0.0;
-	vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+	vec2 texelSize = 1.0 / textureSize(dirLight.shadowMap, 0);
 	for(int x = -1; x <= 1; ++x)
 	{
 		for(int y = -1; y <= 1; ++y)
 		{
-			float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
+			float pcfDepth = texture(dirLight.shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
 			shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
 		}    
 	}

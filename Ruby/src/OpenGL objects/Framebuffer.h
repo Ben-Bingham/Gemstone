@@ -12,6 +12,7 @@ namespace Ruby {
 		Framebuffer& operator=(Framebuffer&& other) noexcept {
 			m_FBO = std::move(other.m_FBO);
 			other.m_FBO = 0;
+			return *this;
 		}
 
 		Framebuffer(Framebuffer&& other) noexcept

@@ -64,20 +64,20 @@ namespace Ruby {
 		}
 
 		// Advanced uniforms
-		static void upload(const std::string& variableName, const std::vector<PointLight>& pointLights) {
+		static void upload(const std::string& variableName, const std::vector<PointLight*>& pointLights) {
 			activePorgram->upload("numberOfPointLights", (int)pointLights.size());
 			unsigned int i{ 0 };
-			for (const PointLight& pointLight : pointLights) {
-				activePorgram->upload(variableName + '[' + std::to_string(i) + ']', pointLight);
+			for (const PointLight* pointLight : pointLights) {
+				activePorgram->upload(variableName + '[' + std::to_string(i) + ']', *pointLight);
 				i++;
 			}
 		}
 
-		static void upload(const std::string& variableName, const std::vector<DirectionalLight>& directionalLights) {
+		static void upload(const std::string& variableName, unsigned int unit, const std::vector<DirectionalLight*>& directionalLights) {
 			activePorgram->upload("numberOfdirectionalLights", (int)directionalLights.size());
 			unsigned int i{ 0 };
-			for (const DirectionalLight& directionalLight : directionalLights) {
-				activePorgram->upload(variableName + '[' + std::to_string(i) + ']', directionalLight);
+			for (const DirectionalLight* directionalLight : directionalLights) {
+				activePorgram->upload(variableName + '[' + std::to_string(i) + ']', unit + i, *directionalLight);
 				i++;
 			}
 		}
@@ -107,12 +107,15 @@ namespace Ruby {
 			activePorgram->upload(variableName + ".quadratic", pointLight.quadratic);
 		}
 
-		static void upload(const std::string& variableName, const DirectionalLight& directionalLight) {
+		static void upload(const std::string& variableName, unsigned int unit, const DirectionalLight& directionalLight) {
 			activePorgram->upload(variableName + ".direction", directionalLight.direction);
 
 			activePorgram->upload(variableName + ".ambient", directionalLight.ambient);
 			activePorgram->upload(variableName + ".diffuse", directionalLight.diffuse);
 			activePorgram->upload(variableName + ".specular", directionalLight.specular);
+			
+			activePorgram->upload(variableName + ".lightSpaceMatrix", directionalLight.spaceMatrix);
+			activePorgram->upload(variableName + ".shadowMap", unit, directionalLight.shadowMap);
 		}
 
 	private:

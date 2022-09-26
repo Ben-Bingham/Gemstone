@@ -62,7 +62,6 @@ namespace Ruby {
         // Directional lighting rendering
         void directionalLightRenderingPrep() {
             shaders.directionalDepthShader.use();
-
         }
 
         void directionalLightRender(const Renderable& renderable) const {

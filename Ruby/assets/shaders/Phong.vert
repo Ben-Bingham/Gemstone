@@ -7,12 +7,12 @@ layout (location = 2) in vec2 inputTextureCords;
 out vec3 normal;
 out vec3 fragmentPosition;
 out vec2 textureCordinates;
-out vec4 fragmentPositionInLightSpace;
+//out vec4 fragmentPositionInLightSpace;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform mat4 lightSpaceMatrix;
+//uniform mat4 lightSpaceMatrix;
 
 void main() {
 	normal = normalize(transpose(inverse(mat3(model))) * inputNormal);
@@ -21,7 +21,7 @@ void main() {
 
 	textureCordinates = inputTextureCords;
 
-	fragmentPositionInLightSpace = lightSpaceMatrix * vec4(fragmentPosition, 1.0);
+	//fragmentPositionInLightSpace = lightSpaceMatrix * vec4(fragmentPosition, 1.0);
 
 	gl_Position = projection * view * model * vec4(inputPositon, 1.0);
 }

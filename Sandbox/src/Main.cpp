@@ -70,7 +70,13 @@ int main() {
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
 
 	//Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
+	std::vector<Ruby::DirectionalLight*> directionalLights;
+
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
+	directionalLights.push_back(&directionalLight);
+
+	Ruby::DirectionalLight directionalLight1{ Malachite::Vector3f{ -3.0f, -3.0f, -0.5f } };
+	directionalLights.push_back(&directionalLight1);
 
 	// Cube setup
 	Ruby::Image containerImage{ "assets\\container2.png" };
@@ -97,30 +103,12 @@ int main() {
 
 	// Shader setup
 	renderer.shaders.phongShader.use();
-	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight>{ }); // Shader specific
-	Ruby::ShaderProgram::upload("directionalLights", std::vector<Ruby::DirectionalLight>{ directionalLight });  // Shader specific
+	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight*>{ }); // Shader specific
+	Ruby::ShaderProgram::upload("directionalLights", 2, directionalLights);  // Shader specific
 
 	renderer.shaders.solidShader.use();
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODo
-
-	// Framebuffer setup
-	Ruby::Texture framebufferDepthAttachment{ GL_DEPTH_COMPONENT, Ruby::DirectionalLight::SHADOW_WIDTH, Ruby::DirectionalLight::SHADOW_HEIGHT };
-
-	Ruby::Framebuffer framebuffer{ };
-
-	framebuffer.bind();
-
-	framebuffer.attachTexture(framebufferDepthAttachment, GL_DEPTH_ATTACHMENT);
-	framebuffer.setDrawBuffer(GL_NONE);
-	framebuffer.setReadBuffer(GL_NONE);
-	framebuffer.checkStatus();
-
-	framebuffer.unbind();
-
-	Malachite::Matrix4f lightProjection = Malachite::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.001f, 10.0f);
-
-	Ruby::ImageMaterial imgMat{ framebufferDepthAttachment };
 
 	// Renderer setup
 	renderer.init(window.getProjectionMatrix());
@@ -158,10 +146,10 @@ int main() {
 			window.close();
 		}
 
-		float spd = 0.05;
+		float spd = 0.05f;
 
 		if (keyboard->KEY_UP) {
-			directionalLight.position += Malachite::Vector3f{ 0, 0, -1 * spd };
+			directionalLight.position += Malachite::Vector3f{0, 0, -1 * spd};
 		}
 
 		if (keyboard->KEY_DOWN) {
@@ -186,23 +174,24 @@ int main() {
 
 		{ // Rendering
 			renderer.prep(camera.getViewMatrix());
-			Malachite::Matrix4f lightView = Malachite::lookAt(directionalLight.position, directionalLight.position + directionalLight.direction, Malachite::Vector3f{ 0.0f, 1.0f, 0.0f });
-
-			Malachite::Matrix4f lightSpaceMatrix = lightView * lightProjection;
 
 			{ // Lighting
 				renderer.directionalLightRenderingPrep();
 				
-				framebuffer.bind();
-				Ruby::ShaderProgram::upload("lightSpaceMatrix", lightSpaceMatrix);
-				glViewport(0, 0, Ruby::DirectionalLight::SHADOW_WIDTH, Ruby::DirectionalLight::SHADOW_HEIGHT);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				for (Ruby::DirectionalLight* dirLight : directionalLights) {
+					dirLight->framebuffer.bind();
+					dirLight->calculateSpaceMatrix();
+					Ruby::ShaderProgram::upload("lightSpaceMatrix", dirLight->spaceMatrix);
 
-				renderer.directionalLightRender(cube);
-				renderer.directionalLightRender(cube1);
-				renderer.directionalLightRender(floor);
+					glViewport(0, 0, Ruby::DirectionalLight::SHADOW_WIDTH, Ruby::DirectionalLight::SHADOW_HEIGHT);
+					glClear(GL_DEPTH_BUFFER_BIT);
 
-				framebuffer.unbind();
+					renderer.directionalLightRender(cube);
+					renderer.directionalLightRender(cube1);
+					renderer.directionalLightRender(floor);
+
+					dirLight->framebuffer.unbind();
+				}
 
 				renderer.directionalLightRenderingEnd(window.getWidth(), window.getHeight());
 			}
@@ -212,8 +201,13 @@ int main() {
 
 				// Cube
 				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
-				Ruby::ShaderProgram::upload("lightSpaceMatrix", lightSpaceMatrix); // Light specific
-				Ruby::ShaderProgram::upload("shadowMap", 2, framebufferDepthAttachment); // Light Specific
+
+				unsigned int i{ 0 };
+				for (Ruby::DirectionalLight* dirLight : directionalLights) {
+					Ruby::ShaderProgram::upload("directionalLights[" + std::to_string(i) + "].lightSpaceMatrix", dirLight->spaceMatrix); // Light Specific
+
+					i++;
+				}
 
 				cube.model = Malachite::Matrix4f{ 1.0f };
 				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
