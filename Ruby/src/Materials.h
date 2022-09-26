@@ -20,4 +20,17 @@ namespace Ruby {
 
 		Malachite::Vector3f colour{ 0.0f };
 	};
+
+	struct ImageMaterial {
+		ImageMaterial() {}
+
+		ImageMaterial(const Image& image) 
+			: texture(image) { }
+
+		ImageMaterial(Texture& texture)
+			: texture(std::move(texture)) {
+		}
+
+		Texture texture{ Image::noImage };
+	};
 }
