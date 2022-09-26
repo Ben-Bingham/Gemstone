@@ -71,7 +71,7 @@ int main() {
 
 	//Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
 	Ruby::DirectionalLight directionalLight{ };
-	Malachite::Vector3f lightPos{ 0.1f, -0.3f, -1.0f };
+	//Malachite::Vector3f lightPos{ 0.1f, -0.3f, -1.0f };
 
 	// Cube setup
 	Ruby::Image containerImage{ "assets\\container2.png" };
@@ -193,14 +193,15 @@ int main() {
 			directionalLight.position += Malachite::Vector3f{ 0, -1 * spd, 0 };
 		}
 
-		//std::cout << lightPos << std::endl;
+		std::cout << "Pos:" << directionalLight.position << std::endl;
+		std::cout << "dir:" << directionalLight.direction << std::endl;
 
 		//lightCube.model.translate(temp);
 		//lightPos += temp;
 
 		{ // Rendering
 			renderer.prep(camera.getViewMatrix());
-			Malachite::Matrix4f lightView = Malachite::lookAt(directionalLight.position, directionalLight.direction - directionalLight.position, Malachite::Vector3f{ 0.0f, 1.0f, 0.0f });
+			Malachite::Matrix4f lightView = Malachite::lookAt(directionalLight.position, directionalLight.position + directionalLight.direction, Malachite::Vector3f{0.0f, 1.0f, 0.0f});
 
 			Malachite::Matrix4f lightSpaceMatrix = lightProjection * lightView;
 

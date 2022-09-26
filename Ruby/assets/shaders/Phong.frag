@@ -149,6 +149,7 @@ void main() {
 		*/
 
 	FragColor = vec4(result, 1.0);
+	//FragColor = vec4(fragmentPositionInLightSpace);
 	//FragColor = vec4(texture(material.specular, textureCordinates).rgb, 1.0);
 	//FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
