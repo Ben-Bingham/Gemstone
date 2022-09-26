@@ -8,7 +8,7 @@
 namespace Ruby {
 	class Texture {
 	public:
-		Texture(int imageFormat, int width, int height, int wrapMode = GL_CLAMP_TO_BORDER, int filter = GL_NEAREST, bool mipmaps = false) 
+		Texture(int imageFormat, unsigned int width, unsigned int height, int wrapMode = GL_REPEAT, int filter = GL_NEAREST, bool mipmaps = false)
 			: m_Image{ nullptr } {
 			glGenTextures(1, &m_Texture);
 
@@ -20,7 +20,7 @@ namespace Ruby {
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, width, height, 0, imageFormat, GL_UNSIGNED_BYTE, NULL);
+			glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, width, height, 0, imageFormat, GL_FLOAT, NULL);
 			if (mipmaps) {
 				glGenerateMipmap(GL_TEXTURE_2D);
 			}
@@ -66,6 +66,7 @@ namespace Ruby {
 		Texture& operator=(Texture&& other) noexcept {
 			m_Texture = std::move(other.m_Texture);
 			m_Image = std::move(other.m_Image);
+			return *this;
 		}
 
 		~Texture() { glDeleteTextures(1, &m_Texture); }
@@ -73,7 +74,7 @@ namespace Ruby {
 		void bind() const { glBindTexture(GL_TEXTURE_2D, m_Texture); }
 		static void activateUnit(int unit) { glActiveTexture(GL_TEXTURE0 + unit); }
 
-		unsigned int getTexture() { return m_Texture; } //TODO remove
+		unsigned int getTexture() const { return m_Texture; }
 
 	private:
 		unsigned int m_Texture;
