@@ -201,9 +201,9 @@ int main() {
 
 		{ // Rendering
 			renderer.prep(camera.getViewMatrix());
-			Malachite::Matrix4f lightView = Malachite::lookAt(directionalLight.position, directionalLight.position + directionalLight.direction, Malachite::Vector3f{0.0f, 1.0f, 0.0f});
+			Malachite::Matrix4f lightView = Malachite::lookAt(directionalLight.position, Malachite::Vector3{ 0.0f }, Malachite::Vector3f{ 0.0f, 1.0f, 0.0f });
 
-			Malachite::Matrix4f lightSpaceMatrix = lightProjection * lightView;
+			Malachite::Matrix4f lightSpaceMatrix = lightView * lightProjection;
 
 			{ // Lighting
 				renderer.shaders.directionalDepthShader.use();
