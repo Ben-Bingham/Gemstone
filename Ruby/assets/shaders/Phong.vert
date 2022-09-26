@@ -7,13 +7,11 @@ layout (location = 2) in vec2 inputTextureCords;
 out vec3 normal;
 out vec3 fragmentPosition;
 out vec2 textureCordinates;
-
 out vec4 fragmentPositionInLightSpace;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-
 uniform mat4 lightSpaceMatrix;
 
 void main() {

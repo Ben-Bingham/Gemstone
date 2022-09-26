@@ -85,7 +85,7 @@ namespace Ruby {
 		static void upload(const std::string& variableName, unsigned int unit, const Texture& texture) {
 			texture.activateUnit(unit);
 			texture.bind();
-			activePorgram->upload("variableName", (int)unit);
+			activePorgram->upload(variableName, (int)unit);
 		}
 
 		static void upload(const std::string& variableName, unsigned int startUnit, const PhongMaterial& material) {

@@ -43,8 +43,9 @@ in vec3 normal;
 in vec3 fragmentPosition;
 in vec2 textureCordinates;
 
-//in vec4 fragmentPositionInLightSpace;
+in vec4 fragmentPositionInLightSpace;
 
+uniform sampler2D shadowMap;
 //uniform sampler2D shadowMap; //TODO make an array
 //uniform samplerCube pointShadowMap; //TODO make an array
 
@@ -120,6 +121,7 @@ float pointShadowCalculation(vec3 fragPos, PointLight light) {
 */
 vec3 calcPointLight(PointLight, vec3);
 vec3 calcDirectionalLight(DirectionalLight, vec3);
+float shadowCalculation();
 
 void main() {
 	vec3 viewDirection = normalize(cameraPosition - fragmentPosition);
@@ -145,7 +147,10 @@ void main() {
 		result += CalcDirLight(directionalLights[i], normal, viewDir);
 	}
 		*/
+
 	FragColor = vec4(result, 1.0);
+	//FragColor = vec4(texture(material.specular, textureCordinates).rgb, 1.0);
+	//FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
 
 vec3 calcPointLight(PointLight pointLight, vec3 viewDirection) {
@@ -173,6 +178,23 @@ vec3 calcPointLight(PointLight pointLight, vec3 viewDirection) {
 	// Total
 	return ambient + diffuse + specular;
 }
+
+float shadowCalculation() {
+    // perform perspective divide
+    vec3 projCoords = fragmentPositionInLightSpace.xyz / fragmentPositionInLightSpace.w;
+    // transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(shadowMap, projCoords.xy).r; 
+    // get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // check whether current frag pos is in shadow
+    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+
+    return shadow;
+	//return closestDepth;
+}  
+
 
 /*
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 cameraPosition) {
@@ -216,8 +238,12 @@ vec3 calcDirectionalLight(DirectionalLight directionalLight, vec3 viewDirection)
 	float specularAmount = pow(max(dot(normal, halfwayDirection), 0.0), material.shininess);
 	vec3 specular = directionalLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
 
+	float shadow = shadowCalculation();
+
+	return vec3(shadow);
+
 	// Total
-	return ambient + diffuse + specular;
+	//return ambient + diffuse + specular;
 }
 /*
 vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir) {
