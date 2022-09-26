@@ -16,7 +16,7 @@ namespace Ruby {
 	};
 
 	struct DirectionalLight {
-		Malachite::Vector3f direction{ 0.0f, -1.0f, 0.0f };
+		Malachite::Vector3f direction{ 3.0f, -3.0f, 0.0f };
 		Malachite::Vector3f position{ 0.0f, 5.0f, 0.0f };
 
 		Malachite::Vector3f ambient{ 0.2f };
