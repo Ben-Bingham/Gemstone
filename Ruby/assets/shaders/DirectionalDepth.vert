@@ -4,6 +4,7 @@ layout (location = 1) in vec3 inputNormal;
 layout (location = 2) in vec2 inputTextureCords;
 
 uniform mat4 lightSpaceMatrix;
+
 uniform mat4 model;
 
 void main() {

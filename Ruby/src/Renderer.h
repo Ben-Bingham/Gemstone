@@ -31,6 +31,9 @@ namespace Ruby {
 
             shaders.imageShader.use();
             ShaderProgram::upload("projection", projectionMatrix);
+
+            shaders.directionalDepthShader.use();
+            ShaderProgram::upload("projection", projectionMatrix);
         }
 
 
@@ -46,6 +49,9 @@ namespace Ruby {
             ShaderProgram::upload("view", viewMatrix);
 
             shaders.imageShader.use();
+            ShaderProgram::upload("view", viewMatrix);
+
+            shaders.directionalDepthShader.use();
             ShaderProgram::upload("view", viewMatrix);
         }
 
