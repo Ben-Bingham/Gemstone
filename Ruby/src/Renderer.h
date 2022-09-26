@@ -39,9 +39,6 @@ namespace Ruby {
 
         // Per frame calls
         void prep(const Malachite::Matrix4f& viewMatrix) {
-            /*glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
-
             shaders.phongShader.use();
             ShaderProgram::upload("view", viewMatrix);
 
@@ -64,7 +61,7 @@ namespace Ruby {
         }
 
         // Directional lighting rendering
-        /*void directionalLightRenderingPrep() {
+        void directionalLightRenderingPrep() {
             shaders.directionalDepthShader.use();
         }
 
@@ -72,9 +69,11 @@ namespace Ruby {
             renderable.render();
         }
 
-        void directionalLightRenderingEnd() const {
-
-        }*/
+        void directionalLightRenderingEnd(unsigned int width, unsigned int height) const {
+            glViewport(0, 0, width, height);
+            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        }
 
         // Phong rendering
         void normalRenderingPrep() {
