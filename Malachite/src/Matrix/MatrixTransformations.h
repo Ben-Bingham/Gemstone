@@ -8,7 +8,7 @@ namespace Malachite {
 		Vector3<T> s(normalize(cross(direction, up)));
 		Vector3<T> relativeUp(cross(s, direction));
 
-		Matrix4x4<T> result{ 1 };
+		Matrix4x4<T> result{ 1.0f };
 		result.row1.x = s.x;
 		result.row2.x = s.y;
 		result.row3.x = s.z;
