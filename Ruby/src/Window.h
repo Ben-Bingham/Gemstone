@@ -14,12 +14,16 @@ namespace Ruby {
 		Window(Window&) = delete;
 		Window& operator=(Window&) = delete;
 		Window(Window&& other) noexcept
-			: m_Window(std::move(other.m_Window)) {
+			: m_Window(std::move(other.m_Window))
+			, m_Width(std::move(other.m_Width))
+			, m_Height(std::move(other.m_Height)) {
 			other.m_Window = nullptr;
 		}
 
 		Window& operator=(Window&& other) noexcept {
 			m_Window = std::move(other.m_Window);
+			m_Height = std::move(other.m_Height);
+			m_Width = std::move(other.m_Width);
 			other.m_Window = nullptr;
 		}
 
@@ -30,6 +34,9 @@ namespace Ruby {
 
 		GLFWwindow* getWindow() const { return m_Window; }
 		Malachite::Matrix4f getProjectionMatrix() const { return m_ProjectionMatrix; }
+
+		unsigned int getWidth() const { return m_Width; }
+		unsigned int getHeight() const { return m_Height; }
 
 		bool isOpen() { return !glfwWindowShouldClose(m_Window); }
 		void pollEvents() { glfwPollEvents(); }
@@ -51,5 +58,7 @@ namespace Ruby {
 	private:
 		GLFWwindow* m_Window;
 		Malachite::Matrix4f m_ProjectionMatrix;
+
+		unsigned int m_Width, m_Height;
 	};
 }

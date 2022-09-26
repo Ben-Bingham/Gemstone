@@ -4,7 +4,9 @@
 
 namespace Ruby {
 	Window::Window(unsigned int width, unsigned int height, std::string name) 
-		: m_ProjectionMatrix{Malachite::perspective(45.0f, (float)((float)width / (float)height), 0.1f, 100.0f)} {
+		: m_ProjectionMatrix{Malachite::perspective(45.0f, (float)((float)width / (float)height), 0.1f, 100.0f)}
+		, m_Width(width)
+		, m_Height(height) {
 		if (!glfwInit()) {
 			LOG("GLFW failed to initialize.", Lazuli::LogLevel::TERMINAL);
 		}
