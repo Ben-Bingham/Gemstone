@@ -13,7 +13,7 @@ namespace Ruby {
 		void render() const override {
 			VAO.bind();
 			ShaderProgram::upload("model", model);
-			ShaderProgram::upload("image", 0, material->texture);
+			ShaderProgram::upload("image", 0, *material->texture);
 			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 		}
 

@@ -4,13 +4,11 @@
 
 namespace Ruby {
 	struct PhongMaterial {
-		PhongMaterial() {}
+		PhongMaterial(Texture& diffuseImage, Texture& specularImage)
+			: diffuse(&diffuseImage), specular(&specularImage) { }
 
-		PhongMaterial(const Image& diffuseImage, const Image& specularImage) 
-			: diffuse(Texture{ diffuseImage }), specular(Texture{ specularImage }) { }
-
-		Texture diffuse{ Image::noImage };
-		Texture specular{ Image::noImage };
+		Texture* diffuse;
+		Texture* specular;
 		float shininess{ 32.0f };
 	};
 
@@ -22,15 +20,10 @@ namespace Ruby {
 	};
 
 	struct ImageMaterial {
-		ImageMaterial() {}
-
-		ImageMaterial(const Image& image) 
-			: texture(image) { }
-
 		ImageMaterial(Texture& texture)
-			: texture(std::move(texture)) {
+			: texture(&texture) {
 		}
 
-		Texture texture{ Image::noImage };
+		Texture* texture;
 	};
 }

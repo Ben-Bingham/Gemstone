@@ -26,7 +26,7 @@ namespace Ruby {
 			}
 		}
 
-		Texture(const Image& image)
+		Texture(Image& image)
 			: m_Image(&image) {
 			glGenTextures(1, &m_Texture);
 
@@ -78,6 +78,6 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Texture;
-		const Image* m_Image;
+		Image* m_Image;
 	};
 }
