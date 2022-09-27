@@ -9,6 +9,7 @@
 #include "Matrix.h"
 #include "Lights.h"
 #include "OpenGl objects/Texture.h"
+#include "OpenGL objects/Cubemap.h"
 #include "Materials.h"
 
 #include "OpenGL objects/VertexAttributeObject.h"
@@ -85,6 +86,12 @@ namespace Ruby {
 		static void upload(const std::string& variableName, unsigned int unit, const Texture& texture) {
 			texture.activateUnit(unit);
 			texture.bind();
+			activePorgram->upload(variableName, (int)unit);
+		}
+
+		static void upload(const std::string& variableName, unsigned int unit, const Cubemap& cubemap) {
+			cubemap.activateUnit(unit);
+			cubemap.bind();
 			activePorgram->upload(variableName, (int)unit);
 		}
 

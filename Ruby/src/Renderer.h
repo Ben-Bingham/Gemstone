@@ -10,6 +10,7 @@
 
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
+#include "Renderable Objects/Skybox.h"
 
 namespace Ruby {
 	class Renderer {
@@ -99,7 +100,21 @@ namespace Ruby {
         void solidRenderingEnd() const {
 
         }
+
+        // Skybox rendering
+        void skyboxRenderingPrep() {
+            shaders.skyboxShader.use();
+            glDepthMask(GL_FALSE);
+        }
+
+        void skyboxRender(const Skybox& skybox) const {
+            skybox.render();
+        }
         
+        void skyboxRenderingEnd() const {
+            glDepthMask(GL_TRUE);
+        }
+
         ShaderLibrary shaders{ };
 	};
 }

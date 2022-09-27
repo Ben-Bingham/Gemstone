@@ -11,6 +11,7 @@
 #include "Renderable Objects/Image/ImageQuad.h"
 
 #include "OpenGL objects/Framebuffer.h"
+#include "Renderable Objects/Skybox.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -100,6 +101,19 @@ int main() {
 
 	Ruby::SolidCube lightCube{ lightMaterial };
 	lightCube.model.scale(0.2f);
+
+	// Skybox setup
+	std::vector<Ruby::Image> skyboxImages {
+		Ruby::Image{ "assets\\Skybox\\right.jpg" },
+		Ruby::Image{ "assets\\Skybox\\left.jpg" },
+		Ruby::Image{ "assets\\Skybox\\top.jpg" },
+		Ruby::Image{ "assets\\Skybox\\bottom.jpg" },
+		Ruby::Image{ "assets\\Skybox\\front.jpg" },
+		Ruby::Image{ "assets\\Skybox\\back.jpg" },
+
+	};
+
+	Ruby::Skybox skybox{ skyboxImages };
 
 	// Shader setup
 	renderer.shaders.phongShader.use();
@@ -194,6 +208,14 @@ int main() {
 				}
 
 				renderer.directionalLightRenderingEnd(window.getWidth(), window.getHeight());
+			}
+
+			{ // Skybox Rendering
+				renderer.skyboxRenderingPrep();
+
+				renderer.skyboxRender(skybox);
+
+				renderer.skyboxRenderingEnd();
 			}
 
 			{ // Normal Rendering
