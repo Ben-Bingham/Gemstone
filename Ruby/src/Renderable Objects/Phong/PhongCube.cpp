@@ -1,7 +1,7 @@
 #include "PhongCube.h"
 
 namespace Ruby {
-	const std::vector<unsigned int> PhongCube::indices{
+	const std::vector<unsigned int> ShadowPhongCube::indices{
 			0, 1, 2,
 			1, 3, 2,
 			4, 5, 6,
@@ -16,7 +16,7 @@ namespace Ruby {
 			21, 23, 22,
 	};
 
-	const std::vector<float> PhongCube::verticies{
+	const std::vector<float> ShadowPhongCube::verticies{
 		-0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 0.0f, 0.0f,
 		-0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 0.0f, 1.0f,
 		 0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f, 1.0f, 0.0f,

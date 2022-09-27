@@ -3,10 +3,10 @@
 #include "PhongRenderable.h"
 
 namespace Ruby {
-	class PhongCube : public PhongRenderable {
+	class ShadowPhongCube : public ShadowPhongRenderable {
 	public:
-		PhongCube(PhongMaterial& mat)
-			: PhongRenderable(verticies, indices, std::move(mat)) {
+		ShadowPhongCube(PhongMaterial& mat)
+			: ShadowPhongRenderable(verticies, indices, std::move(mat)) {
 
 		}
 

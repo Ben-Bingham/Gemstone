@@ -76,8 +76,14 @@ int main() {
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
 	directionalLights.push_back(&directionalLight);
 
-	Ruby::DirectionalLight directionalLight1{ Malachite::Vector3f{ -3.0f, -3.0f, -0.5f } };
-	directionalLights.push_back(&directionalLight1);
+	//Ruby::DirectionalLight directionalLight1{ Malachite::Vector3f{ 0.0f, -2.0f, 0.1f } };
+	//directionalLights.push_back(&directionalLight1);
+
+	Ruby::DirectionalLight directionalLight2{ Malachite::Vector3f{ -3.0f, -3.0f, -0.5f } };
+	directionalLights.push_back(&directionalLight2);
+
+	//Ruby::DirectionalLight directionalLight3{ Malachite::Vector3f{ 1.0f, -2.0f, -4.5f } };
+	//directionalLights.push_back(&directionalLight3);
 
 	// Cube setup
 	Ruby::Image containerImage{ "assets\\container2.png" };
@@ -87,12 +93,12 @@ int main() {
 	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
 
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
-	Ruby::PhongCube cube{ cubeMaterial };
+	Ruby::ShadowPhongCube cube{ cubeMaterial };
 
-	Ruby::PhongCube cube1{ cubeMaterial };
+	Ruby::ShadowPhongCube cube1{ cubeMaterial };
 	cube1.model.translate(Malachite::Vector3f{ -2.0f, -1.0f, -0.5f });
 
-	Ruby::PhongCube floor{ cubeMaterial };
+	Ruby::ShadowPhongCube floor{ cubeMaterial };
 	floor.model.translate(Malachite::Vector3f{ 0.0f, -2.0f, 0.0f });
 	floor.model.scale(Malachite::Vector3f{ 10.0f, 1.0f, 10.0f });
 
@@ -116,7 +122,7 @@ int main() {
 	Ruby::Skybox skybox{ skyboxImages };
 
 	// Shader setup
-	renderer.shaders.phongShader.use();
+	renderer.shaders.shadowPhongShader.use();
 	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight*>{ }); // Shader specific
 	Ruby::ShaderProgram::upload("directionalLights", 2, directionalLights);  // Shader specific
 
@@ -211,7 +217,7 @@ int main() {
 			}
 
 			{ // Normal Rendering
-				renderer.normalRenderingPrep();
+				renderer.shadowPhongRenderingPrep();
 
 				// Cube
 				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
@@ -226,11 +232,11 @@ int main() {
 				cube.model = Malachite::Matrix4f{ 1.0f };
 				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
 
-				renderer.normalRender(cube);
-				renderer.normalRender(cube1);
-				renderer.normalRender(floor);
+				renderer.shadowPhongRender(cube);
+				renderer.shadowPhongRender(cube1);
+				renderer.shadowPhongRender(floor);
 
-				renderer.normalRenderingEnd();
+				renderer.shadowPhongRenderingEnd();
 			}
 
 			{ // Solid Rendering

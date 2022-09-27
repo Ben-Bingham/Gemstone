@@ -27,7 +27,7 @@ namespace Ruby {
 
         // One time calls
         void init(const Malachite::Matrix4f& projectionMatrix) {
-            shaders.phongShader.use();
+            shaders.shadowPhongShader.use();
             ShaderProgram::upload("projection", projectionMatrix);
 
             shaders.solidShader.use();
@@ -45,7 +45,7 @@ namespace Ruby {
 
         // Per frame calls
         void prep(const Malachite::Matrix4f& viewMatrix) {
-            shaders.phongShader.use();
+            shaders.shadowPhongShader.use();
             ShaderProgram::upload("view", viewMatrix);
 
             shaders.solidShader.use();
@@ -87,16 +87,29 @@ namespace Ruby {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
 
-        // Phong rendering
-        void normalRenderingPrep() {
-            shaders.phongShader.use();
+        // Shadow Phong rendering
+        void shadowPhongRenderingPrep() {
+            shaders.shadowPhongShader.use();
         }
 
-        void normalRender(const PhongRenderable& renderable) const {
+        void shadowPhongRender(const ShadowPhongRenderable& renderable) const {
             renderable.render();
         }
 
-        void normalRenderingEnd() const {
+        void shadowPhongRenderingEnd() const {
+
+        }
+
+        // Phong rendering TODO
+        void phongRenderingPrep() {
+            shaders.shadowPhongShader.use();
+        }
+
+        void phongRender(const ShadowPhongRenderable& renderable) const {
+            renderable.render();
+        }
+
+        void phongRenderingEnd() const {
 
         }
 
