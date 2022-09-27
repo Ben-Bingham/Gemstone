@@ -38,8 +38,10 @@ namespace Ruby {
 
             shaders.directionalDepthShader.use();
             ShaderProgram::upload("projection", projectionMatrix);
-        }
 
+            shaders.skyboxShader.use();
+            ShaderProgram::upload("projection", projectionMatrix);
+        }
 
         // Per frame calls
         void prep(const Malachite::Matrix4f& viewMatrix) {
@@ -54,6 +56,16 @@ namespace Ruby {
 
             shaders.directionalDepthShader.use();
             ShaderProgram::upload("view", viewMatrix);
+
+            Malachite::Matrix4f skyboxView = Malachite::Matrix4f{
+                Malachite::Vector4f{viewMatrix.row1.x, viewMatrix.row1.y, viewMatrix.row1.z, 0.0f},
+                Malachite::Vector4f{viewMatrix.row2.x, viewMatrix.row2.y, viewMatrix.row2.z, 0.0f},
+                Malachite::Vector4f{viewMatrix.row3.x, viewMatrix.row3.y, viewMatrix.row3.z, 0.0f},
+                Malachite::Vector4f{0.0f, 0.0f, 0.0f, 1.0f}
+            };
+
+            shaders.skyboxShader.use();
+            ShaderProgram::upload("view", skyboxView);
         }
 
         void end() {
@@ -105,6 +117,8 @@ namespace Ruby {
         void skyboxRenderingPrep() {
             shaders.skyboxShader.use();
             glDepthMask(GL_FALSE);
+            glCullFace(GL_FRONT);
+            glDepthFunc(GL_LEQUAL);
         }
 
         void skyboxRender(const Skybox& skybox) const {
@@ -112,6 +126,8 @@ namespace Ruby {
         }
         
         void skyboxRenderingEnd() const {
+            glDepthFunc(GL_LESS);
+            glCullFace(GL_BACK);
             glDepthMask(GL_TRUE);
         }
 

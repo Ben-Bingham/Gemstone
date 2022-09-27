@@ -104,12 +104,12 @@ int main() {
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
-		Ruby::Image{ "assets\\Skybox\\right.jpg" },
-		Ruby::Image{ "assets\\Skybox\\left.jpg" },
-		Ruby::Image{ "assets\\Skybox\\top.jpg" },
-		Ruby::Image{ "assets\\Skybox\\bottom.jpg" },
-		Ruby::Image{ "assets\\Skybox\\front.jpg" },
-		Ruby::Image{ "assets\\Skybox\\back.jpg" },
+		Ruby::Image{ "assets\\Skybox\\right.jpg", false },
+		Ruby::Image{ "assets\\Skybox\\left.jpg", false },
+		Ruby::Image{ "assets\\Skybox\\top.jpg", false },
+		Ruby::Image{ "assets\\Skybox\\bottom.jpg", false },
+		Ruby::Image{ "assets\\Skybox\\front.jpg", false },
+		Ruby::Image{ "assets\\Skybox\\back.jpg", false },
 
 	};
 
@@ -210,14 +210,6 @@ int main() {
 				renderer.directionalLightRenderingEnd(window.getWidth(), window.getHeight());
 			}
 
-			{ // Skybox Rendering
-				renderer.skyboxRenderingPrep();
-
-				renderer.skyboxRender(skybox);
-
-				renderer.skyboxRenderingEnd();
-			}
-
 			{ // Normal Rendering
 				renderer.normalRenderingPrep();
 
@@ -251,6 +243,14 @@ int main() {
 				renderer.solidRender(lightCube);
 
 				renderer.solidRenderingEnd();
+			}
+
+			{ // Skybox Rendering
+				renderer.skyboxRenderingPrep();
+
+				renderer.skyboxRender(skybox);
+
+				renderer.skyboxRenderingEnd();
 			}
 
 			renderer.end();
