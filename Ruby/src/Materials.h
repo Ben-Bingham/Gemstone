@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Texture.h"
+#include "OpenGl objects/Texture.h"
 
 namespace Ruby {
 	struct PhongMaterial {

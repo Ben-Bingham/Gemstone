@@ -8,7 +8,7 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "Lights.h"
-#include "Texture.h"
+#include "OpenGl objects/Texture.h"
 #include "Materials.h"
 
 #include "OpenGL objects/VertexAttributeObject.h"
