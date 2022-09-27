@@ -181,7 +181,7 @@ int main() {
 				for (Ruby::DirectionalLight* dirLight : directionalLights) {
 					dirLight->framebuffer.bind();
 					dirLight->calculateSpaceMatrix();
-					Ruby::ShaderProgram::upload("lightSpaceMatrix", dirLight->spaceMatrix);
+					Ruby::ShaderProgram::upload("lightSpaceMatrix", dirLight->spaceMatrix); // Light Specific
 
 					glViewport(0, 0, Ruby::DirectionalLight::SHADOW_WIDTH, Ruby::DirectionalLight::SHADOW_HEIGHT);
 					glClear(GL_DEPTH_BUFFER_BIT);
@@ -190,7 +190,7 @@ int main() {
 					renderer.directionalLightRender(cube1);
 					renderer.directionalLightRender(floor);
 
-					dirLight->framebuffer.unbind();
+					Ruby::Framebuffer::unbind();
 				}
 
 				renderer.directionalLightRenderingEnd(window.getWidth(), window.getHeight());

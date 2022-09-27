@@ -43,7 +43,7 @@ namespace Ruby {
 		}
 
 		void bind() const { glBindFramebuffer(GL_FRAMEBUFFER, m_FBO); }
-		void unbind() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
+		static void unbind() { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
 
 	private:
 		unsigned int m_FBO{ 0 };
