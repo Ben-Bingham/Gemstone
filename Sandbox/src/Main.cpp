@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Camera.h"
+#include "Renderable Objects/ShadowPhong/ShadowPhongCube.h"
 #include "Renderable Objects/Phong/PhongCube.h"
 #include "Renderable Objects/Solid/SolidCube.h"
 #include "Renderable Objects/Image/ImageQuad.h"
@@ -70,20 +71,18 @@ int main() {
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
 
-	//Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
+	std::vector<Ruby::PointLight*> pointLights;
+
+	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
+	pointLights.push_back(&pointLight);
+
 	std::vector<Ruby::DirectionalLight*> directionalLights;
 
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
 	directionalLights.push_back(&directionalLight);
 
-	//Ruby::DirectionalLight directionalLight1{ Malachite::Vector3f{ 0.0f, -2.0f, 0.1f } };
-	//directionalLights.push_back(&directionalLight1);
-
-	Ruby::DirectionalLight directionalLight2{ Malachite::Vector3f{ -3.0f, -3.0f, -0.5f } };
-	directionalLights.push_back(&directionalLight2);
-
-	//Ruby::DirectionalLight directionalLight3{ Malachite::Vector3f{ 1.0f, -2.0f, -4.5f } };
-	//directionalLights.push_back(&directionalLight3);
+	Ruby::DirectionalLight directionalLight1{ Malachite::Vector3f{ 0.0f, -2.0f, 0.1f } };
+	directionalLights.push_back(&directionalLight1);
 
 	// Cube setup
 	Ruby::Image containerImage{ "assets\\container2.png" };
@@ -93,12 +92,12 @@ int main() {
 	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
 
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
-	Ruby::ShadowPhongCube cube{ cubeMaterial };
+	Ruby::PhongCube cube{ cubeMaterial };
 
-	Ruby::ShadowPhongCube cube1{ cubeMaterial };
+	Ruby::PhongCube cube1{ cubeMaterial };
 	cube1.model.translate(Malachite::Vector3f{ -2.0f, -1.0f, -0.5f });
 
-	Ruby::ShadowPhongCube floor{ cubeMaterial };
+	Ruby::PhongCube floor{ cubeMaterial };
 	floor.model.translate(Malachite::Vector3f{ 0.0f, -2.0f, 0.0f });
 	floor.model.scale(Malachite::Vector3f{ 10.0f, 1.0f, 10.0f });
 
@@ -122,8 +121,8 @@ int main() {
 	Ruby::Skybox skybox{ skyboxImages };
 
 	// Shader setup
-	renderer.shaders.shadowPhongShader.use();
-	Ruby::ShaderProgram::upload("pointLights", std::vector<Ruby::PointLight*>{ }); // Shader specific
+	renderer.shaders.phongShader.use();
+	Ruby::ShaderProgram::upload("pointLights", pointLights); // Shader specific
 	Ruby::ShaderProgram::upload("directionalLights", 2, directionalLights);  // Shader specific
 
 	renderer.shaders.solidShader.use();
@@ -195,48 +194,20 @@ int main() {
 		{ // Rendering
 			renderer.prep(camera.getViewMatrix());
 
-			{ // Lighting
-				renderer.directionalLightRenderingPrep();
-				
-				for (Ruby::DirectionalLight* dirLight : directionalLights) {
-					dirLight->framebuffer.bind();
-					dirLight->calculateSpaceMatrix();
-					Ruby::ShaderProgram::upload("lightSpaceMatrix", dirLight->spaceMatrix); // Light Specific
-
-					glViewport(0, 0, Ruby::DirectionalLight::SHADOW_WIDTH, Ruby::DirectionalLight::SHADOW_HEIGHT);
-					glClear(GL_DEPTH_BUFFER_BIT);
-
-					renderer.directionalLightRender(cube);
-					renderer.directionalLightRender(cube1);
-					renderer.directionalLightRender(floor);
-
-					Ruby::Framebuffer::unbind();
-				}
-
-				renderer.directionalLightRenderingEnd(window.getWidth(), window.getHeight());
-			}
-
 			{ // Normal Rendering
-				renderer.shadowPhongRenderingPrep();
+				renderer.phongRenderingPrep();
 
 				// Cube
 				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
 
-				unsigned int i{ 0 };
-				for (Ruby::DirectionalLight* dirLight : directionalLights) {
-					Ruby::ShaderProgram::upload("directionalLights[" + std::to_string(i) + "].lightSpaceMatrix", dirLight->spaceMatrix); // Light Specific
-
-					i++;
-				}
-
 				cube.model = Malachite::Matrix4f{ 1.0f };
 				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
 
-				renderer.shadowPhongRender(cube);
-				renderer.shadowPhongRender(cube1);
-				renderer.shadowPhongRender(floor);
+				renderer.phongRender(cube);
+				renderer.phongRender(cube1);
+				renderer.phongRender(floor);
 
-				renderer.shadowPhongRenderingEnd();
+				renderer.phongRenderingEnd();
 			}
 
 			{ // Solid Rendering

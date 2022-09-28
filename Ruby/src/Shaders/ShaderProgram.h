@@ -121,8 +121,8 @@ namespace Ruby {
 			activePorgram->upload(variableName + ".diffuse", directionalLight.diffuse);
 			activePorgram->upload(variableName + ".specular", directionalLight.specular);
 			
-			activePorgram->upload(variableName + ".lightSpaceMatrix", directionalLight.spaceMatrix);
-			activePorgram->upload(variableName + ".shadowMap", unit, directionalLight.shadowMap);
+			//activePorgram->upload(variableName + ".lightSpaceMatrix", directionalLight.spaceMatrix);
+			//activePorgram->upload(variableName + ".shadowMap", unit, directionalLight.shadowMap);
 		}
 
 	private:
