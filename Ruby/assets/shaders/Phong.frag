@@ -90,7 +90,7 @@ vec3 calcPointLight(PointLight pointLight, vec3 viewDirection) {
 	return ambient + diffuse + specular;
 }
 
-vec3 calcDirectionalLight(DirectionalLight directionalLight, vec3 viewDirection, float shadow) {
+vec3 calcDirectionalLight(DirectionalLight directionalLight, vec3 viewDirection) {
 	// Ambient
 	vec3 ambient = directionalLight.ambient * texture(material.diffuse, textureCordinates).rgb;
 
@@ -105,5 +105,5 @@ vec3 calcDirectionalLight(DirectionalLight directionalLight, vec3 viewDirection,
 	vec3 specular = directionalLight.specular * (specularAmount * texture(material.specular, textureCordinates).rgb);
 
 	// Total
-	return ((1.0 - shadow) * (diffuse + specular)) + ambient;
+	return ambient + diffuse + specular;
 }

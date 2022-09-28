@@ -5,8 +5,9 @@
 #include "Log.h"
 
 #include "Renderable Objects/Renderable.h"
-#include "Renderable Objects/Phong/PhongRenderable.h"
+#include "Renderable Objects/ShadowPhong/ShadowPhongRenderable.h"
 #include "Renderable Objects/Solid/SolidRenderable.h"
+#include "Renderable Objects/Phong/PhongRenderable.h"
 
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
@@ -19,6 +20,7 @@ namespace Ruby {
             glEnable(GL_DEPTH_TEST);
 
             glEnable(GL_CULL_FACE);
+            glCullFace(GL_BACK);
             glFrontFace(GL_CW);
         }
 
@@ -40,6 +42,9 @@ namespace Ruby {
             ShaderProgram::upload("projection", projectionMatrix);
 
             shaders.skyboxShader.use();
+            ShaderProgram::upload("projection", projectionMatrix);
+
+            shaders.phongShader.use();
             ShaderProgram::upload("projection", projectionMatrix);
         }
 
@@ -66,6 +71,12 @@ namespace Ruby {
 
             shaders.skyboxShader.use();
             ShaderProgram::upload("view", skyboxView);
+
+            shaders.phongShader.use();
+            ShaderProgram::upload("view", viewMatrix);
+
+            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
 
         void end() {
@@ -100,12 +111,12 @@ namespace Ruby {
 
         }
 
-        // Phong rendering TODO
+        // Phong rendering
         void phongRenderingPrep() {
-            shaders.shadowPhongShader.use();
+            shaders.phongShader.use();
         }
 
-        void phongRender(const ShadowPhongRenderable& renderable) const {
+        void phongRender(const PhongRenderable& renderable) const {
             renderable.render();
         }
 
