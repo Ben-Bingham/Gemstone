@@ -20,11 +20,11 @@ function project_Malachite(workspaceDir)
 		objdir (workspaceDir .. "build/bin-int/%{prj.name}")
 		
 		files {
-			"Malachite/src/**.h",
-			"Malachite/src/**.cpp"
+			workspaceDir .. "Malachite/src/**.h",
+			workspaceDir .. "Malachite/src/**.cpp"
 		}
 		
 		includedirs {
-			"Malachite/src"
+			workspaceDir .. "Malachite/src"
 		}
 end

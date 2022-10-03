@@ -20,11 +20,11 @@ function project_Lazuli(workspaceDir)
 		objdir (workspaceDir .. "build/bin-int/%{prj.name}")
 		
 		files {
-			"Lazuli/src/**.h",
-			"Lazuli/src/**.cpp"
+			workspaceDir .. "Lazuli/src/**.h",
+			workspaceDir .. "Lazuli/src/**.cpp"
 		}
 		
 		includedirs {
-			"Lazuli/src"
+			workspaceDir .. "Lazuli/src"
 		}
 end

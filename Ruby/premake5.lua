@@ -16,16 +16,16 @@ function project_Ruby(workspaceDir)
 
 		filter {}
 
-		targetdir ("%{wks.location}/build/bin/%{prj.name}")
-		objdir ("%{wks.location}/build/bin-int/%{prj.name}")
+		targetdir (workspaceDir .. "build/bin/%{prj.name}")
+		objdir (workspaceDir .. "build/bin-int/%{prj.name}")
 
 		files {
-			"Ruby/src/**.h",
-			"Ruby/src/**.cpp"
+			workspaceDir .. "Ruby/src/**.h",
+			workspaceDir .. "Ruby/src/**.cpp"
 		}
 
 		includedirs {
-			"Ruby/src",
+			workspaceDir .. "Ruby/src",
 			-- Vendor
 			workspaceDir .. "vendor/GLFW/include",
 			workspaceDir .. "vendor/glew-2.1.0/include",
