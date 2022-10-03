@@ -33,6 +33,8 @@ workspace "Gemstone"
 
 	filter {}
 
+	defines { "RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" }
+
 	group "Dependencies"
 		project_Lazuli("")
 		project_Malachite("")

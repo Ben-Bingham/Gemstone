@@ -6,12 +6,12 @@ namespace Ruby {
 	class ShaderLibrary {
 	public:
 		ShaderLibrary()
-			: shadowPhongShader(shaderInit("..\\Ruby\\assets\\shaders\\ShadowPhong.vert", "..\\Ruby\\assets\\shaders\\ShadowPhong.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 })),
-			  solidShader(shaderInit("..\\Ruby\\assets\\shaders\\Solid.vert", "..\\Ruby\\assets\\shaders\\Solid.frag", std::vector<Ruby::Attribute>{ 3 })),
-			  directionalDepthShader(shaderInit("..\\Ruby\\assets\\shaders\\DirectionalDepth.vert", "..\\Ruby\\assets\\shaders\\DirectionalDepth.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 })),
-			  imageShader(shaderInit("..\\Ruby\\assets\\shaders\\Image.vert", "..\\Ruby\\assets\\shaders\\Image.frag", std::vector<Ruby::Attribute>{ 3, 2 })),
-			  skyboxShader(shaderInit("..\\Ruby\\assets\\shaders\\Skybox.vert", "..\\Ruby\\assets\\shaders\\Skybox.frag", std::vector<Ruby::Attribute>{ 3 })),
-			  phongShader(shaderInit("..\\Ruby\\assets\\shaders\\Phong.vert", "..\\Ruby\\assets\\shaders\\Phong.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 }))
+			: shadowPhongShader(shaderInit(std::string(RUBY_ASSETS) + "\\shaders\\ShadowPhong.vert", std::string(RUBY_ASSETS) + "\\shaders\\ShadowPhong.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 })),
+			  solidShader(shaderInit(std::string(RUBY_ASSETS) + "\\shaders\\Solid.vert", std::string(RUBY_ASSETS) + "\\shaders\\Solid.frag", std::vector<Ruby::Attribute>{ 3 })),
+			  directionalDepthShader(shaderInit(std::string(RUBY_ASSETS) + "\\shaders\\DirectionalDepth.vert", std::string(RUBY_ASSETS) + "\\shaders\\DirectionalDepth.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 })),
+			  imageShader(shaderInit(std::string(RUBY_ASSETS) + "\\shaders\\Image.vert", std::string(RUBY_ASSETS) + "\\shaders\\Image.frag", std::vector<Ruby::Attribute>{ 3, 2 })),
+			  skyboxShader(shaderInit(std::string(RUBY_ASSETS) + "\\shaders\\Skybox.vert", std::string(RUBY_ASSETS) + "\\shaders\\Skybox.frag", std::vector<Ruby::Attribute>{ 3 })),
+			  phongShader(shaderInit(std::string(RUBY_ASSETS) + "\\shaders\\Phong.vert", std::string(RUBY_ASSETS) + "\\shaders\\Phong.frag", std::vector<Ruby::Attribute>{ 3, 3, 2 }))
 		{}
 
 		ShaderProgram shadowPhongShader;
