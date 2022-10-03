@@ -1,4 +1,4 @@
-function project_Lazuli()
+function project_Lazuli(workspaceDir)
 	project "Lazuli"
 		kind "StaticLib"
 		location "Lazuli"
@@ -16,8 +16,8 @@ function project_Lazuli()
 		
 		filter {}
 		
-		targetdir ("%{wks.location}/build/bin/%{prj.name}")
-		objdir ("%{wks.location}/build/bin-int/%{prj.name}")
+		targetdir (workspaceDir .. "build/bin/%{prj.name}")
+		objdir (workspaceDir .. "build/bin-int/%{prj.name}")
 		
 		files {
 			"Lazuli/src/**.h",

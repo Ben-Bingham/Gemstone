@@ -1,27 +1,30 @@
-project "Malachite"
-	kind "StaticLib"
-	language "C++"
-	
-	cppdialect "C++17"
-	
-	filter "configurations:Debug"
-		defines { "DEBUG", "GLEW_STATIC", "MALACHITE_DEBUG"}
-		symbols "On"
+function project_Malachite(workspaceDir)
+	project "Malachite"
+		kind "StaticLib"
+		location "Malachite"
+		language "C++"
 		
-	filter "configurations:Release"
-		defines { "NDEBUG", "GLEW_STATIC", "MALACHITE_RELEASE" }
-		optimize "On"
-	
-	filter {}
-	
-	targetdir ("%{wks.location}/build/bin/%{prj.name}")
-	objdir ("%{wks.location}/build/bin-int/%{prj.name}")
-	
-	files {
-		"src/**.h",
-		"src/**.cpp"
-	}
-	
-	includedirs {
-		"src"
-	}
+		cppdialect "C++17"
+		
+		filter "configurations:Debug"
+			defines { "DEBUG", "GLEW_STATIC", "MALACHITE_DEBUG"}
+			symbols "On"
+			
+		filter "configurations:Release"
+			defines { "NDEBUG", "GLEW_STATIC", "MALACHITE_RELEASE" }
+			optimize "On"
+		
+		filter {}
+		
+		targetdir (workspaceDir .. "build/bin/%{prj.name}")
+		objdir (workspaceDir .. "build/bin-int/%{prj.name}")
+		
+		files {
+			"Malachite/src/**.h",
+			"Malachite/src/**.cpp"
+		}
+		
+		includedirs {
+			"Malachite/src"
+		}
+end

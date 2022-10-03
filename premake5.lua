@@ -1,4 +1,5 @@
 require "Lazuli/premake5"
+require "Malachite/premake5"
 
 workspace "Gemstone"
 	configurations {"Debug", "Release"}
@@ -27,17 +28,15 @@ workspace "Gemstone"
 		}
 		optimize "On"
 
-
 	filter {}
 
 	group "Dependencies"
-		include "Malachite"
-		--include "Lazuli"
+		project_Lazuli("")
+		project_Malachite("")
+		--include "Malachite"
 		include "Ruby"
 		--include "Pyrite"
 		--include "Emerald"
 		include "Sandbox"
-		project_Lazuli()
-
 
 	group ""
