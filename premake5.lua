@@ -1,3 +1,5 @@
+require "Lazuli/premake5"
+
 workspace "Gemstone"
 	configurations {"Debug", "Release"}
 	platforms {"x64"}
@@ -30,10 +32,12 @@ workspace "Gemstone"
 
 	group "Dependencies"
 		include "Malachite"
-		include "Lazuli"
+		--include "Lazuli"
 		include "Ruby"
 		--include "Pyrite"
 		--include "Emerald"
 		include "Sandbox"
+		project_Lazuli()
+
 
 	group ""
