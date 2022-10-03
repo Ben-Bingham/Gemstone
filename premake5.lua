@@ -1,9 +1,10 @@
 require "Lazuli/premake5"
 require "Malachite/premake5"
+require "Ruby/premake5"
 
 workspace "Gemstone"
-	configurations {"Debug", "Release"}
-	platforms {"x64"}
+	configurations { "Debug", "Release" }
+	platforms { "x64" }
 
 	startproject "Sandbox"
 
@@ -17,8 +18,9 @@ workspace "Gemstone"
 			"RUBY_DEBUG",
 			"GLEW_STATIC"
 		}
+
 		symbols "On"
-		
+
 	filter "configurations:Release"
 		defines { 
 			"MALACHITE_RELEASE",
@@ -26,6 +28,7 @@ workspace "Gemstone"
 			"RUBY_RELEASE",
 			"GLEW_STATIC"
 		}
+
 		optimize "On"
 
 	filter {}
@@ -33,8 +36,7 @@ workspace "Gemstone"
 	group "Dependencies"
 		project_Lazuli("")
 		project_Malachite("")
-		--include "Malachite"
-		include "Ruby"
+		project_Ruby("")
 		--include "Pyrite"
 		--include "Emerald"
 		include "Sandbox"
