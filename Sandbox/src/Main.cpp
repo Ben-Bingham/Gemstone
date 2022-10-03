@@ -6,11 +6,9 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Camera.h"
-//#include "Renderable Objects/ShadowPhong/ShadowPhongCube.h"
 #include "Renderable Objects/Solid/SolidCube.h"
 #include "Renderable Objects/Image/ImageQuad.h"
 #include "Renderable Objects/Phong/PhongCube.h"
-
 #include "OpenGL objects/Framebuffer.h"
 #include "Renderable Objects/Skybox.h"
 
