@@ -1,7 +1,7 @@
 function project_Ruby(workspaceDir)
 	project "Ruby"
 		kind "StaticLib"
-		location "Ruby"
+		location(workspaceDir .."Ruby")
 		language "C++"
 
 		cppdialect "C++17"

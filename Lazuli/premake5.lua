@@ -1,7 +1,7 @@
 function project_Lazuli(workspaceDir)
 	project "Lazuli"
 		kind "StaticLib"
-		location "Lazuli"
+		location(workspaceDir .. "Lazuli")
 		language "C++"
 		
 		cppdialect "C++17"

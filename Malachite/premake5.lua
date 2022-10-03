@@ -1,7 +1,7 @@
 function project_Malachite(workspaceDir)
 	project "Malachite"
 		kind "StaticLib"
-		location "Malachite"
+		location(workspaceDir .."Malachite")
 		language "C++"
 		
 		cppdialect "C++17"

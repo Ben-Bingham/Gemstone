@@ -6,8 +6,8 @@
 namespace Ruby {
 	class Camera {
 	public:
-		Camera(Malachite::Vector3f position = Malachite::Vector3f(0.0f, 0.0f, 0.0f), float fov = 45.0f)
-			: front(Malachite::Vector3f(0.0f, 0.0f, -1.0f)), m_FOV(fov) {
+		Camera(Malachite::Vector3f pos = Malachite::Vector3f(0.0f, 0.0f, 0.0f), float fov = 45.0f)
+			: front(Malachite::Vector3f(0.0f, 0.0f, -1.0f)), m_FOV(fov), position(pos) {
 
 			updateCameraVectors();
 		}
