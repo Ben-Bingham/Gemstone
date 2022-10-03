@@ -6,10 +6,10 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Camera.h"
-#include "Renderable Objects/ShadowPhong/ShadowPhongCube.h"
-#include "Renderable Objects/Phong/PhongCube.h"
+//#include "Renderable Objects/ShadowPhong/ShadowPhongCube.h"
 #include "Renderable Objects/Solid/SolidCube.h"
 #include "Renderable Objects/Image/ImageQuad.h"
+#include "Renderable Objects/Phong/PhongCube.h"
 
 #include "OpenGL objects/Framebuffer.h"
 #include "Renderable Objects/Skybox.h"
@@ -81,9 +81,6 @@ int main() {
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
 	directionalLights.push_back(&directionalLight);
 
-	Ruby::DirectionalLight directionalLight1{ Malachite::Vector3f{ 0.0f, -2.0f, 0.1f } };
-	directionalLights.push_back(&directionalLight1);
-
 	// Cube setup
 	Ruby::Image containerImage{ "assets\\container2.png" };
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
@@ -125,9 +122,7 @@ int main() {
 	Ruby::ShaderProgram::upload("pointLights", pointLights); // Shader specific
 	Ruby::ShaderProgram::upload("directionalLights", 2, directionalLights);  // Shader specific
 
-	renderer.shaders.solidShader.use();
-
-	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODo
+	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
 	// Renderer setup
 	renderer.init(window.getProjectionMatrix());

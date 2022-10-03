@@ -151,7 +151,9 @@ void main() {
 		result += calcDirectionalLight(directionalLights[i], viewDirection, shadow);
 	}
 
-	FragColor = vec4(result, 1.0);
+	//FragColor = vec4(result, 1.0);
+	FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+
 }
 
 vec3 calcPointLight(PointLight pointLight, vec3 viewDirection) {
