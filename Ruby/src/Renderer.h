@@ -19,7 +19,7 @@ namespace Ruby {
 		Renderer() {
             glEnable(GL_DEPTH_TEST);
 
-            glEnable(GL_CULL_FACE);
+            //glEnable(GL_CULL_FACE);
             glCullFace(GL_BACK);
             glFrontFace(GL_CW);
         }
@@ -27,8 +27,17 @@ namespace Ruby {
         Renderer(Renderer&) = delete;
         Renderer& operator=(Renderer&) = delete;
 
+        void addShader(ShaderProgram& program) {
+            customPrograms.push_back(&program);
+        }
+
         // One time calls
         void init(const Malachite::Matrix4f& projectionMatrix) {
+            for (ShaderProgram* program : customPrograms) {
+                program->use();
+                ShaderProgram::upload("projection", projectionMatrix);
+            }
+
             shaders.shadowPhongShader.use();
             ShaderProgram::upload("projection", projectionMatrix);
 
@@ -50,6 +59,11 @@ namespace Ruby {
 
         // Per frame calls
         void prep(const Malachite::Matrix4f& viewMatrix) {
+            for (ShaderProgram* program : customPrograms) {
+                program->use();
+                ShaderProgram::upload("view", viewMatrix);
+            }
+
             shaders.shadowPhongShader.use();
             ShaderProgram::upload("view", viewMatrix);
 
@@ -156,5 +170,8 @@ namespace Ruby {
         }
 
         ShaderLibrary shaders{ };
+
+    private:
+        std::vector<ShaderProgram*> customPrograms{};
 	};
 }
