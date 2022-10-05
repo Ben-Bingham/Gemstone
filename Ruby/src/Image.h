@@ -42,6 +42,10 @@ namespace Ruby {
 			}
 		}
 
+		Image(std::vector<unsigned char>& content, unsigned int width, unsigned int height, unsigned int channels)
+			: m_Path(""), m_Content(content), m_Width(width), m_Height(height), m_Channels(channels) {
+		}
+
 		std::vector<unsigned char> getContent() const { return m_Content; }
 		int getWidth() const { return m_Width; }
 		int getHeight() const { return m_Height; }
