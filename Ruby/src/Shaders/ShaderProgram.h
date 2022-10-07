@@ -5,6 +5,7 @@
 
 #include "VertexShader.h"
 #include "FragmentShader.h"
+#include "GeometryShader.h"
 #include "Vector.h"
 #include "Matrix.h"
 #include "Lights.h"
@@ -18,6 +19,7 @@ namespace Ruby {
 	class ShaderProgram {
 	public:
 		ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes);
+		ShaderProgram(const VertexShader& vertexShader, const GeometryShader& geometryShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes);
 		~ShaderProgram() { glDeleteProgram(m_Program); }
 		ShaderProgram(ShaderProgram&) = delete;
 		ShaderProgram& operator=(ShaderProgram&) = delete;
