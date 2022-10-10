@@ -8,26 +8,21 @@
 namespace Ruby {
 	class BufferTexture {
 	public:
-		BufferTexture(VertexBufferObject& bufferObject, GLenum dataFormat)
-			: m_BufferObject(&bufferObject) {
-			glGenTextures(1, &m_Texture);
+		BufferTexture() { glGenTextures(1, &m_Texture); }
 
-			bind();
-
+		void setData(VertexBufferObject& bufferObject, GLenum dataFormat) {
 			glTexBuffer(GL_TEXTURE_BUFFER, dataFormat, bufferObject.getVBO());
 		}
 
 		BufferTexture(BufferTexture&) = delete;
 		BufferTexture& operator=(BufferTexture&) = delete;
 		BufferTexture(BufferTexture&& other) noexcept
-			: m_Texture(std::move(other.m_Texture)),
-			m_BufferObject(std::move(other.m_BufferObject)) {
+			: m_Texture(std::move(other.m_Texture)) {
 			other.m_Texture = 0;
 		}
 
 		BufferTexture& operator=(BufferTexture&& other) noexcept {
 			m_Texture = std::move(other.m_Texture);
-			m_BufferObject = std::move(other.m_BufferObject);
 			return *this;
 		}
 
@@ -40,6 +35,5 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Texture;
-		VertexBufferObject* m_BufferObject;
 	};
 }
