@@ -1,5 +1,5 @@
 #include "Image.h"
 
 namespace Ruby {
-	 const Image Image::noImage{ "..\\Ruby\\assets\\images\\noTexture.png" };
+	 const Image Image::noImage{ std::string(RUBY_ASSETS) + "\\images\\noTexture.png" };
 }
