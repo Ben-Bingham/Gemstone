@@ -60,6 +60,23 @@ namespace Ruby {
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 
+		void setSubData(unsigned int posX, unsigned int posY, Image& image) {
+			GLenum imageFormat;
+			if (image.getChannels() == 3) {
+				imageFormat = GL_RGB;
+			}
+			else if (image.getChannels() == 4) {
+				imageFormat = GL_RGBA;
+			}
+			else {
+				LOG("Unrecognized number of channels", Lazuli::LogLevel::ERROR);
+				imageFormat = GL_RGB;
+			}
+
+			bind();
+			glTexSubImage2D(GL_TEXTURE_2D, 0, posX, posY, image.getWidth(), image.getHeight(), imageFormat, GL_UNSIGNED_BYTE, &image.getContent()[0]);
+		}
+
 		Texture(Texture&) = delete;
 		Texture& operator=(Texture&) = delete;
 		Texture(Texture&& other) noexcept
