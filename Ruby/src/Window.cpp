@@ -3,8 +3,8 @@
 #include "Log.h"
 
 namespace Ruby {
-	Window::Window(unsigned int width, unsigned int height, std::string name) 
-		: m_ProjectionMatrix{Malachite::perspective(45.0f, (float)((float)width / (float)height), 0.1f, 100.0f)}
+	Window::Window(unsigned int width, unsigned int height, std::string name, float zFar) 
+		: m_ProjectionMatrix{Malachite::perspective(45.0f, (float)((float)width / (float)height), 0.1f, zFar)}
 		, m_Width(width)
 		, m_Height(height) {
 		if (!glfwInit()) {
