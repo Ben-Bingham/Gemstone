@@ -88,6 +88,10 @@ namespace Malachite {
 			*this *= (1 / length());
 			return *this;
 		}
+
+		std::string toString() {
+			return std::string{ "X: " + std::to_string(x) + ", Y: " + std::to_string(y) };
+		}
 	};
 
 	// <<
