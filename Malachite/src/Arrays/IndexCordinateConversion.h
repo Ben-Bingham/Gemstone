@@ -10,6 +10,6 @@ namespace Malachite {
 
 	template<typename T>
 	inline Vector2<T> indexToTwoD(unsigned int index, T width) {
-		return Vector2<T>{ index% width, index / width };
+		return Vector2<T>{ index % width, index / width };
 	}
 }
