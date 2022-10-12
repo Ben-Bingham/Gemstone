@@ -12,6 +12,8 @@
 #include "OpenGL objects/Framebuffer.h"
 #include "Renderable Objects/Skybox.h"
 
+#include "PhysicsObject.h"
+
 Ruby::Camera camera{ };
 struct FPSController {
 	bool firstMouse = true;
@@ -58,7 +60,9 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 }
 
 int main() {
-	Ruby::Window window{ };
+	auto mass = 4_b;
+
+	Ruby::Window window{ 640 * 2, 480 * 2 };
 	Ruby::Mouse* mouse = &window.ioManger.mouse;
 	Ruby::Keyboard* keyboard = &window.ioManger.keyboard;
 

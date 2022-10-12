@@ -1,6 +1,7 @@
 require "Lazuli/premake5"
 require "Malachite/premake5"
 require "Ruby/premake5"
+require "Pyrite/premake5"
 
 workspace "Gemstone"
 	configurations { "Debug", "Release" }
@@ -39,8 +40,8 @@ workspace "Gemstone"
 		project_Lazuli("")
 		project_Malachite("")
 		project_Ruby("")
-		--include "Pyrite"
-		--include "Emerald"
+		project_Pyrite("")
+		--project_Emerald("")
 		include "Sandbox"
 
 	group ""

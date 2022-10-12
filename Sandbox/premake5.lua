@@ -21,6 +21,7 @@ project "Sandbox"
 		-- Dependencies
 		"%{wks.location}/Malachite/src",
 		"%{wks.location}/Ruby/src",
+		"%{wks.location}/Pyrite/src",
 		"%{wks.location}/Lazuli/src"
 	}
 
@@ -37,5 +38,6 @@ project "Sandbox"
 		-- Dependencies
 		"Malachite",
 		"Ruby",
+		"Pyrite",
 		"Lazuli"
 	}
