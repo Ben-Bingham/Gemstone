@@ -21,12 +21,18 @@ namespace Ruby {
 
 		~VertexBufferObject() { glDeleteBuffers(1, &m_VBO); }
 
-		void setData(const std::vector<float>& vertices) {
-			glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
+		template<typename T>
+		void setData(const std::vector<T>& vertices, int usage = GL_STATIC_DRAW) {
+			glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], usage);
 		}
 
-		void setData(const std::vector<unsigned int>& vertices) {
-			glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
+		void setNoData(unsigned int size, int usage = GL_STATIC_DRAW) {
+			glBufferData(GL_ARRAY_BUFFER, size, NULL, usage);
+		}
+
+		template<typename T>
+		void setPartialData(const std::vector<T>& vertices, int offset) {
+			glBufferSubData(GL_ARRAY_BUFFER, offset, vertices.size() * sizeof(vertices[0]), &vertices[0]);
 		}
 
 		void bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_VBO); }
