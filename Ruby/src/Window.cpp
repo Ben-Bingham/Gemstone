@@ -11,6 +11,10 @@ namespace Ruby {
 			LOG("GLFW failed to initialize.", Lazuli::LogLevel::TERMINAL);
 		}
 
+#ifdef RUBY_DEBUG
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+#endif // RUBY_DEBUG
+
 		m_Window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
 
 		if (!m_Window) {
