@@ -59,8 +59,28 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 	camera.updateCameraVectors();
 }
 
+
+namespace X {
+	inline namespace literals {
+		void operator ""_test(unsigned long long x) {
+			std::cout << x;
+		}
+	}
+}
+
 int main() {
-	auto mass = 4_b;
+	{
+		using namespace X::literals;
+		10_test;
+	}
+	{
+		using X::operator""_test;
+		10_test;
+	}
+
+	using namespace Pyrite::Literals;
+
+	long double mass = 4_b;
 
 	Ruby::Window window{ 640 * 2, 480 * 2 };
 	Ruby::Mouse* mouse = &window.ioManger.mouse;
