@@ -7,7 +7,7 @@
 #include "Input/IOManager.h"
 #include "Matrix.h"
 
-namespace Ruby {
+namespace Wavellite {
 	class Window {
 	public:
 		Window(unsigned int width = 640, unsigned int height = 480, std::string name = "Window", float zFar = 100.0f);

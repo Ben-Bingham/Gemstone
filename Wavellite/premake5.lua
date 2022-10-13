@@ -1,17 +1,17 @@
-function project_Ruby(workspaceDir)
-	project "Ruby"
+function project_Wavellite(workspaceDir)
+	project "Wavellite"
 		kind "StaticLib"
-		location(workspaceDir .."Ruby")
+		location(workspaceDir .."Wavellite")
 		language "C++"
 
 		cppdialect "C++17"
 
 		filter "configurations:Debug"
-			defines { "DEBUG", "GLEW_STATIC", "RUBY_DEBUG"}
+			defines { "DEBUG", "GLEW_STATIC", "WAVELLITE_DEBUG"}
 			symbols "On"
 		
 		filter "configurations:Release"
-			defines { "NDEBUG", "GLEW_STATIC", "RUBY_RELEASE" }
+			defines { "NDEBUG", "GLEW_STATIC", "WAVELLITE_RELEASE" }
 			optimize "On"
 
 		filter {}
@@ -20,20 +20,19 @@ function project_Ruby(workspaceDir)
 		objdir (workspaceDir .. "build/bin-int/%{prj.name}")
 
 		files {
-			workspaceDir .. "Ruby/src/**.h",
-			workspaceDir .. "Ruby/src/**.cpp"
+			workspaceDir .. "Wavellite/src/**.h",
+			workspaceDir .. "Wavellite/src/**.cpp"
 		}
 
 		includedirs {
-			workspaceDir .. "Ruby/src",
+			workspaceDir .. "Wavellite/src",
 			-- Vendor
 			workspaceDir .. "vendor/GLFW/include",
 			workspaceDir .. "vendor/glew-2.1.0/include",
 			workspaceDir .. "vendor/stb_image",
 			-- Dependencies
-			workspaceDir .. "Malachite/src",
 			workspaceDir .. "Lazuli/src",
-			workspaceDir .. "Wavellite/src",
+			workspaceDir .. "Malachite/src"
 		}
 
 		libdirs {
@@ -47,8 +46,7 @@ function project_Ruby(workspaceDir)
 			"glew32s",
 			"opengl32",
 			-- Dependencies
-			"Malachite",
 			"Lazuli",
-			"Wavellite"
+			"Malachite"
 		}
 end

@@ -1,7 +1,8 @@
 require "Lazuli/premake5"
 require "Malachite/premake5"
-require "Ruby/premake5"
 require "Pyrite/premake5"
+require "Wavellite/premake5"
+require "Ruby/premake5"
 
 workspace "Gemstone"
 	configurations { "Debug", "Release" }
@@ -17,7 +18,8 @@ workspace "Gemstone"
 			"MALACHITE_DEBUG",
 			"LAZULI_DEBUG",
 			"RUBY_DEBUG",
-			"GLEW_STATIC"
+			"GLEW_STATIC",
+			"WAVELLITE_DEBUG"
 		}
 
 		symbols "On"
@@ -27,7 +29,8 @@ workspace "Gemstone"
 			"MALACHITE_RELEASE",
 			"LAZULI_RELEASE",
 			"RUBY_RELEASE",
-			"GLEW_STATIC"
+			"GLEW_STATIC",
+			"WAVELLITE_RELEASE"
 		}
 
 		optimize "On"
@@ -38,9 +41,11 @@ workspace "Gemstone"
 
 	group "Dependencies"
 		project_Lazuli("")
+		-- project_Ulexite("")
 		project_Malachite("")
-		project_Ruby("")
 		project_Pyrite("")
+		project_Wavellite("")
+		project_Ruby("")
 		--project_Emerald("")
 		include "Sandbox"
 

@@ -3,7 +3,7 @@
 #include "Mouse.h"
 #include "Keyboard.h"
 
-namespace Ruby {
+namespace Wavellite {
 	class IOManager {
 	public:
 		IOManager() {}

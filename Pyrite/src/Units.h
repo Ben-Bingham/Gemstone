@@ -1,11 +1,20 @@
 #pragma once
 
+#include "Vector.h"
+
 namespace Pyrite {
 	using Kilogram = float;
 	using Meter = float;
+	using Position3D = Malachite::Vector3<Meter>;
 	using Second = float;
 	using GravitationalField = float;
 	using Newton = float;
+	using Newton3D = Malachite::Vector3<Newton>;
+	using Speed = float;
+	using Velocity = Malachite::Vector3<Speed>;
+	using Displacement = Malachite::Vector3<Meter>;
+	using Acceleration = float;
+	using Acceleration3D = Malachite::Vector3<Acceleration>;
 
 	namespace Literals {
 		// Mass

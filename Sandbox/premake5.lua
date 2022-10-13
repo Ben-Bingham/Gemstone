@@ -22,7 +22,8 @@ project "Sandbox"
 		"%{wks.location}/Malachite/src",
 		"%{wks.location}/Ruby/src",
 		"%{wks.location}/Pyrite/src",
-		"%{wks.location}/Lazuli/src"
+		"%{wks.location}/Lazuli/src",
+		"%{wks.location}/Wavellite/src"
 	}
 
 	libdirs {
@@ -39,5 +40,6 @@ project "Sandbox"
 		"Malachite",
 		"Ruby",
 		"Pyrite",
-		"Lazuli"
+		"Lazuli",
+		"Wavellite"
 	}

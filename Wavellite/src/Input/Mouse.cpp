@@ -1,14 +1,7 @@
 #include "Mouse.h"
 #include "IOManager.h"
 
-namespace Ruby {
-	//void Mouse::StartUp() {
-	//	gWindow.setMouseButtonCallback(mouseButtonCallback);
-	//	gWindow.setMousePositionCallback(mousePositionCallback);
-	//	gWindow.setScrollWheelCallback(mouseScrolWheelCallback);
-	//	gWindow.setCursorEntersCallback(cursorEnterCallback);
-	//}
-
+namespace Wavellite {
 	void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
 

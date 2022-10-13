@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-namespace Ruby {
+namespace Wavellite {
 	enum KeyState {
 		KEY_RELEASED = 0,
 		KEY_PRESSED = 1,

@@ -13,6 +13,8 @@
 #include "Renderable Objects/Skybox.h"
 
 #include "Units.h"
+#include "Gravitation/GravitationalPhysicsObject.h"
+#include "Timeing.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -62,9 +64,9 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Ruby::Window window{ 640, 480 };
-	Ruby::Mouse* mouse = &window.ioManger.mouse;
-	Ruby::Keyboard* keyboard = &window.ioManger.keyboard;
+	Wavellite::Window window{ 640, 480 };
+	Wavellite::Mouse* mouse = &window.ioManger.mouse;
+	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
 	mouse->addMousePositionCallback(mousePositionCallback, (void*)&fpsController);
 	window.disableCursor();
@@ -115,6 +117,15 @@ int main() {
 
 	// Renderer setup
 	renderer.init(window.getProjectionMatrix());
+
+
+	// Physics
+	using namespace Pyrite::Literals;
+
+	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg };
+	Pyrite::GravitationalPhysicsObject obj2{ 10.0_m, 10.0_kg };
+
+	Wavellite::Time time{ };
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -205,5 +216,6 @@ int main() {
 		}
 
 		window.swapBuffers();
+		time.endFrame();
 	}
 }

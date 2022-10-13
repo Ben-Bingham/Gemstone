@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 
-namespace Ruby {
+namespace Wavellite {
 	enum MouseButtonState {
 		BUTTON_RELEASED = 0,
 		BUTTON_PRESSED = 1

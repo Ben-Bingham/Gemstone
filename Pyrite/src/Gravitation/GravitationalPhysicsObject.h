@@ -1,14 +1,19 @@
 #pragma once
 
-#include "PhysicsObject3D.h"
+#include <vector>
+
+#include "PhysicsObject.h"
+#include "Powers.h"
 
 namespace Pyrite {
 	const float gravitationalConstant = ee(6.67430, -11);
 
-	class GravitationalPhysicsObject : public PhysicsObject3D {
+	using namespace Literals;
+
+	class GravitationalPhysicsObject : public PhysicsObject {
 	public:
 		GravitationalPhysicsObject(Meter Radius, Kilogram Mass, Position3D Pos = Position3D{ 0.0_m })
-			: PhysicsObject3D(Mass, Pos), radius(Radius) {
+			: PhysicsObject(Mass, Pos), radius(Radius) {
 
 		}
 
@@ -17,9 +22,29 @@ namespace Pyrite {
 			return (GravitationalField)(gravitationalConstant * mass) / (distance * distance);
 		}
 
-		Newton getGravitationalForce(const GravitationalPhysicsObject& obj, Meter distanceBetweenSurfaces) const {
-			Meter distanceBetween = radius + distanceBetweenSurfaces + obj.radius;
+		Newton getGravitationalForce(const GravitationalPhysicsObject& obj) const {
+			Displacement displacementBetween = position - obj.position;
+			Meter distanceBetween = displacementBetween.length();
 			return (Newton)(gravitationalConstant * mass * obj.mass) / (distanceBetween * distanceBetween);
+		}
+
+		void calcNetForce(std::vector<GravitationalPhysicsObject*> interactingObjects) {
+			netForce = Newton3D{ 0.0_N };
+			for (GravitationalPhysicsObject* obj : interactingObjects) {
+				netForce += getGravitationalForce(*obj);
+			}
+		}
+
+		void calcPosition(std::vector<GravitationalPhysicsObject*> interactingObjects, Second timeSinceLastMovement) {
+			calcNetForce(interactingObjects);
+			
+			Velocity initialVelocity = velocity;
+			Acceleration3D acceleration = (netForce / mass);
+			velocity = acceleration * timeSinceLastMovement + initialVelocity;
+
+			Displacement displacement = ((initialVelocity) * (initialVelocity - velocity * velocity)) / 2.0f * acceleration;
+
+			position += displacement;
 		}
 
 	private:

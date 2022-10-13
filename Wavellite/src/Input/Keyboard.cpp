@@ -1,7 +1,7 @@
 #include "Keyboard.h"
 #include "IOManager.h"
 
-namespace Ruby {
+namespace Wavellite {
 	KeyState GLFWToState(int action) {
 		switch (action) {
 		default:
