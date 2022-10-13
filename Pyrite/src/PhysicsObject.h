@@ -1,19 +1,16 @@
 #pragma once
 
-
+#include "Units.h"
 
 namespace Pyrite {
-	namespace Literals {
-		inline long double operator""_b(long double x) { return x; }
-	}
+	class PhysicsObject {
+	public:
+		PhysicsObject(Kilogram Mass) 
+			: mass(Mass) {
 
-	long double mass = 4.0_b;
+		}
 
-
-	using Kilogram = float;
-	//inline Kilogram operator "" kg(long double) {}
-
-
-	using Meter = float;
-	using Second = float;
+	protected:
+		Kilogram mass;
+	};
 }

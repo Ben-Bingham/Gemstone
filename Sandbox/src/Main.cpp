@@ -12,7 +12,7 @@
 #include "OpenGL objects/Framebuffer.h"
 #include "Renderable Objects/Skybox.h"
 
-#include "PhysicsObject.h"
+#include "Units.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -59,30 +59,10 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 	camera.updateCameraVectors();
 }
 
-
-namespace X {
-	inline namespace literals {
-		void operator ""_test(unsigned long long x) {
-			std::cout << x;
-		}
-	}
-}
+using namespace Pyrite::Literals;
 
 int main() {
-	{
-		using namespace X::literals;
-		10_test;
-	}
-	{
-		using X::operator""_test;
-		10_test;
-	}
-
-	using namespace Pyrite::Literals;
-
-	long double mass = 4_b;
-
-	Ruby::Window window{ 640 * 2, 480 * 2 };
+	Ruby::Window window{ 640, 480 };
 	Ruby::Mouse* mouse = &window.ioManger.mouse;
 	Ruby::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -112,19 +92,6 @@ int main() {
 
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
 	Ruby::PhongCube cube{ cubeMaterial };
-
-	Ruby::PhongCube cube1{ cubeMaterial };
-	cube1.model.translate(Malachite::Vector3f{ -2.0f, -1.0f, -0.5f });
-
-	Ruby::PhongCube floor{ cubeMaterial };
-	floor.model.translate(Malachite::Vector3f{ 0.0f, -2.0f, 0.0f });
-	floor.model.scale(Malachite::Vector3f{ 10.0f, 1.0f, 10.0f });
-
-	// LightCube setup
-	Ruby::SolidMaterial lightMaterial{ Malachite::Vector3f(1.0f) };
-
-	Ruby::SolidCube lightCube{ lightMaterial };
-	lightCube.model.scale(0.2f);
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
@@ -208,6 +175,10 @@ int main() {
 			directionalLight.position += Malachite::Vector3f{ 0, -1 * spd, 0 };
 		}
 
+		{ // Physics
+
+		}
+
 		{ // Rendering
 			renderer.prep(camera.getViewMatrix());
 
@@ -217,26 +188,9 @@ int main() {
 				// Cube
 				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
 
-				cube.model = Malachite::Matrix4f{ 1.0f };
-				cube.model.rotate(Malachite::degreesToRadians(90.0f), Malachite::Vector3f((float)sin(glfwGetTime()), 1.0f, 0.0f));
-
 				renderer.phongRender(cube);
-				renderer.phongRender(cube1);
-				renderer.phongRender(floor);
 
 				renderer.phongRenderingEnd();
-			}
-
-			{ // Solid Rendering
-				renderer.solidRenderingPrep();
-
-				lightCube.model = Malachite::Matrix4f{ 1.0f };
-				lightCube.model.translate(directionalLight.position);
-				lightCube.model.scale(0.2f);
-
-				renderer.solidRender(lightCube);
-
-				renderer.solidRenderingEnd();
 			}
 
 			{ // Skybox Rendering
