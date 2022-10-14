@@ -12,8 +12,8 @@ namespace Pyrite {
 
 	class GravitationalPhysicsObject : public PhysicsObject {
 	public:
-		GravitationalPhysicsObject(Meter Radius, Kilogram Mass, Position3D Pos = Position3D{ 0.0_m })
-			: PhysicsObject(Mass, Pos), radius(Radius) {
+		GravitationalPhysicsObject(Meter Radius, Kilogram Mass, Velocity speed3D = Velocity{ 0.0_mPerS }, Position3D Pos = Position3D{ 0.0_m })
+			: PhysicsObject(Mass, Pos, speed3D), radius(Radius) {
 
 		}
 
@@ -69,7 +69,7 @@ namespace Pyrite {
 			
 			Velocity initialVelocity = velocity;
 			Acceleration3D acceleration = (netForce / mass);
-			velocity = (acceleration * timeSinceLastMovement) + initialVelocity;
+			velocity += (acceleration * timeSinceLastMovement) + velocity;
 
 			Displacement displacement = ((initialVelocity) * (initialVelocity - (velocity * velocity))) / 2.0f * acceleration;
 

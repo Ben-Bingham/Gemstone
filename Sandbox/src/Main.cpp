@@ -124,7 +124,7 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m } };
+	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, 1.0_mPerS }, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m } };
 	Pyrite::GravitationalPhysicsObject earthPhysics{ 50.0_m * 1000000000000.0_m, 50.0_kg * 1000000000000.0_kg };
 
 	Wavellite::Time time{ };
