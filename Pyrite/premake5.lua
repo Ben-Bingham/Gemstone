@@ -32,7 +32,8 @@ function project_Pyrite(workspaceDir)
 			workspaceDir .. "vendor/stb_image",
 			-- Dependencies
 			workspaceDir .. "Malachite/src",
-			workspaceDir .. "Lazuli/src"
+			workspaceDir .. "Lazuli/src",
+			workspaceDir .. "Wavellite/src"
 		}
 
 		libdirs {
@@ -47,6 +48,7 @@ function project_Pyrite(workspaceDir)
 			"opengl32",
 			-- Dependencies
 			"Malachite",
-			"Lazuli"
+			"Lazuli",
+			"Wavellite"
 		}
 end
