@@ -1,10 +1,16 @@
 #pragma once
 
-//#include ""
-//
-//namespace Pyrite {
-//	class Physicist {
-//	public:
-//		Physicist(Ruby::Time time)
-//	};
-//}
+#include "Timing.h"
+
+namespace Pyrite {
+	class Physicist {
+	public:
+		Physicist(Wavellite::Time timeObj) 
+			: time(Time){
+
+		}
+
+	private:
+		Wavellite::Time time;
+	};
+}
