@@ -39,5 +39,8 @@ namespace Pyrite {
 
 		// Force
 		inline Newton operator ""_N(long double x) { return (Newton)x; }
+
+		// Speed
+		inline Speed operator ""_mPerS(long double x) { return (Speed)x; }
 	}
 }
