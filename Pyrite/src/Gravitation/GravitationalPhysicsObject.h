@@ -22,16 +22,45 @@ namespace Pyrite {
 			return (GravitationalField)(gravitationalConstant * mass) / (distance * distance);
 		}
 
-		Newton getGravitationalForce(const GravitationalPhysicsObject& obj) const {
+		Newton3D getGravitationalForce(const GravitationalPhysicsObject& obj) const {
 			Displacement displacementBetween = position - obj.position;
 			Meter distanceBetween = displacementBetween.length();
-			return (Newton)(gravitationalConstant * mass * obj.mass) / (distanceBetween * distanceBetween);
+			Newton gravForce = (Newton)(gravitationalConstant * mass * obj.mass) / (distanceBetween * distanceBetween);
+
+			Position3D direction;
+			if (mass > obj.mass) {
+				direction = position - obj.position;
+			}
+			else {
+				direction = obj.position - position;
+			}
+			direction.normalize();
+			Newton3D gravFoce3D = gravForce * direction;
+			return gravFoce3D;
+		}
+
+		Newton3D getCentriputalForce(const GravitationalPhysicsObject& obj) const {
+			Displacement displacementBetween = position - obj.position;
+			Meter distanceBetween = displacementBetween.length();
+			Newton3D cForce = ((velocity * velocity) * mass) / distanceBetween;
+
+			Position3D direction;
+			if (mass > obj.mass) {
+				direction = position - obj.position;
+			}
+			else {
+				direction = obj.position - position;
+			}
+			direction.normalize();
+
+			return cForce * direction;
 		}
 
 		void calcNetForce(std::vector<GravitationalPhysicsObject*> interactingObjects) {
 			netForce = Newton3D{ 0.0_N };
 			for (GravitationalPhysicsObject* obj : interactingObjects) {
 				netForce += getGravitationalForce(*obj);
+				netForce += getCentriputalForce(*obj);
 			}
 		}
 
@@ -40,9 +69,9 @@ namespace Pyrite {
 			
 			Velocity initialVelocity = velocity;
 			Acceleration3D acceleration = (netForce / mass);
-			velocity = acceleration * timeSinceLastMovement + initialVelocity;
+			velocity = (acceleration * timeSinceLastMovement) + initialVelocity;
 
-			Displacement displacement = ((initialVelocity) * (initialVelocity - velocity * velocity)) / 2.0f * acceleration;
+			Displacement displacement = ((initialVelocity) * (initialVelocity - (velocity * velocity))) / 2.0f * acceleration;
 
 			position += displacement;
 		}

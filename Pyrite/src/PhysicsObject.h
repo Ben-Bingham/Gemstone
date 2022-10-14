@@ -7,7 +7,7 @@ namespace Pyrite {
 
 	class PhysicsObject {
 	public:
-		PhysicsObject(Kilogram Mass, Position3D pos) 
+		PhysicsObject(Kilogram Mass, Position3D pos, Velocity velocity = Velocity{ 0.0_mPerS })
 			: mass(Mass), position(pos) {
 		}
 
