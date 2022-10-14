@@ -6,7 +6,7 @@
 #include "Powers.h"
 
 namespace Pyrite {
-	const float gravitationalConstant = ee(6.67430, -11);
+	const float gravitationalConstant = Malachite::ee(6.67430f, -11.0f);
 
 	using namespace Literals;
 

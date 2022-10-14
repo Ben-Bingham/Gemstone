@@ -94,6 +94,8 @@ int main() {
 
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
 	Ruby::PhongCube cube{ cubeMaterial };
+	Ruby::PhongCube earth{ cubeMaterial };
+	earth.model.scale(2.0f);
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
@@ -122,8 +124,8 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg };
-	Pyrite::GravitationalPhysicsObject obj2{ 10.0_m, 10.0_kg };
+	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m } };
+	Pyrite::GravitationalPhysicsObject earthPhysics{ Malachite::ee(6.37f, 6.0f), Malachite::ee(5.97f, 24.0f) };
 
 	Wavellite::Time time{ };
 
@@ -187,7 +189,16 @@ int main() {
 		}
 
 		{ // Physics
+			obj1.calcPosition(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics }, time.deltaTime);
+			earthPhysics.calcPosition(std::vector<Pyrite::GravitationalPhysicsObject*>{ &obj1 }, time.deltaTime);
 
+			LOG(obj1.getPosition().toString());
+
+			earth.model = Malachite::Matrix4f{ 1.0f };
+			earth.model.scale(2.0f);
+			earth.model.translate(earthPhysics.getPosition());
+			cube.model = Malachite::Matrix4f{ 1.0f };
+			cube.model.translate(obj1.getPosition());
 		}
 
 		{ // Rendering
@@ -200,6 +211,7 @@ int main() {
 				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
 
 				renderer.phongRender(cube);
+				renderer.phongRender(earth);
 
 				renderer.phongRenderingEnd();
 			}

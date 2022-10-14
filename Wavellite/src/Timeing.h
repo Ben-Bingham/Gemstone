@@ -12,7 +12,7 @@ namespace Wavellite {
 			deltaTime = currentTime - previousTime;
 		}
 
-		float deltaTime;
+		float deltaTime{ 0.0f };
 
 	private:
 		float previousTime;

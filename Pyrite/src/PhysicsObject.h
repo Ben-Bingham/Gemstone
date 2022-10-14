@@ -15,10 +15,12 @@ namespace Pyrite {
 			netForce = 0;
 		}
 
+		Position3D getPosition() const { return position; }
+
 	protected:
 		Kilogram mass;
 		Position3D position;
 		Newton3D netForce{ 0.0_N };
-		Velocity velocity{ 0.0_m / 0.0_s };
+		Velocity velocity{ 0.0_mPerS };
 	};
 }
