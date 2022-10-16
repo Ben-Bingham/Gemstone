@@ -9,8 +9,9 @@ namespace Pyrite {
 	public:
 		PhysicsObject(Kilogram Mass, Position3D pos, Velocity Velocity = Velocity{ 0.0_mPerS })
 			: mass(Mass), position(pos), velocity(Velocity) {
-		}
 
+		}
+		
 		virtual void calcNetForce() {
 			netForce = 0;
 		}

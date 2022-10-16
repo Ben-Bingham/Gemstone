@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GLFW/glfw3.h>
+
 namespace Wavellite {
 	class Time {
 	public:
@@ -10,6 +12,7 @@ namespace Wavellite {
 		void endFrame() {
 			float currentTime = (float)glfwGetTime();
 			deltaTime = currentTime - previousTime;
+			previousTime = (float)glfwGetTime();
 		}
 
 		float deltaTime{ 0.0f };

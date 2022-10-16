@@ -14,7 +14,7 @@
 
 #include "Units.h"
 #include "Gravitation/GravitationalPhysicsObject.h"
-#include "Timeing.h"
+#include "Timing.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -64,7 +64,7 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640, 480 };
+	Wavellite::Window window{ 640 * 2, 480 * 2 };
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -124,8 +124,8 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, 0.1_mPerS} };
-	Pyrite::GravitationalPhysicsObject earthPhysics{ Malachite::ee(6.37f, 6.0f), Malachite::ee(5.97f, 24.0f) };
+	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, 1.0_mPerS }, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m } };
+	Pyrite::GravitationalPhysicsObject earthPhysics{ 50.0_m * 1000000000000.0_m, 50.0_kg * 1000000000000.0_kg };
 
 	Wavellite::Time time{ };
 
