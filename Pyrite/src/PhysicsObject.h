@@ -7,8 +7,8 @@ namespace Pyrite {
 
 	class PhysicsObject {
 	public:
-		PhysicsObject(Kilogram Mass, Position3D pos) 
-			: mass(Mass), position(pos) {
+		PhysicsObject(Kilogram Mass, Position3D pos, Velocity Velocity = Velocity{ 0.0_mPerS })
+			: mass(Mass), position(pos), velocity(Velocity) {
 		}
 
 		virtual void calcNetForce() {
@@ -16,6 +16,13 @@ namespace Pyrite {
 		}
 
 		Position3D getPosition() const { return position; }
+
+		void calcPosition(Second deltaTime) {
+			Acceleration3D acceleration = netForce / mass;
+			Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
+
+			position += displacement;
+		}
 
 	protected:
 		Kilogram mass;

@@ -124,7 +124,7 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m } };
+	Pyrite::GravitationalPhysicsObject obj1{ 10.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, 0.1_mPerS} };
 	Pyrite::GravitationalPhysicsObject earthPhysics{ Malachite::ee(6.37f, 6.0f), Malachite::ee(5.97f, 24.0f) };
 
 	Wavellite::Time time{ };
@@ -189,8 +189,8 @@ int main() {
 		}
 
 		{ // Physics
-			obj1.calcPosition(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics }, time.deltaTime);
-			earthPhysics.calcPosition(std::vector<Pyrite::GravitationalPhysicsObject*>{ &obj1 }, time.deltaTime);
+			obj1.calcPosition(time.deltaTime);
+			earthPhysics.calcPosition(time.deltaTime);
 
 			LOG(obj1.getPosition().toString());
 

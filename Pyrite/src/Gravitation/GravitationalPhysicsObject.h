@@ -12,8 +12,8 @@ namespace Pyrite {
 
 	class GravitationalPhysicsObject : public PhysicsObject {
 	public:
-		GravitationalPhysicsObject(Meter Radius, Kilogram Mass, Position3D Pos = Position3D{ 0.0_m })
-			: PhysicsObject(Mass, Pos), radius(Radius) {
+		GravitationalPhysicsObject(Meter Radius, Kilogram Mass, Position3D Pos = Position3D{ 0.0_m }, Velocity Velocity = Velocity{ 0.0_mPerS })
+			: PhysicsObject(Mass, Pos, Velocity), radius(Radius) {
 
 		}
 
@@ -35,7 +35,7 @@ namespace Pyrite {
 			}
 		}
 
-		void calcPosition(std::vector<GravitationalPhysicsObject*> interactingObjects, Second timeSinceLastMovement) {
+		/*void calcPosition(std::vector<GravitationalPhysicsObject*> interactingObjects, Second timeSinceLastMovement) {
 			calcNetForce(interactingObjects);
 			
 			Velocity initialVelocity = velocity;
@@ -45,7 +45,7 @@ namespace Pyrite {
 			Displacement displacement = ((initialVelocity) * (initialVelocity - velocity * velocity)) / 2.0f * acceleration;
 
 			position += displacement;
-		}
+		}*/
 
 	private:
 		Meter radius;
