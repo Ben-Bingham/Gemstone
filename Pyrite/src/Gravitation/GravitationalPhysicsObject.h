@@ -59,7 +59,7 @@ namespace Pyrite {
 			netForce = Newton3D{ 0.0_N };
 			for (GravitationalPhysicsObject* obj : interactingObjects) {
 				netForce += getGravitationalForce(*obj);
-				netForce += getCentriputalForce(*obj);
+				//netForce += getCentriputalForce(*obj);
 			}
 		}
 

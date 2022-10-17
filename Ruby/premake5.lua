@@ -30,6 +30,7 @@ function project_Ruby(workspaceDir)
 			workspaceDir .. "vendor/GLFW/include",
 			workspaceDir .. "vendor/glew-2.1.0/include",
 			workspaceDir .. "vendor/stb_image",
+			-- workspaceDir .. "vendor/imgui",
 			-- Dependencies
 			workspaceDir .. "Malachite/src",
 			workspaceDir .. "Lazuli/src",

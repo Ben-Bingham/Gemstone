@@ -18,6 +18,7 @@ project "Sandbox"
 		"%{wks.location}/vendor/GLFW/include",
 		"%{wks.location}/vendor/glew-2.1.0/include",
 		"%{wks.location}/vendor/stb_image",
+		"%{wks.location}/vendor/imgui",
 		-- Dependencies
 		"%{wks.location}/Malachite/src",
 		"%{wks.location}/Ruby/src",

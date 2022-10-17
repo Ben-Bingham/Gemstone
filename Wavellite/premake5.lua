@@ -21,7 +21,9 @@ function project_Wavellite(workspaceDir)
 
 		files {
 			workspaceDir .. "Wavellite/src/**.h",
-			workspaceDir .. "Wavellite/src/**.cpp"
+			workspaceDir .. "Wavellite/src/**.cpp",
+			workspaceDir .. "vendor/imgui/*.h",
+			workspaceDir .. "vendor/imgui/*.cpp"
 		}
 
 		includedirs {
@@ -30,6 +32,7 @@ function project_Wavellite(workspaceDir)
 			workspaceDir .. "vendor/GLFW/include",
 			workspaceDir .. "vendor/glew-2.1.0/include",
 			workspaceDir .. "vendor/stb_image",
+			workspaceDir .. "vendor/imgui",
 			-- Dependencies
 			workspaceDir .. "Lazuli/src",
 			workspaceDir .. "Malachite/src"
