@@ -1,5 +1,9 @@
 #pragma once
 
+#include "imgui.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -18,9 +22,9 @@ namespace Ruby {
     void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id,
         GLenum severity, GLsizei length, const char* message, const void* userParam);
 
-	class Renderer {
-	public:
-		Renderer() {
+    class Renderer {
+    public:
+        Renderer() {
             glEnable(GL_DEPTH_TEST);
 
             glEnable(GL_CULL_FACE);
@@ -104,12 +108,27 @@ namespace Ruby {
             shaders.phongShader.use();
             ShaderProgram::upload("view", viewMatrix);
 
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+
+            ImGui::ShowDemoWindow();
+
+
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
 
         void end() {
+            ImGui::Render();
 
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        }
+
+        void terminate() {
+            ImGui_ImplOpenGL3_Shutdown();
+            ImGui_ImplGlfw_Shutdown();
+            ImGui::DestroyContext();
         }
 
         // Directional lighting rendering

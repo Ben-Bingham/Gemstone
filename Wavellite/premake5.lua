@@ -22,8 +22,7 @@ function project_Wavellite(workspaceDir)
 		files {
 			workspaceDir .. "Wavellite/src/**.h",
 			workspaceDir .. "Wavellite/src/**.cpp",
-			workspaceDir .. "vendor/imgui/*.h",
-			workspaceDir .. "vendor/imgui/*.cpp"
+			workspaceDir .. "vendor/imgui/*.h"
 		}
 
 		includedirs {
@@ -40,7 +39,8 @@ function project_Wavellite(workspaceDir)
 
 		libdirs {
 			workspaceDir .. "vendor/GLFW/lib-vc2022",
-			workspaceDir .. "vendor/glew-2.1.0/lib/Release/x64"
+			workspaceDir .. "vendor/glew-2.1.0/lib/Release/x64",
+			workspaceDir .. "vendor/imgui/build"
 		}
 
 		links {
@@ -48,6 +48,7 @@ function project_Wavellite(workspaceDir)
 			"glfw3",
 			"glew32s",
 			"opengl32",
+			"ImGui",
 			-- Dependencies
 			"Lazuli",
 			"Malachite"

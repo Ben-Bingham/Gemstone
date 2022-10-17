@@ -3,6 +3,7 @@ require "Malachite/premake5"
 require "Pyrite/premake5"
 require "Wavellite/premake5"
 require "Ruby/premake5"
+require "vendor/imgui/premake5"
 
 workspace "Gemstone"
 	configurations { "Debug", "Release" }
@@ -38,6 +39,10 @@ workspace "Gemstone"
 	filter {}
 
 	defines { "RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" }
+
+	group "Vendor"
+		project_ImGui("")
+	group ""
 
 	group "Dependencies"
 		project_Lazuli("")

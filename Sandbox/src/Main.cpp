@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "imgui.h"
-#include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -68,7 +68,7 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640, 480 };
+	Wavellite::Window window{ 640 * 2, 480 * 2 };
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -237,4 +237,5 @@ int main() {
 		window.swapBuffers();
 		time.endFrame();
 	}
+	renderer.terminate();
 }
