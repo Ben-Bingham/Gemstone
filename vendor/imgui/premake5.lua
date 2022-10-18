@@ -10,8 +10,8 @@ function project_ImGui(workspaceDir)
 		objdir (workspaceDir .. "vendor/imgui/build/bin-int/%{prj.name}")
 
         files {
-            workspaceDir .. "vendor/imgui/**.cpp",
-            workspaceDir .. "vendor/imgui/**.h"
+            workspaceDir .. "vendor/imgui/src/**.cpp",
+            workspaceDir .. "vendor/imgui/src/**.h"
         }
 
         includedirs {

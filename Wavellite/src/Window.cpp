@@ -42,10 +42,20 @@ namespace Wavellite {
 
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
+
 		ImGuiIO& io = ImGui::GetIO();
 		(void)io;
+
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(getWindow(), true);
 		ImGui_ImplOpenGL3_Init("#version 330");
+
+		ImGuiStyle& style = ImGui::GetStyle();
+		style.WindowRounding = 0.0f;
+		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		
 	}
 }

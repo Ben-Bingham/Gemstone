@@ -36,7 +36,9 @@ namespace Ruby {
 
 		~VertexAttributeObject() { glDeleteBuffers(1, &m_VAO); }
 
-		void bind() const { glBindVertexArray(m_VAO); }
+		void bind() const { 
+			glBindVertexArray(m_VAO); 
+		}
 		static void unbind() { glBindVertexArray(0); }
 
 		void addAttribute(Attribute attribute) { m_Attributes.push_back(attribute); }

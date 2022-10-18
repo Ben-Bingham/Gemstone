@@ -30,6 +30,7 @@ struct FPSController {
 	Malachite::Degree pitch;
 }; 
 FPSController fpsController{ };
+bool cursorNormal = false;
 
 void mousePositionCallback(int xpos, int ypos, void* data) {
 	FPSController* controller = (FPSController*)data;
@@ -68,7 +69,7 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640 * 2, 480 * 2 };
+	Wavellite::Window window{ 640, 480 };
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -127,10 +128,15 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, 2.5_mPerS } };
-	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, Malachite::ee(2.155172414f, 12.00f)};
+	float speed = 50.0f;
+	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, speed } };
+	float exponent = 12.0f;
+	Pyrite::Kilogram earthMass = Malachite::ee(1.873f, exponent);
+	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, earthMass };
 
 	Wavellite::Time time{ };
+
+	LOG(std::to_string((float)glfwGetTime()));
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -191,15 +197,36 @@ int main() {
 			directionalLight.position += Malachite::Vector3f{ 0, -1 * spd, 0 };
 		}
 
+		if (keyboard->KEY_M) {
+			if (cursorNormal) {
+				window.disableCursor();
+				cursorNormal = false;
+			}
+			else {
+				window.enableCursor();
+				cursorNormal = true;
+			}
+		}
+
 		{ // Physics
 			// Net Force
+			Pyrite::Position3D direction = earthPhysics.getPosition() - obj1.getPosition();
+			direction.normalize();
+			direction *= speed;
+			Pyrite::Position3D tangent{ -direction.z, 0.0_m, direction.x };
+
+			obj1.velocity = tangent;
+
+			LOG(obj1.velocity.toString());
+			LOG(std::to_string(obj1.velocity.length()));
 			obj1.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics });
 
 			// Position
 			obj1.calcPosition(time.deltaTime);
-			earthPhysics.calcPosition(time.deltaTime);
 
-			LOG(obj1.getPosition().toString());
+			//earthPhysics.calcPosition(time.deltaTime);
+
+			//LOG(obj1.getPosition().toString());
 
 			earth.model = Malachite::Matrix4f{ 1.0f };
 			earth.model.scale(2.0f);
@@ -231,11 +258,26 @@ int main() {
 				renderer.skyboxRenderingEnd();
 			}
 
+			{ // ImGui
+				renderer.imGuiPrep();
+
+				//ImGui::ShowDemoWindow();
+				{
+					ImGui::Begin("Window");
+					ImGui::Text("Mass");
+					ImGui::SliderFloat("float", &speed, 0.0f, 1000.0f);
+					earthPhysics.mass = Malachite::ee(1.873f, exponent);
+					ImGui::End();
+				}
+
+				renderer.imGuiEnd();
+			}
+
 			renderer.end();
 		}
 
 		window.swapBuffers();
 		time.endFrame();
 	}
-	renderer.terminate();
+	renderer.imGuiTerminate();
 }

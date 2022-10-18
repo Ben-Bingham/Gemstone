@@ -13,9 +13,11 @@ namespace Wavellite {
 			float currentTime = (float)glfwGetTime();
 			deltaTime = currentTime - previousTime;
 			previousTime = (float)glfwGetTime();
+			frameCount++;
 		}
 
 		float deltaTime{ 0.0f };
+		unsigned int frameCount{ 0u };
 
 	private:
 		float previousTime;

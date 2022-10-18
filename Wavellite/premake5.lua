@@ -31,7 +31,7 @@ function project_Wavellite(workspaceDir)
 			workspaceDir .. "vendor/GLFW/include",
 			workspaceDir .. "vendor/glew-2.1.0/include",
 			workspaceDir .. "vendor/stb_image",
-			workspaceDir .. "vendor/imgui",
+			workspaceDir .. "vendor/imgui/src",
 			-- Dependencies
 			workspaceDir .. "Lazuli/src",
 			workspaceDir .. "Malachite/src"
