@@ -127,8 +127,8 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	float speed = 50.0f;
-	float angle = 10.0f;
+	float speed = 5.0;
+	float angle = 0.0f;
 	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, speed } };
 	float exponent = 12.0f;
 	Pyrite::Kilogram earthMass = Malachite::ee(1.873f, exponent);
@@ -211,9 +211,11 @@ int main() {
 		{ // Physics
 			// Net Force
 			Pyrite::Position3D gravDirection = earthPhysics.getPosition() - obj1.getPosition();
-			Pyrite::Position3D upVector = Pyrite::Position3D{ sin(angle), cos(angle), 0.0_m};
+			Pyrite::Position3D upVector = Pyrite::Position3D{ cos(gravDirection.x), sin(gravDirection.y), 0.0_m};
 			upVector.normalize();
-			Pyrite::Position3D velocityDirection = Malachite::cross(gravDirection, upVector + obj1.getPosition());
+			Pyrite::Position3D filler = Malachite::cross(gravDirection, upVector + obj1.getPosition());
+
+			Pyrite::Position3D velocityDirection = cross(gravDirection, filler);
 
 			velocityDirection.normalize();
 			velocityDirection *= speed;
