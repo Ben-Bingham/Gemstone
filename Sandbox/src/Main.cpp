@@ -124,12 +124,11 @@ int main() {
 	// Renderer setup
 	renderer.init(window.getProjectionMatrix());
 
-
 	// Physics
 	using namespace Pyrite::Literals;
 
 	float speed = 50.0f;
-	float angle = 45.0f;
+	float angle = 10.0f;
 	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, speed } };
 	float exponent = 12.0f;
 	Pyrite::Kilogram earthMass = Malachite::ee(1.873f, exponent);
@@ -137,7 +136,7 @@ int main() {
 
 	Wavellite::Time time{ };
 
-	LOG(std::to_string((float)glfwGetTime()));
+	//LOG(std::to_string((float)glfwGetTime()));
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -214,15 +213,15 @@ int main() {
 			Pyrite::Position3D gravDirection = earthPhysics.getPosition() - obj1.getPosition();
 			Pyrite::Position3D upVector = Pyrite::Position3D{ sin(angle), cos(angle), 0.0_m};
 			upVector.normalize();
-			Pyrite::Position3D velocityDirection = Malachite::cross(gravDirection, upVector);
+			Pyrite::Position3D velocityDirection = Malachite::cross(gravDirection, upVector + obj1.getPosition());
 
 			velocityDirection.normalize();
 			velocityDirection *= speed;
 
 			obj1.velocity = velocityDirection;
 
-			LOG(obj1.velocity.toString());
-			LOG(std::to_string(obj1.velocity.length()));
+			//LOG(obj1.velocity.toString());
+			//LOG(std::to_string(obj1.velocity.length()));
 			obj1.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics });
 
 			// Position
@@ -252,6 +251,21 @@ int main() {
 				renderer.phongRender(earth);
 
 				renderer.phongRenderingEnd();
+			}
+
+			{ // Debug Rendering
+				renderer.debugRenderingPrep();
+
+				Pyrite::Position3D upVector = Pyrite::Position3D{ sin(angle), cos(angle), 0.0_m };
+				upVector;
+				Pyrite::Position3D gravDirection = earthPhysics.getPosition() - obj1.getPosition();
+				Pyrite::Position3D velocityDirection = Malachite::cross(gravDirection, upVector);
+
+				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, upVector * 100.0f, Ruby::Colour{0, 255, 0} });
+				renderer.debugRender(Ruby::DebugLine{ obj1.getPosition(), gravDirection, Ruby::Colour{ 255, 0, 0 } });
+				renderer.debugRender(Ruby::DebugLine{ obj1.getPosition(), velocityDirection, Ruby::Colour{ 0, 0, 255 } });
+
+				renderer.debugRenderingEnd();
 			}
 
 			{ // Skybox Rendering

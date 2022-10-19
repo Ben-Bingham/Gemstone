@@ -13,6 +13,7 @@
 #include "Renderable Objects/ShadowPhong/ShadowPhongRenderable.h"
 #include "Renderable Objects/Solid/SolidRenderable.h"
 #include "Renderable Objects/Phong/PhongRenderable.h"
+#include "Renderable Objects/Debug/DebugRenderable.h"
 
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
@@ -191,6 +192,19 @@ namespace Ruby {
         }
 
         void solidRenderingEnd() const {
+
+        }
+
+        // Debug rendering
+        void debugRenderingPrep() {
+            shaders.solidShader.use();
+        }
+
+        void debugRender(const DebugRenderable& renderable) const {
+            renderable.render();
+        }
+
+        void debugRenderingEnd() const {
 
         }
 
