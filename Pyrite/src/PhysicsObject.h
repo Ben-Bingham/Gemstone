@@ -17,14 +17,17 @@ namespace Pyrite {
 		}
 
 		Position3D getPosition() const { return position; }
+		
+		void calcVelocity(Second deltaTime) {
+			Velocity inititialVelocity = velocity;
+			Acceleration3D acceleration = netForce / mass;
+
+			velocity = acceleration * deltaTime + inititialVelocity;
+		}
 
 		void calcPosition(Second deltaTime) {
 			Acceleration3D acceleration = netForce / mass;
-			//Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
-			Position3D displacement{ 0.0_m };
-			displacement.x = (velocity.x * deltaTime) + (0.5f * acceleration.x * (deltaTime * deltaTime));
-			displacement.y = (velocity.y * deltaTime) + (0.5f * acceleration.y * (deltaTime * deltaTime));
-			displacement.z = (velocity.z * deltaTime) + (0.5f * acceleration.z * (deltaTime * deltaTime));
+			Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
 
 			position += displacement;
 		}

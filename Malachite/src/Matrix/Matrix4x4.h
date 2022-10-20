@@ -64,7 +64,7 @@ namespace Malachite {
 			T const s = (T)sin(a);
 			Matrix4x4<T> result;
 
-			Vector3<T> axis = normalize(vector);
+			Vector3<T> axis = vector.normalize();
 
 			result.row1.x = c + ((T)(1) - c) * axis.x * axis.x;
 			result.row1.y = ((T)(1) - c) * axis.x * axis.y + s * axis.z;

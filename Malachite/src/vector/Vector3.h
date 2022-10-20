@@ -95,9 +95,10 @@ namespace Malachite {
 		}
 
 		Vector3<T>& normalize() {
+			Vector3<T> result{ *this };
 			T inverseLength = (T)1 / this->length();
-			*this *= inverseLength;
-			return *this;
+			result *= inverseLength;
+			return result;
 		}
 
 		std::string toString() {
@@ -170,12 +171,5 @@ namespace Malachite {
 	template<typename T>
 	Vector3<T> cross(const Vector3<T>& vec1, const Vector3<T>& vec2) {
 		return Vector3<T>{ vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x * vec2.z, vec1.x * vec2.y - vec1.y * vec2.x };
-	}
-
-	// Normalize
-	template<typename T>
-	Vector3<T>& normalize(Vector3<T>& vec) {
-		T inverseLength = (T)1 / vec.length();
-		return vec *= inverseLength;
 	}
 }

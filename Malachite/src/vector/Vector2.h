@@ -85,8 +85,10 @@ namespace Malachite {
 		}
 
 		Vector2<T>& normalize() {
-			*this *= (1 / length());
-			return *this;
+			Vector2<T> result{ *this };
+			T inverseLength = (T)1 / this->length();
+			result *= inverseLength;
+			return result;
 		}
 
 		std::string toString() {
@@ -153,11 +155,5 @@ namespace Malachite {
 	template<typename T>
 	T dot(const Vector2<T>& vec1, const Vector2<T>& vec2) {
 		return vec1.x * vec2.x + vec1.y * vec2.y;
-	}
-
-	// Normalize
-	template<typename T>
-	Vector2<T>& normalize(Vector2<T>& vec) {
-		return vec *= (1 / vec.length());
 	}
 }

@@ -62,14 +62,14 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 	direction.y = sin(Malachite::degreesToRadians(controller->pitch));
 	direction.z = sin(Malachite::degreesToRadians(controller->yaw)) * cos(Malachite::degreesToRadians(controller->pitch));
 
-	camera.front = Malachite::normalize(direction);
+	camera.front = direction.normalize();
 	camera.updateCameraVectors();
 }
 
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640, 480 };
+	Wavellite::Window window{ 640 * 2, 480 * 2 };
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -127,16 +127,14 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	float speed = 5.0;
+	Pyrite::Kilogram earthMass = 1'000'000'000'000.0_kg;
+	float speed = sqrt((Pyrite::gravitationalConstant * earthMass) / 20.0_m);
 	float angle = 0.0f;
-	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{ 0.0_mPerS, 0.0_mPerS, speed } };
-	float exponent = 12.0f;
-	Pyrite::Kilogram earthMass = Malachite::ee(1.873f, exponent);
+	Pyrite::Velocity velo = Pyrite::Velocity{ 0.0f, 0.0f, 2.5f };
+	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{0.0f, 0.0f, speed } };
 	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, earthMass };
 
 	Wavellite::Time time{ };
-
-	//LOG(std::to_string((float)glfwGetTime()));
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -209,29 +207,20 @@ int main() {
 		}
 
 		{ // Physics
-			// Net Force
-			Pyrite::Position3D gravDirection = earthPhysics.getPosition() - obj1.getPosition();
-			Pyrite::Position3D upVector = Pyrite::Position3D{ cos(gravDirection.x), sin(gravDirection.y), 0.0_m};
-			upVector.normalize();
-			Pyrite::Position3D filler = Malachite::cross(gravDirection, upVector + obj1.getPosition());
-
-			Pyrite::Position3D velocityDirection = cross(gravDirection, filler);
-
-			velocityDirection.normalize();
-			velocityDirection *= speed;
-
-			obj1.velocity = velocityDirection;
-
-			//LOG(obj1.velocity.toString());
-			//LOG(std::to_string(obj1.velocity.length()));
-			obj1.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics });
-
 			// Position
+			obj1.calcVelocity(time.deltaTime);
+			obj1.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics });
 			obj1.calcPosition(time.deltaTime);
 
-			//earthPhysics.calcPosition(time.deltaTime);
+			earthPhysics.calcVelocity(time.deltaTime);
+			earthPhysics.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{&obj1});
+			earthPhysics.calcPosition(time.deltaTime);
 
 			//LOG(obj1.getPosition().toString());
+			/*LOG(obj1.velocity.toString());
+			LOG((earthPhysics.getPosition() - obj1.getPosition()).toString());*/
+			LOG(std::to_string(Malachite::dot(obj1.velocity, earthPhysics.getPosition() - obj1.getPosition())));
+			//TODO should be 0
 			
 			earth.model = Malachite::Matrix4f{ 1.0f };
 			earth.model.scale(2.0f);
@@ -258,14 +247,13 @@ int main() {
 			{ // Debug Rendering
 				renderer.debugRenderingPrep();
 
-				Pyrite::Position3D upVector = Pyrite::Position3D{ sin(angle), cos(angle), 0.0_m };
-				upVector;
 				Pyrite::Position3D gravDirection = earthPhysics.getPosition() - obj1.getPosition();
-				Pyrite::Position3D velocityDirection = Malachite::cross(gravDirection, upVector);
+				Pyrite::Position3D velocityDirection = obj1.velocity.normalize();
+				velocityDirection = velocityDirection.normalize();
+				velocityDirection *= 100;
 
-				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, upVector * 100.0f, Ruby::Colour{0, 255, 0} });
-				renderer.debugRender(Ruby::DebugLine{ obj1.getPosition(), gravDirection, Ruby::Colour{ 255, 0, 0 } });
-				renderer.debugRender(Ruby::DebugLine{ obj1.getPosition(), velocityDirection, Ruby::Colour{ 0, 0, 255 } });
+				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, gravDirection, Ruby::Colour{ 255, 0, 0 } });
+				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, velocityDirection, Ruby::Colour{ 0, 0, 255 } });
 
 				renderer.debugRenderingEnd();
 			}
@@ -283,11 +271,11 @@ int main() {
 
 				//ImGui::ShowDemoWindow();
 				{
-					ImGui::Begin("Window");
+					/*ImGui::Begin("Window");
 					ImGui::Text("Mass");
 					ImGui::SliderFloat("float", &speed, 0.0f, 1000.0f);
 					earthPhysics.mass = Malachite::ee(1.873f, exponent);
-					ImGui::End();
+					ImGui::End();*/
 				}
 
 				renderer.imGuiEnd();

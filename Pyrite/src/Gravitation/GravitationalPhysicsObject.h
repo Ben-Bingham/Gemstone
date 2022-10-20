@@ -33,12 +33,12 @@ namespace Pyrite {
 			else {
 				direction = obj.position - position;
 			}
-			direction.normalize();
+			direction = direction.normalize();
 			Newton3D gravFoce3D = gravForce * direction;
 			return gravFoce3D;
 		}
 
-		Newton3D getCentriputalForce(const GravitationalPhysicsObject& obj) const {
+		/*Newton3D getCentriputalForce(const GravitationalPhysicsObject& obj) const {
 			Displacement displacementBetween = position - obj.position;
 			Meter distanceBetween = displacementBetween.length();
 			Newton3D cForce = ((velocity * velocity) * mass) / distanceBetween;
@@ -53,13 +53,12 @@ namespace Pyrite {
 			direction.normalize();
 
 			return cForce * direction;
-		}
+		}*/
 
 		void calcNetForce(std::vector<GravitationalPhysicsObject*> interactingObjects) {
 			netForce = Newton3D{ 0.0_N };
 			for (GravitationalPhysicsObject* obj : interactingObjects) {
 				netForce += getGravitationalForce(*obj);
-				//netForce += getCentriputalForce(*obj);
 			}
 		}
 

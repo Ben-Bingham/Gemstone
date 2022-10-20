@@ -103,8 +103,10 @@ namespace Malachite {
 		}
 
 		Vector4<T>& normalize() {
-			*this *= (1 / length());
-			return *this;
+			Vector4<T> result{ *this };
+			T inverseLength = (T)1 / this->length();
+			result *= inverseLength;
+			return result;
 		}
 	};
 
@@ -167,11 +169,5 @@ namespace Malachite {
 	template<typename T>
 	T dot(const Vector4<T>& vec1, const Vector4<T>& vec2) {
 		return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z + vec1.w * vec2.w;
-	}
-
-	// Normalize
-	template<typename T>
-	Vector4<T>& normalize(Vector4<T>& vec) {
-		return vec *= (1 / vec.length());
 	}
 }

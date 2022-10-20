@@ -4,8 +4,8 @@
 namespace Malachite {
 	template<typename T>
 	Matrix4x4<T> lookAt(const Vector3<T>& eye, const Vector3<T>& target, const Vector3<T>& up) {
-		Vector3<T> direction(normalize(target - eye));
-		Vector3<T> s(normalize(cross(direction, up)));
+		Vector3<T> direction((target - eye).normalize());
+		Vector3<T> s((cross(direction, up)).normalize());
 		Vector3<T> relativeUp(cross(s, direction));
 
 		Matrix4x4<T> result{ 1.0f };
