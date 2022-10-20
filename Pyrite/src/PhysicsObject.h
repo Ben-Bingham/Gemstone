@@ -11,10 +11,6 @@ namespace Pyrite {
 			: mass(Mass), position(pos), velocity(Velocity) {
 
 		}
-		
-		virtual void calcNetForce() {
-			netForce = 0;
-		}
 
 		Position3D getPosition() const { return position; }
 		
@@ -22,7 +18,10 @@ namespace Pyrite {
 			Velocity inititialVelocity = velocity;
 			Acceleration3D acceleration = netForce / mass;
 
-			velocity = acceleration * deltaTime + inititialVelocity;
+			//velocity = acceleration * deltaTime + inititialVelocity;
+			velocity.x = (acceleration.x * deltaTime) + inititialVelocity.x;
+			velocity.y = (acceleration.y * deltaTime) + inititialVelocity.y;
+			velocity.z = (acceleration.z * deltaTime) + inititialVelocity.z;
 		}
 
 		void calcPosition(Second deltaTime) {

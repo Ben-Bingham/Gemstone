@@ -130,11 +130,15 @@ int main() {
 	Pyrite::Kilogram earthMass = 1'000'000'000'000.0_kg;
 	float speed = sqrt((Pyrite::gravitationalConstant * earthMass) / 20.0_m);
 	float angle = 0.0f;
-	Pyrite::Velocity velo = Pyrite::Velocity{ 0.0f, 0.0f, 2.5f };
+	Pyrite::Velocity velo = Pyrite::Velocity{ 0.0f, 0.0f, speed };
 	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{0.0f, 0.0f, speed } };
 	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, earthMass };
 
 	Wavellite::Time time{ };
+
+	std::vector<Ruby::DebugLine> lines;
+	std::vector<Pyrite::Position3D> points;
+	bool full = false;
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -217,9 +221,9 @@ int main() {
 			earthPhysics.calcPosition(time.deltaTime);
 
 			//LOG(obj1.getPosition().toString());
-			/*LOG(obj1.velocity.toString());
-			LOG((earthPhysics.getPosition() - obj1.getPosition()).toString());*/
-			LOG(std::to_string(Malachite::dot(obj1.velocity, earthPhysics.getPosition() - obj1.getPosition())));
+			LOG(obj1.velocity.toString());
+			//LOG((earthPhysics.getPosition() - obj1.getPosition()).toString());
+			//LOG(std::to_string(Malachite::dot(obj1.velocity, earthPhysics.getPosition() - obj1.getPosition())));
 			//TODO should be 0
 			
 			earth.model = Malachite::Matrix4f{ 1.0f };
@@ -227,6 +231,18 @@ int main() {
 			earth.model.translate(earthPhysics.getPosition());
 			cube.model = Malachite::Matrix4f{ 1.0f };
 			cube.model.translate(obj1.getPosition());
+
+			if (!full) {
+				points.push_back(obj1.getPosition());
+				if (points.size() == 2) {
+					full = true;
+				}
+			}
+			else {
+				lines.push_back(Ruby::DebugLine(points[0], points[1]));
+				full = false;
+				points.clear();
+			}
 		}
 
 		{ // Rendering
@@ -254,6 +270,10 @@ int main() {
 
 				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, gravDirection, Ruby::Colour{ 255, 0, 0 } });
 				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, velocityDirection, Ruby::Colour{ 0, 0, 255 } });
+
+				for (Ruby::DebugLine& line : lines) {
+					renderer.debugRender(line);
+				}
 
 				renderer.debugRenderingEnd();
 			}
