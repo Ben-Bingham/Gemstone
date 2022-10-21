@@ -69,7 +69,7 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640 * 2, 480 * 2 };
+	Wavellite::Window window{ 640 , 480, "Sandbox", 1000.0f}; //TODO full screen and an option for half or quarter of screen
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -127,11 +127,13 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::Kilogram earthMass = 1'000'000'000'000.0_kg;
-	float speed = sqrt((Pyrite::gravitationalConstant * earthMass) / 20.0_m);
-	float angle = 0.0f;
-	Pyrite::Velocity velo = Pyrite::Velocity{ 0.0f, 0.0f, speed };
-	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ 20.0_m, 0.0_m, 0.0_m }, Pyrite::Velocity{0.0f, 0.0f, speed } };
+	Pyrite::Kilogram earthMass = 1'000'000'000'000'000.0_kg; //https://landgreen.github.io/physics/notes/gravity/circular/
+	Pyrite::Meter distanceBetween = 20.0_m;
+	float speed = sqrt(((Pyrite::gravitationalConstant * earthMass) / distanceBetween));
+
+	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ distanceBetween, 0.0_m, 0.0_m }, Pyrite::Velocity{0.0f, 0.0f, 1.0f } };
+	obj1.velocity = obj1.velocity.normalize();
+	obj1.velocity *= speed;
 	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, earthMass };
 
 	Wavellite::Time time{ };
@@ -212,16 +214,17 @@ int main() {
 
 		{ // Physics
 			// Position
-			obj1.calcVelocity(time.deltaTime);
 			obj1.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics });
+			obj1.calcVelocity(time.deltaTime);
 			obj1.calcPosition(time.deltaTime);
 
-			earthPhysics.calcVelocity(time.deltaTime);
 			earthPhysics.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{&obj1});
+			earthPhysics.calcVelocity(time.deltaTime);
 			earthPhysics.calcPosition(time.deltaTime);
 
 			//LOG(obj1.getPosition().toString());
-			LOG(obj1.velocity.toString());
+			//LOG(obj1.velocity.toString());
+			LOG(std::to_string(obj1.getPosition().length()));
 			//LOG((earthPhysics.getPosition() - obj1.getPosition()).toString());
 			//LOG(std::to_string(Malachite::dot(obj1.velocity, earthPhysics.getPosition() - obj1.getPosition())));
 			//TODO should be 0
@@ -266,10 +269,10 @@ int main() {
 				Pyrite::Position3D gravDirection = earthPhysics.getPosition() - obj1.getPosition();
 				Pyrite::Position3D velocityDirection = obj1.velocity.normalize();
 				velocityDirection = velocityDirection.normalize();
-				velocityDirection *= 100;
+				velocityDirection *= 15;
 
 				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, gravDirection, Ruby::Colour{ 255, 0, 0 } });
-				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, velocityDirection, Ruby::Colour{ 0, 0, 255 } });
+				renderer.debugRender(Ruby::DebugLine{ obj1.getPosition(), velocityDirection, Ruby::Colour{0, 0, 255}});
 
 				for (Ruby::DebugLine& line : lines) {
 					renderer.debugRender(line);

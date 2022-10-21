@@ -18,17 +18,16 @@ namespace Pyrite {
 			Velocity inititialVelocity = velocity;
 			Acceleration3D acceleration = netForce / mass;
 
-			//velocity = acceleration * deltaTime + inititialVelocity;
-			velocity.x = (acceleration.x * deltaTime) + inititialVelocity.x;
-			velocity.y = (acceleration.y * deltaTime) + inititialVelocity.y;
-			velocity.z = (acceleration.z * deltaTime) + inititialVelocity.z;
+			velocity = acceleration * deltaTime + inititialVelocity;
 		}
 
 		void calcPosition(Second deltaTime) {
-			Acceleration3D acceleration = netForce / mass;
-			Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
+			//Acceleration3D acceleration = netForce / mass;
+			//Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
 
-			position += displacement;
+
+
+			position += (velocity * deltaTime);
 		}
 
 		Kilogram mass;
