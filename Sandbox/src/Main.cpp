@@ -69,7 +69,7 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640 , 480, "Sandbox", 1000.0f}; //TODO full screen and an option for half or quarter of screen
+	Wavellite::Window window{ 640 * 2 , 480 * 2, "Sandbox", 1000.0f}; //TODO full screen and an option for half or quarter of screen
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -127,8 +127,8 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::Kilogram earthMass = 1'000'000'000'000'000.0_kg; //https://landgreen.github.io/physics/notes/gravity/circular/
-	Pyrite::Meter distanceBetween = 20.0_m;
+	Pyrite::Kilogram earthMass = 1'000'000'000'000.0_kg; //https://landgreen.github.io/physics/notes/gravity/circular/
+	Pyrite::Meter distanceBetween = 50.0_m;
 	float speed = sqrt(((Pyrite::gravitationalConstant * earthMass) / distanceBetween));
 
 	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ distanceBetween, 0.0_m, 0.0_m }, Pyrite::Velocity{0.0f, 0.0f, 1.0f } };
@@ -214,19 +214,19 @@ int main() {
 
 		{ // Physics
 			// Position
+			obj1.calcPosition(time.deltaTime);
 			obj1.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics });
 			obj1.calcVelocity(time.deltaTime);
-			obj1.calcPosition(time.deltaTime);
 
+			earthPhysics.calcPosition(time.deltaTime);
 			earthPhysics.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{&obj1});
 			earthPhysics.calcVelocity(time.deltaTime);
-			earthPhysics.calcPosition(time.deltaTime);
 
 			//LOG(obj1.getPosition().toString());
 			//LOG(obj1.velocity.toString());
-			LOG(std::to_string(obj1.getPosition().length()));
+			//LOG(std::to_string(obj1.getPosition().length()));
 			//LOG((earthPhysics.getPosition() - obj1.getPosition()).toString());
-			//LOG(std::to_string(Malachite::dot(obj1.velocity, earthPhysics.getPosition() - obj1.getPosition())));
+			LOG(std::to_string(Malachite::dot(obj1.velocity, earthPhysics.getPosition() - obj1.getPosition())));
 			//TODO should be 0
 			
 			earth.model = Malachite::Matrix4f{ 1.0f };

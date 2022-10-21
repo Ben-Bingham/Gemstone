@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Units.h"
+#include "Powers.h"
 
 namespace Pyrite {
 	using namespace Literals;
@@ -18,14 +19,14 @@ namespace Pyrite {
 			Velocity inititialVelocity = velocity;
 			Acceleration3D acceleration = netForce / mass;
 
-			velocity = acceleration * deltaTime + inititialVelocity;
+			velocity = (acceleration * deltaTime) + inititialVelocity;
 		}
 
 		void calcPosition(Second deltaTime) {
-			//Acceleration3D acceleration = netForce / mass;
-			//Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
+			/*Acceleration3D acceleration = netForce / mass;
+			Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
 
-
+			position += displacement;*/
 
 			position += (velocity * deltaTime);
 		}
