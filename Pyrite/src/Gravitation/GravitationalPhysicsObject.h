@@ -45,7 +45,6 @@ namespace Pyrite {
 			}
 		}
 
-	private:
 		Meter radius;
 	};
 }

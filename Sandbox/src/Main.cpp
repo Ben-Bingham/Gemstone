@@ -245,15 +245,15 @@ int main() {
 
 			sun.model = Malachite::Matrix4f{ 1.0f };
 			sun.model.scale(3.0f);
-			sun.model.translate(sunPhysics.getPosition());
+			sun.model.translate(sunPhysics.position);
 
 			earth.model = Malachite::Matrix4f{ 1.0f };
 			earth.model.scale(2.0f);
-			earth.model.translate(earthPhysics.getPosition());
+			earth.model.translate(earthPhysics.position);
 
 			moon.model = Malachite::Matrix4f{ 1.0f };
 			moon.model.scale(1.0f);
-			moon.model.translate(moonPhysics.getPosition());
+			moon.model.translate(moonPhysics.position);
 		}
 
 		{ // Rendering
