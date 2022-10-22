@@ -21,7 +21,7 @@ namespace Pyrite {
 			return (GravitationalField)(gravitationalConstant * mass) / (distance * distance);
 		}
 
-		Newton3D getGravitationalForce(const GravitationalPhysicsObject& obj) const {
+		Newton3D getGravitationalForce(const PhysicsObject& obj) const {
 			Displacement displacementBetween = position - obj.position;
 			Meter distanceBetween = displacementBetween.length();
 			Newton gravForce = (Newton)(gravitationalConstant * mass * obj.mass) / (distanceBetween * distanceBetween);
@@ -38,9 +38,9 @@ namespace Pyrite {
 			return gravFoce3D;
 		}
 
-		void calcNetForce(std::vector<GravitationalPhysicsObject*> interactingObjects) {
+		void calcNetForce(std::vector<PhysicsObject*> interactingObjects) override {
 			netForce = Newton3D{ 0.0_N };
-			for (GravitationalPhysicsObject* obj : interactingObjects) {
+			for (PhysicsObject* obj : interactingObjects) {
 				netForce += getGravitationalForce(*obj);
 			}
 		}

@@ -13,11 +13,15 @@ namespace Pyrite {
 
 		}
 		
-		void calcVelocity(Second deltaTime) {
+		virtual void calcNetForce(std::vector<PhysicsObject*> interactingObjects) {
+			netForce = Newton3D{ 0.0_N };
+		}
+
+		virtual void calcVelocity(Second deltaTime) {
 			velocity += (netForce / mass) * deltaTime;
 		}
 
-		void calcPosition(Second deltaTime) {
+		virtual void calcPosition(Second deltaTime) {
 			position += velocity * deltaTime;
 		}
 
