@@ -38,41 +38,12 @@ namespace Pyrite {
 			return gravFoce3D;
 		}
 
-		/*Newton3D getCentriputalForce(const GravitationalPhysicsObject& obj) const {
-			Displacement displacementBetween = position - obj.position;
-			Meter distanceBetween = displacementBetween.length();
-			Newton3D cForce = ((velocity * velocity) * mass) / distanceBetween;
-
-			Position3D direction;
-			if (mass > obj.mass) {
-				direction = position - obj.position;
-			}
-			else {
-				direction = obj.position - position;
-			}
-			direction.normalize();
-
-			return cForce * direction;
-		}*/
-
 		void calcNetForce(std::vector<GravitationalPhysicsObject*> interactingObjects) {
 			netForce = Newton3D{ 0.0_N };
 			for (GravitationalPhysicsObject* obj : interactingObjects) {
 				netForce += getGravitationalForce(*obj);
 			}
 		}
-
-		/*void calcPosition(std::vector<GravitationalPhysicsObject*> interactingObjects, Second timeSinceLastMovement) {
-			calcNetForce(interactingObjects);
-			
-			Velocity initialVelocity = velocity;
-			Acceleration3D acceleration = (netForce / mass);
-			velocity += (acceleration * timeSinceLastMovement) + velocity;
-
-			Displacement displacement = ((initialVelocity) * (initialVelocity - (velocity * velocity))) / 2.0f * acceleration;
-
-			position += displacement;
-		}*/
 
 	private:
 		Meter radius;

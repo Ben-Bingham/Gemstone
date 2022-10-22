@@ -69,7 +69,7 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640 * 2 , 480 * 2, "Sandbox", 1000.0f}; //TODO full screen and an option for half or quarter of screen
+	Wavellite::Window window{ 640, 480, "Sandbox", 1000.0f}; //TODO full screen and an option for half or quarter of screen
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
@@ -98,9 +98,9 @@ int main() {
 	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
 
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
-	Ruby::PhongCube cube{ cubeMaterial };
+	Ruby::PhongCube sun{ cubeMaterial };
 	Ruby::PhongCube earth{ cubeMaterial };
-	earth.model.scale(2.0f);
+	Ruby::PhongCube moon{ cubeMaterial };
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
@@ -127,20 +127,23 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::Kilogram earthMass = 1'000'000'000'000.0_kg; //https://landgreen.github.io/physics/notes/gravity/circular/
+	/*Pyrite::Kilogram earthMass = 1'000'000'000'000'000.0_kg;
 	Pyrite::Meter distanceBetween = 50.0_m;
 	float speed = sqrt(((Pyrite::gravitationalConstant * earthMass) / distanceBetween));
 
 	Pyrite::GravitationalPhysicsObject obj1{ 1.0_m, 10.0_kg, Pyrite::Position3D{ distanceBetween, 0.0_m, 0.0_m }, Pyrite::Velocity{0.0f, 0.0f, 1.0f } };
 	obj1.velocity = obj1.velocity.normalize();
 	obj1.velocity *= speed;
-	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, earthMass };
+	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, earthMass };*/
+
+	Pyrite::Speed earthSpeed = 5.0_mPerS;
+	Pyrite::Speed moonSpeed = earthSpeed / 2;
+
+	Pyrite::GravitationalPhysicsObject moonPhysics{ 1.0_m, 10.0_kg, Pyrite::Position3D{ (Pyrite::Meter)sqrt(10 * 10 + 15 * 15), 0.0_m, 0.0_m}, Pyrite::Velocity{0.0_mPerS, 0.0_mPerS, moonSpeed}};
+	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, (Pyrite::Kilogram)((moonSpeed * moonSpeed) * (sqrt(50))) / Pyrite::gravitationalConstant, Pyrite::Position3D{ (Pyrite::Meter)sqrt(200), 0.0_m, 0.0_m}, Pyrite::Velocity{0.0_mPerS, 0.0_mPerS, earthSpeed}};
+	Pyrite::GravitationalPhysicsObject sunPhysics{ 3.0_m, (Pyrite::Kilogram)((earthSpeed * earthSpeed) * (sqrt(200))) / Pyrite::gravitationalConstant };
 
 	Wavellite::Time time{ };
-
-	std::vector<Ruby::DebugLine> lines;
-	std::vector<Pyrite::Position3D> points;
-	bool full = false;
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -214,38 +217,43 @@ int main() {
 
 		{ // Physics
 			// Position
-			obj1.calcPosition(time.deltaTime);
+			/*obj1.calcPosition(time.deltaTime);
 			obj1.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics });
 			obj1.calcVelocity(time.deltaTime);
 
 			earthPhysics.calcPosition(time.deltaTime);
 			earthPhysics.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{&obj1});
 			earthPhysics.calcVelocity(time.deltaTime);
-
-			//LOG(obj1.getPosition().toString());
-			//LOG(obj1.velocity.toString());
-			//LOG(std::to_string(obj1.getPosition().length()));
-			//LOG((earthPhysics.getPosition() - obj1.getPosition()).toString());
-			LOG(std::to_string(Malachite::dot(obj1.velocity, earthPhysics.getPosition() - obj1.getPosition())));
-			//TODO should be 0
 			
 			earth.model = Malachite::Matrix4f{ 1.0f };
 			earth.model.scale(2.0f);
 			earth.model.translate(earthPhysics.getPosition());
 			cube.model = Malachite::Matrix4f{ 1.0f };
-			cube.model.translate(obj1.getPosition());
+			cube.model.translate(obj1.getPosition());*/
 
-			if (!full) {
-				points.push_back(obj1.getPosition());
-				if (points.size() == 2) {
-					full = true;
-				}
-			}
-			else {
-				lines.push_back(Ruby::DebugLine(points[0], points[1]));
-				full = false;
-				points.clear();
-			}
+			sunPhysics.calcPosition(time.deltaTime);
+			sunPhysics.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics, &moonPhysics });
+			sunPhysics.calcVelocity(time.deltaTime);
+
+			earthPhysics.calcPosition(time.deltaTime);
+			earthPhysics.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &sunPhysics, & moonPhysics });
+			earthPhysics.calcVelocity(time.deltaTime);
+
+			moonPhysics.calcPosition(time.deltaTime);
+			moonPhysics.calcNetForce(std::vector<Pyrite::GravitationalPhysicsObject*>{ &earthPhysics, & sunPhysics });
+			moonPhysics.calcVelocity(time.deltaTime);
+
+			sun.model = Malachite::Matrix4f{ 1.0f };
+			sun.model.scale(3.0f);
+			sun.model.translate(sunPhysics.getPosition());
+
+			earth.model = Malachite::Matrix4f{ 1.0f };
+			earth.model.scale(2.0f);
+			earth.model.translate(earthPhysics.getPosition());
+
+			moon.model = Malachite::Matrix4f{ 1.0f };
+			moon.model.scale(1.0f);
+			moon.model.translate(moonPhysics.getPosition());
 		}
 
 		{ // Rendering
@@ -257,26 +265,15 @@ int main() {
 				// Cube
 				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
 
-				renderer.phongRender(cube);
+				renderer.phongRender(sun);
 				renderer.phongRender(earth);
+				renderer.phongRender(moon);
 
 				renderer.phongRenderingEnd();
 			}
 
 			{ // Debug Rendering
 				renderer.debugRenderingPrep();
-
-				Pyrite::Position3D gravDirection = earthPhysics.getPosition() - obj1.getPosition();
-				Pyrite::Position3D velocityDirection = obj1.velocity.normalize();
-				velocityDirection = velocityDirection.normalize();
-				velocityDirection *= 15;
-
-				renderer.debugRender(Ruby::DebugLine{ Malachite::Vector3f{0.0f}, gravDirection, Ruby::Colour{ 255, 0, 0 } });
-				renderer.debugRender(Ruby::DebugLine{ obj1.getPosition(), velocityDirection, Ruby::Colour{0, 0, 255}});
-
-				for (Ruby::DebugLine& line : lines) {
-					renderer.debugRender(line);
-				}
 
 				renderer.debugRenderingEnd();
 			}

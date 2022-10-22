@@ -16,7 +16,7 @@ namespace Pyrite {
 	using Acceleration = float;
 	using Acceleration3D = Malachite::Vector3<Acceleration>;
 
-	namespace Literals {
+	namespace Literals { //TODO add versions for non floating point values ie: 10_kg
 		// Mass
 		inline Kilogram operator ""_kg(long double x) { return (Kilogram)x; }
 		inline Kilogram operator ""_g(long double x) { return (Kilogram)x / 1000; }

@@ -16,19 +16,11 @@ namespace Pyrite {
 		Position3D getPosition() const { return position; }
 		
 		void calcVelocity(Second deltaTime) {
-			Velocity inititialVelocity = velocity;
-			Acceleration3D acceleration = netForce / mass;
-
-			velocity = (acceleration * deltaTime) + inititialVelocity;
+			velocity += (netForce / mass) * deltaTime;
 		}
 
 		void calcPosition(Second deltaTime) {
-			/*Acceleration3D acceleration = netForce / mass;
-			Position3D displacement = (velocity * deltaTime) + (0.5f * acceleration * (deltaTime * deltaTime));
-
-			position += displacement;*/
-
-			position += (velocity * deltaTime);
+			position += velocity * deltaTime;
 		}
 
 		Kilogram mass;
