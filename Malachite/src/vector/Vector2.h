@@ -84,7 +84,7 @@ namespace Malachite {
 			return (T)sqrt(x * x + y * y);
 		}
 
-		Vector2<T>& normalize() {
+		Vector2<T> normalize() {
 			Vector2<T> result{ *this };
 			T inverseLength = (T)1 / this->length();
 			result *= inverseLength;
