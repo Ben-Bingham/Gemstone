@@ -4,11 +4,14 @@
 #include "Keyboard.h"
 
 namespace Wavellite {
+	class Window;
+
 	class IOManager {
 	public:
-		IOManager() {}
+		IOManager(Window& window);
 
 		Keyboard keyboard;
 		Mouse mouse;
+		Window* window;
 	};
 }

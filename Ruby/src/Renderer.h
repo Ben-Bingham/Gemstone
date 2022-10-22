@@ -53,6 +53,10 @@ namespace Ruby {
 
         // One time calls
         void init(const Malachite::Matrix4f& projectionMatrix) {
+            uploadProjectionMatrix(projectionMatrix);
+        }
+
+        void uploadProjectionMatrix(const Malachite::Matrix4f& projectionMatrix) {
             for (ShaderProgram* program : customPrograms) {
                 program->use();
                 ShaderProgram::upload("projection", projectionMatrix);

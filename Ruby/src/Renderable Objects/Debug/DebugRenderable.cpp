@@ -2,7 +2,7 @@
 
 namespace Ruby {
 	DebugRenderable::DebugRenderable(const std::vector<float>& verticies, Colour Colour)
-		: SolidRenderable(verticies, generateIndicies(verticies.size()), SolidMaterial{ Colour.toVec3() }) {
+		: SolidRenderable(verticies, generateIndicies((unsigned int)verticies.size()), SolidMaterial{ Colour.toVec3() }) {
 
 	}
 

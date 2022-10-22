@@ -69,7 +69,7 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Wavellite::Window window{ 640, 480, "Sandbox", 1000.0f}; //TODO full screen and an option for half or quarter of screen
+	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f};
 	Wavellite::Mouse* mouse = &window.ioManger.mouse;
 	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
 
