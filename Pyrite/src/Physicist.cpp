@@ -11,17 +11,16 @@ namespace Pyrite {
 		objects.push_back(object);
 	}
 
-	void Physicist::calculate() {
-		for (PhysicsObject* object : objects) {
-			std::vector<PhysicsObject*> interactingObjects;
-			for (PhysicsObject* object2 : objects) {
-				if (object != object2) {
-					interactingObjects.push_back(object2);
-				}
+	void Physicist::calculate(PhysicsObject* object) {
+		std::vector<PhysicsObject*> interactingObjects;
+		for (PhysicsObject* physObj : objects) {
+			if (physObj != object) {
+				interactingObjects.push_back(physObj);
 			}
-			object->calcNetForce(interactingObjects);
-			object->calcVelocity(time.deltaTime);
-			object->calcPosition(time.deltaTime);
 		}
+
+		object->calcNetForce(interactingObjects);
+		object->calcVelocity(time.deltaTime);
+		object->calcPosition(time.deltaTime);
 	}
 }

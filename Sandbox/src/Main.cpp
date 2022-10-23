@@ -22,6 +22,8 @@
 
 #include "Physicist.h"
 
+#include "Collision/Colliders/BoxCollider.h"
+
 Ruby::Camera camera{ };
 struct FPSController {
 	bool firstMouse = true;
@@ -82,29 +84,16 @@ int main() {
 	Ruby::Renderer renderer{ };
 	Pyrite::Physicist physicist{ time };
 
-	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 3.0f };
+	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
-	std::vector<Ruby::PointLight*> pointLights;
+	Ruby::SolidMaterial staticMat{ Malachite::Vector3f{ 0.0f, 0.0f, 1.0f } };
+	Ruby::SolidMaterial defaultMat{ Malachite::Vector3f{ 1.0f, 0.0f, 0.0f } };
+	Ruby::SolidMaterial collidedMat{ Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } };
 
-	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
-	pointLights.push_back(&pointLight);
-
-	std::vector<Ruby::DirectionalLight*> directionalLights;
-
-	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
-	directionalLights.push_back(&directionalLight);
-
-	// Cube setup
-	Ruby::Image containerImage{ "assets\\container2.png" };
-	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
-
-	Ruby::Texture contianerTexture{ containerImage };
-	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
-
-	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
-	Ruby::PhongCube sun{ cubeMaterial };
-	Ruby::PhongCube earth{ cubeMaterial };
-	Ruby::PhongCube moon{ cubeMaterial };
+	Ruby::SolidCube staticCube{ defaultMat };
+	staticCube.model.scale(3.0f);
+	Ruby::SolidCube movingCube{ staticMat };
+	Malachite::Vector3f movingCubePos{ 5.0f, 0.0f, 0.0f };
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
@@ -118,11 +107,6 @@ int main() {
 
 	Ruby::Skybox skybox{ skyboxImages };
 
-	// Shader setup
-	renderer.shaders.phongShader.use();
-	Ruby::ShaderProgram::upload("pointLights", pointLights); // Shader specific
-	Ruby::ShaderProgram::upload("directionalLights", 2, directionalLights);  // Shader specific
-
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
 	// Renderer setup
@@ -131,16 +115,8 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::Speed earthSpeed = 5.0_mPerS;
-	Pyrite::Speed moonSpeed = earthSpeed / 2;
-
-	Pyrite::GravitationalPhysicsObject moonPhysics{ 1.0_m, 10.0_kg, Pyrite::Position3D{ (Pyrite::Meter)sqrt(10 * 10 + 15 * 15), 0.0_m, 0.0_m}, Pyrite::Velocity{0.0_mPerS, 0.0_mPerS, moonSpeed}};
-	Pyrite::GravitationalPhysicsObject earthPhysics{ 2.0_m, (Pyrite::Kilogram)((moonSpeed * moonSpeed) * (sqrt(50))) / Pyrite::gravitationalConstant, Pyrite::Position3D{ (Pyrite::Meter)sqrt(200), 0.0_m, 0.0_m}, Pyrite::Velocity{0.0_mPerS, 0.0_mPerS, earthSpeed}};
-	Pyrite::GravitationalPhysicsObject sunPhysics{ 3.0_m, (Pyrite::Kilogram)((earthSpeed * earthSpeed) * (sqrt(200))) / Pyrite::gravitationalConstant };
-
-	physicist.addObject(&moonPhysics);
-	physicist.addObject(&earthPhysics);
-	physicist.addObject(&sunPhysics);
+	Pyrite::BoxCollider staticCollider{ Pyrite::Point3D{ 3.0_m } };
+	Pyrite::BoxCollider movingCollider{ Pyrite::Point3D{ 1.0_m }, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
 							 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -178,27 +154,27 @@ int main() {
 		float spd = 0.05f;
 
 		if (keyboard->KEY_UP) {
-			directionalLight.position += Malachite::Vector3f{0, 0, -1 * spd};
+			movingCubePos += Malachite::Vector3f{0, 0, -1 * spd};
 		}
 
 		if (keyboard->KEY_DOWN) {
-			directionalLight.position += Malachite::Vector3f{ 0, 0, 1 * spd };
+			movingCubePos += Malachite::Vector3f{ 0, 0, 1 * spd };
 		}
 
 		if (keyboard->KEY_LEFT) {
-			directionalLight.position += Malachite::Vector3f{ -1 * spd, 0, 0 };
+			movingCubePos += Malachite::Vector3f{ -1 * spd, 0, 0 };
 		}
 
 		if (keyboard->KEY_RIGHT) {
-			directionalLight.position += Malachite::Vector3f{ 1 * spd, 0, 0 };
+			movingCubePos += Malachite::Vector3f{ 1 * spd, 0, 0 };
 		}
 
 		if (keyboard->KEY_I) {
-			directionalLight.position += Malachite::Vector3f{ 0, 1 * spd, 0 };
+			movingCubePos += Malachite::Vector3f{ 0, 1 * spd, 0 };
 		}
 
 		if (keyboard->KEY_K) {
-			directionalLight.position += Malachite::Vector3f{ 0, -1 * spd, 0 };
+			movingCubePos += Malachite::Vector3f{ 0, -1 * spd, 0 };
 		}
 
 		if (keyboard->KEY_M) {
@@ -213,36 +189,28 @@ int main() {
 		}
 
 		{ // Physics
-			// Position
-			physicist.calculate();
+			movingCollider.position = movingCubePos;
+			movingCube.model = Malachite::Matrix4f{ 1.0f };
+			movingCube.model.translate(movingCubePos);
 
-			sun.model = Malachite::Matrix4f{ 1.0f };
-			sun.model.scale(3.0f);
-			sun.model.translate(sunPhysics.position);
-
-			earth.model = Malachite::Matrix4f{ 1.0f };
-			earth.model.scale(2.0f);
-			earth.model.translate(earthPhysics.position);
-
-			moon.model = Malachite::Matrix4f{ 1.0f };
-			moon.model.scale(1.0f);
-			moon.model.translate(moonPhysics.position);
+			if (movingCollider.collidesWithBox(&staticCollider)) {
+				staticCube.material = collidedMat;
+			}
+			else {
+				staticCube.material = defaultMat;
+			}
 		}
 
 		{ // Rendering
 			renderer.prep(camera.getViewMatrix());
 
-			{ // Normal Rendering
-				renderer.phongRenderingPrep();
+			{ // Solid Rendering
+				renderer.solidRenderingPrep();
 
-				// Cube
-				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
+				renderer.solidRender(staticCube);
+				renderer.solidRender(movingCube);
 
-				renderer.phongRender(sun);
-				renderer.phongRender(earth);
-				renderer.phongRender(moon);
-
-				renderer.phongRenderingEnd();
+				renderer.solidRenderingEnd();
 			}
 
 			{ // Debug Rendering

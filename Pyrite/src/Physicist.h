@@ -13,7 +13,7 @@ namespace Pyrite {
 		void addObject(PhysicsObject* object);
 
 		// Per frame calls
-		void calculate();
+		void calculate(PhysicsObject* object);
 
 	private:
 		Wavellite::Time& time;

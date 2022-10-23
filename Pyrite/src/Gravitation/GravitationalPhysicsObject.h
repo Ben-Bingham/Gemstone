@@ -12,7 +12,7 @@ namespace Pyrite {
 
 	class GravitationalPhysicsObject : public PhysicsObject {
 	public:
-		GravitationalPhysicsObject(Meter Radius, Kilogram Mass, Position3D Pos = Position3D{ 0.0_m }, Velocity Velocity = Velocity{ 0.0_mPerS })
+		GravitationalPhysicsObject(Meter Radius, Kilogram Mass, Point3D Pos = Point3D{ 0.0_m }, Velocity Velocity = Velocity{ 0.0_mPerS })
 			: PhysicsObject(Mass, Pos, Velocity), radius(Radius) {
 		}
 
@@ -26,7 +26,7 @@ namespace Pyrite {
 			Meter distanceBetween = displacementBetween.length();
 			Newton gravForce = (Newton)(gravitationalConstant * mass * obj.mass) / (distanceBetween * distanceBetween);
 
-			Position3D direction;
+			Point3D direction;
 			if (mass > obj.mass) {
 				direction = position - obj.position;
 			}

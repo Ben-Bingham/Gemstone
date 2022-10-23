@@ -5,7 +5,8 @@
 namespace Pyrite {
 	using Kilogram = float;
 	using Meter = float;
-	using Position3D = Malachite::Vector3<Meter>;
+	using Point3D = Malachite::Vector3<Meter>;
+	using Point2D = Malachite::Vector2<Meter>;
 	using Second = float;
 	using GravitationalField = float;
 	using Newton = float;
