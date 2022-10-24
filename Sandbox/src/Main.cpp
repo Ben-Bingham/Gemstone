@@ -17,12 +17,12 @@
 #include "Renderable Objects/Skybox.h"
 
 #include "Units.h"
-#include "Gravitation/GravitationalPhysicsObject.h"
 #include "Timing.h"
-
-#include "Physicist.h"
+#include "Powers.h"
 
 #include "Collision/Colliders/BoxCollider.h"
+
+#include "ForceGenerator.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -82,10 +82,21 @@ int main() {
 
 	Wavellite::Time time{ };
 	Ruby::Renderer renderer{ };
-	Pyrite::Physicist physicist{ time };
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
+	std::vector<Ruby::PointLight*> pointLights;
+
+	// Shader setup
+	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
+	pointLights.push_back(&pointLight);
+
+	std::vector<Ruby::DirectionalLight*> directionalLights;
+
+	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
+	directionalLights.push_back(&directionalLight);
+
+	// Solid setup
 	Ruby::SolidMaterial staticMat{ Malachite::Vector3f{ 0.0f, 0.0f, 1.0f } };
 	Ruby::SolidMaterial defaultMat{ Malachite::Vector3f{ 1.0f, 0.0f, 0.0f } };
 	Ruby::SolidMaterial collidedMat{ Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } };
@@ -105,9 +116,26 @@ int main() {
 		Ruby::Image{ "assets\\Skybox\\back.jpg", false },
 	};
 
+	// normal rendering setup
 	Ruby::Skybox skybox{ skyboxImages };
 
+	Ruby::Image containerImage{ "assets\\container2.png" };
+	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
+
+	Ruby::Texture contianerTexture{ containerImage };
+	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
+
+	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
+	Ruby::PhongCube sun{ cubeMaterial };
+	Ruby::PhongCube earth{ cubeMaterial };
+	Ruby::PhongCube moon{ cubeMaterial };
+
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
+
+	// Shader setup
+	renderer.shaders.phongShader.use();
+	Ruby::ShaderProgram::upload("pointLights", pointLights);
+	Ruby::ShaderProgram::upload("directionalLights", 2, directionalLights);
 
 	// Renderer setup
 	renderer.init(window.getProjectionMatrix());
@@ -118,6 +146,14 @@ int main() {
 	Pyrite::BoxCollider staticCollider{ Pyrite::Point3D{ 3.0_m } };
 	Pyrite::BoxCollider movingCollider{ Pyrite::Point3D{ 1.0_m }, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
 							 
+	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
+	Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 2.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
+	Pyrite::PhysicsObject moonPhysics{ 1.0_kg, earthPhysics.position + Pyrite::Point3D{ -2.0_m, 0.0_m, 0.0_m } };
+
+	earthPhysics.velocity.z = 5.0_mPerS;
+	moonPhysics.velocity.z = 7.0_mPerS;
+	//moonPhysics.velocity.z += 2.0_mPerS;
+
 	// Rendering loop
 	while (window.isOpen()) {
 		window.pollEvents();
@@ -199,6 +235,39 @@ int main() {
 			else {
 				staticCube.material = defaultMat;
 			}
+
+			//sunPhysics.netForce = Pyrite::Newton3D{ 0.0_N };//TODO netforces should be zerod out afterward but to draw them they need to have a value after
+			//sunPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&earthPhysics, &sunPhysics);
+			//sunPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&moonPhysics, &sunPhysics);
+			//sunPhysics.calcVelocity(time.deltaTime);
+			//sunPhysics.calcPosition(time.deltaTime);
+			//sunPhysics.netForce = Pyrite::Newton3D{ 0.0_N }; 
+
+			earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
+			earthPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&moonPhysics, &earthPhysics);
+			earthPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics);
+			earthPhysics.calcVelocity(time.deltaTime);
+			earthPhysics.calcPosition(time.deltaTime);
+			//earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
+
+			moonPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
+			moonPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&earthPhysics, &moonPhysics);
+			moonPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &moonPhysics);
+			moonPhysics.calcVelocity(time.deltaTime);
+			moonPhysics.calcPosition(time.deltaTime);
+			//moonPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
+
+			sun.model = Malachite::Matrix4f{ 1.0f };
+			sun.model.scale(2.0f);
+			sun.model.translate(sunPhysics.position);
+
+			earth.model = Malachite::Matrix4f{ 1.0f };
+			earth.model.scale(2.0f);
+			earth.model.translate(earthPhysics.position);
+
+			moon.model = Malachite::Matrix4f{ 1.0f };
+			moon.model.scale(1.0f);
+			moon.model.translate(moonPhysics.position);
 		}
 
 		{ // Rendering
@@ -213,8 +282,31 @@ int main() {
 				renderer.solidRenderingEnd();
 			}
 
+			{ // Normal Rendering
+				renderer.phongRenderingPrep();
+
+				// Cube
+				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
+
+				renderer.phongRender(sun);
+				renderer.phongRender(earth);
+				renderer.phongRender(moon);
+
+				renderer.phongRenderingEnd();
+			}
+
 			{ // Debug Rendering
 				renderer.debugRenderingPrep();
+
+				//renderer.debugRender(Ruby::DebugLine{ earthPhysics.position, earthPhysics.netForce, Ruby::Colour{ 255, 0, 0 } });
+				renderer.debugRender(Ruby::DebugLine{ earthPhysics.position, earthPhysics.position + Pyrite::ForceGenerator::gravitationalForce(&moonPhysics, &earthPhysics), Ruby::Colour{ 255, 0, 0 } });
+				renderer.debugRender(Ruby::DebugLine{ earthPhysics.position, earthPhysics.position + Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics), Ruby::Colour{ 255, 0, 0 } });
+
+				//renderer.debugRender(Ruby::DebugLine{ moonPhysics.position, moonPhysics.netForce, Ruby::Colour{ 0, 255, 0 } });
+				renderer.debugRender(Ruby::DebugLine{ moonPhysics.position, moonPhysics.position + (Pyrite::ForceGenerator::gravitationalForce(&earthPhysics, &moonPhysics)), Ruby::Colour{0, 255, 0}});
+				renderer.debugRender(Ruby::DebugLine{ moonPhysics.position, moonPhysics.position + Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &moonPhysics), Ruby::Colour{ 0, 255, 0 } });
+
+				LOG(Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics).toString());
 
 				renderer.debugRenderingEnd();
 			}
