@@ -16,6 +16,7 @@ namespace Pyrite {
 	using Displacement = Malachite::Vector3<Meter>;
 	using Acceleration = float;
 	using Acceleration3D = Malachite::Vector3<Acceleration>;
+	using KilogramMeterPerSeconds = float;
 
 	namespace Literals { //TODO add versions for non floating point values ie: 10_kg
 		// Mass

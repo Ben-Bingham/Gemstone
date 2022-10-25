@@ -104,7 +104,6 @@ int main() {
 	Ruby::SolidCube staticCube{ defaultMat };
 	staticCube.model.scale(3.0f);
 	Ruby::SolidCube movingCube{ staticMat };
-	Malachite::Vector3f movingCubePos{ 5.0f, 0.0f, 0.0f };
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
@@ -128,7 +127,7 @@ int main() {
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
 	Ruby::PhongCube sun{ cubeMaterial };
 	Ruby::PhongCube earth{ cubeMaterial };
-	Ruby::PhongCube moon{ cubeMaterial };
+	//Ruby::PhongCube moon{ cubeMaterial };
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -144,15 +143,14 @@ int main() {
 	using namespace Pyrite::Literals;
 
 	Pyrite::BoxCollider staticCollider{ Pyrite::Point3D{ 3.0_m } };
+	Pyrite::PhysicsObject staticObject{ 10.0_kg };
 	Pyrite::BoxCollider movingCollider{ Pyrite::Point3D{ 1.0_m }, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
-							 
+	Pyrite::PhysicsObject movingObject{ 2.0_kg, movingCollider.position };
+	
 	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
-	Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 2.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
-	Pyrite::PhysicsObject moonPhysics{ 1.0_kg, earthPhysics.position + Pyrite::Point3D{ -2.0_m, 0.0_m, 0.0_m } };
+	Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
 
 	earthPhysics.velocity.z = 5.0_mPerS;
-	moonPhysics.velocity.z = 7.0_mPerS;
-	//moonPhysics.velocity.z += 2.0_mPerS;
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -187,47 +185,73 @@ int main() {
 			window.close();
 		}
 
-		float spd = 0.05f;
+		float spd = 1.0f;
 
 		if (keyboard->KEY_UP) {
-			movingCubePos += Malachite::Vector3f{0, 0, -1 * spd};
+			movingObject.netForce += Malachite::Vector3f{0, 0, -1 * spd};
 		}
 
 		if (keyboard->KEY_DOWN) {
-			movingCubePos += Malachite::Vector3f{ 0, 0, 1 * spd };
+			movingObject.netForce += Malachite::Vector3f{ 0, 0, 1 * spd };
 		}
 
 		if (keyboard->KEY_LEFT) {
-			movingCubePos += Malachite::Vector3f{ -1 * spd, 0, 0 };
+			movingObject.netForce += Malachite::Vector3f{ -1 * spd, 0, 0 };
 		}
 
 		if (keyboard->KEY_RIGHT) {
-			movingCubePos += Malachite::Vector3f{ 1 * spd, 0, 0 };
+			movingObject.netForce += Malachite::Vector3f{ 1 * spd, 0, 0 };
 		}
 
 		if (keyboard->KEY_I) {
-			movingCubePos += Malachite::Vector3f{ 0, 1 * spd, 0 };
+			movingObject.netForce += Malachite::Vector3f{ 0, 1 * spd, 0 };
 		}
 
 		if (keyboard->KEY_K) {
-			movingCubePos += Malachite::Vector3f{ 0, -1 * spd, 0 };
-		}
-
-		if (keyboard->KEY_M) {
-			if (cursorNormal) {
-				window.disableCursor();
-				cursorNormal = false;
-			}
-			else {
-				window.enableCursor();
-				cursorNormal = true;
-			}
+			movingObject.netForce += Malachite::Vector3f{ 0, -1 * spd, 0 };
 		}
 
 		{ // Physics
-			movingCollider.position = movingCubePos;
+			LOG(movingObject.velocity.toString());
+
+			movingObject.calcVelocity(time.deltaTime);
+			movingObject.calcPosition(time.deltaTime);
+			movingObject.netForce = Pyrite::Newton3D{ 0.0_N };
+
 			movingCube.model = Malachite::Matrix4f{ 1.0f };
-			movingCube.model.translate(movingCubePos);
+			movingCube.model.translate(movingObject.position);
+			movingCollider.position = movingObject.position;
+
+			staticObject.calcVelocity(time.deltaTime);
+			staticObject.calcPosition(time.deltaTime);
+			staticObject.netForce = Pyrite::Newton3D{ 0.0_N };
+
+			staticCube.model = Malachite::Matrix4f{ 1.0f };
+			staticCube.model.scale(3.0f);
+			staticCube.model.translate(staticObject.position);
+			staticCollider.position = staticObject.position;
+
+			if (movingCollider.collidesWithBox(&staticCollider)) {
+				/*Pyrite::Kilogram m1 = movingObject.mass;
+				Pyrite::Velocity v1 = movingObject.velocity;
+				Pyrite::Kilogram m2 = staticObject.mass;
+				Pyrite::Velocity v2 = staticObject.velocity;
+
+				staticObject.velocity = (m1 * v1 + m2 * v2 - m1 * (-0.5f * v1)) / m2;
+				movingObject.velocity = -0.5f * movingObject.velocity;*/
+
+
+				// TODO collsion vector should be 2 closest points to eachother during collision
+				Pyrite::Point3D collision = (movingObject.position + movingCollider.dimensions.x / 2.0f) - (staticObject.position + staticCollider.dimensions.x / 2.0f);
+				collision = collision.normalize();
+				Pyrite::Speed speed = dot(collision, movingObject.velocity - staticObject.velocity);
+				if (speed > 0) {
+					Pyrite::KilogramMeterPerSeconds impulse = 2 * speed / (movingObject.mass + staticObject.mass);
+
+					movingObject.velocity -= (impulse * staticObject.mass * collision);
+					staticObject.velocity += (impulse * staticObject.mass * collision);
+				}
+			}
 
 			if (movingCollider.collidesWithBox(&staticCollider)) {
 				staticCube.material = collidedMat;
@@ -236,26 +260,10 @@ int main() {
 				staticCube.material = defaultMat;
 			}
 
-			//sunPhysics.netForce = Pyrite::Newton3D{ 0.0_N };//TODO netforces should be zerod out afterward but to draw them they need to have a value after
-			//sunPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&earthPhysics, &sunPhysics);
-			//sunPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&moonPhysics, &sunPhysics);
-			//sunPhysics.calcVelocity(time.deltaTime);
-			//sunPhysics.calcPosition(time.deltaTime);
-			//sunPhysics.netForce = Pyrite::Newton3D{ 0.0_N }; 
-
 			earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
-			earthPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&moonPhysics, &earthPhysics);
 			earthPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics);
 			earthPhysics.calcVelocity(time.deltaTime);
 			earthPhysics.calcPosition(time.deltaTime);
-			//earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
-
-			moonPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
-			moonPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&earthPhysics, &moonPhysics);
-			moonPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &moonPhysics);
-			moonPhysics.calcVelocity(time.deltaTime);
-			moonPhysics.calcPosition(time.deltaTime);
-			//moonPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
 
 			sun.model = Malachite::Matrix4f{ 1.0f };
 			sun.model.scale(2.0f);
@@ -264,10 +272,6 @@ int main() {
 			earth.model = Malachite::Matrix4f{ 1.0f };
 			earth.model.scale(2.0f);
 			earth.model.translate(earthPhysics.position);
-
-			moon.model = Malachite::Matrix4f{ 1.0f };
-			moon.model.scale(1.0f);
-			moon.model.translate(moonPhysics.position);
 		}
 
 		{ // Rendering
@@ -290,23 +294,12 @@ int main() {
 
 				renderer.phongRender(sun);
 				renderer.phongRender(earth);
-				renderer.phongRender(moon);
 
 				renderer.phongRenderingEnd();
 			}
 
 			{ // Debug Rendering
 				renderer.debugRenderingPrep();
-
-				//renderer.debugRender(Ruby::DebugLine{ earthPhysics.position, earthPhysics.netForce, Ruby::Colour{ 255, 0, 0 } });
-				renderer.debugRender(Ruby::DebugLine{ earthPhysics.position, earthPhysics.position + Pyrite::ForceGenerator::gravitationalForce(&moonPhysics, &earthPhysics), Ruby::Colour{ 255, 0, 0 } });
-				renderer.debugRender(Ruby::DebugLine{ earthPhysics.position, earthPhysics.position + Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics), Ruby::Colour{ 255, 0, 0 } });
-
-				//renderer.debugRender(Ruby::DebugLine{ moonPhysics.position, moonPhysics.netForce, Ruby::Colour{ 0, 255, 0 } });
-				renderer.debugRender(Ruby::DebugLine{ moonPhysics.position, moonPhysics.position + (Pyrite::ForceGenerator::gravitationalForce(&earthPhysics, &moonPhysics)), Ruby::Colour{0, 255, 0}});
-				renderer.debugRender(Ruby::DebugLine{ moonPhysics.position, moonPhysics.position + Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &moonPhysics), Ruby::Colour{ 0, 255, 0 } });
-
-				LOG(Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics).toString());
 
 				renderer.debugRenderingEnd();
 			}
