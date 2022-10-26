@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Colliders/BoxCollider.h"
+#include "Colliders/AxisAlignedBoxCollider.h"
 
 namespace Pyrite {
 	namespace CollisionDetection {
-		bool boxWithBox(const BoxCollider* box1, const BoxCollider* box2);
+		bool boxWithBox(const AxisAlignedBoxCollider* box1, const AxisAlignedBoxCollider* box2);
+		Collider::Collision boxWithBoxInfo(const AxisAlignedBoxCollider* box1, const AxisAlignedBoxCollider* box2);
 	}
 }

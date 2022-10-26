@@ -2,37 +2,39 @@
 
 namespace Pyrite {
 	namespace CollisionDetection {
-		bool boxWithBox(const BoxCollider* box1, const BoxCollider* box2) {
-			// box 1
-			Meter maxX1 = box1->position.x + (box1->dimensions.x / 2);
-			Meter minX1 = box1->position.x - (box1->dimensions.x / 2);
-
-			Meter maxY1 = box1->position.y + (box1->dimensions.y / 2);
-			Meter minY1 = box1->position.y - (box1->dimensions.y / 2);
-
-			Meter maxZ1 = box1->position.z + (box1->dimensions.z / 2);
-			Meter minZ1 = box1->position.z - (box1->dimensions.z / 2);
-
-			// box 2
-			Meter maxX2 = box2->position.x + (box2->dimensions.x / 2);
-			Meter minX2 = box2->position.x - (box2->dimensions.x / 2);
-
-			Meter maxY2 = box2->position.y + (box2->dimensions.y / 2);
-			Meter minY2 = box2->position.y - (box2->dimensions.y / 2);
-
-			Meter maxZ2 = box2->position.z + (box2->dimensions.z / 2);
-			Meter minZ2 = box2->position.z - (box2->dimensions.z / 2);
-
-			if (maxX1 > minX2 && 
-				minX1 < maxX2 &&
-				maxY1 > minY2 &&
-				minY1 < maxY2 &&
-				maxZ1 > minZ2 &&
-				minZ1 < maxZ2) {
+		bool boxWithBox(const AxisAlignedBoxCollider* box1, const AxisAlignedBoxCollider* box2) { //TODO optimize
+			if (box1->max.x > box2->min.x &&		
+				box1->min.x < box2->max.x &&
+				box1->max.y > box2->min.y &&
+				box1->min.y < box2->max.y &&
+				box1->max.z > box2->min.z &&
+				box1->min.z < box2->max.z) {
 				return true;
 			}
 
 			return false;
+		}
+
+		Collider::Collision boxWithBoxInfo(const AxisAlignedBoxCollider* box1, const AxisAlignedBoxCollider* box2) {
+			Collider::Collision collision;
+
+			Point3D originDisplacement = box1->getOrigin() - box2->getOrigin();
+
+			Meter xPenetration = originDisplacement.x;
+			Meter yPenetration = originDisplacement.y;
+			Meter zPenetration = originDisplacement.z;
+
+			if (xPenetration < yPenetration && xPenetration < zPenetration) {
+				collision.normal = Direction{ xPenetration }.normalize();
+			}
+			else if (yPenetration < zPenetration && yPenetration < xPenetration) {
+				collision.normal = Direction{ yPenetration }.normalize();
+			}
+			else {
+				collision.normal = Direction{ zPenetration }.normalize();
+			}
+
+			return collision;
 		}
 	}
 }

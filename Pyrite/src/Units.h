@@ -14,6 +14,7 @@ namespace Pyrite {
 	using Speed = float;
 	using Velocity = Malachite::Vector3<Speed>;
 	using Displacement = Malachite::Vector3<Meter>;
+	using Direction = Malachite::Vector3<Meter>;
 	using Acceleration = float;
 	using Acceleration3D = Malachite::Vector3<Acceleration>;
 	using KilogramMeterPerSeconds = float;

@@ -3,15 +3,21 @@
 #include "Units.h"
 
 namespace Pyrite {
-	class BoxCollider;
+	class AxisAlignedBoxCollider;
 
 	using namespace Literals;
 	class Collider {
 	public:
-		Collider(Point3D position = Point3D{ 0.0_m });
+		Collider();
 
-		virtual bool collidesWithBox(const BoxCollider* box) const = 0;
+		struct Collision {
+			Point3D localA{ 0.0_m };
+			Point3D localB{ 0.0_m };
+			Direction normal{ 0.0_m };
+			Meter penetrationDistance{ 0.0_m };
+		};
 
-		Point3D position;
+		virtual bool collidesWithAABB(const AxisAlignedBoxCollider* box) const = 0;
+		virtual Collision AABBCollisionInfo(const AxisAlignedBoxCollider* box) const = 0;
 	};
 }

@@ -20,7 +20,7 @@
 #include "Timing.h"
 #include "Powers.h"
 
-#include "Collision/Colliders/BoxCollider.h"
+#include "Collision/Colliders/AxisAlignedBoxCollider.h"
 
 #include "ForceGenerator.h"
 
@@ -142,9 +142,9 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::BoxCollider staticCollider{ Pyrite::Point3D{ 3.0_m } };
+	Pyrite::AxisAlignedBoxCollider staticCollider{ Pyrite::Point3D{ 3.0_m } };
 	Pyrite::PhysicsObject staticObject{ 10.0_kg };
-	Pyrite::BoxCollider movingCollider{ Pyrite::Point3D{ 1.0_m }, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
+	Pyrite::AxisAlignedBoxCollider movingCollider{ Pyrite::Point3D{ 1.0_m }, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
 	Pyrite::PhysicsObject movingObject{ 2.0_kg, movingCollider.position };
 	
 	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
@@ -231,7 +231,7 @@ int main() {
 			staticCube.model.translate(staticObject.position);
 			staticCollider.position = staticObject.position;
 
-			if (movingCollider.collidesWithBox(&staticCollider)) {
+			if (movingCollider.collidesWithAABB(&staticCollider)) {
 				/*Pyrite::Kilogram m1 = movingObject.mass;
 				Pyrite::Velocity v1 = movingObject.velocity;
 				Pyrite::Kilogram m2 = staticObject.mass;
@@ -242,7 +242,7 @@ int main() {
 
 
 				// TODO collsion vector should be 2 closest points to eachother during collision
-				Pyrite::Point3D collision = (movingObject.position + movingCollider.dimensions.x / 2.0f) - (staticObject.position + staticCollider.dimensions.x / 2.0f);
+				Pyrite::Point3D collision = (movingObject.position - movingCollider.dimensions.x / 2.0f) - (staticObject.position + staticCollider.dimensions.x / 2.0f);
 				collision = collision.normalize();
 				Pyrite::Speed speed = dot(collision, movingObject.velocity - staticObject.velocity);
 				if (speed > 0) {
