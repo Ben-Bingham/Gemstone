@@ -7,15 +7,15 @@ namespace Pyrite {
 
 	}
 
-	bool AxisAlignedBoxCollider::collidesWithAABB(const AxisAlignedBoxCollider* box) const {
-		return CollisionDetection::boxWithBox(this, box);
-	}
-
-	Collider::Collision AxisAlignedBoxCollider::AABBCollisionInfo(const AxisAlignedBoxCollider* box) const {
-		return CollisionDetection::boxWithBoxInfo(this, box);
+	Collider::Collision AxisAlignedBoxCollider::collidesWithAABB(const AxisAlignedBoxCollider* box) const {
+		return CollisionDetection::AABBwithAABB(this, box);
 	}
 
 	Point3D AxisAlignedBoxCollider::getOrigin() const {
-		return (max - min) / 2.0_m;
+		return min + (getDimensions() / 2.0_m);
+	}
+
+	Point3D AxisAlignedBoxCollider::getDimensions() const {
+		return max - min;
 	}
 }

@@ -142,11 +142,13 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::AxisAlignedBoxCollider staticCollider{ Pyrite::Point3D{ 3.0_m } };
 	Pyrite::PhysicsObject staticObject{ 10.0_kg };
-	Pyrite::AxisAlignedBoxCollider movingCollider{ Pyrite::Point3D{ 1.0_m }, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
-	Pyrite::PhysicsObject movingObject{ 2.0_kg, movingCollider.position };
+	Pyrite::AxisAlignedBoxCollider staticCollider{ Pyrite::Point3D{ 0.0_m } - 1.5_m, Pyrite::Point3D{ 0.0_m } + 1.5_m };
+	Pyrite::PhysicsObject movingObject{ 2.0_kg, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
+	Pyrite::AxisAlignedBoxCollider movingCollider{ movingObject.position - 0.5_m, movingObject.position + 0.5_m };
 	
+	Pyrite::Collider::Collision collision;
+
 	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
 	Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
 
@@ -210,17 +212,15 @@ int main() {
 		if (keyboard->KEY_K) {
 			movingObject.netForce += Malachite::Vector3f{ 0, -1 * spd, 0 };
 		}
-
 		{ // Physics
-			LOG(movingObject.velocity.toString());
-
 			movingObject.calcVelocity(time.deltaTime);
 			movingObject.calcPosition(time.deltaTime);
 			movingObject.netForce = Pyrite::Newton3D{ 0.0_N };
 
 			movingCube.model = Malachite::Matrix4f{ 1.0f };
 			movingCube.model.translate(movingObject.position);
-			movingCollider.position = movingObject.position;
+			movingCollider.min = movingObject.position - 0.5_m;
+			movingCollider.max = movingObject.position + 0.5_m;
 
 			staticObject.calcVelocity(time.deltaTime);
 			staticObject.calcPosition(time.deltaTime);
@@ -229,31 +229,22 @@ int main() {
 			staticCube.model = Malachite::Matrix4f{ 1.0f };
 			staticCube.model.scale(3.0f);
 			staticCube.model.translate(staticObject.position);
-			staticCollider.position = staticObject.position;
+			staticCollider.min = staticObject.position - 1.5_m;
+			staticCollider.max = staticObject.position + 1.5_m;
 
-			if (movingCollider.collidesWithAABB(&staticCollider)) {
-				/*Pyrite::Kilogram m1 = movingObject.mass;
-				Pyrite::Velocity v1 = movingObject.velocity;
-				Pyrite::Kilogram m2 = staticObject.mass;
-				Pyrite::Velocity v2 = staticObject.velocity;
+			collision = movingCollider.collidesWithAABB(&staticCollider);
 
-				staticObject.velocity = (m1 * v1 + m2 * v2 - m1 * (-0.5f * v1)) / m2;
-				movingObject.velocity = -0.5f * movingObject.velocity;*/
-
-
-				// TODO collsion vector should be 2 closest points to eachother during collision
-				Pyrite::Point3D collision = (movingObject.position - movingCollider.dimensions.x / 2.0f) - (staticObject.position + staticCollider.dimensions.x / 2.0f);
-				collision = collision.normalize();
-				Pyrite::Speed speed = dot(collision, movingObject.velocity - staticObject.velocity);
+			if (collision.hasCollision) {
+				Pyrite::Speed speed = dot(collision.normal, movingObject.velocity - staticObject.velocity);
 				if (speed > 0) {
 					Pyrite::KilogramMeterPerSeconds impulse = 2 * speed / (movingObject.mass + staticObject.mass);
 
-					movingObject.velocity -= (impulse * staticObject.mass * collision);
-					staticObject.velocity += (impulse * staticObject.mass * collision);
+					movingObject.velocity -= (impulse * staticObject.mass * collision.normal);
+					staticObject.velocity += (impulse * staticObject.mass * collision.normal);
 				}
 			}
 
-			if (movingCollider.collidesWithBox(&staticCollider)) {
+			if (collision.hasCollision) {
 				staticCube.material = collidedMat;
 			}
 			else {

@@ -11,13 +11,13 @@ namespace Pyrite {
 		Collider();
 
 		struct Collision {
-			Point3D localA{ 0.0_m };
-			Point3D localB{ 0.0_m };
-			Direction normal{ 0.0_m };
-			Meter penetrationDistance{ 0.0_m };
+			Point3D localA{ 0.0_m }; // Furthest point of A into B
+			Point3D localB{ 0.0_m }; // Furthest point of B into A
+			Direction normal{ 0.0_m }; // localA - localB normalized	// TODO consider removing
+			Meter depth{ 0.0_m }; // Length of localA - localB			// TODO consider removing
+			bool hasCollision;
 		};
 
-		virtual bool collidesWithAABB(const AxisAlignedBoxCollider* box) const = 0;
-		virtual Collision AABBCollisionInfo(const AxisAlignedBoxCollider* box) const = 0;
+		virtual Collision collidesWithAABB(const AxisAlignedBoxCollider* box) const = 0;
 	};
 }
