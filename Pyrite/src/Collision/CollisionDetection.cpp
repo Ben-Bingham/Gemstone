@@ -35,8 +35,22 @@ namespace Pyrite {
 			bIntoA.y = Malachite::clamp(bIntoA.y, -box2Dimensions.y / 2.0f, box2Dimensions.y / 2.0f);
 			bIntoA.z = Malachite::clamp(bIntoA.z, -box2Dimensions.z / 2.0f, box2Dimensions.z / 2.0f);
 
+			Direction normal = (aIntoB - bIntoA).normalize();
 
-			return Collider::Collision{ aIntoB, bIntoA, (aIntoB - bIntoA).normalize(), (aIntoB - bIntoA).length(), collided };
+			if (normal.x < normal.y && normal.x < normal.z) {
+				normal.y = 0.0_m;
+				normal.z = 0.0_m;
+			}
+			else if (normal.y < normal.x && normal.y < normal.z) {
+				normal.x = 0.0_m;
+				normal.z = 0.0_m;
+			}
+			else {
+				normal.x = 0.0_m;
+				normal.y = 0.0_m;
+			}
+
+			return Collider::Collision{ aIntoB, bIntoA, normal, (aIntoB - bIntoA).length(), collided };
 		}
 	}
 }
