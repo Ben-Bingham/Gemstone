@@ -21,6 +21,7 @@
 #include "Powers.h"
 
 #include "Collision/Colliders/AxisAlignedBoxCollider.h"
+#include "Renderable Objects/Solid/SolidSphere.h"
 
 #include "ForceGenerator.h"
 
@@ -105,6 +106,9 @@ int main() {
 	staticCube.model.scale(3.0f);
 	Ruby::SolidCube movingCube{ staticMat };
 
+	Ruby::SolidSphere sphere{ defaultMat, 4000, 2000 };
+	sphere.model.scale(6.0f);
+
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
 		Ruby::Image{ "assets\\Skybox\\right.jpg", false },
@@ -127,6 +131,8 @@ int main() {
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
 	Ruby::PhongCube sun{ cubeMaterial };
 	Ruby::PhongCube earth{ cubeMaterial };
+
+	//Ruby::PhongSphere sphere{ cubeMaterial };
 	//Ruby::PhongCube moon{ cubeMaterial };
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
@@ -273,6 +279,7 @@ int main() {
 
 				renderer.solidRender(staticCube);
 				renderer.solidRender(movingCube);
+				renderer.solidRender(sphere);
 
 				renderer.solidRenderingEnd();
 			}
