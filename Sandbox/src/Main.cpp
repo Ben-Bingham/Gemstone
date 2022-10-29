@@ -142,7 +142,7 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
-	Pyrite::PhysicsObject staticObject{ 10.0_kg };
+	Pyrite::PhysicsObject staticObject{ 10_kg };
 	Pyrite::AxisAlignedBoxCollider staticCollider{ Pyrite::Point3D{ 0.0_m } - 1.5_m, Pyrite::Point3D{ 0.0_m } + 1.5_m };
 	Pyrite::PhysicsObject movingObject{ 2.0_kg, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
 	Pyrite::AxisAlignedBoxCollider movingCollider{ movingObject.position - 0.5_m, movingObject.position + 0.5_m };
