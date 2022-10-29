@@ -27,7 +27,7 @@ namespace Ruby {
 		}
 
 		// The assumption is made that a shader program is bound prior to this being called
-		virtual void render() const {
+		virtual void render() const { //TODO split this into header and cpp file for all renderables
 			VAO.bind();
 			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 		}
