@@ -27,15 +27,15 @@ namespace Ruby {
 
 				if (normals) {
 					// normals
-					verticies.push_back(0.0f);
-					verticies.push_back(0.0f);
-					verticies.push_back(0.0f);
+					verticies.push_back(cosf(sectorAngle) * cosf(stackAngle));
+					verticies.push_back(sinf(stackAngle));
+					verticies.push_back(sinf(sectorAngle) * cosf(stackAngle));
 				}
 				
 				if (textureCordinates) {
 					// texture cordinates
-					verticies.push_back(0.0f);
-					verticies.push_back(0.0f);
+					verticies.push_back((float)j / numberOfSectors);
+					verticies.push_back((float)i / numberOfStacks);
 				}
 			}
 		}
@@ -62,9 +62,6 @@ namespace Ruby {
 					indicies.push_back(k2);
 					indicies.push_back(k2 + 1);
 				}
-
-				//k1++;
-				//k2++;
 			}
 		}
 
