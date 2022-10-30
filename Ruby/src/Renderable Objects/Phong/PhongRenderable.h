@@ -20,5 +20,4 @@ namespace Ruby {
 		Malachite::Matrix4f model{ 1.0f };
 		PhongMaterial* material{ };
 	};
-	
 }
