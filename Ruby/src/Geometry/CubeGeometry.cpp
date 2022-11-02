@@ -5,30 +5,28 @@ namespace Ruby {
 
 	std::vector<float> CubeGeometry::getVerticies(bool normals, bool textureCordinates) const {
 		std::vector<float> verticies;
-		unsigned int numberOfVerticies{ 36u };
+		unsigned int numberOfVerticies{ 24u };
 		unsigned int j{ 0 };
 		unsigned int g{ 0 };
 		unsigned int v{ 0 };
-		for (unsigned int i = 0; i < numberOfVerticies; i++, j += 3) {
+		for (unsigned int i = 0; i < numberOfVerticies; i++, j += 3, g += 3, v += 2) {
 			verticies.push_back(positionalData[j + 0]);
 			verticies.push_back(positionalData[j + 1]);
 			verticies.push_back(positionalData[j + 2]);
-		}
 
-		if (normals) {
-			for (unsigned int i = 0; i < numberOfVerticies; i++, g += 3) {
+			if (normals) {
 				verticies.push_back(normalData[g + 0]);
 				verticies.push_back(normalData[g + 1]);
 				verticies.push_back(normalData[g + 2]);
 			}
-		}
 
-		if (textureCordinates) {
-			for (unsigned int i = 0; i < numberOfVerticies; i++, v += 2) {
+			if (textureCordinates) {
 				verticies.push_back(textureCordinateData[v + 0]);
 				verticies.push_back(textureCordinateData[v + 1]);
 			}
 		}
+
+
 
 		return verticies;
 	}
