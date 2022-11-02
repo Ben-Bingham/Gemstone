@@ -10,7 +10,6 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Camera.h"
-#include "Renderable Objects/Solid/SolidCube.h"
 #include "Renderable Objects/Image/ImageQuad.h"
 #include "OpenGL objects/Framebuffer.h"
 #include "Renderable Objects/Skybox.h"
@@ -20,7 +19,6 @@
 #include "Powers.h"
 
 #include "Collision/Colliders/AxisAlignedBoxCollider.h"
-#include "Renderable Objects/Solid/SolidSphere.h"
 #include "Renderable Objects/Phong/PhongGeometry.h"
 #include "Geometry/CubeGeometry.h"
 #include "Geometry/SphereGeometry.h"
