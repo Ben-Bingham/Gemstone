@@ -1,30 +1,18 @@
-#include <iostream>
-
-#include "imgui.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_glfw.h"
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
+// Wavellite
 #include "Window.h"
+
+// Ruby
 #include "Renderer.h"
 #include "Camera.h"
-#include "Renderable Objects/Image/ImageQuad.h"
-#include "OpenGL objects/Framebuffer.h"
-#include "Renderable Objects/Skybox.h"
-
-#include "Units.h"
-#include "Timing.h"
-#include "Powers.h"
-
-#include "Collision/Colliders/AxisAlignedBoxCollider.h"
 #include "Renderable Objects/Phong/PhongGeometry.h"
 #include "Geometry/CubeGeometry.h"
 #include "Geometry/SphereGeometry.h"
-
 #include "Renderable Objects/Solid/SolidGeometry.h"
 
+// Pyrite
+#include "Timing.h"
+#include "PhysicsObject.h"
+#include "Collision/Colliders/AxisAlignedBoxCollider.h"
 #include "ForceGenerator.h"
 
 Ruby::Camera camera{ };
