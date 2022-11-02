@@ -23,6 +23,9 @@
 #include "Collision/Colliders/AxisAlignedBoxCollider.h"
 #include "Renderable Objects/Solid/SolidSphere.h"
 #include "Renderable Objects/Phong/PhongSphere.h"
+#include "Renderable Objects/Phong/PhongGeometry.h"
+#include "Geometry/CubeGeometry.h"
+#include "Geometry/SphereGeometry.h"
 
 #include "ForceGenerator.h"
 
@@ -127,13 +130,9 @@ int main() {
 	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
 
 	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
-	Ruby::PhongCube sun{ cubeMaterial };
-	Ruby::PhongCube earth{ cubeMaterial };
-
-	Ruby::PhongSphere sphere{ cubeMaterial };
-	sphere.model.scale(6.0f);
-	//Ruby::PhongCube moon{ cubeMaterial };
-
+	Ruby::PhongGeometry sun{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
+	Ruby::PhongGeometry earth{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
+	
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
 	// Shader setup
@@ -290,7 +289,6 @@ int main() {
 
 				renderer.phongRender(sun);
 				renderer.phongRender(earth);
-				renderer.phongRender(sphere);
 
 				renderer.phongRenderingEnd();
 			}
