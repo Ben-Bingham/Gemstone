@@ -1,6 +1,6 @@
 #include "PhongSphere.h"
 
-#include "Renderable Objects/Geometry/SphereGeometry.h"
+#include "Geometry/SphereGeometry.h"
 
 namespace Ruby {
 	PhongSphere::PhongSphere(PhongMaterial& mat, unsigned int NumberOfSections, unsigned int NumberOfStacks)

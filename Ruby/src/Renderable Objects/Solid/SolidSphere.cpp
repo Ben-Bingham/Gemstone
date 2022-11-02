@@ -1,6 +1,6 @@
 #include "SolidSphere.h"
 
-#include "Renderable Objects/Geometry/SphereGeometry.h"
+#include "Geometry/SphereGeometry.h"
 
 namespace Ruby {
 	SolidSphere::SolidSphere(SolidMaterial& mat, unsigned int NumberOfSections, unsigned int NumberOfStacks)
