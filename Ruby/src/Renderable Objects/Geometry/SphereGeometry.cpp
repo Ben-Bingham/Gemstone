@@ -8,7 +8,7 @@ namespace Ruby {
 
 	}
 
-	std::vector<float> SphereGeometry::getVerticies(bool normals, bool textureCordinates) {
+	std::vector<float> SphereGeometry::getVerticies(bool normals, bool textureCordinates) const {
 		std::vector<float> verticies;
 
 		Malachite::Radian sectorStep = 2 * Malachite::pi / numberOfSectors;
@@ -43,7 +43,7 @@ namespace Ruby {
 		return verticies;
 	}
 
-	std::vector<unsigned int> SphereGeometry::getIndicies() {
+	std::vector<unsigned int> SphereGeometry::getIndicies() const {
 		std::vector<unsigned int> indicies;
 
 		for (unsigned int i = 0; i < numberOfStacks; i++) {

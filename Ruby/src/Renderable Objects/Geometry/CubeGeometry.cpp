@@ -3,7 +3,7 @@
 namespace Ruby {
 	CubeGeometry::CubeGeometry() { }
 
-	std::vector<float> CubeGeometry::getVerticies(bool normals, bool textureCordinates) {
+	std::vector<float> CubeGeometry::getVerticies(bool normals, bool textureCordinates) const {
 		std::vector<float> verticies;
 		unsigned int numberOfVerticies{ 36u };
 		unsigned int j{ 0 };
@@ -33,7 +33,7 @@ namespace Ruby {
 		return verticies;
 	}
 
-	std::vector<unsigned int> CubeGeometry::getIndicies() {
+	std::vector<unsigned int> CubeGeometry::getIndicies() const {
 		return indexData;
 	}
 

@@ -2,13 +2,15 @@
 
 #include <vector>
 
+#include "GeometryObject.h"
+
 namespace Ruby {
-	class SphereGeometry {
+	class SphereGeometry : public GeometryObject {
 	public:
 		SphereGeometry(unsigned int numberOfStacks = 18u, unsigned int numberOfSectors = 36u);
 
-		std::vector<float> getVerticies(bool normals = true, bool textureCordinates = true);
-		std::vector<unsigned int> getIndicies();
+		std::vector<float> getVerticies(bool normals = true, bool textureCordinates = true) const override;
+		std::vector<unsigned int> getIndicies() const override;
 
 	private:
 		unsigned int numberOfSectors; // Number of faces that wrap around horizontaly

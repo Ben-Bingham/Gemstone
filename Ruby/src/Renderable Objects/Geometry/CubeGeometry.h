@@ -2,13 +2,15 @@
 
 #include <vector>
 
+#include "GeometryObject.h"
+
 namespace Ruby {
-	class CubeGeometry {
+	class CubeGeometry : public GeometryObject {
 	public:
 		CubeGeometry();
 
-		std::vector<float> getVerticies(bool normals = false, bool textureCordinates = false);
-		std::vector<unsigned int> getIndicies();
+		std::vector<float> getVerticies(bool normals = false, bool textureCordinates = false) const override;
+		std::vector<unsigned int> getIndicies() const override;
 
 	private:
 		const static std::vector<float> positionalData;
