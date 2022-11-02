@@ -12,7 +12,6 @@
 #include "Camera.h"
 #include "Renderable Objects/Solid/SolidCube.h"
 #include "Renderable Objects/Image/ImageQuad.h"
-#include "Renderable Objects/Phong/PhongCube.h"
 #include "OpenGL objects/Framebuffer.h"
 #include "Renderable Objects/Skybox.h"
 
@@ -22,7 +21,6 @@
 
 #include "Collision/Colliders/AxisAlignedBoxCollider.h"
 #include "Renderable Objects/Solid/SolidSphere.h"
-#include "Renderable Objects/Phong/PhongSphere.h"
 #include "Renderable Objects/Phong/PhongGeometry.h"
 #include "Geometry/CubeGeometry.h"
 #include "Geometry/SphereGeometry.h"
