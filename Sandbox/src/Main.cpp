@@ -25,6 +25,8 @@
 #include "Geometry/CubeGeometry.h"
 #include "Geometry/SphereGeometry.h"
 
+#include "Renderable Objects/Solid/SolidGeometry.h"
+
 #include "ForceGenerator.h"
 
 Ruby::Camera camera{ };
@@ -104,9 +106,9 @@ int main() {
 	Ruby::SolidMaterial defaultMat{ Malachite::Vector3f{ 1.0f, 0.0f, 0.0f } };
 	Ruby::SolidMaterial collidedMat{ Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } };
 
-	Ruby::SolidCube staticCube{ defaultMat };
+	Ruby::SolidGeometry staticCube{ std::make_unique<Ruby::CubeGeometry>(), defaultMat };
 	staticCube.model.scale(3.0f);
-	Ruby::SolidCube movingCube{ staticMat };
+	Ruby::SolidGeometry movingCube{ std::make_unique<Ruby::CubeGeometry>(), staticMat };
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
