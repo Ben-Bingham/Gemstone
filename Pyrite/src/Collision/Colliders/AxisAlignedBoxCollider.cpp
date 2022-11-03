@@ -12,7 +12,11 @@ namespace Pyrite {
 	}
 
 	Collider::Collision AxisAlignedBoxCollider::collidesWithAABB(const AxisAlignedBoxCollider* box) const {
-		return CollisionDetection::AABBwithAABB(this, box);
+		return CollisionDetection::AABBWithAABB(this, box);
+	}
+
+	Collider::Collision AxisAlignedBoxCollider::collidesWithSphere(const SphereCollider* sphere) const {
+		return CollisionDetection::AABBWithSphere(this, sphere);
 	}
 
 	Point3D AxisAlignedBoxCollider::getOrigin() const {
