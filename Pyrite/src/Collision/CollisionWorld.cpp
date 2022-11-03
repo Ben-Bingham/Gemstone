@@ -21,10 +21,30 @@ namespace Pyrite {
 				
 			}
 		}
-
-		// TODO resolve all collisions in collisions vector
+		
+		// Cleans up duplicate collisions //TODO should happen before collision is even calculated
+		std::vector<Collider::Collision>::iterator it;
+		for (it = collisions.begin(); it != collisions.end(); it++) {
+			for (Collider::Collision& collision2 : collisions) {
+				if (*it == collision2) {
+					it = collisions.erase(it);
+					break;
+				}
+			}
+		}
 
 		LOG(std::to_string(collisions.size()));
+
+		// TODO resolve all collisions in collisions vector
+		for (Collider::Collision& collision : collisions) {
+			/*Pyrite::Speed speed = Malachite::dot(collision.normal, movingObject.velocity - staticObject.velocity);
+			if (speed > 0) {
+				Pyrite::KilogramMeterPerSeconds impulse = 2 * speed / (movingObject.mass + staticObject.mass);
+
+				movingObject.velocity -= (impulse * staticObject.mass * collision.normal);
+				staticObject.velocity += (impulse * staticObject.mass * collision.normal);
+			}*/
+		}
 	}
 
 	void CollisionWorld::addCollider(Collider& collider) {

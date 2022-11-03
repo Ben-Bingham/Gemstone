@@ -12,10 +12,9 @@ namespace Pyrite {
 		Collision collidesWithAABB(const AxisAlignedBoxCollider* box) const override;
 		Collision collidesWithSphere(const SphereCollider* sphere) const override;
 
+		Point3D getDimensions() const;
+
 		Point3D min;
 		Point3D max;
-
-		Point3D getOrigin() const;
-		Point3D getDimensions() const;
 	};
 }

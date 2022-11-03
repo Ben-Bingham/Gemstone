@@ -3,7 +3,7 @@
 #include "Vector.h"
 
 namespace Ruby {
-	class Colour {
+	class Colour { //TODO make some default values like Red or Yellow or black
 	public:
 		Colour() : colour(0.0f, 0.0f, 0.0f, 1.0f) {}
 		Colour(float value) : colour(value, value, value, value) {}

@@ -3,7 +3,7 @@
 
 namespace Pyrite {
 	AxisAlignedBoxCollider::AxisAlignedBoxCollider(Point3D Min, Point3D Max)
-		: min(Min), max(Max) {
+		: min(Min), max(Max), Collider(min + (getDimensions() / 2.0_m)) {
 
 	}
 
@@ -17,10 +17,6 @@ namespace Pyrite {
 
 	Collider::Collision AxisAlignedBoxCollider::collidesWithSphere(const SphereCollider* sphere) const {
 		return CollisionDetection::AABBWithSphere(this, sphere);
-	}
-
-	Point3D AxisAlignedBoxCollider::getOrigin() const {
-		return min + (getDimensions() / 2.0_m);
 	}
 
 	Point3D AxisAlignedBoxCollider::getDimensions() const {

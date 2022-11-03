@@ -1,6 +1,7 @@
 #include "CollisionDetection.h"
 
 #include "Utility.h"
+#include "Log.h"
 
 namespace Pyrite {
 	namespace CollisionDetection {
@@ -18,8 +19,8 @@ namespace Pyrite {
 				collided = false;
 			}
 
-			Point3D box1Origin = box1->getOrigin();
-			Point3D box2Origin = box2->getOrigin();
+			Point3D box1Origin = box1->position;
+			Point3D box2Origin = box2->position;
 
 			Point3D box1Dimensions = box1->getDimensions();
 
@@ -54,7 +55,7 @@ namespace Pyrite {
 		}
 
 		Collider::Collision AABBWithSphere(const AxisAlignedBoxCollider* box, const SphereCollider* sphere) {
-			Meter distanceBetween = (box->getOrigin() - sphere->origin).length();
+			Meter distanceBetween = (box->position- sphere->position).length();
 			Point3D boxMeasurementsOver2 = box->getDimensions() / 2.0f;
 
 			bool collided;
@@ -67,16 +68,16 @@ namespace Pyrite {
 				collided = true;
 			}
 
-			Point3D boxOrigin = box->getOrigin();
+			Point3D boxOrigin = box->position;
 
 			Point3D boxDimensions = box->getDimensions();
 
-			Point3D aIntoB = sphere->origin - box->getOrigin();
+			Point3D aIntoB = sphere->position - box->position;
 			aIntoB.x = Malachite::clamp(aIntoB.x, -boxDimensions.x / 2.0f, boxDimensions.x / 2.0f);
 			aIntoB.y = Malachite::clamp(aIntoB.y, -boxDimensions.y / 2.0f, boxDimensions.y / 2.0f);
 			aIntoB.z = Malachite::clamp(aIntoB.z, -boxDimensions.z / 2.0f, boxDimensions.z / 2.0f);
 
-			Point3D bIntoA = box->getOrigin() - sphere->origin;
+			Point3D bIntoA = box->position - sphere->position;
 			bIntoA = bIntoA.normalize();
 			bIntoA *= sphere->radius;
 
@@ -99,7 +100,7 @@ namespace Pyrite {
 		}
 
 		Collider::Collision SphereWithSphere(const SphereCollider* sphere1, const SphereCollider* sphere2) {
-			Meter distanceBetween = (sphere1->origin - sphere2->origin).length();
+			Meter distanceBetween = (sphere1->position - sphere2->position).length();
 
 			bool collided;
 			if (distanceBetween < (sphere1->radius + sphere2->radius)) {
@@ -109,11 +110,11 @@ namespace Pyrite {
 				collided = false;
 			}
 
-			Point3D aIntoB = sphere2->origin - sphere1->origin;
+			Point3D aIntoB = sphere2->position - sphere1->position;
 			aIntoB = aIntoB.normalize();
 			aIntoB *= sphere1->radius;
 
-			Point3D bIntoA = sphere1->origin - sphere2->origin;
+			Point3D bIntoA = sphere1->position - sphere2->position;
 			bIntoA = bIntoA.normalize();
 			bIntoA *= sphere2->radius;
 

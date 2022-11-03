@@ -12,6 +12,5 @@ namespace Pyrite {
 		Collision collidesWithSphere(const SphereCollider* sphere) const override;
 
 		Meter radius;
-		Point3D origin;
 	};
 }

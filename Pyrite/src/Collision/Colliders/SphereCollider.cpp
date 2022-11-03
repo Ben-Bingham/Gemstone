@@ -3,7 +3,7 @@
 
 namespace Pyrite {
 	SphereCollider::SphereCollider(Meter Radius, Point3D Origin) 
-		: radius(Radius), origin(Origin) {
+		: radius(Radius), Collider(Origin) {
 
 	}
 

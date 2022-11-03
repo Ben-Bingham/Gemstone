@@ -18,6 +18,9 @@
 #include "Collision/CollisionWorld.h"
 #include "Collision/CollisionDetection.h"
 
+// Malachite
+#include "Utility.h"
+
 Ruby::Camera camera{ };
 struct FPSController {
 	bool firstMouse = true;
@@ -229,11 +232,11 @@ int main() {
 			staticSphere.model.scale(3.0f);
 			staticSphere.model.translate(staticObject.position);
 
-			staticCollider.origin = staticObject.position;
+			staticCollider.position = staticObject.position;
 
 			collisionWorld.step();
 
-			collision = Pyrite::CollisionDetection::AABBWithSphere(&movingCollider, &staticCollider);
+			//collision = Pyrite::CollisionDetection::AABBWithSphere(&movingCollider, &staticCollider);
 
 			//collision = movingCollider.collidesWithAABB(&staticCollider);
 
@@ -295,7 +298,7 @@ int main() {
 			{ // Debug Rendering
 				renderer.debugRenderingPrep();
 
-				renderer.debugRender(Ruby::DebugLine(Malachite::Vector3f{0.0f}, collision.normal));
+				//LOG(movingCollider.getDimensions().toString());
 
 				renderer.debugRenderingEnd();
 			}

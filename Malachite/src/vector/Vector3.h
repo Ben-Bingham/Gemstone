@@ -5,7 +5,7 @@
 
 namespace Malachite {
 	template<typename T>
-	class Vector3 {
+	class Vector3 { //TODO make some default values like up or down or 0;
 	public:
 		Vector3() {}
 		Vector3(T X, T Y, T Z) : x(X), y(Y), z(Z) {}
