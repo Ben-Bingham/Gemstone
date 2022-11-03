@@ -4,7 +4,7 @@
 
 namespace Pyrite {
 	namespace CollisionDetection {
-		Collider::Collision AABBwithAABB(const AxisAlignedBoxCollider* box1, const AxisAlignedBoxCollider* box2) {
+		Collider::Collision AABBWithAABB(const AxisAlignedBoxCollider* box1, const AxisAlignedBoxCollider* box2) {
 			bool collided;
 			if (box1->max.x > box2->min.x &&
 				box1->min.x < box2->max.x &&
@@ -51,6 +51,73 @@ namespace Pyrite {
 			}
 
 			return Collider::Collision{ aIntoB, bIntoA, normal, (aIntoB - bIntoA).length(), collided };
+		}
+
+		Collider::Collision AABBWithSphere(const AxisAlignedBoxCollider* box, const SphereCollider* sphere) {
+			Meter distanceBetween = (box->getOrigin() - sphere->origin).length();
+			Point3D boxMeasurementsOver2 = box->getDimensions() / 2.0f;
+
+			bool collided;
+			if ((boxMeasurementsOver2.x + sphere->radius) < distanceBetween &&
+				(boxMeasurementsOver2.y + sphere->radius) < distanceBetween &&
+				(boxMeasurementsOver2.z + sphere->radius) < distanceBetween) {
+				collided = false;
+			}
+			else {
+				collided = true;
+			}
+
+			Point3D boxOrigin = box->getOrigin();
+
+			Point3D boxDimensions = box->getDimensions();
+
+			Point3D aIntoB = sphere->origin - box->getOrigin();
+			aIntoB.x = Malachite::clamp(aIntoB.x, -boxDimensions.x / 2.0f, boxDimensions.x / 2.0f);
+			aIntoB.y = Malachite::clamp(aIntoB.y, -boxDimensions.y / 2.0f, boxDimensions.y / 2.0f);
+			aIntoB.z = Malachite::clamp(aIntoB.z, -boxDimensions.z / 2.0f, boxDimensions.z / 2.0f);
+
+			Point3D bIntoA = box->getOrigin() - sphere->origin;
+			bIntoA = bIntoA.normalize();
+			bIntoA *= sphere->radius;
+
+			Direction normal = (aIntoB - bIntoA).normalize();
+
+			if (normal.x < normal.y && normal.x < normal.z) {
+				normal.y = 0.0_m;
+				normal.z = 0.0_m;
+			}
+			else if (normal.y < normal.x && normal.y < normal.z) {
+				normal.x = 0.0_m;
+				normal.z = 0.0_m;
+			}
+			else {
+				normal.x = 0.0_m;
+				normal.y = 0.0_m;
+			}
+
+			return Collider::Collision{ aIntoB, bIntoA, normal, (aIntoB - bIntoA).length(), collided };
+		}
+
+		Collider::Collision SphereWithSphere(const SphereCollider* sphere1, const SphereCollider* sphere2) {
+			Meter distanceBetween = (sphere1->origin - sphere2->origin).length();
+
+			bool collided;
+			if (distanceBetween < (sphere1->radius + sphere2->radius)) {
+				collided = true;
+			}
+			else {
+				collided = false;
+			}
+
+			Point3D aIntoB = sphere2->origin - sphere1->origin;
+			aIntoB = aIntoB.normalize();
+			aIntoB *= sphere1->radius;
+
+			Point3D bIntoA = sphere1->origin - sphere2->origin;
+			bIntoA = bIntoA.normalize();
+			bIntoA *= sphere2->radius;
+
+			return Collider::Collision{ aIntoB, bIntoA, (aIntoB - bIntoA).normalize(), (aIntoB - bIntoA).length(), collided};
 		}
 	}
 }
