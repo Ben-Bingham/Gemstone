@@ -13,8 +13,10 @@
 // Pyrite
 #include "PhysicsObject.h"
 #include "Collision/Colliders/AxisAlignedBoxCollider.h"
+#include "Collision/Colliders/SphereCollider.h"
 #include "ForceGenerator.h"
 #include "Collision/CollisionWorld.h"
+#include "Collision/CollisionDetection.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -93,9 +95,9 @@ int main() {
 	Ruby::SolidMaterial defaultMat{ Malachite::Vector3f{ 1.0f, 0.0f, 0.0f } };
 	Ruby::SolidMaterial collidedMat{ Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } };
 
-	Ruby::SolidGeometry staticCube{ std::make_unique<Ruby::CubeGeometry>(), defaultMat };
-	staticCube.model.scale(3.0f);
-	Ruby::SolidGeometry movingCube{ std::make_unique<Ruby::CubeGeometry>(), staticMat };
+	Ruby::SolidGeometry staticSphere{ std::make_unique<Ruby::SphereGeometry>(), defaultMat };
+	staticSphere.model.scale(3.0f);
+	Ruby::SolidGeometry movingSphere{ std::make_unique<Ruby::CubeGeometry>(), staticMat };
 
 	// Skybox setup
 	std::vector<Ruby::Image> skyboxImages {
@@ -136,13 +138,13 @@ int main() {
 	Pyrite::CollisionWorld collisionWorld{ };
 
 	Pyrite::PhysicsObject staticObject{ 10_kg };
-	Pyrite::AxisAlignedBoxCollider staticCollider{ Pyrite::Point3D{ 0.0_m } - 1.5_m, Pyrite::Point3D{ 0.0_m } + 1.5_m };
+	Pyrite::SphereCollider staticCollider{ 3_m, Pyrite::Point3D{ 0.0_m } };
 	collisionWorld.addCollider(staticCollider);
 	Pyrite::PhysicsObject movingObject{ 2.0_kg, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
-	Pyrite::AxisAlignedBoxCollider movingCollider{ movingObject.position - 0.5_m, movingObject.position + 0.5_m };
+	Pyrite::AxisAlignedBoxCollider movingCollider{ Pyrite::Point3D{ movingObject.position - 0.5_m }, Pyrite::Point3D{ movingObject.position + 0.5_m } };
 	collisionWorld.addCollider(movingCollider);
 
-	//Pyrite::Collider::Collision collision;
+	Pyrite::Collider::Collision collision;
 
 	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
 	Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
@@ -207,13 +209,15 @@ int main() {
 		if (keyboard->KEY_K) {
 			movingObject.netForce += Malachite::Vector3f{ 0, -1 * spd, 0 };
 		}
+
 		{ // Physics
 			movingObject.calcVelocity(time.deltaTime);
 			movingObject.calcPosition(time.deltaTime);
 			movingObject.netForce = Pyrite::Newton3D{ 0.0_N };
 
-			movingCube.model = Malachite::Matrix4f{ 1.0f };
-			movingCube.model.translate(movingObject.position);
+			movingSphere.model = Malachite::Matrix4f{ 1.0f };
+			movingSphere.model.translate(movingObject.position);
+
 			movingCollider.min = movingObject.position - 0.5_m;
 			movingCollider.max = movingObject.position + 0.5_m;
 
@@ -221,13 +225,15 @@ int main() {
 			staticObject.calcPosition(time.deltaTime);
 			staticObject.netForce = Pyrite::Newton3D{ 0.0_N };
 
-			staticCube.model = Malachite::Matrix4f{ 1.0f };
-			staticCube.model.scale(3.0f);
-			staticCube.model.translate(staticObject.position);
-			staticCollider.min = staticObject.position - 1.5_m;
-			staticCollider.max = staticObject.position + 1.5_m;
+			staticSphere.model = Malachite::Matrix4f{ 1.0f };
+			staticSphere.model.scale(3.0f);
+			staticSphere.model.translate(staticObject.position);
+
+			staticCollider.origin = staticObject.position;
 
 			collisionWorld.step();
+
+			collision = Pyrite::CollisionDetection::AABBWithSphere(&movingCollider, &staticCollider);
 
 			//collision = movingCollider.collidesWithAABB(&staticCollider);
 
@@ -268,8 +274,8 @@ int main() {
 			{ // Solid Rendering
 				renderer.solidRenderingPrep();
 
-				renderer.solidRender(staticCube);
-				renderer.solidRender(movingCube);
+				renderer.solidRender(staticSphere);
+				renderer.solidRender(movingSphere);
 
 				renderer.solidRenderingEnd();
 			}
@@ -288,6 +294,8 @@ int main() {
 
 			{ // Debug Rendering
 				renderer.debugRenderingPrep();
+
+				renderer.debugRender(Ruby::DebugLine(Malachite::Vector3f{0.0f}, collision.normal));
 
 				renderer.debugRenderingEnd();
 			}
