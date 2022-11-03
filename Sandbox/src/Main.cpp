@@ -1,5 +1,6 @@
 // Wavellite
 #include "Window.h"
+#include "Timing.h"
 
 // Ruby
 #include "Renderer.h"
@@ -10,10 +11,10 @@
 #include "Renderable Objects/Solid/SolidGeometry.h"
 
 // Pyrite
-#include "Timing.h"
 #include "PhysicsObject.h"
 #include "Collision/Colliders/AxisAlignedBoxCollider.h"
 #include "ForceGenerator.h"
+#include "Collision/CollisionWorld.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -132,12 +133,16 @@ int main() {
 	// Physics
 	using namespace Pyrite::Literals;
 
+	Pyrite::CollisionWorld collisionWorld{ };
+
 	Pyrite::PhysicsObject staticObject{ 10_kg };
 	Pyrite::AxisAlignedBoxCollider staticCollider{ Pyrite::Point3D{ 0.0_m } - 1.5_m, Pyrite::Point3D{ 0.0_m } + 1.5_m };
+	collisionWorld.addCollider(staticCollider);
 	Pyrite::PhysicsObject movingObject{ 2.0_kg, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
 	Pyrite::AxisAlignedBoxCollider movingCollider{ movingObject.position - 0.5_m, movingObject.position + 0.5_m };
-	
-	Pyrite::Collider::Collision collision;
+	collisionWorld.addCollider(movingCollider);
+
+	//Pyrite::Collider::Collision collision;
 
 	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
 	Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
@@ -222,9 +227,11 @@ int main() {
 			staticCollider.min = staticObject.position - 1.5_m;
 			staticCollider.max = staticObject.position + 1.5_m;
 
-			collision = movingCollider.collidesWithAABB(&staticCollider);
+			collisionWorld.step();
 
-			if (collision.hasCollision) {
+			//collision = movingCollider.collidesWithAABB(&staticCollider);
+
+			/*if (collision.hasCollision) {
 				Pyrite::Speed speed = dot(collision.normal, movingObject.velocity - staticObject.velocity);
 				if (speed > 0) {
 					Pyrite::KilogramMeterPerSeconds impulse = 2 * speed / (movingObject.mass + staticObject.mass);
@@ -239,7 +246,7 @@ int main() {
 			}
 			else {
 				staticCube.material = defaultMat;
-			}
+			}*/
 
 			earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
 			earthPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics);
