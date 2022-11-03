@@ -7,6 +7,10 @@ namespace Pyrite {
 
 	}
 
+	Collider::Collision AxisAlignedBoxCollider::collidesWith(const Collider* collider) const {
+		return collider->collidesWithAABB(this);
+	}
+
 	Collider::Collision AxisAlignedBoxCollider::collidesWithAABB(const AxisAlignedBoxCollider* box) const {
 		return CollisionDetection::AABBwithAABB(this, box);
 	}

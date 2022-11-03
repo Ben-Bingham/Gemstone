@@ -18,6 +18,7 @@ namespace Pyrite {
 			bool hasCollision{ false };
 		};
 
+		virtual Collision collidesWith(const Collider* collider) const = 0;
 		virtual Collision collidesWithAABB(const AxisAlignedBoxCollider* box) const = 0;
 	};
 }
