@@ -18,7 +18,6 @@ namespace Pyrite {
 						collisions.push_back(collision);
 					}
 				}
-				
 			}
 		}
 		
