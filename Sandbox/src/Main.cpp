@@ -143,16 +143,16 @@ int main() {
 	Pyrite::PhysicsObject staticObject{ 10_kg };
 	Pyrite::SphereCollider staticCollider{ 3_m, Pyrite::Point3D{ 0.0_m } };
 	collisionWorld.addCollider(staticCollider);
-	Pyrite::PhysicsObject movingObject{ 2.0_kg, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
-	Pyrite::AxisAlignedBoxCollider movingCollider{ Pyrite::Point3D{ movingObject.position - 0.5_m }, Pyrite::Point3D{ movingObject.position + 0.5_m } };
-	collisionWorld.addCollider(movingCollider);
+	//Pyrite::PhysicsObject movingObject{ 2.0_kg, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
+	//Pyrite::AxisAlignedBoxCollider movingCollider{ Pyrite::Point3D{ movingObject.position - 0.5_m }, Pyrite::Point3D{ movingObject.position + 0.5_m } };
+	//collisionWorld.addCollider(movingCollider);
 
 	Pyrite::Collider::Collision collision;
 
 	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
-	Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
+	//Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
 
-	earthPhysics.velocity.z = 5.0_mPerS;
+	//earthPhysics.velocity.z = 5.0_mPerS;
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -189,7 +189,7 @@ int main() {
 
 		float spd = 1.0f;
 
-		if (keyboard->KEY_UP) {
+		/*if (keyboard->KEY_UP) {
 			movingObject.netForce += Malachite::Vector3f{0, 0, -1 * spd};
 		}
 
@@ -211,10 +211,10 @@ int main() {
 
 		if (keyboard->KEY_K) {
 			movingObject.netForce += Malachite::Vector3f{ 0, -1 * spd, 0 };
-		}
+		}*/
 
 		{ // Physics
-			movingObject.calcVelocity(time.deltaTime);
+			/*movingObject.calcVelocity(time.deltaTime);
 			movingObject.calcPosition(time.deltaTime);
 			movingObject.netForce = Pyrite::Newton3D{ 0.0_N };
 
@@ -226,7 +226,7 @@ int main() {
 
 			staticObject.calcVelocity(time.deltaTime);
 			staticObject.calcPosition(time.deltaTime);
-			staticObject.netForce = Pyrite::Newton3D{ 0.0_N };
+			staticObject.netForce = Pyrite::Newton3D{ 0.0_N };*/
 
 			staticSphere.model = Malachite::Matrix4f{ 1.0f };
 			staticSphere.model.scale(3.0f);
@@ -257,7 +257,7 @@ int main() {
 				staticCube.material = defaultMat;
 			}*/
 
-			earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
+			/*earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
 			earthPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics);
 			earthPhysics.calcVelocity(time.deltaTime);
 			earthPhysics.calcPosition(time.deltaTime);
@@ -268,7 +268,7 @@ int main() {
 
 			earth.model = Malachite::Matrix4f{ 1.0f };
 			earth.model.scale(2.0f);
-			earth.model.translate(earthPhysics.position);
+			earth.model.translate(earthPhysics.position);*/
 		}
 
 		{ // Rendering

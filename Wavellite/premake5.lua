@@ -1,6 +1,6 @@
-require "vendor/imgui/premake5"
-
 function project_Wavellite(workspaceDir)
+	require (workspaceDir .. "vendor/imgui/premake5")
+
 	project "Wavellite"
 		kind "StaticLib"
 		location(workspaceDir .."Wavellite")

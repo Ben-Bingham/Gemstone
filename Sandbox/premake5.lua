@@ -42,5 +42,6 @@ project "Sandbox"
 		"Ruby",
 		"Pyrite",
 		"Lazuli",
-		"Wavellite"
+		"Wavellite",
+		"ImGui"
 	}
