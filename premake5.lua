@@ -40,9 +40,9 @@ workspace "Gemstone"
 
 	defines { "RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" }
 
-	group "Vendor"
-		project_ImGui("")
-	group ""
+	-- group "Vendor"
+	-- 	project_ImGui("")
+	-- group ""
 
 	group "Dependencies"
 		project_Lazuli("")

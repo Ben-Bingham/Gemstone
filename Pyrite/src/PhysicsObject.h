@@ -17,11 +17,11 @@ namespace Pyrite {
 		//void calcVelocity(Second deltaTime);
 		//void calcPosition(Second deltaTime);
 
-		//Kilogram mass;
+		Kilogram mass;
 		//Newton3D netForce;
 		//Velocity velocity;
-	private:
 		Point3D position;
+	private:
 		Collider* collider; //TODO maybe make this a vector
 		std::vector<Collider::Collision> collisions;
 	};

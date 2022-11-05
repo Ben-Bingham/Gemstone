@@ -1,3 +1,5 @@
+require "vendor/imgui/premake5"
+
 function project_Wavellite(workspaceDir)
 	project "Wavellite"
 		kind "StaticLib"
@@ -42,6 +44,10 @@ function project_Wavellite(workspaceDir)
 			workspaceDir .. "vendor/glew-2.1.0/lib/Release/x64",
 			workspaceDir .. "vendor/imgui/build"
 		}
+
+		group "Vendor"
+			project_ImGui("")
+		group ""
 
 		links {
 			-- Vendor
