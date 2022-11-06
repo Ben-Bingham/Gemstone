@@ -78,7 +78,7 @@ namespace Wavellite {
 		// Mouse
 		setMousePositionCallback(mousePositionCallback);
 		setMouseButtonCallback(mouseButtonCallback);
-		setScrollWheelCallback(mouseScrolWheelCallback);
+		setScrollWheelCallback(mouseScrollWheelCallback);
 		setCursorEntersCallback(cursorEnterCallback);
 		
 		// Keyboard

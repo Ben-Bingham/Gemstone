@@ -11,7 +11,7 @@ namespace Wavellite {
 
 	void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 	void mousePositionCallback(GLFWwindow* window, double xpos, double ypos);
-	void mouseScrolWheelCallback(GLFWwindow* window, double xoffset, double yoffset);
+	void mouseScrollWheelCallback(GLFWwindow* window, double xoffset, double yoffset);
 	void cursorEnterCallback(GLFWwindow* window, int entered);
 
 	class Mouse {

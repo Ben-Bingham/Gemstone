@@ -61,12 +61,12 @@ namespace Wavellite {
 		void setDimensions(unsigned int width, unsigned int height);
 
 		// Callbacks
-		void setKeyCallback(void (*callback)(GLFWwindow* window, int key, int scancode, int action, int mods)) { glfwSetKeyCallback(m_Window, callback); }
-		void setFrameBufferSizeCallback(void (*callback)(GLFWwindow* window, int width, int height)) { glfwSetFramebufferSizeCallback(m_Window, callback); }
-		void setScrollWheelCallback(void (*callback)(GLFWwindow* window, double xOffset, double yOffset)) { glfwSetScrollCallback(m_Window, callback); }
-		void setMouseButtonCallback(void (*callback)(GLFWwindow* window, int button, int action, int mods)) { glfwSetMouseButtonCallback(m_Window, callback); }
-		void setCursorEntersCallback(void (*callback)(GLFWwindow* window, int entered)) { glfwSetCursorEnterCallback(m_Window, callback);  }
-		void setMousePositionCallback(void (*callback)(GLFWwindow* window, double xpos, double ypos)) { glfwSetCursorPosCallback(m_Window, callback); }
+		void setKeyCallback(void (*callback)(GLFWwindow* window, int key, int scanCode, int action, int mods)) const { glfwSetKeyCallback(m_Window, callback); }
+		void setFrameBufferSizeCallback(void (*callback)(GLFWwindow* window, int width, int height)) const  { glfwSetFramebufferSizeCallback(m_Window, callback); }
+		void setScrollWheelCallback(void (*callback)(GLFWwindow* window, double xOffset, double yOffset)) const  { glfwSetScrollCallback(m_Window, callback); }
+		void setMouseButtonCallback(void (*callback)(GLFWwindow* window, int button, int action, int mods)) const { glfwSetMouseButtonCallback(m_Window, callback); }
+		void setCursorEntersCallback(void (*callback)(GLFWwindow* window, int entered)) const  { glfwSetCursorEnterCallback(m_Window, callback);  }
+		void setMousePositionCallback(void (*callback)(GLFWwindow* window, double xPos, double yPos)) const { glfwSetCursorPosCallback(m_Window, callback); }
 
 		IOManager ioManger;
 

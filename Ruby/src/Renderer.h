@@ -14,6 +14,7 @@
 #include "Renderable Objects/Solid/SolidRenderable.h"
 #include "Renderable Objects/Phong/PhongRenderable.h"
 #include "Renderable Objects/Debug/DebugRenderable.h"
+#include "Renderable Objects/Image/ImageRenderable.h"
 
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
@@ -143,6 +144,19 @@ namespace Ruby {
             ImGui_ImplOpenGL3_Shutdown();
             ImGui_ImplGlfw_Shutdown();
             ImGui::DestroyContext();
+        }
+
+        // Image Rendering
+        void imageRenderingPrep() {
+            shaders.imageShader.use();
+        }
+
+        void imageRender(const ImageRenderable& renderable) {
+            renderable.render();
+        }
+
+        void imageRenderingEnd() {
+	        
         }
 
         // Directional lighting rendering

@@ -10,8 +10,12 @@ namespace Wavellite {
 	public:
 		IOManager(Window& window);
 
-		Keyboard keyboard; // TODO make private and replace with a getKeyboard function. Same for mouse (should return pointer)
-		Mouse mouse;
 		Window* window;
+
+		Keyboard* getKeyboard();
+		Mouse* getMouse();
+	private:
+		Keyboard m_Keyboard;
+		Mouse m_Mouse;
 	};
 }
