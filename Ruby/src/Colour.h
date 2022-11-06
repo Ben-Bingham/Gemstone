@@ -3,59 +3,32 @@
 #include "Vector.h"
 
 namespace Ruby {
-	class Colour { //TODO make some default values like Red or Yellow or black
+	class Colour {
 	public:
-		Colour() : colour(0.0f, 0.0f, 0.0f, 1.0f) {}
-		Colour(float value) : colour(value, value, value, value) {}
-		Colour(Malachite::Vector4f colour) : colour(colour) {}
-		explicit Colour(float r, float g, float b, float a = 1.0f) : colour(r, g, b, a) {}
-		explicit Colour(int r, int g, int b, int a = 255) : colour(initWith0to255(r, g, b, a)) {}
+		Colour();
+		Colour(float value);
+		Colour(Malachite::Vector4f colour);
+		explicit Colour(float r, float g, float b, float a = 1.0f);
+		explicit Colour(int r, int g, int b, int a = 255);
 
 		Malachite::Vector4f colour;
 
-		Malachite::Vector3f toVec3() const { return Malachite::Vector3f(colour.x, colour.y, colour.z); }
+		Malachite::Vector3f toVec3() const;
 
-		bool operator==(const Colour& other) const {
-			return colour == other.colour;
-		}
+		bool operator==(const Colour& other) const;
+		bool operator!=(const Colour& other) const;
 
-		bool operator!=(const Colour& other) const {
-			return !operator==(other);
-		}
+		const static Colour red;
+		const static Colour blue;
+		const static Colour green;
+		const static Colour pink;
+		const static Colour orange;
+		const static Colour yellow;
+		const static Colour purple;
+		const static Colour white;
+		const static Colour black;
 
 	private:
-		Malachite::Vector4f initWith0to255(int r, int g, int b, int a) {
-			float oneOverTwoFifyFive = 1.0f / 255.0f;
-			float x, y, z, w;
-			if (r != 255) {
-				x = (float)(oneOverTwoFifyFive * (float)(r % 255));
-			}
-			else {
-				x = 1.0f;
-			}
-
-			if (g != 255) {
-				y = (float)(oneOverTwoFifyFive * (float)(g % 255));
-			}
-			else {
-				y = 1.0f;
-			}
-
-			if (b != 255) {
-				z = (float)(oneOverTwoFifyFive * (float)(b % 255));
-			}
-			else {
-				z = 1.0f;
-			}
-
-			if (a != 255) {
-				w = (float)(oneOverTwoFifyFive * (float)(a % 255));
-			}
-			else {
-				w = 1.0f;
-			}
-
-			return Malachite::Vector4f(x, y, z, w);
-		}
+		static Malachite::Vector4f initWith0To255(int r, int g, int b, int a);
 	};
 }
