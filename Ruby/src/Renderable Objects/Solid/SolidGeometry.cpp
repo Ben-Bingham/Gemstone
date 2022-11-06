@@ -1,15 +1,15 @@
 #include "SolidGeometry.h"
 
 namespace Ruby {
-	SolidGeometry::SolidGeometry(std::unique_ptr<GeometryObject> geometryObject, SolidMaterial& mat) 
-		: SolidRenderable(geometryObject->getVerticies(false, false), geometryObject->getIndicies(), mat) {
+	SolidGeometry::SolidGeometry(std::unique_ptr<GeometryObject> geometryObject, const Colour Colour) 
+		: SolidRenderable(geometryObject->getVerticies(false, false), geometryObject->getIndicies(), Colour) {
 
 	}
 
 	void SolidGeometry::render() const {
 		VAO.bind();
 		ShaderProgram::upload("model", model);
-		ShaderProgram::upload("objectColour", material.colour);
+		ShaderProgram::upload("objectColour", colour.toVec3());
 		glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 	}
 

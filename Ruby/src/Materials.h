@@ -12,13 +12,6 @@ namespace Ruby {
 		float shininess{ 32.0f };
 	};
 
-	struct SolidMaterial { //TODO remove and replace with colour
-		SolidMaterial() {}
-		SolidMaterial(Malachite::Vector3f Colour) : colour(Colour) { }
-
-		Malachite::Vector3f colour{ 0.0f };
-	};
-
 	struct ImageMaterial {
 		ImageMaterial(Texture& texture)
 			: texture(&texture) {

@@ -2,14 +2,14 @@
 
 namespace Ruby {
 	DebugRenderable::DebugRenderable(const std::vector<float>& verticies, Colour Colour)
-		: SolidRenderable(verticies, generateIndicies((unsigned int)verticies.size()), SolidMaterial{ Colour.toVec3() }) {
+		: SolidRenderable(verticies, generateIndicies((unsigned int)verticies.size()), Colour) {
 
 	}
 
 	void DebugRenderable::render() const {
 		VAO.bind();
 		ShaderProgram::upload("model", model);
-		ShaderProgram::upload("objectColour", material.colour);
+		ShaderProgram::upload("objectColour", colour.toVec3());
 		glDrawElements(GL_LINES, numberOfIndicies, GL_UNSIGNED_INT, 0);
 	}
 
