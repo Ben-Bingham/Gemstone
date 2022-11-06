@@ -55,7 +55,7 @@ namespace Ruby {
 				imageFormat = GL_RGB;
 			}
 
-			glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, m_Image->getWidth(), m_Image->getHeight(), 0, imageFormat, GL_UNSIGNED_BYTE, &m_Image->getContent()[0]);
+			glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, m_Image->getWidth(), m_Image->getHeight(), 0, imageFormat, GL_UNSIGNED_BYTE, m_Image->getContent().data());
 
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}

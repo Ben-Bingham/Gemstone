@@ -20,7 +20,7 @@ namespace Malachite {
 	template<typename T>
 	const Vector3<T> Vector3<T>::north{ static_cast<T>(0), static_cast<T>(0), static_cast<T>(-1) };
 	template<typename T>
-	const Vector3<T> Vector3<T>::south{ static_cast<T>(0), static_cast<T>(1), static_cast<T>(1) };
+	const Vector3<T> Vector3<T>::south{ static_cast<T>(0), static_cast<T>(0), static_cast<T>(1) };
 	template<typename T>
 	const Vector3<T> Vector3<T>::east{ static_cast<T>(1), static_cast<T>(0), static_cast<T>(0) };
 	template<typename T>

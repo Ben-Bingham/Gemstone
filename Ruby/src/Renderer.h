@@ -19,6 +19,7 @@
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
 #include "Renderable Objects/Skybox.h"
+#include "Renderable Objects/ScreenQuad/ScreenQuad.h"
 
 namespace Ruby {
     void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id,
@@ -29,7 +30,7 @@ namespace Ruby {
         Renderer() {
             glEnable(GL_DEPTH_TEST);
 
-            glEnable(GL_CULL_FACE);
+            //glEnable(GL_CULL_FACE);
             glCullFace(GL_BACK);
             glFrontFace(GL_CW);
 
@@ -144,6 +145,19 @@ namespace Ruby {
             ImGui_ImplOpenGL3_Shutdown();
             ImGui_ImplGlfw_Shutdown();
             ImGui::DestroyContext();
+        }
+
+        // Screen Quad Rendering
+        void screenQuadRenderingPrep() {
+            shaders.screenQuadShader.use();
+        }
+
+        void screenQuadRender(const ScreenQuad& renderable) {
+            renderable.render();
+        }
+
+        void screenQuadRenderingEnd() {
+
         }
 
         // Image Rendering

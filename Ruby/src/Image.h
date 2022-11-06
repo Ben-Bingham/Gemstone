@@ -26,8 +26,8 @@ namespace Ruby {
 			stbi_image_free(data);
 		}
 
-		Image(const Malachite::Vector3f& colour, unsigned int width = 1, unsigned int height = 1, unsigned int channels = 3)
-			: m_Path(""), m_Width(width), m_Height(height), m_Channels(channels) {
+		Image(const Malachite::Vector3f& colour, unsigned int width = 1, unsigned int height = 1)
+			: m_Path(""), m_Width(width), m_Height(height), m_Channels(3) {
 
 			unsigned char r = (unsigned char)(colour.x * 255);
 			unsigned char g = (unsigned char)(colour.y * 255);
@@ -35,10 +35,28 @@ namespace Ruby {
 
 			m_Content.resize(m_Width * m_Height * m_Channels);
 
-			for (unsigned int i = 0; i < width * height * sizeof(unsigned char); i += 3) {
+			for (unsigned int i = 0; i < width * height * m_Channels; i += 3) {
 				m_Content[(unsigned int)i + 0u] = r;
 				m_Content[(unsigned int)i + 1u] = g;
 				m_Content[(unsigned int)i + 2u] = b;
+			}
+		}
+
+		Image(const Malachite::Vector4f& colour, unsigned int width = 1, unsigned int height = 1)
+			: m_Path(""), m_Width(width), m_Height(height), m_Channels(4) {
+
+			unsigned char r = (unsigned char)(colour.x * 255);
+			unsigned char g = (unsigned char)(colour.y * 255);
+			unsigned char b = (unsigned char)(colour.z * 255);
+			unsigned char a = (unsigned char)(colour.w * 255);
+
+			m_Content.resize(m_Width * m_Height * 4);
+
+			for (unsigned int i = 0; i < width * height * m_Channels; i += 4) {
+				m_Content[(unsigned int)i + 0u] = r;
+				m_Content[(unsigned int)i + 1u] = g;
+				m_Content[(unsigned int)i + 2u] = b;
+				m_Content[(unsigned int)i + 3u] = a;
 			}
 		}
 
@@ -47,6 +65,7 @@ namespace Ruby {
 		}
 
 		std::vector<unsigned char> getContent() const { return m_Content; }
+		std::vector<unsigned char>& getContent() { return m_Content; }
 		int getWidth() const { return m_Width; }
 		int getHeight() const { return m_Height; }
 		int getChannels() const { return m_Channels; }
