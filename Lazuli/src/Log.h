@@ -15,7 +15,22 @@ namespace Lazuli {
 	public:
 		Log(LogLevel logLevel = LogLevel::INFO, bool printFilePath = true) : m_LogLevel(logLevel), m_PrintFilePath(printFilePath) {}
 
-		void log(int lineNumber, const char* file, const std::string& message, LogLevel messageLevel = LogLevel::INFO); //TODO make overload that take numbers
+		void log(int lineNumber, const char* file, const std::string& message, LogLevel messageLevel = LogLevel::INFO);
+		void log(int lineNumber, const char* file, const float& message, LogLevel messageLevel = LogLevel::INFO) {
+			log(lineNumber, file, std::to_string(message), messageLevel);
+		}
+		void log(int lineNumber, const char* file, const long double& message, LogLevel messageLevel = LogLevel::INFO) {
+			log(lineNumber, file, std::to_string(message), messageLevel);
+		}
+		void log(int lineNumber, const char* file, unsigned long long int& message, LogLevel messageLevel = LogLevel::INFO) {
+			log(lineNumber, file, std::to_string(message), messageLevel);
+		}
+		void log(int lineNumber, const char* file, int& message, LogLevel messageLevel = LogLevel::INFO) {
+			log(lineNumber, file, std::to_string(message), messageLevel);
+		}
+		void log(int lineNumber, const char* file, const double& message, LogLevel messageLevel = LogLevel::INFO) {
+			log(lineNumber, file, std::to_string(message), messageLevel);
+		}
 
 		void setLogLevel(LogLevel newLevel) { m_LogLevel = newLevel; }
 		LogLevel getLogLevel() { return m_LogLevel; }
