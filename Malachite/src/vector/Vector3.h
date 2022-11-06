@@ -5,7 +5,7 @@
 
 namespace Malachite {
 	template<typename T>
-	class Vector3 { //TODO make some default values like up or down or 0;
+	class Vector3 {
 	public:
 		Vector3() {}
 		Vector3(T X, T Y, T Z) : x(X), y(Y), z(Z) {}
@@ -101,9 +101,17 @@ namespace Malachite {
 			return result;
 		}
 
-		std::string toString() {
+		std::string toString() const {
 			return std::string{ "X: " + std::to_string(x) + ", Y: " + std::to_string(y) + ", Z: " + std::to_string(z) };
 		}
+
+		const static Vector3<T> up;
+		const static Vector3<T> down;
+		const static Vector3<T> north;
+		const static Vector3<T> south;
+		const static Vector3<T> east;
+		const static Vector3<T> west;
+		const static Vector3<T> zero;
 	};
 
 	// <<
