@@ -13,7 +13,8 @@ namespace Ruby {
 
 		Malachite::Vector4f colour;
 
-		Malachite::Vector3f toVec3() const;
+		[[nodiscard]] Malachite::Vector3f toVec3() const;
+		[[nodiscard]] Malachite::Vector4uc toVec4() const;
 
 		bool operator==(const Colour& other) const;
 		bool operator!=(const Colour& other) const;

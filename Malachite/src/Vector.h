@@ -17,4 +17,5 @@ namespace Malachite {
 	using Vector4f = Vector4<float>;
 	using Vector4d = Vector4<double>;
 	using Vector4i = Vector4<int>;
+	using Vector4uc = Vector4<unsigned char>;
 }

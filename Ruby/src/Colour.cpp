@@ -13,6 +13,14 @@ namespace Ruby {
 		: colour(initWith0To255(r, g, b, a)) {}
 
 	Malachite::Vector3f Colour::toVec3() const { return Malachite::Vector3f{colour.x, colour.y, colour.z}; }
+	Malachite::Vector4uc Colour::toVec4() const {
+		return Malachite::Vector4uc{
+			static_cast<unsigned char>(colour.x * 255),
+			static_cast<unsigned char>(colour.y * 255),
+			static_cast<unsigned char>(colour.z * 255),
+			static_cast<unsigned char>(colour.w * 255)
+		};
+	}
 
 	bool Colour::operator==(const Colour& other) const {
 		return colour == other.colour;
