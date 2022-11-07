@@ -52,4 +52,8 @@ function project_Ruby(workspaceDir)
 			"Lazuli",
 			"Wavellite"
 		}
+
+		group "Vendor"
+			project_ImGui("")
+		group ""
 end

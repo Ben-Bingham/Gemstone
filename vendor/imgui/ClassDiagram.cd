@@ -1,0 +1,3091 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Struct Name="ImGuiStyleVarInfo" Collapsed="true">
+    <Position X="39.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAgAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiResizeGripDef" Collapsed="true">
+    <Position X="45" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAABAAAAAiAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiResizeBorderDef" Collapsed="true">
+    <Position X="43.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDockRequest" Collapsed="true">
+    <Position X="31" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQQAACAAAAAAIAAgAIgAAAAAAAAAQAAAAAAAgA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDockPreviewData" Collapsed="true">
+    <Position X="29.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgACAAAAAAAAAEAAAgABAQAAAAAAACAAAAAAAYAgAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDockNodeSettings" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAABAAAAgAAAAEAAAAAAAACAAAAgABIiAAAAAAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDockContextPruneNodeData" Collapsed="true">
+    <Position X="45" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAAAAAAAAAAAAQAAAAAQAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDockNodeTreeInfo" Collapsed="true">
+    <Position X="27.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAEAAQAABAAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ExampleAppConsole" Collapsed="true">
+    <Position X="29.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABBgACACAAKhQAAAIAAQAAghAAQAAAAAACAgQAAAA=</HashCode>
+      <FileName>src\imgui_demo.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ExampleAppLog" Collapsed="true">
+    <Position X="32.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgIAAAAACAAAAgAAAAAAAAAAAhAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>src\imgui_demo.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="MyDocument" Collapsed="true">
+    <Position X="25.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACBABMgBQAAAAAgQAAAABAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>src\imgui_demo.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ExampleAppDocuments" Collapsed="true">
+    <Position X="31" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAQAAA=</HashCode>
+      <FileName>src\imgui_demo.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontBuildSrcData" Collapsed="true">
+    <Position X="41.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAQABAAAAGAAAAAAAAAAAAAAAgIAAAAAACAAAoAAA=</HashCode>
+      <FileName>src\imgui_draw.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontBuildDstData" Collapsed="true">
+    <Position X="38" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAACAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>src\imgui_draw.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGui_ImplGlfw_Data" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBDAAYAAAAAAAAAAQgABIAAAAgAAAIAAAACABAJQA=</HashCode>
+      <FileName>src\imgui_impl_glfw.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGui_ImplGlfw_ViewportData" Collapsed="true">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAABCAAAQAgAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_glfw.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGui_ImplOpenGL3_Data" Collapsed="true">
+    <Position X="29.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgABBAAAAAAgAAAkCAAAASAgQAAAAgAAABAIE=</HashCode>
+      <FileName>src\imgui_impl_opengl3.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGui_ImplOpenGL3_VtxAttribState" Collapsed="true">
+    <Position X="31" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABEEAAAAAgIAAAAAAAAAAQAAAAQAAAQAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiPlotArrayGetterData" Collapsed="true">
+    <Position X="38" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAQAAAAAgAAAAAAA=</HashCode>
+      <FileName>src\imgui_widgets.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTabBarSection" Collapsed="true">
+    <Position X="43.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAIAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_widgets.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImVec2" Collapsed="true">
+    <Position X="41.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImVec4" Collapsed="true">
+    <Position X="45" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAhgAQAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImNewWrapper" Collapsed="true">
+    <Position X="31" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImVector&lt;T&gt;" Collapsed="true">
+    <Position X="24" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFEAACECABBAgEAABMMIBACSEAEAABIACQEkAAACACI=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiStyle" Collapsed="true">
+    <Position X="36.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YQRYBAEEAAACvKEAAAoAABAIEGQYCBJEAAAEgQAEIBE=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiKeyData" Collapsed="true">
+    <Position X="31" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgQAAIAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiIO" Collapsed="true">
+    <Position X="29.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>evNgSDIYsC4MAYApgTh5RmiBkEUgmRJwVa6hwDaIUGk=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputTextCallbackData" Collapsed="true">
+    <Position X="25.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIARAACACASAggAAEAAAAAAAAAAAAAAEQAgAAAIAgA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiSizeCallbackData" Collapsed="true">
+    <Position X="27.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAACAAgAAAAAAAAAIAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiWindowClass" Collapsed="true">
+    <Position X="45" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAgAAABABAAAAAAQAAAAAgAAQABAACA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiPayload" Collapsed="true">
+    <Position X="31" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAQAIIAEAEACAAAAABAAAAAABAABAQAAABAAAg=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableColumnSortSpecs" Collapsed="true">
+    <Position X="31" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAABAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQCAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableSortSpecs" Collapsed="true">
+    <Position X="36.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAACACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiOnceUponAFrame" Collapsed="true">
+    <Position X="29.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTextFilter" Collapsed="true">
+    <Position X="41.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAgCAEIAAAAAAgAAAgAAAAAAAAABAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTextBuffer" Collapsed="true">
+    <Position X="39.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIgAAACAAAAAAAEAIAAAAQSBAEAAAIAAAEAAAAAAAg=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiStorage" Collapsed="true">
+    <Position X="34.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAgAACgAAgAIAAAAAACAAAAAAVAAAAAAAADAAYA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiListClipper" Collapsed="true">
+    <Position X="34.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAkAAgAIAAAggAAAAAAAAAAgAEAAAIEAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImColor" Collapsed="true">
+    <Position X="38" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAIABgAAAAAAg=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawCmd" Collapsed="true">
+    <Position X="41.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAABBAAAAAJACAAAAEAAAgAAAAAAAABAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawVert" Collapsed="true">
+    <Position X="31" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawCmdHeader" Collapsed="true">
+    <Position X="43.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawChannel" Collapsed="true">
+    <Position X="39.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawListSplitter" Collapsed="true">
+    <Position X="29.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAEAAAIAAAAAAAQAQQAIQAABAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawList" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAxgdaKUEGS6IAEREIR2AKAgQBgESAIAyKAkMVcioQA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawData" Collapsed="true">
+    <Position X="45" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAABIAAAAAAAQQFAAAAAAAAAAIAAAAAABABAECA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontConfig" Collapsed="true">
+    <Position X="43.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQgAABAAAAgAAAAAGAgBAwAARAAAAEAAAIAgABAIAk=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontGlyph" Collapsed="true">
+    <Position X="45" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAAAAAAAAAAAAAAAAAgAIABEgAaYAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontGlyphRangesBuilder" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACBAAAAAAUAAAAAAAAQAAEAAABECAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontAtlasCustomRect" Collapsed="true">
+    <Position X="36.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAABAAgAAAAAAAAAEAAAAAAAAEBAAAAIAACYAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontAtlas" Collapsed="true">
+    <Position X="34.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQyBAEoAAGAJAAACBIAMBAiUEABghIBAAIDgBRJ4KE=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFont" Collapsed="true">
+    <Position X="32.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ASEiYKAAIAAAAAQIQAIACgcAIgEAAAIggIYQgICBEAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiViewport" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UIAgBAAAAAAIgAAACABQAAAgIACIAAEAQAAAgAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiPlatformIO" Collapsed="true">
+    <Position X="34.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YACSAIAiAAIEACAAAAACgAgAEAAQBAACABAUCAAFAgA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiPlatformMonitor" Collapsed="true">
+    <Position X="36.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAEAAAAAAAACAAQAAAAAAAAAAAAAAAAAIAAABA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiPlatformImeData" Collapsed="true">
+    <Position X="32.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAEgAAAAAAAAAAIAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_059f_2" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImVec1" Collapsed="true">
+    <Position X="39.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImVec2ih" Collapsed="true">
+    <Position X="43.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAABgAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImRect" Collapsed="true">
+    <Position X="34.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIBABAAABCAAQiAEAAAAAFA4RAAAAQAAAAEEEIQAAQ=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImBitArray&lt;BITCOUNT, OFFSET&gt;" Collapsed="true">
+    <Position X="9.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAACAABACAAIAAEEAAAAAgAAAAAAAAgA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImBitVector" Collapsed="true">
+    <Position X="34.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAACAAAAAAAAAAAAAAEAAgAAAAABAAgA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImSpan&lt;T&gt;" Collapsed="true">
+    <Position X="36.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAMQAAACQgAEAABAAAAIAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImSpanAllocator&lt;CHUNKS&gt;" Collapsed="true">
+    <Position X="38" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAQAAAEAAQAAICAAAAQAAAAAQAEACACAAAAAIA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImPool&lt;T&gt;" Collapsed="true">
+    <Position X="32.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIAAAAQABACAADQAAAABAAAAAQAAAACAABCCEBQAAE=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImChunkStream&lt;T&gt;" Collapsed="true">
+    <Position X="36.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAAACAAAAQAAAAIAAAAASCAAAAgAAAQAAAAAEAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawListSharedData" Collapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAABAAACEIAAgAFADAAAAAAAAAAACALAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImDrawDataBuilder" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAUAAAAAQBAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDataTypeTempStorage" Collapsed="true">
+    <Position X="41.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDataTypeInfo" Collapsed="true">
+    <Position X="39.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQCEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiColorMod" Collapsed="true">
+    <Position X="32.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiStyleMod" Collapsed="true">
+    <Position X="38" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiComboPreviewData" Collapsed="true">
+    <Position X="34.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAAAQAAAAAACAAAAIQAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiGroupData" Collapsed="true">
+    <Position X="32.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAgIAAAACAAAACAAAAAAAAEAIAQAAAAAAQQAAAQAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiMenuColumns" Collapsed="true">
+    <Position X="39.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQEAAkAAAAAAIAAAAQUAAAACAIAAAAAAAAgAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputTextState" Collapsed="true">
+    <Position X="27.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAEBAAQAKEAhAkAAAACCCAA4QQACUAVAAAAAAAAAgE=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiPopupData" Collapsed="true">
+    <Position X="39.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAACAAgBAAAAAAABAAAAAAAAgiACAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiNextWindowData" Collapsed="true">
+    <Position X="24" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEAABAQAMABgQQAAAAQAAAEAAAACAAAEAEAABmgAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiNextItemData" Collapsed="true">
+    <Position X="45" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAACAAEAAEAAAAAAQAAAAAEAIAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiLastItemData" Collapsed="true">
+    <Position X="32.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgIAIAAAAAAACACAAQEAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiStackSizes" Collapsed="true">
+    <Position X="31" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAABACACAIBAAAABAACAAgAAAAAAAAgAAIAQAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiWindowStackData" Collapsed="true">
+    <Position X="27.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiShrinkWidthItem" Collapsed="true">
+    <Position X="25.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAEAAAAAIAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiPtrOrIndex" Collapsed="true">
+    <Position X="41.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAEAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEventMousePos" Collapsed="true">
+    <Position X="41.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEventMouseWheel" Collapsed="true">
+    <Position X="45" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEventMouseButton" Collapsed="true">
+    <Position X="39.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEventMouseViewport" Collapsed="true">
+    <Position X="43.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEventKey" Collapsed="true">
+    <Position X="38" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAIAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEventText" Collapsed="true">
+    <Position X="24" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEventAppFocused" Collapsed="true">
+    <Position X="36.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiInputEvent" Collapsed="true">
+    <Position X="34.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAgAAAAAAAAAAAAAAAAAAAAAAAQAAAABAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiListClipperRange" Collapsed="true">
+    <Position X="38" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAABAACAAAEAAAAAAAAAAAAAAAAAAIACAAACA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiListClipperData" Collapsed="true">
+    <Position X="36.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAIAAAAADAAAAAAAAAAAAAAgAAQAAAAAABAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiNavItemData" Collapsed="true">
+    <Position X="43.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAAAAAAQAAgAAIAAAAAAAAAAAAAAABAAAACABICAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiOldColumnData" Collapsed="true">
+    <Position X="25.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABgAAAAABAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiOldColumns" Collapsed="true">
+    <Position X="27.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQDEAAAAAAgAgAgAGAACQABAAAgAAAAACAAAgAAAE=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDockNode" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EARLMAUAwIBB0YAAggFAoAAGCCDUAkhAABGnBQEQQAQ=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiWindowDockStyle" Collapsed="true">
+    <Position X="24" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiDockContext" Collapsed="true">
+    <Position X="43.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAACABAAAEAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiViewportP" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>HARCAEAQoQQAgEAIAACQAEAiAAgAQBQQABAACAAAACA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiWindowSettings" Collapsed="true">
+    <Position X="25.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAgAAABgAAAAAAAAAAAAACAAAQACAAABgAEBAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiSettingsHandler" Collapsed="true">
+    <Position X="24" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICAAAEABAAAAAAAAAAAABAAAAAAAABAgAAAAAAEMAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiMetricsConfig" Collapsed="true">
+    <Position X="41.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAACAAAAAABAAAgEAAAQFAAAAAAAAQAAAIAAIAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiStackLevelInfo" Collapsed="true">
+    <Position X="29.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAIAgAAACAAAAAAAAAAAAAAAAAAAQAAAAAI=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiStackTool" Collapsed="true">
+    <Position X="32.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABIAAAAAACAAAAAAAAACQAAAQIAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiContextHook" Collapsed="true">
+    <Position X="38" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACBAAAAACAAAAAAAAAAAAAAAAAAAQAAAAAIQAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiContext" Collapsed="true">
+    <Position X="36.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>cL/7XBf+wGlE2bIiZPrr7pbfnBXvi1/XzX1JGfr//fw=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiWindowTempData" Collapsed="true">
+    <Position X="29.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQghBACgGBYKBEgAAICAAAAIEBAAgECAiaAACAIA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiWindow" Collapsed="true">
+    <Position X="43.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BxYgpAADQRKVwgRo5ijHqRdAEzTc42+o5QCnZhgGOR8=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTabItem" Collapsed="true">
+    <Position X="45" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABBAAACABIgAAEAAQQAEAAAAAAAAAAAAAASAEAgAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTabBar" Collapsed="true">
+    <Position X="41.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAhAEkALQCkAAEAAAAAJBAIIEAQEBEAVAAIAAQYBA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableColumn" Collapsed="true">
+    <Position X="27.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAACRgEQEAgBgICIAIEQAAgCBgAEgUkIAEgSABAaAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableCellData" Collapsed="true">
+    <Position X="25.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableInstanceData" Collapsed="true">
+    <Position X="32.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAgAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTable" Collapsed="true">
+    <Position X="24" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZoUTBkC4kERSsZQFAG5WMoEZJgIiwDoAJXHoHJgU2sA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableTempData" Collapsed="true">
+    <Position X="38" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAACAAAgAQAAAgAAABAEAAAAAAAAAAgAJAAAAAAQM=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableColumnSettings" Collapsed="true">
+    <Position X="29.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAARACAAAAAAAAAAEEAAAgAAAAAAAAAACEQAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImGuiTableSettings" Collapsed="true">
+    <Position X="34.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAEAAQAAgAAAAAAAAAACAACAAAIAAg=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImFontBuilderIO" Collapsed="true">
+    <Position X="39.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbrp_context" Collapsed="true">
+    <Position X="29.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAgAAEACQAQAAAAAAAAQQAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbrp_node" Collapsed="true">
+    <Position X="31" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAIAAAA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbrp_rect" Collapsed="true">
+    <Position X="32.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAhgCAAAAgA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a3_3" Collapsed="true">
+    <Position X="17.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a4_1" Collapsed="true">
+    <Position X="5.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAEAACAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a4_2" Collapsed="true">
+    <Position X="1.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAEAIAAAAAoAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a4_3" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIIAAEAAABAAAAEEAAAAAAAQAAAAAIAQhAAAABAACAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a4_4" Collapsed="true">
+    <Position X="13.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAIAAAABAAACAAAAAAEAAEAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a4_5" Collapsed="true">
+    <Position X="9.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAQAAEACAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_1" Collapsed="true">
+    <Position X="13.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_2" Collapsed="true">
+    <Position X="13.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABgAACAASAAAQAQAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_3" Collapsed="true">
+    <Position X="12.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIRgAACAQQgAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_4" Collapsed="true">
+    <Position X="5.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAQAAAAAAAAAAABgAACAASAAAQAQAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbtt_pack_context" Collapsed="true">
+    <Position X="45" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAUAQAAAAABAAAAEAAgAAAAAAAECIAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbtt_fontinfo" Collapsed="true">
+    <Position X="41.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCAAAAAEiAQAiBAAAQgABAQAAAAACAAAAQAQAIAoAEA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_5" Collapsed="true">
+    <Position X="1.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAEAAoAAAAAAAAAAAAABAAAAAAAgAAAAAAAEAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbtt_kerningentry" Collapsed="true">
+    <Position X="43.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_7" Collapsed="true">
+    <Position X="9.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAABAAAAAABgAAACgAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_8" Collapsed="true">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAQAkAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_15" Collapsed="true">
+    <Position X="8.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAALAAABAAAEAgEAAAAAAAAAAABiACAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbtt__hheap_chunk" Collapsed="true">
+    <Position X="39.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbtt__hheap" Collapsed="true">
+    <Position X="38" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAIIAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbtt__edge" Collapsed="true">
+    <Position X="36.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAABgAACAAQAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="stbtt__active_edge" Collapsed="true">
+    <Position X="34.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIABAAAAQAAAAAAAAAAAAAABAAAIBFAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_16" Collapsed="true">
+    <Position X="5.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_17" Collapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAAAQAAAABgAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_05a5_18" Collapsed="true">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="`anonymous-namespace'::MyItem" Collapsed="true">
+    <Position X="27.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAgAAAAAAAAASAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>src\imgui_demo.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="ImGuiDemoMarkerCallback" Collapsed="true">
+    <Position X="27.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_demo.cpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiCol" Collapsed="true">
+    <Position X="34.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiCond" Collapsed="true">
+    <Position X="39.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiDataType" Collapsed="true">
+    <Position X="24" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiDir" Collapsed="true">
+    <Position X="29.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiMouseButton" Collapsed="true">
+    <Position X="32.75" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiMouseCursor" Collapsed="true">
+    <Position X="34.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiSortDirection" Collapsed="true">
+    <Position X="32.75" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiStyleVar" Collapsed="true">
+    <Position X="34.5" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTableBgTarget" Collapsed="true">
+    <Position X="39.75" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImDrawFlags" Collapsed="true">
+    <Position X="21.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImDrawListFlags" Collapsed="true">
+    <Position X="24" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImFontAtlasFlags" Collapsed="true">
+    <Position X="27.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiBackendFlags" Collapsed="true">
+    <Position X="31" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiButtonFlags" Collapsed="true">
+    <Position X="32.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiColorEditFlags" Collapsed="true">
+    <Position X="36.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiConfigFlags" Collapsed="true">
+    <Position X="41.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiComboFlags" Collapsed="true">
+    <Position X="38" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiDockNodeFlags" Collapsed="true">
+    <Position X="31" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiDragDropFlags" Collapsed="true">
+    <Position X="32.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiFocusedFlags" Collapsed="true">
+    <Position X="36.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiHoveredFlags" Collapsed="true">
+    <Position X="38" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiInputTextFlags" Collapsed="true">
+    <Position X="45" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiKeyChord" Collapsed="true">
+    <Position X="1.5" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiPopupFlags" Collapsed="true">
+    <Position X="45" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiSelectableFlags" Collapsed="true">
+    <Position X="25.75" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiSliderFlags" Collapsed="true">
+    <Position X="31" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTabBarFlags" Collapsed="true">
+    <Position X="36.25" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTabItemFlags" Collapsed="true">
+    <Position X="38" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTableFlags" Collapsed="true">
+    <Position X="43.25" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTableColumnFlags" Collapsed="true">
+    <Position X="41.5" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTableRowFlags" Collapsed="true">
+    <Position X="45" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTreeNodeFlags" Collapsed="true">
+    <Position X="27.5" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiViewportFlags" Collapsed="true">
+    <Position X="29.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiWindowFlags" Collapsed="true">
+    <Position X="31" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImTextureID" Collapsed="true">
+    <Position X="39.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImDrawIdx" Collapsed="true">
+    <Position X="45" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiID" Collapsed="true">
+    <Position X="39.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImS8" Collapsed="true">
+    <Position X="17.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImU8" Collapsed="true">
+    <Position X="17.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImS16" Collapsed="true">
+    <Position X="34.5" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImU16" Collapsed="true">
+    <Position X="41.5" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImS32" Collapsed="true">
+    <Position X="36.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImU32" Collapsed="true">
+    <Position X="43.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImS64" Collapsed="true">
+    <Position X="38" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImU64" Collapsed="true">
+    <Position X="45" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImWchar16" Collapsed="true">
+    <Position X="24" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImWchar32" Collapsed="true">
+    <Position X="5.5" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImWchar" Collapsed="true">
+    <Position X="5.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiInputTextCallback" Collapsed="true">
+    <Position X="43.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiSizeCallback" Collapsed="true">
+    <Position X="29.25" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiMemAllocFunc" Collapsed="true">
+    <Position X="29.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiMemFreeFunc" Collapsed="true">
+    <Position X="31" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImDrawCallback" Collapsed="true">
+    <Position X="43.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImDrawCornerFlags" Collapsed="true">
+    <Position X="21.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiModFlags" Collapsed="true">
+    <Position X="1.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_float_t" Collapsed="true">
+    <Position X="25.75" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_int8_t" Collapsed="true">
+    <Position X="29.25" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_uint8_t" Collapsed="true">
+    <Position X="31" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_int16_t" Collapsed="true">
+    <Position X="27.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_uint16_t" Collapsed="true">
+    <Position X="13.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_intptr_t" Collapsed="true">
+    <Position X="17.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_ssize_t" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_int64_t" Collapsed="true">
+    <Position X="1.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="khronos_uint64_t" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLvoid" Collapsed="true">
+    <Position X="39.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLenum" Collapsed="true">
+    <Position X="24" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLfloat" Collapsed="true">
+    <Position X="25.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLint" Collapsed="true">
+    <Position X="27.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLsizei" Collapsed="true">
+    <Position X="31" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLbitfield" Collapsed="true">
+    <Position X="29.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLdouble" Collapsed="true">
+    <Position X="43.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLuint" Collapsed="true">
+    <Position X="36.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLboolean" Collapsed="true">
+    <Position X="31" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLubyte" Collapsed="true">
+    <Position X="34.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLPOLYGONMODEPROC" Collapsed="true">
+    <Position X="32.75" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLSCISSORPROC" Collapsed="true">
+    <Position X="36.25" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLTEXPARAMETERIPROC" Collapsed="true">
+    <Position X="41.5" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLTEXIMAGE2DPROC" Collapsed="true">
+    <Position X="39.75" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLCLEARPROC" Collapsed="true">
+    <Position X="31" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLCLEARCOLORPROC" Collapsed="true">
+    <Position X="29.25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDISABLEPROC" Collapsed="true">
+    <Position X="45" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLENABLEPROC" Collapsed="true">
+    <Position X="29.25" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLFLUSHPROC" Collapsed="true">
+    <Position X="32.75" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLPIXELSTOREIPROC" Collapsed="true">
+    <Position X="31" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLREADPIXELSPROC" Collapsed="true">
+    <Position X="34.5" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETINTEGERVPROC" Collapsed="true">
+    <Position X="31" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLVIEWPORTPROC" Collapsed="true">
+    <Position X="27.5" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLclampf" Collapsed="true">
+    <Position X="38" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLclampd" Collapsed="true">
+    <Position X="36.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDRAWELEMENTSPROC" Collapsed="true">
+    <Position X="27.5" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBINDTEXTUREPROC" Collapsed="true">
+    <Position X="39.75" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDELETETEXTURESPROC" Collapsed="true">
+    <Position X="39.75" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGENTEXTURESPROC" Collapsed="true">
+    <Position X="36.25" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLACTIVETEXTUREPROC" Collapsed="true">
+    <Position X="32.75" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBLENDFUNCSEPARATEPROC" Collapsed="true">
+    <Position X="24" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBLENDEQUATIONPROC" Collapsed="true">
+    <Position X="43.25" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLsizeiptr" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLintptr" Collapsed="true">
+    <Position X="17.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBINDBUFFERPROC" Collapsed="true">
+    <Position X="36.25" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDELETEBUFFERSPROC" Collapsed="true">
+    <Position X="34.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGENBUFFERSPROC" Collapsed="true">
+    <Position X="34.5" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBUFFERDATAPROC" Collapsed="true">
+    <Position X="25.75" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBUFFERSUBDATAPROC" Collapsed="true">
+    <Position X="27.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLchar" Collapsed="true">
+    <Position X="34.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLshort" Collapsed="true">
+    <Position X="29.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLbyte" Collapsed="true">
+    <Position X="32.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLushort" Collapsed="true">
+    <Position X="38" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gl\GL.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBLENDEQUATIONSEPARATEPROC" Collapsed="true">
+    <Position X="45" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLATTACHSHADERPROC" Collapsed="true">
+    <Position X="34.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLCOMPILESHADERPROC" Collapsed="true">
+    <Position X="32.75" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDELETEPROGRAMPROC" Collapsed="true">
+    <Position X="36.25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDELETESHADERPROC" Collapsed="true">
+    <Position X="38" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDETACHSHADERPROC" Collapsed="true">
+    <Position X="43.25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDISABLEVERTEXATTRIBARRAYPROC" Collapsed="true">
+    <Position X="24" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLENABLEVERTEXATTRIBARRAYPROC" Collapsed="true">
+    <Position X="31" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETPROGRAMIVPROC" Collapsed="true">
+    <Position X="36.25" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETPROGRAMINFOLOGPROC" Collapsed="true">
+    <Position X="34.5" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETSHADERIVPROC" Collapsed="true">
+    <Position X="39.75" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETSHADERINFOLOGPROC" Collapsed="true">
+    <Position X="38" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETVERTEXATTRIBIVPROC" Collapsed="true">
+    <Position X="25.75" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETVERTEXATTRIBPOINTERVPROC" Collapsed="true">
+    <Position X="27.5" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLLINKPROGRAMPROC" Collapsed="true">
+    <Position X="29.25" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLSHADERSOURCEPROC" Collapsed="true">
+    <Position X="38" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLUSEPROGRAMPROC" Collapsed="true">
+    <Position X="24" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLUNIFORM1IPROC" Collapsed="true">
+    <Position X="43.25" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLUNIFORMMATRIX4FVPROC" Collapsed="true">
+    <Position X="45" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLVERTEXATTRIBPOINTERPROC" Collapsed="true">
+    <Position X="25.75" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLhalf" Collapsed="true">
+    <Position X="13.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETBOOLEANI_VPROC" Collapsed="true">
+    <Position X="39.75" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETINTEGERI_VPROC" Collapsed="true">
+    <Position X="27.5" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBINDVERTEXARRAYPROC" Collapsed="true">
+    <Position X="41.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDELETEVERTEXARRAYSPROC" Collapsed="true">
+    <Position X="41.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGENVERTEXARRAYSPROC" Collapsed="true">
+    <Position X="38" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLsync" Collapsed="true">
+    <Position X="32.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLuint64" Collapsed="true">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLint64" Collapsed="true">
+    <Position X="1.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLDRAWELEMENTSBASEVERTEXPROC" Collapsed="true">
+    <Position X="25.75" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETINTEGER64I_VPROC" Collapsed="true">
+    <Position X="25.75" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLBINDSAMPLERPROC" Collapsed="true">
+    <Position X="38" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETFLOATI_VPROC" Collapsed="true">
+    <Position X="24" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETDOUBLEI_VPROC" Collapsed="true">
+    <Position X="43.25" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLDEBUGPROC" Collapsed="true">
+    <Position X="39.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETTRANSFORMFEEDBACKI_VPROC" Collapsed="true">
+    <Position X="41.5" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETTRANSFORMFEEDBACKI64_VPROC" Collapsed="true">
+    <Position X="43.25" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLuint64EXT" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLDEBUGPROCARB" Collapsed="true">
+    <Position X="41.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLeglImageOES" Collapsed="true">
+    <Position X="45" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETFLOATI_VEXTPROC" Collapsed="true">
+    <Position X="45" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETDOUBLEI_VEXTPROC" Collapsed="true">
+    <Position X="41.5" Y="23" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETPOINTERI_VEXTPROC" Collapsed="true">
+    <Position X="32.75" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETVERTEXARRAYINTEGERI_VEXTPROC" Collapsed="true">
+    <Position X="45" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETVERTEXARRAYPOINTERI_VEXTPROC" Collapsed="true">
+    <Position X="24" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLVULKANPROCNV" Collapsed="true">
+    <Position X="41.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GLint64EXT" Collapsed="true">
+    <Position X="1.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PFNGLGETINTEGERUI64I_VNVPROC" Collapsed="true">
+    <Position X="29.25" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GL3WglProc" Collapsed="true">
+    <Position X="27.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GL3WGetProcAddressProc" Collapsed="true">
+    <Position X="24" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="GL3WglGetProcAddr" Collapsed="true">
+    <Position X="25.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_opengl3_loader.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiDataAuthority" Collapsed="true">
+    <Position X="45" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiLayoutType" Collapsed="true">
+    <Position X="27.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiActivateFlags" Collapsed="true">
+    <Position X="29.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiDebugLogFlags" Collapsed="true">
+    <Position X="25.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiInputFlags" Collapsed="true">
+    <Position X="41.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiItemFlags" Collapsed="true">
+    <Position X="24" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiItemStatusFlags" Collapsed="true">
+    <Position X="25.75" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiOldColumnFlags" Collapsed="true">
+    <Position X="43.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiNavHighlightFlags" Collapsed="true">
+    <Position X="36.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiNavMoveFlags" Collapsed="true">
+    <Position X="38" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiNextItemDataFlags" Collapsed="true">
+    <Position X="39.75" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiNextWindowDataFlags" Collapsed="true">
+    <Position X="41.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiScrollFlags" Collapsed="true">
+    <Position X="24" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiSeparatorFlags" Collapsed="true">
+    <Position X="27.5" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTextFlags" Collapsed="true">
+    <Position X="24" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTooltipFlags" Collapsed="true">
+    <Position X="25.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiErrorLogCallback" Collapsed="true">
+    <Position X="34.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImFileHandle" Collapsed="true">
+    <Position X="25.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImPoolIdx" Collapsed="true">
+    <Position X="32.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImBitArrayForNamedKeys" Collapsed="true">
+    <Position X="9.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiContextHookCallback" Collapsed="true">
+    <Position X="43.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTableColumnIdx" Collapsed="true">
+    <Position X="17.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="ImGuiTableDrawChannelIdx" Collapsed="true">
+    <Position X="17.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbrp_coord" Collapsed="true">
+    <Position X="29.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbrp__findresult" Collapsed="true">
+    <Position X="17.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="StbUndoRecord" Collapsed="true">
+    <Position X="5.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="StbUndoState" Collapsed="true">
+    <Position X="1.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="STB_TexteditState" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="StbTexteditRow" Collapsed="true">
+    <Position X="13.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="StbFindState" Collapsed="true">
+    <Position X="9.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_textedit.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_uint8" Collapsed="true">
+    <Position X="45" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_int8" Collapsed="true">
+    <Position X="39.75" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_uint16" Collapsed="true">
+    <Position X="41.5" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_int16" Collapsed="true">
+    <Position X="36.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_uint32" Collapsed="true">
+    <Position X="43.25" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_int32" Collapsed="true">
+    <Position X="38" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt__check_size32" Collapsed="true">
+    <Position X="32.75" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt__check_size16" Collapsed="true">
+    <Position X="31" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt__buf" Collapsed="true">
+    <Position X="13.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_bakedchar" Collapsed="true">
+    <Position X="13.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_aligned_quad" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_packedchar" Collapsed="true">
+    <Position X="5.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_pack_range" Collapsed="true">
+    <Position X="1.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt_vertex" Collapsed="true">
+    <Position X="9.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt__bitmap" Collapsed="true">
+    <Position X="9.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt__test_oversample_pow2" Collapsed="true">
+    <Position X="34.5" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt__csctx" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="stbtt__point" Collapsed="true">
+    <Position X="5.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="ImGuiDockRequestType" Collapsed="true">
+    <Position X="38" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIBAAAAAAEAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.cpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GlfwClientApi" Collapsed="true">
+    <Position X="39.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>src\imgui_impl_glfw.cpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="VkResult" Collapsed="true">
+    <Position X="36.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_impl_glfw.cpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiWindowFlags_" Collapsed="true">
+    <Position X="32.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAYQACAQIhAAIggglAAAEQAgBQiAQAAEACBBAAg=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiInputTextFlags_" Collapsed="true">
+    <Position X="27.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQEgCAAQAAAAQAAAAAFAABAgAAAATFYIAAAgAACAEA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTreeNodeFlags_" Collapsed="true">
+    <Position X="25.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAokAECAAAAAAAAQAgAAEAAAAABSAgAQAAQAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiPopupFlags_" Collapsed="true">
+    <Position X="36.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAIAAAAAYAACAAAAAAAAgAAAAQAAIIAAAAIAAE=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiSelectableFlags_" Collapsed="true">
+    <Position X="41.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAQAAAAAIAAAAAAAAAAAAAAAAAAgAAASAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiComboFlags_" Collapsed="true">
+    <Position X="38" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAACAAACIAAAAABAAAABAMIA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTabBarFlags_" Collapsed="true">
+    <Position X="31" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAgAAAAAAAEAAEQAAAAAAAAAIYAEAAIAAAAAE=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTabItemFlags_" Collapsed="true">
+    <Position X="34.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAEAAAAAiAAAAAAAQABgAAAAAJAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTableFlags_" Collapsed="true">
+    <Position X="41.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGAABFAAQSAhLAgAAJAQCADEAQAAAogAAQQAKCCAACQ=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTableColumnFlags_" Collapsed="true">
+    <Position X="39.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUOCBAAAAAAIAABAhAEDACAIAABAAAEBAAQBAIAIyAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTableRowFlags_" Collapsed="true">
+    <Position X="43.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTableBgTarget_" Collapsed="true">
+    <Position X="38" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiFocusedFlags_" Collapsed="true">
+    <Position X="41.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEBCAAAAAAAAACAAAAAAAAAAAAAAgAAAAAAAQEAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiHoveredFlags_" Collapsed="true">
+    <Position X="43.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAgAAIRCAAAAJAAAAIACAACAAgAIAAAAAAAFAAQA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDockNodeFlags_" Collapsed="true">
+    <Position X="32.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIgBAAAAAAAABAAAAAAAAAAAAAAAgAAAAIBAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDragDropFlags_" Collapsed="true">
+    <Position X="39.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAAAAAAgAAAAAACCAAAAAAQAIAAAAAAAgAgIACAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDataType_" Collapsed="true">
+    <Position X="25.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAABYAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAACAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDir_" Collapsed="true">
+    <Position X="31" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAAAAAAAACAABAAAAAAQAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiSortDirection_" Collapsed="true">
+    <Position X="27.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAEAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiKey" Collapsed="true">
+    <Position X="34.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>Epjk/f//7wm6pSsKI2nCcP8UAAUCQjKS4ATFCAAKbAs=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiNavInput" Collapsed="true">
+    <Position X="24" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAIAAGABAAACQAQAAAAAAAAAAFACAgAAAAACAAQQAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiConfigFlags_" Collapsed="true">
+    <Position X="43.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAQQAAiAAAAAAAAAAAAYAAAAAAAAAAwAAQAEQAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiBackendFlags_" Collapsed="true">
+    <Position X="29.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAEAAAAAAAAAABAAAEAABABAAAAAAAoAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiCol_" Collapsed="true">
+    <Position X="34.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiUgQ7AAABAOBERAQiRAEAGh0GAkAABAmEAAMalEKIA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiStyleVar_" Collapsed="true">
+    <Position X="29.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAwAAAQgAUQAAABDQAAAgAAADQgAiBBAAkAAAAAQAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiButtonFlags_" Collapsed="true">
+    <Position X="31" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAEAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAACQAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiColorEditFlags_" Collapsed="true">
+    <Position X="36.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAMCQAQAECARCQgEgAQCjAAAEAAHAABAAADAAAQ=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiSliderFlags_" Collapsed="true">
+    <Position X="24" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABIIAAAAAAQAAAAAAAAAAAAAAAAAEAAAAAABABA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiMouseButton_" Collapsed="true">
+    <Position X="41.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAEAAAAAAAAAAAAAAAQAAAAAAAEAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiMouseCursor_" Collapsed="true">
+    <Position X="43.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAAAAAAAAAAAAAIoAAAiAAAAggAAAAAAAAAIAAABAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiCond_" Collapsed="true">
+    <Position X="41.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEACAgQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImDrawFlags_" Collapsed="true">
+    <Position X="43.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABTIAAAAAABAAAAAACAAAAAAAAAIAEGAAAASA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImDrawListFlags_" Collapsed="true">
+    <Position X="45" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAggAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAQAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImFontAtlasFlags_" Collapsed="true">
+    <Position X="24" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiViewportFlags_" Collapsed="true">
+    <Position X="29.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAYAAAAAAAABAAAAAAAAAQAACCoIAAAgAAAAAAAQMAA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImDrawCornerFlags_" Collapsed="true">
+    <Position X="41.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAggAIBBgAAQAAAAAAAAAAAAAAAAAAAAAAQE=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiModFlags_" Collapsed="true">
+    <Position X="39.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAIIACAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>src\imgui.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiItemFlags_" Collapsed="true">
+    <Position X="31" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAABQIAhAABAAAAAAAAAAAAABBAgAAAAAAQA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiItemStatusFlags_" Collapsed="true">
+    <Position X="32.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggEAAAAAAwAABCAAAAAAAACAAEEEAAAAAAAAACAAAg=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiInputTextFlagsPrivate_" Collapsed="true">
+    <Position X="29.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiButtonFlagsPrivate_" Collapsed="true">
+    <Position X="32.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABQAAIBQAADkAgAACAAAAAAAAAAAIAABKAAAAAE=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiComboFlagsPrivate_" Collapsed="true">
+    <Position X="39.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiSliderFlagsPrivate_" Collapsed="true">
+    <Position X="25.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiSelectableFlagsPrivate_" Collapsed="true">
+    <Position X="43.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAIAgAAAAAIAAAAACAAAAAAAAAAAEAAAAAAAAQBAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTreeNodeFlagsPrivate_" Collapsed="true">
+    <Position X="27.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiSeparatorFlags_" Collapsed="true">
+    <Position X="45" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAIA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTextFlags_" Collapsed="true">
+    <Position X="45" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTooltipFlags_" Collapsed="true">
+    <Position X="24" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiLayoutType_" Collapsed="true">
+    <Position X="36.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiLogType" Collapsed="true">
+    <Position X="38" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABCAAAAAAAAAAAAAAAAAACAAAAAIABAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiAxis" Collapsed="true">
+    <Position X="27.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiPlotType" Collapsed="true">
+    <Position X="34.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiPopupPositionPolicy" Collapsed="true">
+    <Position X="38" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDataTypePrivate_" Collapsed="true">
+    <Position X="27.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiNextWindowDataFlags_" Collapsed="true">
+    <Position X="31" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAgAAAAAAAAAEAAAAAYAAAQAAIEAAEBQAAAAAAE=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiNextItemDataFlags_" Collapsed="true">
+    <Position X="29.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAQAAAAAAAAAQAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiInputEventType" Collapsed="true">
+    <Position X="45" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAIABAACBAAAAAAAAAAAAAAAAAAAAEAAAAAAY=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiInputSource" Collapsed="true">
+    <Position X="25.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAQgAAAAAAAAAAAAEAAAAAAIAAgAAAAAAAQA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiInputFlags_" Collapsed="true">
+    <Position X="24" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAQAAAAAAAAAAAAAAAgBAAAIAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiActivateFlags_" Collapsed="true">
+    <Position X="25.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAgAAAAAAAAAAAAAAAAAAAAAAAAQAIAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiScrollFlags_" Collapsed="true">
+    <Position X="39.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMAABAAAAAAABAIAEAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiNavHighlightFlags_" Collapsed="true">
+    <Position X="45" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAEAAAAAAAAAAAAEAAAAAAEAAAAAAgAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiNavMoveFlags_" Collapsed="true">
+    <Position X="27.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACMAAAAEEAQQAECAAAAQAAACAAAAAAAAAQBAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiNavLayer" Collapsed="true">
+    <Position X="25.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAABAAgAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiOldColumnFlags_" Collapsed="true">
+    <Position X="32.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAADAIAAEABgAAAAAAAAAAAAEEAAAAAQAAAAACAAACA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDockNodeFlagsPrivate_" Collapsed="true">
+    <Position X="34.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACYAAAAgAAAIgAQAAgBIAAEIAAQYAAgAABBQAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDataAuthority_" Collapsed="true">
+    <Position X="24" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDockNodeState" Collapsed="true">
+    <Position X="36.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAIAAAAAAAAAAAAAQAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiWindowDockStyleCol" Collapsed="true">
+    <Position X="31" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAQAAAAAAAAAAAAAAAAAAAAAAgACAAAYAAAACAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiDebugLogFlags_" Collapsed="true">
+    <Position X="29.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAIAAAAAAgAAAAGQAAAAAAABAABAAAAAkCAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiContextHookType" Collapsed="true">
+    <Position X="45" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACQAAQAAAAAAAAAAACAgAAAACAAABIAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTabBarFlagsPrivate_" Collapsed="true">
+    <Position X="32.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAIAAAAAAAAAA=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ImGuiTabItemFlagsPrivate_" Collapsed="true">
+    <Position X="36.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAABgAAAAAAAEAAAAg=</HashCode>
+      <FileName>src\imgui_internal.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a3_1" Collapsed="true">
+    <Position X="24" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAIAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a3_2" Collapsed="true">
+    <Position X="25.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_rectpack.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a5_6" Collapsed="true">
+    <Position X="36.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAQAAAAAAAAAAAAAAAQAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a5_9" Collapsed="true">
+    <Position X="38" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAIAIAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a5_10" Collapsed="true">
+    <Position X="27.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIEAAAAAAAAAAAQAAAAQAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a5_11" Collapsed="true">
+    <Position X="29.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAACEAAACAAAAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a5_12" Collapsed="true">
+    <Position X="31" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAQECAAIAAAACAAAAAAAAAAEAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a5_13" Collapsed="true">
+    <Position X="32.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAIAAQAGAIAAAAACAAAAAACAAQAAAMAIAAAA=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_05a5_14" Collapsed="true">
+    <Position X="34.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAIACAgAAAAAIAAQAAACAAAAQAAgCIEgQ=</HashCode>
+      <FileName>src\imstb_truetype.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="`anonymous-namespace'::MyItemColumnID" Collapsed="true">
+    <Position X="34.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAIAAABAAABAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>src\imgui_demo.cpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

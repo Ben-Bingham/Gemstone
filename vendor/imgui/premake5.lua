@@ -26,4 +26,5 @@ function project_ImGui(workspaceDir)
         filter "configurations:Release"
             runtime "Release"
             optimize "on"
+        filter {}
 end

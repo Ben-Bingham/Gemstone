@@ -45,16 +45,16 @@ function project_Wavellite(workspaceDir)
 			workspaceDir .. "vendor/imgui/build"
 		}
 
-		group "Vendor"
-			project_ImGui("")
-		group ""
+		-- group "Vendor"
+		-- 	project_ImGui("")
+		-- group ""
 
 		links {
 			-- Vendor
 			"glfw3",
 			"glew32s",
 			"opengl32",
-			"ImGui",
+			-- "ImGui",
 			-- Dependencies
 			"Lazuli",
 			"Malachite"
