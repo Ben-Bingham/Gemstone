@@ -7,6 +7,8 @@ namespace Ruby {
 		: colour(value, value, value, value) {}
 	Colour::Colour(const Malachite::Vector4f colour)
 		: colour(colour) {}
+	Colour::Colour(Malachite::Vector3f colour, float alpha)
+		: colour(colour.x, colour.y, colour.z, alpha) {}
 	Colour::Colour(const float r, const float g, const float b, const float a)
 		: colour(r, g, b, a) {}
 	Colour::Colour(const int r, const int g, const int b, const int a)

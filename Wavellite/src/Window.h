@@ -62,6 +62,10 @@ namespace Wavellite {
 
 		void setDimensions(unsigned int width, unsigned int height);
 
+		void setSwapInterval(unsigned int newInterval) {
+			glfwSwapInterval(newInterval);
+		}
+
 		// Callbacks
 		void setKeyCallback(void (*callback)(GLFWwindow* window, int key, int scanCode, int action, int mods)) const { glfwSetKeyCallback(m_Window, callback); }
 		void setFrameBufferSizeCallback(void (*callback)(GLFWwindow* window, int width, int height)) const  { glfwSetFramebufferSizeCallback(m_Window, callback); }

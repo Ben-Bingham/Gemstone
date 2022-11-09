@@ -8,6 +8,7 @@ namespace Ruby {
 		Colour();
 		Colour(float value);
 		Colour(Malachite::Vector4f colour);
+		Colour(Malachite::Vector3f colour, float alpha = 1.0f);
 		explicit Colour(float r, float g, float b, float a = 1.0f);
 		explicit Colour(int r, int g, int b, int a = 255);
 

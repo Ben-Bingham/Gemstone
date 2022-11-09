@@ -90,11 +90,15 @@ namespace Malachite {
 		}
 
 		// Utility
-		T length() const {
-			return (T)sqrt(x * x + y * y + z * z);
+		T lengthSquared() const {
+			return (T)(x * x + y * y + z * z);
 		}
 
-		Vector3<T> normalize() {
+		T length() const {
+			return (T)sqrt(lengthSquared());
+		}
+
+		Vector3<T> normalize() const {
 			Vector3<T> result{ *this };
 			T inverseLength = (T)1 / this->length();
 			result *= inverseLength;
