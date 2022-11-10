@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <cassert>
 
 #include "Vector.h"
 
@@ -25,11 +25,27 @@ namespace Malachite {
 			row4(r4x, r4y, r4z, r4w)
 		{}
 
-
 		Vector4<T> row1{ };
 		Vector4<T> row2{ };
 		Vector4<T> row3{ };
 		Vector4<T> row4{ };
+
+		Vector4<T> operator[](int index) const {
+#ifdef MALACHITE_DEBUG
+			assert(index < 4);
+#endif // MALACHITE_DEBUG
+			switch (index) {
+			case 0:
+				return row1;
+			case 1:
+				return row2;
+			case 2:
+				return row3;
+			case 3:
+				return row4;
+			default: return Vector4<T>{ (T)0 };
+			}
+		}
 
 		// Translation
 		Matrix4x4<T>& translate(const Vector3<T>& vector) {
@@ -84,6 +100,10 @@ namespace Malachite {
 			result.row4 = Vector4<T>(0, 0, 0, 1);
 			*this = *this * result;
 			return *this;
+		}
+
+		std::string toString() const {
+			return std::string{ "Row1: " + row1.toString() + "\nRow2: " + row2.toString() + "\nRow3: " + row3.toString() + "\nRow4: " + row4.toString()};
 		}
 	};
 

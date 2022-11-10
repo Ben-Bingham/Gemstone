@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <cassert>
 
 namespace Malachite {
 	template<typename T>
@@ -14,6 +15,23 @@ namespace Malachite {
 		T y{ };
 		T z{ };
 		T w{ };
+
+		T operator[](int index) const {
+#ifdef MALACHITE_DEBUG
+			assert(index < 4);
+#endif // MALACHITE_DEBUG
+			switch (index) {
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			case 3:
+				return w;
+			default: return (T)0;
+			}
+		}
 
 		// Negation
 		Vector4<T> operator-() const {
@@ -107,6 +125,10 @@ namespace Malachite {
 			T inverseLength = (T)1 / this->length();
 			result *= inverseLength;
 			return result;
+		}
+
+		std::string toString() const {
+			return std::string{ "X: " + std::to_string(x) + ", Y: " + std::to_string(y) + ", Z: " + std::to_string(z) + ", W: " + std::to_string(w)};
 		}
 	};
 
