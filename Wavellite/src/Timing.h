@@ -16,6 +16,10 @@ namespace Wavellite {
 			frameCount++;
 		}
 
+		float getTime() {
+			return (float)glfwGetTime();
+		}
+
 		float deltaTime{ 0.0f };
 		unsigned int frameCount{ 0u };
 
