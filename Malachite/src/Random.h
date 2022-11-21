@@ -22,6 +22,15 @@ namespace Malachite {
 	}
 
 	template<typename T>
+	Vector3<T> randomInUnitSphere() {
+		while(true) {
+			Malachite::Vector3<T> vector = random((T)-1, (T)1);
+			if (vector.lengthSquared() >= 1) continue;
+			return vector;
+		}
+	}
+
+	template<typename T>
 	Vector4<T> random(Vector4<T> min, Vector4<T> max) { // [min, max[
 		Vector4<T> result;
 		result.x = min.x + (max.x - min.x) * random<T>();
