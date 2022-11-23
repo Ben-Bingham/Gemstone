@@ -25,5 +25,6 @@ namespace Ruby {
 		ElementBufferObject m_EBO{ };
 
 		unsigned int m_NumberOfIndices;
+		Material* m_Material;
 	};
 }
