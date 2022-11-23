@@ -13,7 +13,12 @@ namespace Wavellite {
 
 	class Keyboard {
 	public:
-		Keyboard() {}
+		Keyboard() = default;
+		Keyboard(const Keyboard&) = delete;
+		const Keyboard& operator=(const Keyboard&) = delete;
+		Keyboard(Keyboard&&) = default;
+		Keyboard& operator=(Keyboard&&) = default;
+		~Keyboard() = default;
 
 		KeyState KEY_SPACE{ KeyState::KEY_RELEASED };
 		KeyState KEY_APOSTROPHE{ KeyState::KEY_RELEASED };
