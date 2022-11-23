@@ -8,7 +8,7 @@ namespace Ruby {
 	public:
 		using ShaderProgramPtr = std::shared_ptr<ShaderProgram>;
 		Material(ShaderProgramPtr shader);
-		Material()
+		Material();
 
 		Material(const Material& other) = default;
 		Material(Material&& other) noexcept = default;
