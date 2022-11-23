@@ -29,8 +29,8 @@ namespace Ruby {
 		VertexAttributeObject m_VAO{ };
 		VertexBufferObject m_VBO{ };
 		ElementBufferObject m_EBO{ };
-
-		unsigned int m_NumberOfIndices;
-		Material* m_Material;
+		
+		MaterialPtr m_Material;
+		GeometryDataPtr m_GeometryData;
 	};
 }

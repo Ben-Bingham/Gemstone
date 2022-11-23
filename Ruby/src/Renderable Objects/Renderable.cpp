@@ -9,7 +9,6 @@ namespace Ruby {
 
 		m_EBO.bind();
 		m_EBO.setData(indices);
-		m_NumberOfIndices = (unsigned int)indices.size();
 
 		for (const Attribute attribute : attributes) {
 			m_VAO.addAttribute(attribute);
@@ -21,11 +20,18 @@ namespace Ruby {
 	Renderable::Renderable(const GeometryDataPtr& geometry, const MaterialPtr& material) 
 		: m_Material(material), m_GeometryData(geometry) {
 
+		m_VAO.bind();
+
+		m_VBO.bind();
+		m_VBO.setData(geometry->getVerticies());
+
+		m_EBO.bind();
+		m_EBO.setData(geometry->getIndicies());
 	}
 
 	void Renderable::render() const { //TODO split this into header and cpp file for all renderables
 		m_VAO.bind();
 
-		glDrawElements(GL_TRIANGLES, (GLsizei)m_NumberOfIndices, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, (GLsizei)m_EBO.getNumberOfIndices(), GL_UNSIGNED_INT, 0);
 	}
 }

@@ -25,6 +25,8 @@ namespace Ruby {
 			m_NumberOfIndices = indices.size();
 		}
 
+		unsigned int getNumberOfIndices() const { return m_NumberOfIndices; }
+
 		void bind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); }
 		void unbind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 
