@@ -1,7 +1,7 @@
 #include "SolidGeometry.h"
 
 namespace Ruby {
-	SolidGeometry::SolidGeometry(std::unique_ptr<GeometryObject> geometryObject, const Colour Colour) 
+	SolidGeometry::SolidGeometry(std::unique_ptr<GeometryData> geometryObject, const Colour Colour) 
 		: SolidRenderable(geometryObject->getVerticies(false, false), geometryObject->getIndicies(), Colour) {
 
 	}

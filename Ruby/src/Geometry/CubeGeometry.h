@@ -2,10 +2,10 @@
 
 #include <vector>
 
-#include "GeometryObject.h"
+#include "GeometryData.h"
 
 namespace Ruby {
-	class CubeGeometry : public GeometryObject {
+	class CubeGeometry : public GeometryData {
 	public:
 		CubeGeometry();
 

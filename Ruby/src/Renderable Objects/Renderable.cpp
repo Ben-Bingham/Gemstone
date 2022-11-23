@@ -18,8 +18,14 @@ namespace Ruby {
 		m_VAO.compileAttributes();
 	}
 
+	Renderable::Renderable(const GeometryDataPtr& geometry, const MaterialPtr& material) 
+		: m_Material(material), m_GeometryData(geometry) {
+
+	}
+
 	void Renderable::render() const { //TODO split this into header and cpp file for all renderables
 		m_VAO.bind();
+
 		glDrawElements(GL_TRIANGLES, (GLsizei)m_NumberOfIndices, GL_UNSIGNED_INT, 0);
 	}
 }

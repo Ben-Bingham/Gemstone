@@ -2,10 +2,10 @@
 
 #include <vector>
 
-#include "GeometryObject.h"
+#include "GeometryData.h"
 
 namespace Ruby {
-	class SphereGeometry : public GeometryObject {
+	class SphereGeometry : public GeometryData {
 	public:
 		SphereGeometry(unsigned int numberOfStacks = 18u, unsigned int numberOfSectors = 36u);
 

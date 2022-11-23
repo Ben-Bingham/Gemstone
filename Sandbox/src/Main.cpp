@@ -125,6 +125,10 @@ int main() {
 	Ruby::PhongGeometry sun{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
 	Ruby::PhongGeometry earth{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
 	
+	Ruby::PhongGeometry testObj1{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
+	Ruby::PhongGeometry testObj2{ std::make_unique<Ruby::SphereGeometry>(), cubeMaterial };
+	testObj2.model.translate(Malachite::Vector3f{ 3.0f, 0.0f, 0.0f });
+
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
 	// Shader setup
@@ -274,11 +278,13 @@ int main() {
 		{ // Rendering
 			renderer.prep();
 
-			renderer.render(staticSphere);
+			/*renderer.render(staticSphere);
 			renderer.render(movingSphere);
 
 			renderer.render(sun);
-			renderer.render(earth);
+			renderer.render(earth);*/
+			renderer.render(testObj1);
+			renderer.render(testObj2);
 
 			renderer.render(skybox);
 

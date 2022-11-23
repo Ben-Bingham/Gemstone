@@ -1,7 +1,7 @@
 #include "PhongGeometry.h"
 
 namespace Ruby {
-	PhongGeometry::PhongGeometry(std::unique_ptr<GeometryObject> geometryObject, PhongMaterial& mat) 
+	PhongGeometry::PhongGeometry(std::unique_ptr<GeometryData> geometryObject, PhongMaterial& mat) 
 		: PhongRenderable(geometryObject->getVerticies(true, true), geometryObject->getIndicies(), mat) {
 
 	}

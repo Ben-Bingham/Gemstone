@@ -26,8 +26,6 @@ namespace Ruby {
 			}
 		}
 
-
-
 		return verticies;
 	}
 

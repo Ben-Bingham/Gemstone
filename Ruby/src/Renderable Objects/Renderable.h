@@ -5,11 +5,17 @@
 #include "OpenGL objects/VertexAttributeObject.h"
 #include "OpenGL objects/VertexBufferObject.h"
 #include "OpenGL objects/ElementBufferObject.h"
+#include "Geometry/GeometryData.h"
+#include "Material.h"
 
 namespace Ruby {
 	class Renderable {
+		using GeometryDataPtr = std::shared_ptr<GeometryData>;
+		using MaterialPtr = std::shared_ptr<Material>;
 	public:
 		Renderable(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, const std::vector<Attribute>& attributes);
+		Renderable(const GeometryDataPtr& geometry, const MaterialPtr& material);
+
 		Renderable(const Renderable& other) = delete;
 		Renderable(Renderable&& other) noexcept = default;
 		Renderable& operator=(const Renderable& other) = delete;
