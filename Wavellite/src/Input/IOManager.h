@@ -8,12 +8,12 @@ namespace Wavellite {
 
 	class IOManager {
 	public:
-		IOManager(Window& window);
+		IOManager(Window* window);
 
 		Window* window;
 
-		Keyboard* getKeyboard();
-		Mouse* getMouse();
+		[[nodiscard]] Keyboard& getKeyboard();
+		[[nodiscard]] Mouse& getMouse();
 	private:
 		Keyboard m_Keyboard;
 		Mouse m_Mouse;
