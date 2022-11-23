@@ -6,17 +6,9 @@
 namespace Ruby {
 	class SolidRenderable : public Renderable {
 	public:
-		SolidRenderable(const std::vector<float>& verticies, const std::vector<unsigned int>& indicies, const Colour Colour)
-			: Renderable(verticies, indicies, std::vector<Attribute>{ 3 }), colour(Colour) {
+		SolidRenderable(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, const Colour& colour);
 
-		}
-
-		void render() const override {
-			VAO.bind();
-			ShaderProgram::upload("model", model);
-			ShaderProgram::upload("objectColour", colour.toVec3());
-			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
-		}
+		void render() const override;
 
 		Malachite::Matrix4f model{ 1.0f };
 		Colour colour;
