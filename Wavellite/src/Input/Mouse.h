@@ -16,7 +16,12 @@ namespace Wavellite {
 
 	class Mouse {
 	public:
-		Mouse() { }
+		Mouse() = default;
+		Mouse(const Mouse&) = delete;
+		const Mouse& operator=(const Mouse&) = delete;
+		Mouse(Mouse&&) = default;
+		Mouse& operator=(Mouse&&) = default;
+		~Mouse() = default;
 
 		int xPosition{ 0 };
 		int yPosition{ 0 };
