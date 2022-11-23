@@ -1,6 +1,112 @@
 #include "Renderer.h"
 
 namespace Ruby {
+	Renderer::Renderer(Camera& camera)
+		: m_Camera(&camera) {
+
+		glEnable(GL_DEPTH_TEST);
+
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CW);
+
+		int flags;
+		glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+
+		if (flags & GL_CONTEXT_FLAG_DEBUG_BIT) {
+			LOG("OpenGL debug context available.", Lazuli::LogLevel::INFO);
+			glEnable(GL_DEBUG_OUTPUT);
+			glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+			glDebugMessageCallback(glDebugOutput, nullptr);
+			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+		}
+	}
+
+	void Renderer::addCustomShader(ShaderProgram& program) {
+		m_CustomPrograms.push_back(&program);
+	}
+
+	void Renderer::prep() {
+		const Malachite::Matrix4f viewMatrix = m_Camera->getViewMatrix();
+
+		for (ShaderProgram* program : m_CustomPrograms) {
+			program->use();
+			ShaderProgram::upload("view", viewMatrix);
+		}
+
+		shaders.shadowPhongShader.use();
+		ShaderProgram::upload("view", viewMatrix);
+		ShaderProgram::upload("cameraPosition", m_Camera->position);
+
+		shaders.solidShader.use();
+		ShaderProgram::upload("view", viewMatrix);
+
+		shaders.imageShader.use();
+		ShaderProgram::upload("view", viewMatrix);
+
+		shaders.directionalDepthShader.use();
+		ShaderProgram::upload("view", viewMatrix);
+
+		Malachite::Matrix4f skyboxView = Malachite::Matrix4f{
+			Malachite::Vector4f{viewMatrix.row1.x, viewMatrix.row1.y, viewMatrix.row1.z, 0.0f},
+			Malachite::Vector4f{viewMatrix.row2.x, viewMatrix.row2.y, viewMatrix.row2.z, 0.0f},
+			Malachite::Vector4f{viewMatrix.row3.x, viewMatrix.row3.y, viewMatrix.row3.z, 0.0f},
+			Malachite::Vector4f{0.0f, 0.0f, 0.0f, 1.0f}
+		};
+
+		shaders.skyboxShader.use();
+		ShaderProgram::upload("view", skyboxView);
+
+		shaders.phongShader.use();
+		ShaderProgram::upload("view", viewMatrix);
+
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void Renderer::end() {
+		
+	}
+
+	void Renderer::render(const PhongRenderable& renderable) {
+		shaders.phongShader.use();
+		renderable.render();
+	}
+
+	void Renderer::render(const SolidRenderable& renderable) {
+		shaders.solidShader.use();
+		renderable.render();
+	}
+
+	void Renderer::render(const DebugRenderable& renderable) {
+		shaders.solidShader.use();
+		renderable.render();
+	}
+
+	void Renderer::render(const ImageRenderable& renderable) {
+		shaders.imageShader.use();
+		renderable.render();
+	}
+
+	void Renderer::render(const ScreenQuad& renderable) {
+		shaders.screenQuadShader.use();
+
+		renderable.render();
+	}
+
+	void Renderer::render(const SkyBox& skyBox) {
+		shaders.skyboxShader.use();
+		glDepthMask(GL_FALSE);
+		glCullFace(GL_FRONT);
+		glDepthFunc(GL_LEQUAL);
+
+		skyBox.render();
+
+		glDepthFunc(GL_LESS);
+		glCullFace(GL_BACK);
+		glDepthMask(GL_TRUE);
+	}
+
 	void APIENTRY glDebugOutput(
 		GLenum source,
 		GLenum type,

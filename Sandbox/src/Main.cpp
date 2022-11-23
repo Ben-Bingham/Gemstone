@@ -71,14 +71,14 @@ using namespace Pyrite::Literals;
 
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f};
-	Wavellite::Mouse* mouse = &window.ioManger.mouse;
-	Wavellite::Keyboard* keyboard = &window.ioManger.keyboard;
+	Wavellite::Mouse& mouse = window.ioManger.getMouse();
+	Wavellite::Keyboard& keyboard = window.ioManger.getKeyboard();
 
-	mouse->addMousePositionCallback(mousePositionCallback, (void*)&fpsController);
+	mouse.addMousePositionCallback(mousePositionCallback, (void*)&fpsController);
 	window.disableCursor();
 
 	Wavellite::Time time{ };
-	Ruby::Renderer renderer{ };
+	Ruby::Renderer renderer{ camera };
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
@@ -94,26 +94,26 @@ int main() {
 	directionalLights.push_back(&directionalLight);
 
 	// Solid setup
-	Ruby::SolidMaterial staticMat{ Malachite::Vector3f{ 0.0f, 0.0f, 1.0f } };
-	Ruby::SolidMaterial defaultMat{ Malachite::Vector3f{ 1.0f, 0.0f, 0.0f } };
-	Ruby::SolidMaterial collidedMat{ Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } };
+	Ruby::Colour staticColour{ Malachite::Vector3f{ 0.0f, 0.0f, 1.0f } };
+	Ruby::Colour defaultColour{ Malachite::Vector3f{ 1.0f, 0.0f, 0.0f } };
+	Ruby::Colour collidedColour{ Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } };
 
-	Ruby::SolidGeometry staticSphere{ std::make_unique<Ruby::SphereGeometry>(), defaultMat };
+	Ruby::SolidGeometry staticSphere{ std::make_unique<Ruby::SphereGeometry>(), defaultColour };
 	staticSphere.model.scale(3.0f);
-	Ruby::SolidGeometry movingSphere{ std::make_unique<Ruby::CubeGeometry>(), staticMat };
+	Ruby::SolidGeometry movingSphere{ std::make_unique<Ruby::CubeGeometry>(), collidedColour };
 
-	// Skybox setup
+	// SkyBox setup
 	std::vector<Ruby::Image> skyboxImages {
-		Ruby::Image{ "assets\\Skybox\\right.jpg", false },
-		Ruby::Image{ "assets\\Skybox\\left.jpg", false },
-		Ruby::Image{ "assets\\Skybox\\top.jpg", false },
-		Ruby::Image{ "assets\\Skybox\\bottom.jpg", false },
-		Ruby::Image{ "assets\\Skybox\\front.jpg", false },
-		Ruby::Image{ "assets\\Skybox\\back.jpg", false },
+		Ruby::Image{ "assets\\SkyBox\\right.jpg", false },
+		Ruby::Image{ "assets\\SkyBox\\left.jpg", false },
+		Ruby::Image{ "assets\\SkyBox\\top.jpg", false },
+		Ruby::Image{ "assets\\SkyBox\\bottom.jpg", false },
+		Ruby::Image{ "assets\\SkyBox\\front.jpg", false },
+		Ruby::Image{ "assets\\SkyBox\\back.jpg", false },
 	};
 
 	// normal rendering setup
-	Ruby::Skybox skybox{ skyboxImages };
+	Ruby::SkyBox skybox{ skyboxImages };
 
 	Ruby::Image containerImage{ "assets\\container2.png" };
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
@@ -159,31 +159,31 @@ int main() {
 		window.pollEvents();
 		float velocity = 0.05f;
 		 
-		if (keyboard->KEY_W) {
+		if (keyboard.KEY_W) {
 			camera.position += camera.front * velocity;
 		}
 
-		if (keyboard->KEY_A) {
+		if (keyboard.KEY_A) {
 			camera.position -= camera.right * velocity;
 		}
 
-		if (keyboard->KEY_S) {
+		if (keyboard.KEY_S) {
 			camera.position -= camera.front * velocity;
 		}
 
-		if (keyboard->KEY_D) {
+		if (keyboard.KEY_D) {
 			camera.position += camera.right * velocity;
 		}
 
-		if (keyboard->KEY_SPACE) {
+		if (keyboard.KEY_SPACE) {
 			camera.position += Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } * velocity;
 		}
 
-		if (keyboard->KEY_LEFT_SHIFT) {
+		if (keyboard.KEY_LEFT_SHIFT) {
 			camera.position -= Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } * velocity;
 		}
 
-		if (keyboard->KEY_ESCAPE) {
+		if (keyboard.KEY_ESCAPE) {
 			window.close();
 		}
 
@@ -272,55 +272,22 @@ int main() {
 		}
 
 		{ // Rendering
-			renderer.prep(camera.getViewMatrix());
+			renderer.prep();
 
-			{ // Solid Rendering
-				renderer.solidRenderingPrep();
+			renderer.render(staticSphere);
+			renderer.render(movingSphere);
 
-				renderer.solidRender(staticSphere);
-				renderer.solidRender(movingSphere);
+			renderer.render(sun);
+			renderer.render(earth);
 
-				renderer.solidRenderingEnd();
-			}
-
-			{ // Normal Rendering
-				renderer.phongRenderingPrep();
-
-				// Cube
-				Ruby::ShaderProgram::upload("cameraPosition", camera.position); // Shader specific
-
-				renderer.phongRender(sun);
-				renderer.phongRender(earth);
-
-				renderer.phongRenderingEnd();
-			}
-
-			{ // Debug Rendering
-				renderer.debugRenderingPrep();
-
-				//LOG(movingCollider.getDimensions().toString());
-
-				renderer.debugRenderingEnd();
-			}
-
-			{ // Skybox Rendering
-				renderer.skyboxRenderingPrep();
-
-				renderer.skyboxRender(skybox);
-
-				renderer.skyboxRenderingEnd();
-			}
+			renderer.render(skybox);
 
 			{ // ImGui
 				renderer.imGuiPrep();
 
 				//ImGui::ShowDemoWindow();
 				{
-					/*ImGui::Begin("Window");
-					ImGui::Text("Mass");
-					ImGui::SliderFloat("float", &speed, 0.0f, 1000.0f);
-					earthPhysics.mass = Malachite::ee(1.873f, exponent);
-					ImGui::End();*/
+
 				}
 
 				renderer.imGuiEnd();
