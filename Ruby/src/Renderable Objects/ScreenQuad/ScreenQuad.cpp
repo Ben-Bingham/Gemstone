@@ -6,9 +6,9 @@ namespace Ruby {
 		, m_Texture(texture) { }
 
 	void ScreenQuad::render() const {
-		VAO.bind();
+		m_VAO.bind();
 		ShaderProgram::upload("image", 0, *m_Texture);
-		glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, m_NumberOfIndices, GL_UNSIGNED_INT, nullptr);
 	}
 
 	const std::vector<float> ScreenQuad::verticies = {

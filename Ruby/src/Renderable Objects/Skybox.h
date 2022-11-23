@@ -4,17 +4,17 @@
 #include "OpenGL objects/Cubemap.h"
 
 namespace Ruby {
-	class Skybox : public Renderable {
+	class SkyBox : public Renderable {
 	public:
-		Skybox(std::vector<Image>& faces)
+		SkyBox(std::vector<Image>& faces)
 			: Renderable(verticies, indices, std::vector<Attribute>{ 3 }), cubemap(faces) {
 
 		}
 
 		void render() const override {
-			VAO.bind();
+			m_VAO.bind();
 			ShaderProgram::upload("skybox", 0, cubemap);
-			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, m_NumberOfIndices, GL_UNSIGNED_INT, 0);
 		}
 
 	private:
