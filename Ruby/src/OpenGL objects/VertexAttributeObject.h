@@ -22,6 +22,7 @@ namespace Ruby {
 
 			m_Attributes = std::move(other.m_Attributes);
 			other.m_Attributes.clear();
+			return *this;
 		}
 
 		VertexAttributeObject(VertexAttributeObject&& other) noexcept
@@ -65,7 +66,7 @@ namespace Ruby {
 		}
 
 		unsigned int m_VAO;
-		unsigned __int64 m_LastAttributeWidth{ 0 };
+		unsigned int m_LastAttributeWidth{ 0 };
 		std::vector<Attribute> m_Attributes;
 	};
 }
