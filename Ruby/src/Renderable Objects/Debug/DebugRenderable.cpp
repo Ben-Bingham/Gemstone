@@ -10,7 +10,7 @@ namespace Ruby {
 		m_VAO.bind();
 		ShaderProgram::upload("model", model);
 		ShaderProgram::upload("objectColour", colour.toVec3());
-		glDrawElements(GL_LINES, m_NumberOfIndices, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_LINES, m_EBO.getNumberOfIndices(), GL_UNSIGNED_INT, 0);
 	}
 
 	std::vector<unsigned int> DebugRenderable::generateIndicies(unsigned int numberOfVerticies) {

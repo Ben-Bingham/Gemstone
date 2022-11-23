@@ -14,7 +14,7 @@ namespace Ruby {
 		void render() const override {
 			m_VAO.bind();
 			ShaderProgram::upload("skybox", 0, cubemap);
-			glDrawElements(GL_TRIANGLES, m_NumberOfIndices, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, m_EBO.getNumberOfIndices(), GL_UNSIGNED_INT, 0);
 		}
 
 	private:

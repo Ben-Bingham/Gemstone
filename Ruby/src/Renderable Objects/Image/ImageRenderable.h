@@ -14,7 +14,7 @@ namespace Ruby {
 			m_VAO.bind();
 			ShaderProgram::upload("model", model);
 			ShaderProgram::upload("image", 0, *material->texture);
-			glDrawElements(GL_TRIANGLES, m_NumberOfIndices, GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, m_EBO.getNumberOfIndices(), GL_UNSIGNED_INT, 0);
 		}
 
 		Malachite::Matrix4f model{ 1.0f };

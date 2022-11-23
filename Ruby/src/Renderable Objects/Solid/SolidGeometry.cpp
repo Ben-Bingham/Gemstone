@@ -10,7 +10,7 @@ namespace Ruby {
 		m_VAO.bind();
 		ShaderProgram::upload("model", model);
 		ShaderProgram::upload("objectColour", colour.toVec3());
-		glDrawElements(GL_TRIANGLES, m_NumberOfIndices, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, m_EBO.getNumberOfIndices(), GL_UNSIGNED_INT, 0);
 	}
 
 }

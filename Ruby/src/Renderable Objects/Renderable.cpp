@@ -23,7 +23,7 @@ namespace Ruby {
 		m_VAO.bind();
 
 		m_VBO.bind();
-		m_VBO.setData(geometry->getVerticies());
+		//m_VBO.setData(geometry->getVerticies());
 
 		m_EBO.bind();
 		m_EBO.setData(geometry->getIndicies());
