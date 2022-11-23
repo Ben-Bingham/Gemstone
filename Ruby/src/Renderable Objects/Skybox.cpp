@@ -1,7 +1,7 @@
-#include "Skybox.h"
+#include "SkyBox.h"
 
 namespace Ruby {
-	const std::vector<unsigned int> Skybox::indices{
+	const std::vector<unsigned int> SkyBox::indices{
 			0, 1, 2,
 			1, 3, 2,
 			4, 5, 6,
@@ -16,7 +16,7 @@ namespace Ruby {
 			21, 23, 22,
 	};
 
-	const std::vector<float> Skybox::verticies{
+	const std::vector<float> SkyBox::verticies{
 		-1.0f, -1.0f,  1.0f,
 		-1.0f,  1.0f,  1.0f,
 		 1.0f, -1.0f,  1.0f,
