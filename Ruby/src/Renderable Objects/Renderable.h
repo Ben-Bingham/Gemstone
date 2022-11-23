@@ -9,34 +9,21 @@
 namespace Ruby {
 	class Renderable {
 	public:
-		Renderable(const std::vector<float>& verticies, const std::vector<unsigned int>& indicies, const std::vector<Attribute>& attributes) {
-			VAO.bind();
-
-			VBO.bind();
-			VBO.setData(verticies);
-
-			EBO.bind();
-			EBO.setData(indicies);
-			numberOfIndicies = (unsigned int)indicies.size();
-
-			for (Attribute attribute : attributes) {
-				VAO.addAttribute(attribute);
-			}
-
-			VAO.compileAttributes();
-		}
+		Renderable(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, const std::vector<Attribute>& attributes);
+		Renderable(const Renderable& other) = delete;
+		Renderable(Renderable&& other) noexcept = default;
+		Renderable& operator=(const Renderable& other) = delete;
+		Renderable& operator=(Renderable&& other) noexcept = default;
+		virtual ~Renderable() = default;
 
 		// The assumption is made that a shader program is bound prior to this being called
-		virtual void render() const { //TODO split this into header and cpp file for all renderables
-			VAO.bind();
-			glDrawElements(GL_TRIANGLES, numberOfIndicies, GL_UNSIGNED_INT, 0);
-		}
+		virtual void render() const;
 
 	protected:
-		VertexAttributeObject VAO{ };
-		VertexBufferObject VBO{ };
-		ElementBufferObject EBO{ };
+		VertexAttributeObject m_VAO{ };
+		VertexBufferObject m_VBO{ };
+		ElementBufferObject m_EBO{ };
 
-		unsigned int numberOfIndicies;
+		unsigned int m_NumberOfIndices;
 	};
 }
