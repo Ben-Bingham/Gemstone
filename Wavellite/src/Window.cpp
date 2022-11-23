@@ -5,7 +5,7 @@
 
 namespace Wavellite {
 	Window::Window(WindowSize size, std::string name, float zFar) 
-		: ioManger(*this) {
+		: ioManger(this) {
 		GLFWInit();
 		makeWindow(size, name);
 		windowSetup();
@@ -17,7 +17,7 @@ namespace Wavellite {
 		: m_ProjectionMatrix{Malachite::perspective(45.0f, (float)((float)width / (float)height), 0.1f, zFar)}
 		, m_Width(width)
 		, m_Height(height)
-		, ioManger(*this) {
+		, ioManger(this) {
 		GLFWInit();
 		makeWindow(width, height, name);
 		windowSetup();
