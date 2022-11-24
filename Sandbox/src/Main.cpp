@@ -9,7 +9,8 @@
 #include "Geometry/CubeGeometry.h"
 #include "Geometry/SphereGeometry.h"
 #include "Renderable Objects/Solid/SolidGeometry.h"
-#include "Shaders/UniformData/UniformData.h"
+#include "Shaders/UniformData/UniformSet.h"
+#include "Shaders/UniformData/BasicUniforms.h"
 
 // Pyrite
 #include "PhysicsObject.h"
@@ -147,19 +148,53 @@ int main() {
 	//Ruby::Renderable phongRenderable{ cubeData, phongMaterial };
 
 	float val3 = 1;
-	Ruby::UniformSet uniformsForShader{
-		Ruby::Uniform::Float{"u_Temp", val3},  
-		Ruby::Uniform::Vector3f{"u_Colour", Malachite::Vector3f{val3}}
+	Ruby::UniformSet uniformsForShader {
+		Ruby::Uniform::Float{ "u_Temp", val3 },
+		Ruby::Uniform::Vector3f{ "u_Colour", Malachite::Vector3f{ val3 } }
 	};
 
 	Ruby::Uniform::Float* tempUniform = uniformsForShader.get<Ruby::Uniform::Float>("u_Temp");
-
+	
 	float val1 = 0.0f;
 	tempUniform->setData(val1);
 	val1 = 3.0f;
 
 	// In main loop:
 	//renderer.render(phongRenderable);
+
+
+
+
+
+	// Desired Funcitonality
+	Ruby::UniformSet uniforms {
+		// Vert
+		Ruby::Uniform::Matrix4x4f{"u_Model"},
+		Ruby::Uniform::Matrix4x4f{"u_Projection"},
+		Ruby::Uniform::Matrix4x4f{"u_View"},
+		// Frag
+		Ruby::Uniform::Vector3f{"u_Colour"}, 
+		Ruby::Uniform::Float{"u_Roughness"}
+	};
+
+	Ruby::VertexShader vert{ "shaderPath" };
+
+	Ruby::FragmentShader frag{ "shaderPath"};
+
+	Ruby::ShaderProgram program{ vert, frag }; // Program should combine all incoming uniform sets into one larger one
+
+	struct Material {
+		vec3 colour;
+		float roughness;
+	};
+
+	
+	// Inside Render:
+	program.bind();
+	program.uploadUnifroms();
+
+
+
 
 
 

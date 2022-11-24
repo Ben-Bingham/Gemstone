@@ -1,6 +1,6 @@
 #include "ShaderProgram.h"
 #include "Log.h"
-#include "UniformData/UniformData.h"
+#include "UniformData/UniformSet.h"
 
 namespace Ruby {
 	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes)
@@ -197,7 +197,7 @@ namespace Ruby {
 
 			name = uniform.substr(endOfType + 1);
 
-			UniformType enumType = parseUniformType(type);
+			/*UniformType enumType = parseUniformType(type);
 			std::unique_ptr<UniformDataElement> uniformDataElement;
 			switch (enumType) {
 			case UniformType::UNKNOWN:
@@ -218,30 +218,31 @@ namespace Ruby {
 			case UniformType::MATRIX_4X4F: 
 				uniformDataElement = std::make_unique<Uniform::Matrix4x4f>(name);
 				break;
-			}
+			}*/
 
 			//m_Uniforms.add(uniformDataElement);
 		}
 	}
 
-	UniformType ShaderProgram::parseUniformType(const std::string& type) {
-		if (type == "float") {
-			return UniformType::FLOAT;
-		}
-		if(type == "int") {
-			return UniformType::INT;
-		}
-		if (type == "vec3") {
-			return UniformType::VECTOR_3F;
-		}
-		if (type == "vec4") {
-			return UniformType::VECTOR_4F;
-		}
-		if (type == "mat4") {
-			return UniformType::MATRIX_4X4F;
-		}
-		return UniformType::UNKNOWN;
-	}
+	//UniformType ShaderProgram::parseUniformType(const std::string& type) {
+	//	/*if (type == "float") {
+	//		return UniformType::FLOAT;
+	//	}
+	//	if(type == "int") {
+	//		return UniformType::INT;
+	//	}
+	//	if (type == "vec3") {
+	//		return UniformType::VECTOR_3F;
+	//	}
+	//	if (type == "vec4") {
+	//		return UniformType::VECTOR_4F;
+	//	}
+	//	if (type == "mat4") {
+	//		return UniformType::MATRIX_4X4F;
+	//	}
+	//	return UniformType::UNKNOWN;*/
+
+	//}
 
 	void ShaderProgram::upload(const std::string& variableName, const PointLight& pointLight) {
 		m_ActiveProgram->upload(variableName + ".position", pointLight.position);

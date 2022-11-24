@@ -17,7 +17,6 @@
 #include "OpenGL objects/VertexAttributeObject.h"
 
 namespace Ruby {
-	enum class UniformType;
 	class UniformSet;
 
 	class ShaderProgram {
@@ -79,7 +78,7 @@ namespace Ruby {
 		static ShaderProgram* m_ActiveProgram;
 
 		void parseUniforms(const TextFile& textFile);
-		UniformType parseUniformType(const std::string& type);
+		//UniformType parseUniformType(const std::string& type);
 		//UniformSet m_Uniforms;
 	};
 }
