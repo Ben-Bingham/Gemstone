@@ -1,5 +1,6 @@
 #include "ShaderProgram.h"
 #include "Log.h"
+#include "UniformData/UniformData.h"
 
 namespace Ruby {
 	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes)
@@ -78,45 +79,45 @@ namespace Ruby {
 	// Basic uniforms
 	void ShaderProgram::upload(const std::string& variableName, const int value) {
 #ifdef RUBY_DEBUG
-		if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
+		/*if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
 			LOG("Uniform: " + variableName + " does not exist.", Lazuli::LogLevel::ERROR);
-		}
+		}*/
 #endif
 		glUniform1i(glGetUniformLocation(m_ActiveProgram->m_Program, variableName.c_str()), value);
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, const float value) {
 #ifdef RUBY_DEBUG
-		if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
+		/*if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
 			LOG("Uniform: " + variableName + " does not exist.", Lazuli::LogLevel::ERROR);
-		}
+		}*/
 #endif
 		glUniform1f(glGetUniformLocation(m_ActiveProgram->m_Program, variableName.c_str()), value);
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, const Malachite::Matrix4f& matrix) {
 #ifdef RUBY_DEBUG
-		if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
+		/*if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
 			LOG("Uniform: " + variableName + " does not exist.", Lazuli::LogLevel::ERROR);
-		}
+		}*/
 #endif
 		glUniformMatrix4fv(glGetUniformLocation(m_ActiveProgram->m_Program, variableName.c_str()), 1, GL_FALSE, &matrix.row1.x);
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, const Malachite::Vector3f& vector) {
 #ifdef RUBY_DEBUG
-		if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
+		/*if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
 			LOG("Uniform: " + variableName + " does not exist.", Lazuli::LogLevel::ERROR);
-		}
+		}*/
 #endif
 		glUniform3fv(glGetUniformLocation(m_ActiveProgram->m_Program, variableName.c_str()), 1, &vector.x);
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, const Malachite::Vector4f& vector) {
 #ifdef RUBY_DEBUG
-		if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
+		/*if (!m_ActiveProgram->m_Uniforms.contains(variableName)) {
 			LOG("Uniform: " + variableName + " does not exist.", Lazuli::LogLevel::ERROR);
-		}
+		}*/
 #endif
 		glUniform4fv(glGetUniformLocation(m_ActiveProgram->m_Program, variableName.c_str()), 1, &vector.x);
 	}
@@ -219,7 +220,7 @@ namespace Ruby {
 				break;
 			}
 
-			m_Uniforms.add(uniformDataElement);
+			//m_Uniforms.add(uniformDataElement);
 		}
 	}
 

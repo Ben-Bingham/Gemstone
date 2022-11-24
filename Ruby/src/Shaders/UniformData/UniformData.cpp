@@ -10,9 +10,9 @@ namespace Ruby {
 		return m_Name;
 	}
 
-	void UniformSet::add(const UniformDataElementPtr& uniform) {
+	/*void UniformSet::add(const UniformDataElementPtr& uniform) {
 		m_DataElements.push_back(uniform);
-	}
+	}*/
 
 	bool UniformSet::contains(const std::string& name) const {
 		for (const UniformDataElementPtr& elementPtr : m_DataElements) {

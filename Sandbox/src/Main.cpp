@@ -138,16 +138,28 @@ int main() {
 
 
 	// Not in main file:
-	Ruby::UniformSet standardUniforms; // Should have Model View and Projection matrices
+	//Ruby::UniformSet standardUniforms; // Should have Model View and Projection matrices
 
 	// In Main:
 	std::shared_ptr<Ruby::PhongMaterial> phongMaterial; // Should have a std::shared_ptr to the standard Phong shader Program
 	std::shared_ptr<Ruby::CubeGeometry> cubeData;
 
-	Ruby::Renderable phongRenderable{ cubeData, phongMaterial };
+	//Ruby::Renderable phongRenderable{ cubeData, phongMaterial };
+
+	float val3 = 1;
+	Ruby::UniformSet uniformsForShader{
+		Ruby::Uniform::Float{"u_Temp", val3},  
+		Ruby::Uniform::Vector3f{"u_Colour", Malachite::Vector3f{val3}}
+	};
+
+	Ruby::Uniform::Float* tempUniform = uniformsForShader.get<Ruby::Uniform::Float>("u_Temp");
+
+	float val1 = 0.0f;
+	tempUniform->setData(val1);
+	val1 = 3.0f;
 
 	// In main loop:
-	renderer.render(phongRenderable);
+	//renderer.render(phongRenderable);
 
 
 

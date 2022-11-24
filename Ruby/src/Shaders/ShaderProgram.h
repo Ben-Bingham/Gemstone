@@ -80,6 +80,6 @@ namespace Ruby {
 
 		void parseUniforms(const TextFile& textFile);
 		UniformType parseUniformType(const std::string& type);
-		UniformSet m_Uniforms;
+		//UniformSet m_Uniforms;
 	};
 }

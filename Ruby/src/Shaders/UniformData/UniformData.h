@@ -5,18 +5,16 @@
 
 #include "Matrix.h"
 #include "Vector.h"
+#include "Log.h"
 
 namespace Ruby {
 	class UniformDataElement {
 	public:
 		explicit UniformDataElement(std::string name);
-		UniformDataElement(const UniformDataElement& other) = default;
-		UniformDataElement(UniformDataElement&& other) noexcept = default;
-		UniformDataElement& operator=(const UniformDataElement& other) = default;
-		UniformDataElement& operator=(UniformDataElement&& other) noexcept = default;
-		virtual ~UniformDataElement() = default;
 
-		virtual void upload() const = 0;
+		virtual void upload() const {
+
+		}
 		std::string getName();
 
 	protected:
@@ -27,9 +25,29 @@ namespace Ruby {
 	public:
 		using UniformDataElementPtr = std::unique_ptr<UniformDataElement>;
 
-		UniformSet() = default;
+		UniformSet(std::initializer_list<UniformDataElement> uniforms) {
+			for (auto uniform : uniforms) {
+				m_DataElements.push_back(std::make_unique<UniformDataElement>(uniform));
+			}
+		}
 
-		void add(const UniformDataElementPtr& uniform);
+		template<typename T>
+		T* get(const std::string& name) {
+#ifdef RUBY_DEBUG
+			if (!contains(name)) {
+				LOG("Uniform \"" + name + "\" cant be retrieved because it dosent exist.", Lazuli::LogLevel::ERROR);
+				return nullptr;
+			}
+#endif // RUBY_DEBUG
+
+			for (auto& uniform : m_DataElements) {
+				if (uniform->getName() == name) {
+					return static_cast<T*>(uniform.get());
+				}
+			}
+		}
+
+		//void add(const UniformDataElementPtr& uniform);
 		[[nodiscard]] bool contains(const std::string& name) const;
 
 	private:
@@ -52,7 +70,7 @@ namespace Ruby {
 		template<typename T>
 		class Uniform final : public UniformDataElement {
 		public:
-			Uniform(std::string name, const T& value = T{})
+			Uniform(std::string name, T& value)
 				: UniformDataElement(std::move(name)), m_Value(value) {
 				
 			}
@@ -61,12 +79,16 @@ namespace Ruby {
 				m_Value = value;
 			}
 
+			void setData(T& value) {
+				m_Value = value;
+			}
+
 			void upload() const override {
 				ShaderProgram::upload(m_Name, m_Value);
 			}
 
 		protected:
-			const T& m_Value;
+			T& m_Value;
 		};
 
 		using Float = Uniform<float>;
