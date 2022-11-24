@@ -17,6 +17,9 @@
 #include "OpenGL objects/VertexAttributeObject.h"
 
 namespace Ruby {
+	enum class UniformType;
+	class UniformSet;
+
 	class ShaderProgram {
 	public:
 		ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes);
@@ -28,24 +31,24 @@ namespace Ruby {
 		ShaderProgram& operator=(ShaderProgram&& other) noexcept;
 		~ShaderProgram() { glDeleteProgram(m_Program); }
 
-		struct UniformData {
-			enum class DataType {
-				VECTOR_4F,
-				VECTOR_3F,
-				VECTOR_2F,
-
-				MATRIX_4X4F,
-				MATRIX_4X3F,
-				MATRIX_3X3F,
-
-				FLOAT,
-				INT,
-
-				TEXTURE_2D,
-				TEXTURE_CUBE
-			};
-			DataType dataType;
-		};
+		// struct UniformData {
+		// 	enum class DataType {
+		// 		VECTOR_4F,
+		// 		VECTOR_3F,
+		// 		VECTOR_2F,
+		//
+		// 		MATRIX_4X4F,
+		// 		MATRIX_4X3F,
+		// 		MATRIX_3X3F,
+		//
+		// 		FLOAT,
+		// 		INT,
+		//
+		// 		TEXTURE_2D,
+		// 		TEXTURE_CUBE
+		// 	};
+		// 	DataType dataType;
+		// };
 
 		void use();
 
@@ -70,7 +73,13 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Program;
+
 		std::vector<Attribute> m_Attributes;
-		static ShaderProgram* activePorgram;
+
+		static ShaderProgram* m_ActiveProgram;
+
+		void parseUniforms(const TextFile& textFile);
+		UniformType parseUniformType(const std::string& type);
+		UniformSet m_Uniforms;
 	};
 }

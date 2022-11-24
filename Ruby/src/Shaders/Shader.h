@@ -24,7 +24,7 @@ namespace Ruby {
 			m_ShaderSourceFile = std::move(other.m_ShaderSourceFile);
 		}
 
-		unsigned int getShader() const { return m_Shader; };
+		unsigned int getShader() const { return m_Shader; }
 
 		TextFile getShaderSourceFile() const { return m_ShaderSourceFile; }
 

@@ -32,7 +32,7 @@ namespace Pyrite {
 			}
 		}
 
-		LOG(std::to_string(collisions.size()));
+		//LOG(std::to_string(collisions.size()));
 
 		// TODO resolve all collisions in collisions vector
 		for (Collider::Collision& collision : collisions) {

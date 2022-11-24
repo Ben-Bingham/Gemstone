@@ -9,6 +9,7 @@
 #include "Geometry/CubeGeometry.h"
 #include "Geometry/SphereGeometry.h"
 #include "Renderable Objects/Solid/SolidGeometry.h"
+#include "Shaders/UniformData/UniformData.h"
 
 // Pyrite
 #include "PhysicsObject.h"
@@ -128,6 +129,28 @@ int main() {
 	Ruby::PhongGeometry testObj1{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
 	Ruby::PhongGeometry testObj2{ std::make_unique<Ruby::SphereGeometry>(), cubeMaterial };
 	testObj2.model.translate(Malachite::Vector3f{ 3.0f, 0.0f, 0.0f });
+	Ruby::SolidGeometry testObj3{ std::make_unique<Ruby::SphereGeometry>(), staticColour };
+	testObj3.model.translate(Malachite::Vector3f{ -3.0f, 0.0f, 0.0f });
+
+
+
+
+
+
+	// Not in main file:
+	Ruby::UniformSet standardUniforms; // Should have Model View and Projection matrices
+
+	// In Main:
+	std::shared_ptr<Ruby::PhongMaterial> phongMaterial; // Should have a std::shared_ptr to the standard Phong shader Program
+	std::shared_ptr<Ruby::CubeGeometry> cubeData;
+
+	Ruby::Renderable phongRenderable{ cubeData, phongMaterial };
+
+	// In main loop:
+	renderer.render(phongRenderable);
+
+
+
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -157,6 +180,10 @@ int main() {
 	//Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
 
 	//earthPhysics.velocity.z = 5.0_mPerS;
+
+	float val = 0.0f;
+	std::unique_ptr<Ruby::Uniform::Float> test = std::make_unique<Ruby::Uniform::Float>("u_Temp", val);
+	val = 5.0f;
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -284,6 +311,7 @@ int main() {
 			renderer.render(sun);
 			renderer.render(earth);*/
 			renderer.render(testObj1);
+			renderer.render(testObj3);
 			renderer.render(testObj2);
 
 			renderer.render(skybox);
