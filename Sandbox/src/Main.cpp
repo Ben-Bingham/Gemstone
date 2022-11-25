@@ -80,7 +80,7 @@ int main() {
 
 	roughness = 1.0f;
 
-	auto testVal = uniforms.get<float>("u_Roughness");
+	auto testVal = uniforms.get<uniforms.get("m_Roughness"), float>("u_Roughness");
 
 
 

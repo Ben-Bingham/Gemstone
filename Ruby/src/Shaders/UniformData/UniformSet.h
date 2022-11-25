@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 #include "UniformDataElement.h"
+#include "BasicUniforms.h"
 
 #include "Matrix.h"
 #include "Vector.h"
@@ -19,7 +20,7 @@ namespace Ruby {
 
 	public:
 		UniformSet(const std::initializer_list<const char*> names) {
-			assert(names.size() == m_NumberOfUniforms);
+			/*assert(names.size() == m_NumberOfUniforms);
 
 			std::vector<std::string> uniformNames;
 			uniformNames.resize(names.size());
@@ -27,7 +28,12 @@ namespace Ruby {
 				uniformNames.emplace_back(name);
 			}
 
-			std::get<0>(m_Uniforms);
+			std::get<0>(m_Uniforms);*/
+			int i = 0;
+			std::initializer_list<const char*>::iterator it = names.begin();
+			std::apply([it](auto&... args) {
+				((args.setName(*it); it++;), ...);
+				}, m_Uniforms);
 		}
 
 		template<typename Type>
@@ -42,20 +48,19 @@ namespace Ruby {
 			m_UniformMap[name] = value;
 		}
 
-		template<typename Type = NthType<ForLoop<0, sizeof...(T)>>>
-		Type get(const std::string& name) {
+		decltype(auto) get(const std::string& name) {
 #ifdef RUBY_DEBUG
 			if (m_UniformMap.find(name) == m_UniformMap.end()) {
 				LOG("Attempted to get the Uniform: \"" + name + "\" but it does not exist.", Lazuli::LogLevel::ERROR);
 			}
 #endif // RUBY_DEBUG
 
-			return m_UniformMap[name];
+			return std::get<0>(m_Uniforms);
 		}
 
 	private:
-		std::unordered_map<std::string, std::any> m_UniformMap;
-		std::tuple<T...> m_Uniforms;
+		//std::unordered_map<std::string, std::any> m_UniformMap;
+		std::tuple<Uniform::Uniform<T>...> m_Uniforms;
 		const size_t m_NumberOfUniforms = sizeof...(T);
 	};
 
