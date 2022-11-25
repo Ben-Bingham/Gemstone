@@ -14,10 +14,6 @@ namespace Ruby {
 
 			}
 
-			void setData(const T& value) {
-				m_Value = value;
-			}
-
 			void setData(T& value) {
 				m_Value = value;
 			}
@@ -31,7 +27,7 @@ namespace Ruby {
 			}
 
 		protected:
-			T& m_Value;
+			T& m_Value; //TODO can maybe be const
 		};
 
 		using Float = Uniform<float>;

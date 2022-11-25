@@ -72,15 +72,24 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	Ruby::UniformSet<float, int> uniforms{ { "u_Roughness", "u_IsBlock" } };
+	//Ruby::UniformSet<>
 
 	float roughness = 3.0f;
-	int isBlock = 1;
-	uniforms.set("u_Roughness", roughness);
+
+	//Ruby::String<"Hello"> str;
+
+	//Ruby::UniformSet<float, "u_Roughness"> uniformSet{ roughness };
+
+	/*Malachite::Vector3f u_Colour{ 0.0f };
+	int flag = 1;
+	Ruby::UniformSet<
+		Malachite::Vector3f, "u_Colour",
+		int, "u_Flag"
+	> uniformSet2{ u_Colour, flag };*/
 
 	roughness = 1.0f;
 
-	auto testVal = uniforms.get<uniforms.get("m_Roughness"), float>("u_Roughness");
+	//auto testVal = uniforms.get<uniforms.get("m_Roughness"), float>("u_Roughness");
 
 
 
@@ -157,23 +166,23 @@ int main() {
 	// Not in main file:
 	//Ruby::UniformSet standardUniforms; // Should have Model View and Projection matrices
 
-	// In Main:
-	std::shared_ptr<Ruby::PhongMaterial> phongMaterial; // Should have a std::shared_ptr to the standard Phong shader Program
-	std::shared_ptr<Ruby::CubeGeometry> cubeData;
+	//// In Main:
+	//std::shared_ptr<Ruby::PhongMaterial> phongMaterial; // Should have a std::shared_ptr to the standard Phong shader Program
+	//std::shared_ptr<Ruby::CubeGeometry> cubeData;
 
-	//Ruby::Renderable phongRenderable{ cubeData, phongMaterial };
+	////Ruby::Renderable phongRenderable{ cubeData, phongMaterial };
 
-	float val3 = 1;
-	Ruby::UniformSet uniformsForShader {
-		Ruby::Uniform::Float{ "u_Temp", val3 },
-		Ruby::Uniform::Vector3f{ "u_Colour", Malachite::Vector3f{ val3 } }
-	};
+	//float val3 = 1;
+	//Ruby::UniformSet uniformsForShader {
+	//	Ruby::Uniform::Float{ "u_Temp", val3 },
+	//	Ruby::Uniform::Vector3f{ "u_Colour", Malachite::Vector3f{ val3 } }
+	//};
 
-	Ruby::Uniform::Float* tempUniform = uniformsForShader.get<Ruby::Uniform::Float>("u_Temp");
-	
-	float val1 = 0.0f;
-	tempUniform->setData(val1);
-	val1 = 3.0f;
+	//Ruby::Uniform::Float* tempUniform = uniformsForShader.get<Ruby::Uniform::Float>("u_Temp");
+	//
+	//float val1 = 0.0f;
+	//tempUniform->setData(val1);
+	//val1 = 3.0f;
 
 	// In main loop:
 	//renderer.render(phongRenderable);
