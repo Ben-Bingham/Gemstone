@@ -1,4 +1,5 @@
 #pragma once
+#include <any>
 #include <memory>
 #include <string>
 #include <vector>
@@ -11,32 +12,80 @@
 #include "Log.h"
 
 namespace Ruby {
+	template<typename ...T>
 	class UniformSet {
+		template<int N>
+		using NthType = std::tuple_element_t<N, std::tuple<T...>>;
+
 	public:
-		using UniformDataElementPtr = std::unique_ptr<UniformDataElement>;
+		UniformSet(const std::initializer_list<const char*> names) {
+			assert(names.size() == m_NumberOfUniforms);
 
-		UniformSet(std::initializer_list<UniformDataElement> uniforms);
+			std::vector<std::string> uniformNames;
+			uniformNames.resize(names.size());
+			for (auto& name : names) {
+				uniformNames.emplace_back(name);
+			}
 
-		template<typename T>
-		T* get(const std::string& name) {
+			std::get<0>(m_Uniforms);
+		}
+
+		template<typename Type>
+		void set(const std::string& name, Type& value) {
 #ifdef RUBY_DEBUG
-			if (!contains(name)) {
-				LOG("Uniform \"" + name + "\" cant be retrieved because it dosent exist.", Lazuli::LogLevel::ERROR);
-				return nullptr;
+			if (m_UniformMap.find(name) == m_UniformMap.end()) {
+				LOG("Attempted to set the Uniform: \"" + name + "\" but it does not exist.", Lazuli::LogLevel::ERROR);
+				return;
 			}
 #endif // RUBY_DEBUG
 
-			for (auto& uniform : m_DataElements) {
-				if (uniform->getName() == name) {
-					return static_cast<T*>(uniform.get());
-				}
-			}
+			m_UniformMap[name] = value;
 		}
 
-		[[nodiscard]] bool contains(const std::string& name) const;
+		template<typename Type = NthType<ForLoop<0, sizeof...(T)>>>
+		Type get(const std::string& name) {
+#ifdef RUBY_DEBUG
+			if (m_UniformMap.find(name) == m_UniformMap.end()) {
+				LOG("Attempted to get the Uniform: \"" + name + "\" but it does not exist.", Lazuli::LogLevel::ERROR);
+			}
+#endif // RUBY_DEBUG
+
+			return m_UniformMap[name];
+		}
 
 	private:
-		//std::unordered_map<std::string, UniformDataElementPtr> m_Uniforms;
-		std::vector<UniformDataElementPtr> m_DataElements;
+		std::unordered_map<std::string, std::any> m_UniformMap;
+		std::tuple<T...> m_Uniforms;
+		const size_t m_NumberOfUniforms = sizeof...(T);
 	};
+
+
+// 	class UniformSet {
+// 	public:
+// 		using UniformDataElementPtr = std::unique_ptr<UniformDataElement>;
+//
+// 		UniformSet(std::initializer_list<UniformDataElement> uniforms);
+//
+// 		template<typename T>
+// 		T* get(const std::string& name) {
+// #ifdef RUBY_DEBUG
+// 			if (!contains(name)) {
+// 				LOG("Uniform \"" + name + "\" cant be retrieved because it dosent exist.", Lazuli::LogLevel::ERROR);
+// 				return nullptr;
+// 			}
+// #endif // RUBY_DEBUG
+//
+// 			for (auto& uniform : m_DataElements) {
+// 				if (uniform->getName() == name) {
+// 					return static_cast<T*>(uniform.get());
+// 				}
+// 			}
+// 		}
+//
+// 		[[nodiscard]] bool contains(const std::string& name) const;
+//
+// 	private:
+// 		//std::unordered_map<std::string, UniformDataElementPtr> m_Uniforms;
+// 		std::vector<UniformDataElementPtr> m_DataElements;
+// 	};
 }

@@ -72,6 +72,22 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
+	Ruby::UniformSet<float, int> uniforms{ { "u_Roughness", "u_IsBlock" } };
+
+	float roughness = 3.0f;
+	int isBlock = 1;
+	uniforms.set("u_Roughness", roughness);
+
+	roughness = 1.0f;
+
+	auto testVal = uniforms.get<float>("u_Roughness");
+
+
+
+
+
+
+
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f};
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
 	Wavellite::Keyboard& keyboard = window.ioManger.getKeyboard();
@@ -166,32 +182,32 @@ int main() {
 
 
 
-	// Desired Funcitonality
-	Ruby::UniformSet uniforms {
-		// Vert
-		Ruby::Uniform::Matrix4x4f{"u_Model"},
-		Ruby::Uniform::Matrix4x4f{"u_Projection"},
-		Ruby::Uniform::Matrix4x4f{"u_View"},
-		// Frag
-		Ruby::Uniform::Vector3f{"u_Colour"}, 
-		Ruby::Uniform::Float{"u_Roughness"}
-	};
-
-	Ruby::VertexShader vert{ "shaderPath" };
-
-	Ruby::FragmentShader frag{ "shaderPath"};
-
-	Ruby::ShaderProgram program{ vert, frag }; // Program should combine all incoming uniform sets into one larger one
-
-	struct Material {
-		vec3 colour;
-		float roughness;
-	};
-
-	
-	// Inside Render:
-	program.bind();
-	program.uploadUnifroms();
+	// // Desired Funcitonality
+	// Ruby::UniformSet uniforms {
+	// 	// Vert
+	// 	Ruby::Uniform::Matrix4x4f{"u_Model"},
+	// 	Ruby::Uniform::Matrix4x4f{"u_Projection"},
+	// 	Ruby::Uniform::Matrix4x4f{"u_View"},
+	// 	// Frag
+	// 	Ruby::Uniform::Vector3f{"u_Colour"}, 
+	// 	Ruby::Uniform::Float{"u_Roughness"}
+	// };
+	//
+	// Ruby::VertexShader vert{ "shaderPath" };
+	//
+	// Ruby::FragmentShader frag{ "shaderPath"};
+	//
+	// Ruby::ShaderProgram program{ vert, frag }; // Program should combine all incoming uniform sets into one larger one
+	//
+	// struct Material {
+	// 	vec3 colour;
+	// 	float roughness;
+	// };
+	//
+	//
+	// // Inside Render:
+	// program.bind();
+	// program.uploadUnifroms();
 
 
 

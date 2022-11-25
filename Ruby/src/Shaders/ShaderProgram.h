@@ -17,7 +17,6 @@
 #include "OpenGL objects/VertexAttributeObject.h"
 
 namespace Ruby {
-	class UniformSet;
 
 	class ShaderProgram {
 	public:
