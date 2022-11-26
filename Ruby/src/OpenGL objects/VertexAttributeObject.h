@@ -66,7 +66,7 @@ namespace Ruby {
 		}
 
 		unsigned int m_VAO;
-		unsigned int m_LastAttributeWidth{ 0 };
+		uint64_t m_LastAttributeWidth{ 0 };
 		std::vector<Attribute> m_Attributes;
 	};
 }

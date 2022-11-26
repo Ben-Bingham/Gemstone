@@ -9,8 +9,6 @@
 #include "Geometry/CubeGeometry.h"
 #include "Geometry/SphereGeometry.h"
 #include "Renderable Objects/Solid/SolidGeometry.h"
-#include "Shaders/UniformData/UniformSet.h"
-#include "Shaders/UniformData/BasicUniforms.h"
 
 // Pyrite
 #include "PhysicsObject.h"
@@ -72,31 +70,6 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 using namespace Pyrite::Literals;
 
 int main() {
-	//Ruby::UniformSet<>
-
-	float roughness = 3.0f;
-
-	//Ruby::String<"Hello"> str;
-
-	//Ruby::UniformSet<float, "u_Roughness"> uniformSet{ roughness };
-
-	/*Malachite::Vector3f u_Colour{ 0.0f };
-	int flag = 1;
-	Ruby::UniformSet<
-		Malachite::Vector3f, "u_Colour",
-		int, "u_Flag"
-	> uniformSet2{ u_Colour, flag };*/
-
-	roughness = 1.0f;
-
-	//auto testVal = uniforms.get<uniforms.get("m_Roughness"), float>("u_Roughness");
-
-
-
-
-
-
-
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f};
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
 	Wavellite::Keyboard& keyboard = window.ioManger.getKeyboard();
@@ -158,72 +131,6 @@ int main() {
 	Ruby::SolidGeometry testObj3{ std::make_unique<Ruby::SphereGeometry>(), staticColour };
 	testObj3.model.translate(Malachite::Vector3f{ -3.0f, 0.0f, 0.0f });
 
-
-
-
-
-
-	// Not in main file:
-	//Ruby::UniformSet standardUniforms; // Should have Model View and Projection matrices
-
-	//// In Main:
-	//std::shared_ptr<Ruby::PhongMaterial> phongMaterial; // Should have a std::shared_ptr to the standard Phong shader Program
-	//std::shared_ptr<Ruby::CubeGeometry> cubeData;
-
-	////Ruby::Renderable phongRenderable{ cubeData, phongMaterial };
-
-	//float val3 = 1;
-	//Ruby::UniformSet uniformsForShader {
-	//	Ruby::Uniform::Float{ "u_Temp", val3 },
-	//	Ruby::Uniform::Vector3f{ "u_Colour", Malachite::Vector3f{ val3 } }
-	//};
-
-	//Ruby::Uniform::Float* tempUniform = uniformsForShader.get<Ruby::Uniform::Float>("u_Temp");
-	//
-	//float val1 = 0.0f;
-	//tempUniform->setData(val1);
-	//val1 = 3.0f;
-
-	// In main loop:
-	//renderer.render(phongRenderable);
-
-
-
-
-
-	// // Desired Funcitonality
-	// Ruby::UniformSet uniforms {
-	// 	// Vert
-	// 	Ruby::Uniform::Matrix4x4f{"u_Model"},
-	// 	Ruby::Uniform::Matrix4x4f{"u_Projection"},
-	// 	Ruby::Uniform::Matrix4x4f{"u_View"},
-	// 	// Frag
-	// 	Ruby::Uniform::Vector3f{"u_Colour"}, 
-	// 	Ruby::Uniform::Float{"u_Roughness"}
-	// };
-	//
-	// Ruby::VertexShader vert{ "shaderPath" };
-	//
-	// Ruby::FragmentShader frag{ "shaderPath"};
-	//
-	// Ruby::ShaderProgram program{ vert, frag }; // Program should combine all incoming uniform sets into one larger one
-	//
-	// struct Material {
-	// 	vec3 colour;
-	// 	float roughness;
-	// };
-	//
-	//
-	// // Inside Render:
-	// program.bind();
-	// program.uploadUnifroms();
-
-
-
-
-
-
-
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
 	// Shader setup
@@ -254,7 +161,7 @@ int main() {
 	//earthPhysics.velocity.z = 5.0_mPerS;
 
 	float val = 0.0f;
-	std::unique_ptr<Ruby::Uniform::Float> test = std::make_unique<Ruby::Uniform::Float>("u_Temp", val);
+	//std::unique_ptr<Ruby::Uniform::Float> test = std::make_unique<Ruby::Uniform::Float>("u_Temp", val);
 	val = 5.0f;
 
 	// Rendering loop

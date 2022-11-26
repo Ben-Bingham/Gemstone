@@ -22,7 +22,7 @@ namespace Ruby {
 
 		void setData(std::vector<unsigned int> indices) {
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(indices[0]), &indices[0], GL_STATIC_DRAW);
-			m_NumberOfIndices = indices.size();
+			m_NumberOfIndices = (unsigned int)indices.size();
 		}
 
 		unsigned int getNumberOfIndices() const { return m_NumberOfIndices; }

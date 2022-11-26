@@ -1,6 +1,6 @@
 #include "ShaderProgram.h"
 #include "Log.h"
-#include "UniformData/UniformSet.h"
+#include "Shaders/Uniforms/UniformSet.h"
 
 namespace Ruby {
 	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader, const std::vector<Attribute>& attributes)
@@ -69,6 +69,7 @@ namespace Ruby {
 			return;
 		}
 		glUseProgram(m_Program);
+		m_UniversalUniforms.upload();
 		m_ActiveProgram = this;
 	}
 
@@ -265,4 +266,8 @@ namespace Ruby {
 	}
 
 	ShaderProgram* ShaderProgram::m_ActiveProgram{ nullptr };
+	UniformSet<
+		Malachite::Matrix4f, // View
+		Malachite::Matrix4f  // Projection
+	> ShaderProgram::m_UniversalUniforms{ Uniform{"view", viewMatrix}, Uniform{"projection", projectionMatrix} };
 }

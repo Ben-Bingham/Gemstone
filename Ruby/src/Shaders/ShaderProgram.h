@@ -15,6 +15,7 @@
 #include "OpenGL objects/BufferTexture.h"
 
 #include "OpenGL objects/VertexAttributeObject.h"
+#include "Uniforms/UniformSet.h"
 
 namespace Ruby {
 
@@ -28,25 +29,6 @@ namespace Ruby {
 		ShaderProgram(ShaderProgram&& other) noexcept;
 		ShaderProgram& operator=(ShaderProgram&& other) noexcept;
 		~ShaderProgram() { glDeleteProgram(m_Program); }
-
-		// struct UniformData {
-		// 	enum class DataType {
-		// 		VECTOR_4F,
-		// 		VECTOR_3F,
-		// 		VECTOR_2F,
-		//
-		// 		MATRIX_4X4F,
-		// 		MATRIX_4X3F,
-		// 		MATRIX_3X3F,
-		//
-		// 		FLOAT,
-		// 		INT,
-		//
-		// 		TEXTURE_2D,
-		// 		TEXTURE_CUBE
-		// 	};
-		// 	DataType dataType;
-		// };
 
 		void use();
 
@@ -78,6 +60,11 @@ namespace Ruby {
 
 		void parseUniforms(const TextFile& textFile);
 		//UniformType parseUniformType(const std::string& type);
-		//UniformSet m_Uniforms;
+		static Malachite::Matrix4f m_ViewMatrix{ 1.0f };
+		static Malachite::Matrix4f m_ProjectionMatrix{ 1.0f };
+		static UniformSet<
+			Malachite::Matrix4f, // View
+			Malachite::Matrix4f  // Projection
+		> m_UniversalUniforms;
 	};
 }
