@@ -23,7 +23,7 @@ namespace Ruby {
 			}
 
 			void upload() const override {
-				ShaderProgram::upload(m_Name, m_Value);
+				// ShaderProgram::upload(m_Name, m_Value);
 			}
 
 		protected:

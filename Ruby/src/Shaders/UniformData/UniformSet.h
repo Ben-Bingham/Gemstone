@@ -94,17 +94,17 @@ namespace Ruby {
 
 	//	}
 
-		template<typename Type>
-		void set(const std::string& name, Type& value) {
-#ifdef RUBY_DEBUG
-			if (m_UniformMap.find(name) == m_UniformMap.end()) {
-				LOG("Attempted to set the Uniform: \"" + name + "\" but it does not exist.", Lazuli::LogLevel::ERROR);
-				return;
-			}
-#endif // RUBY_DEBUG
-
-			m_UniformMap[name] = value;
-		}
+// 		template<typename Type>
+// 		void set(const std::string& name, Type& value) {
+// #ifdef RUBY_DEBUG
+// 			if (m_UniformMap.find(name) == m_UniformMap.end()) {
+// 				LOG("Attempted to set the Uniform: \"" + name + "\" but it does not exist.", Lazuli::LogLevel::ERROR);
+// 				return;
+// 			}
+// #endif // RUBY_DEBUG
+//
+// 			m_UniformMap[name] = value;
+// 		}
 
 //		decltype(auto) get(const std::string& name) {
 //#ifdef RUBY_DEBUG
