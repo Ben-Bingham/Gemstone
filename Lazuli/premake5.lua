@@ -4,7 +4,7 @@ function project_Lazuli(workspaceDir)
 		location(workspaceDir .. "Lazuli")
 		language "C++"
 		
-		cppdialect "C++17"
+		cppdialect "C++20"
 		
 		filter "configurations:Debug"
 			defines { "DEBUG", "GLEW_STATIC", "LAZULI_DEBUG"}

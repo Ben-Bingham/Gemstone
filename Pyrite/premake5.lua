@@ -4,7 +4,7 @@ function project_Pyrite(workspaceDir)
 		location(workspaceDir .."Pyrite")
 		language "C++"
 
-		cppdialect "C++17"
+		cppdialect "C++20"
 
 		filter "configurations:Debug"
 			defines { "DEBUG", "GLEW_STATIC", "PYRITE_DEBUG"}

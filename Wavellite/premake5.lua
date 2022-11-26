@@ -6,7 +6,7 @@ function project_Wavellite(workspaceDir)
 		location(workspaceDir .."Wavellite")
 		language "C++"
 
-		cppdialect "C++17"
+		cppdialect "C++20"
 
 		filter "configurations:Debug"
 			defines { "DEBUG", "GLEW_STATIC", "WAVELLITE_DEBUG"}

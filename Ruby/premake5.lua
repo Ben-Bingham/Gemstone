@@ -4,7 +4,7 @@ function project_Ruby(workspaceDir)
 		location(workspaceDir .."Ruby")
 		language "C++"
 
-		cppdialect "C++17"
+		cppdialect "C++20"
 
 		filter "configurations:Debug"
 			defines { "DEBUG", "GLEW_STATIC", "RUBY_DEBUG"}

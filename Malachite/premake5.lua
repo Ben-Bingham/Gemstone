@@ -4,7 +4,7 @@ function project_Malachite(workspaceDir)
 		location(workspaceDir .."Malachite")
 		language "C++"
 		
-		cppdialect "C++17"
+		cppdialect "C++20"
 		
 		filter "configurations:Debug"
 			defines { "DEBUG", "GLEW_STATIC", "MALACHITE_DEBUG"}
