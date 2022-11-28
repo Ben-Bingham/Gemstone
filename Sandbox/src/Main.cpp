@@ -21,6 +21,8 @@
 
 #include "Geometry/PlaneGeometryData.h"
 
+#include "Materials/TextureMaterial.h"
+
 #include "Utility/Bank.h"
 
 int main() {
@@ -103,7 +105,11 @@ int main() {
 	awesomeRenderable2.getModelMatrix().translate(0.0f, -3.0f, 0.0f);
 
 	Ruby::Renderable planeRenderable{ planeGeometryData, containerMaterial };
-	planeRenderable.getModelMatrix().translate(0.0f, 3.0f, 3.0f);
+	planeRenderable.getModelMatrix().translate(3.0f, 3.0f, 0.0f);
+
+	Ruby::TextureMaterial awesomeFaceMaterial{ *awesomeFaceTexture };
+	Ruby::Renderable texturedRenderable{ planeGeometryData, awesomeFaceMaterial };
+	texturedRenderable.getModelMatrix().translate(-3.0f, 3.0f, 0.0f);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -157,6 +163,8 @@ int main() {
 			renderer.render(phongCube);
 
 			renderer.render(planeRenderable);
+
+			renderer.render(texturedRenderable);
 
 			renderer.render(skyBox);
 
