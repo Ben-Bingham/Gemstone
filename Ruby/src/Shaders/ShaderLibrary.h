@@ -92,20 +92,11 @@ namespace Ruby {
 					}
 				)
 			) {
-			m_Programs.push_back(&shadowPhongShader);
-			m_Programs.push_back(&solidShader);
-			m_Programs.push_back(&directionalDepthShader);
-			m_Programs.push_back(&imageShader);
-			m_Programs.push_back(&skyBoxShader);
-			m_Programs.push_back(&phongShader);
-			m_Programs.push_back(&screenQuadShader);
 		}
 
 		static ShaderProgram shaderInit(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const VertexShader::LayoutData layoutData) {
 			return ShaderProgram{VertexShader{vertexShaderPath, layoutData}, FragmentShader{fragmentShaderPath}};
 		}
 
-	private:
-		std::vector<ShaderProgram*> m_Programs;
 	};
 }
