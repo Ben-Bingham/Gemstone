@@ -24,8 +24,8 @@ namespace Ruby {
 		}
 
 		Malachite::Vector3f cameraPosition{ 0.0f };
-		std::vector<PointLight> pointLights{ };
-		std::vector<DirectionalLight> directionalLights{ };
+		inline static std::vector<PointLight*> pointLights{ };
+		inline static std::vector<DirectionalLight*> directionalLights{ };
 		Texture* diffuseTexture;
 		Texture* specularTexture;
 		float shininess;
@@ -33,8 +33,8 @@ namespace Ruby {
 	private:
 		UniformSet<
 			Malachite::Vector3f,
-			std::vector<PointLight>,
-			std::vector<DirectionalLight>,
+			std::vector<PointLight*>,
+			std::vector<DirectionalLight*>,
 			Texture,
 			Texture,
 			float

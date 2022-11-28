@@ -48,6 +48,7 @@ namespace Ruby {
 		static void upload(const std::string& variableName, const std::vector<PointLight*>& pointLights);
 		static void upload(const std::string& variableName, const std::vector<PointLight>& pointLights);
 		static void upload(const std::string& variableName, unsigned int unit, const std::vector<DirectionalLight*>& directionalLights);
+		static void upload(const std::string& variableName, const std::vector<DirectionalLight*>& directionalLights);
 		static void upload(const std::string& variableName, const std::vector<DirectionalLight>& directionalLights);
 		static void upload(const std::string& variableName, unsigned int unit, const Texture& texture);
 		static void upload(const std::string& variableName, const Texture& texture);

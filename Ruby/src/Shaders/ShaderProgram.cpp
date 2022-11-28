@@ -126,6 +126,12 @@ namespace Ruby {
 		}
 	}
 
+	void ShaderProgram::upload(const std::string& variableName, const std::vector<DirectionalLight*>& directionalLights) {
+		const int unit = (int)getNextUnit();
+
+		upload(variableName, unit, directionalLights);
+	}
+
 	void ShaderProgram::upload(const std::string& variableName, const std::vector<DirectionalLight>& directionalLights) {
 		m_ActiveProgram->upload("numberOfdirectionalLights", (int)directionalLights.size());
 		unsigned int i{ 0 };

@@ -10,64 +10,20 @@
 #include "Geometry/SphereGeometryData.h"
 #include "Materials/PhongMaterial.h"
 #include "Materials/SolidMaterial.h"
+#include "Renderable Objects/SkyBox.h"
 
 // Malachite
 #include "Utility.h"
 
-#include "Renderable Objects/SkyBox.h"
-
-Ruby::Camera camera{ };
-struct FPSController {
-	bool firstMouse = true;
-	int lastX = 0;
-	int lastY = 0;
-	float mouseSensitivity = 0.1f;
-	Malachite::Degree yaw = -90.0f;
-	Malachite::Degree pitch;
-}; 
-FPSController fpsController{ };
-bool cursorNormal = false;
-
-void mousePositionCallback(int xpos, int ypos, void* data) {
-	FPSController* controller = (FPSController*)data;
-
-	if (controller->firstMouse) {
-		controller->lastX = (int)xpos;
-		controller->lastY = (int)ypos;
-		controller->firstMouse = false;
-	}
-
-	float xOffset = (float)(xpos - controller->lastX);
-	float yOffset = (float)(controller->lastY - ypos);
-	controller->lastX = (int)xpos;
-	controller->lastY = (int)ypos;
-
-	xOffset *= controller->mouseSensitivity;
-	yOffset *= controller->mouseSensitivity;
-
-	controller->yaw += xOffset;
-	controller->pitch += yOffset;
-
-	if (controller->pitch > 89.0f)
-		controller->pitch = 89.0f;
-	if (controller->pitch < -89.0f)
-		controller->pitch = -89.0f;
-
-	Malachite::Vector3f direction;
-	direction.x = cos(Malachite::degreesToRadians(controller->yaw)) * cos(Malachite::degreesToRadians(controller->pitch));
-	direction.y = sin(Malachite::degreesToRadians(controller->pitch));
-	direction.z = sin(Malachite::degreesToRadians(controller->yaw)) * cos(Malachite::degreesToRadians(controller->pitch));
-
-	camera.front = direction.normalize();
-	camera.updateCameraVectors();
-}
+#include "FPSCamera.h"
 
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f};
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
 	Wavellite::Keyboard& keyboard = window.ioManger.getKeyboard();
 
-	mouse.addMousePositionCallback(mousePositionCallback, (void*)&fpsController);
+	FPSCamera camera{};
+	mouse.addMousePositionCallback(mousePositionCallback, (void*)&camera);
 	window.disableCursor();
 
 	Wavellite::Time time{ };
@@ -86,16 +42,11 @@ int main() {
 
 	Ruby::SkyBox skyBox{ skyboxMat };
 
-
-
 	Ruby::Image containerImage{ "assets\\container2.png" };
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
 
 	Ruby::Texture contianerTexture{ containerImage };
 	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
-
-
-
 
 	Ruby::SolidMaterial blueMaterial{ Ruby::Colour::blue };
 	Ruby::CubeGeometryData cubeGeometryData{};
@@ -103,18 +54,16 @@ int main() {
 
 	Ruby::Renderable testCube{ cubeGeometryData, blueMaterial };
 
-
 	Ruby::PhongMaterial containerMaterial{ contianerTexture, containerSpecularTexture };
 
-	std::vector<Ruby::DirectionalLight> directionalLights{};
+	std::vector<Ruby::DirectionalLight*> directionalLights{};
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
-	directionalLights.push_back(directionalLight);
+	directionalLights.push_back(&directionalLight);
 
-	containerMaterial.directionalLights = directionalLights;
+	Ruby::PhongMaterial::directionalLights = directionalLights;
 
 	Ruby::Renderable phongCube{ cubeGeometryData, containerMaterial };
 	phongCube.getModelMatrix().translate(-3.0f, 0.0f, 0.0f);
-
 
 	Ruby::Image donutImg{ "assets\\Donut4.png" };
 	Ruby::Image earthImg{ "assets\\earth.jpg" };
@@ -127,13 +76,9 @@ int main() {
 	Ruby::Texture awesomeFaceTexture{ awesomeFaceImg };
 
 	Ruby::PhongMaterial donutMat{ donutTexture, donutTexture };
-	donutMat.directionalLights = directionalLights;
 	Ruby::PhongMaterial earthMat{ earthTexture, earthTexture };
-	earthMat.directionalLights = directionalLights;
 	Ruby::PhongMaterial pawnMat{ pawnTexture, pawnTexture };
-	pawnMat.directionalLights = directionalLights;
 	Ruby::PhongMaterial awesomeMat{ awesomeFaceTexture, awesomeFaceTexture };
-	awesomeMat.directionalLights = directionalLights;
 
 	Ruby::Renderable donut{ sphereGeometryData, donutMat };
 	donut.getModelMatrix().scale(1.0f, 0.4f, 1.0f);
