@@ -19,8 +19,10 @@
 // Custom
 #include "FPSCamera.h"
 
+#include "Utility/Bank.h"
+
 int main() {
-	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f};
+	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
 	Wavellite::Keyboard& keyboard = window.ioManger.getKeyboard();
 
@@ -33,22 +35,19 @@ int main() {
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
-	Ruby::SkyBoxMaterial skyboxMat{ {
-		Ruby::Image{ "assets\\SkyBox\\right.jpg", false },
-		Ruby::Image{ "assets\\SkyBox\\left.jpg", false },
-		Ruby::Image{ "assets\\SkyBox\\top.jpg", false },
-		Ruby::Image{ "assets\\SkyBox\\bottom.jpg", false },
-		Ruby::Image{ "assets\\SkyBox\\front.jpg", false },
-		Ruby::Image{ "assets\\SkyBox\\back.jpg", false }
+	Ruby::ImageBank imageBank{ };
+	Ruby::TextureBank textureBank{ };
+
+	Ruby::SkyBoxMaterial skyBoxMat{ {
+		*imageBank.createAndGet("assets\\SkyBox\\right.jpg", false),
+		*imageBank.createAndGet("assets\\SkyBox\\left.jpg", false),
+		*imageBank.createAndGet("assets\\SkyBox\\top.jpg", false),
+		*imageBank.createAndGet("assets\\SkyBox\\bottom.jpg", false),
+		*imageBank.createAndGet("assets\\SkyBox\\front.jpg", false),
+		*imageBank.createAndGet("assets\\SkyBox\\back.jpg", false)
 	} };
 
-	Ruby::SkyBox skyBox{ skyboxMat };
-
-	Ruby::Image containerImage{ "assets\\container2.png" };
-	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
-
-	Ruby::Texture contianerTexture{ containerImage };
-	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
+	Ruby::SkyBox skyBox{ skyBoxMat };
 
 	Ruby::SolidMaterial blueMaterial{ Ruby::Colour::blue };
 	Ruby::CubeGeometryData cubeGeometryData{};
@@ -56,7 +55,10 @@ int main() {
 
 	Ruby::Renderable testCube{ cubeGeometryData, blueMaterial };
 
-	Ruby::PhongMaterial containerMaterial{ contianerTexture, containerSpecularTexture };
+	Ruby::PhongMaterial containerMaterial{
+		*textureBank.createAndGet(*imageBank.createAndGet("assets\\container2.png")),
+		*textureBank.createAndGet(*imageBank.createAndGet("assets\\container2_specular.png"))
+	};
 
 	std::vector<Ruby::DirectionalLight*> directionalLights{};
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
@@ -67,20 +69,17 @@ int main() {
 	Ruby::Renderable phongCube{ cubeGeometryData, containerMaterial };
 	phongCube.getModelMatrix().translate(-3.0f, 0.0f, 0.0f);
 
-	Ruby::Image donutImg{ "assets\\Donut4.png" };
-	Ruby::Image earthImg{ "assets\\earth.jpg" };
-	Ruby::Image pawnImg{ "assets\\White Pawn.png" };
-	Ruby::Image awesomeFaceImg{ "assets\\awesomeface.png" };
+	auto* doughnutTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\Donut4.png"));
+	Ruby::PhongMaterial donutMat{ *doughnutTexture, *doughnutTexture };
 
-	Ruby::Texture donutTexture{ donutImg };
-	Ruby::Texture earthTexture{ earthImg };
-	Ruby::Texture pawnTexture{ pawnImg };
-	Ruby::Texture awesomeFaceTexture{ awesomeFaceImg };
+	auto* earthTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\earth.jpg"));
+	Ruby::PhongMaterial earthMat{ *earthTexture, *earthTexture };
 
-	Ruby::PhongMaterial donutMat{ donutTexture, donutTexture };
-	Ruby::PhongMaterial earthMat{ earthTexture, earthTexture };
-	Ruby::PhongMaterial pawnMat{ pawnTexture, pawnTexture };
-	Ruby::PhongMaterial awesomeMat{ awesomeFaceTexture, awesomeFaceTexture };
+	auto* pawnTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\White Pawn.png"));
+	Ruby::PhongMaterial pawnMat{ *pawnTexture, *pawnTexture };
+
+	auto* awesomeFaceTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\awesomeface.png"));
+	Ruby::PhongMaterial awesomeMat{ *awesomeFaceTexture, *awesomeFaceTexture };
 
 	Ruby::Renderable donut{ sphereGeometryData, donutMat };
 	donut.getModelMatrix().scale(1.0f, 0.4f, 1.0f);
