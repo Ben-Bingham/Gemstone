@@ -12,14 +12,18 @@ namespace Ruby {
 			updateCameraVectors();
 		}
 
-		Malachite::Matrix4f getViewMatrix() {
-			recalculateViewMatrix();
+		Malachite::Matrix4f& getViewMatrix() {
+			calculateViewMatrix();
 			return m_ViewMatrix;
 		}
 
 		void updateCameraVectors() {
 			right = Malachite::cross(front, Malachite::Vector3f{ 0.0f, 1.0f, 0.0f }).normalize();
 			up = Malachite::cross(right, front).normalize();
+		}
+
+		void calculateViewMatrix() {
+			m_ViewMatrix = Malachite::lookAt(position, position + front, up);
 		}
 
 		Malachite::Vector3f front;
@@ -32,9 +36,5 @@ namespace Ruby {
 		float m_FOV;
 
 		Malachite::Matrix4f m_ViewMatrix;
-
-		void recalculateViewMatrix() {
-			m_ViewMatrix = Malachite::lookAt(position, position + front, up);
-		}
 	};
 }

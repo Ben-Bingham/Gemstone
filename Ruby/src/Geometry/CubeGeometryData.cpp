@@ -1,9 +1,24 @@
-#include "CubeGeometry.h"
+#include "CubeGeometryData.h"
 
 namespace Ruby {
-	CubeGeometry::CubeGeometry() { }
+	CubeGeometryData::CubeGeometryData() { }
 
-	std::vector<float> CubeGeometry::getVerticies(bool normals, bool textureCordinates) const {
+	std::vector<float> CubeGeometryData::getVertices(const VertexShader::LayoutData layoutData) const {
+		bool normals = false;
+		bool textureCoordinates = false;
+
+		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
+			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
+			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::NORMAL) {
+			normals = true;
+		}
+
+		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
+			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
+			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES) {
+			textureCoordinates = true;
+		}
+
 		std::vector<float> verticies;
 		unsigned int numberOfVerticies{ 24u };
 		unsigned int j{ 0 };
@@ -20,7 +35,7 @@ namespace Ruby {
 				verticies.push_back(normalData[g + 2]);
 			}
 
-			if (textureCordinates) {
+			if (textureCoordinates) {
 				verticies.push_back(textureCordinateData[v + 0]);
 				verticies.push_back(textureCordinateData[v + 1]);
 			}
@@ -29,11 +44,11 @@ namespace Ruby {
 		return verticies;
 	}
 
-	std::vector<unsigned int> CubeGeometry::getIndicies() const {
+	std::vector<unsigned int> CubeGeometryData::getIndices() const {
 		return indexData;
 	}
 
-	const std::vector<float> CubeGeometry::positionalData = {
+	const std::vector<float> CubeGeometryData::positionalData = {
 		-0.5f, -0.5f,  0.5f,
 		-0.5f,  0.5f,  0.5f,
 		 0.5f, -0.5f,  0.5f,
@@ -65,7 +80,7 @@ namespace Ruby {
 		 0.5f, -0.5f,  0.5f
 	};
 
-	const std::vector<float> CubeGeometry::textureCordinateData = {
+	const std::vector<float> CubeGeometryData::textureCordinateData = {
 		0.0f, 0.0f,
 		0.0f, 1.0f,
 		1.0f, 0.0f,
@@ -97,7 +112,7 @@ namespace Ruby {
 		1.0f, 1.0f
 	};
 
-	const std::vector<float> CubeGeometry::normalData = {
+	const std::vector<float> CubeGeometryData::normalData = {
 		  0.0f,  0.0f,  1.0f,
 		  0.0f,  0.0f,  1.0f,
 		  0.0f,  0.0f,  1.0f,
@@ -129,7 +144,7 @@ namespace Ruby {
 		  0.0f, -1.0f,  0.0f,
 	};
 
-	const std::vector<unsigned int> CubeGeometry::indexData = {
+	const std::vector<unsigned int> CubeGeometryData::indexData = {
 		0, 1, 2,
 		1, 3, 2,
 		4, 5, 6,

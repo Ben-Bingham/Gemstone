@@ -5,12 +5,12 @@
 #include "GeometryData.h"
 
 namespace Ruby {
-	class CubeGeometry : public GeometryData {
+	class CubeGeometryData : public GeometryData {
 	public:
-		CubeGeometry();
+		CubeGeometryData();
 
-		std::vector<float> getVerticies(bool normals = false, bool textureCordinates = false) const override;
-		std::vector<unsigned int> getIndicies() const override;
+		[[nodiscard]] std::vector<float> getVertices(VertexShader::LayoutData) const override;
+		[[nodiscard]] std::vector<unsigned int> getIndices() const override;
 
 	private:
 		const static std::vector<float> positionalData;

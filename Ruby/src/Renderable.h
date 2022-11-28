@@ -6,15 +6,12 @@
 #include "OpenGL objects/VertexBufferObject.h"
 #include "OpenGL objects/ElementBufferObject.h"
 #include "Geometry/GeometryData.h"
-#include "Material.h"
+#include "Materials/Material.h"
 
 namespace Ruby {
 	class Renderable {
-		using GeometryDataPtr = std::shared_ptr<GeometryData>;
-		using MaterialPtr = std::shared_ptr<Material>;
 	public:
-		Renderable(const std::vector<float>& vertices, const std::vector<unsigned int>& indices, const std::vector<Attribute>& attributes);
-		Renderable(const GeometryDataPtr& geometry, const MaterialPtr& material);
+		Renderable(GeometryData& geometry, Material& material);
 
 		Renderable(const Renderable& other) = delete;
 		Renderable(Renderable&& other) noexcept = default;
@@ -22,15 +19,18 @@ namespace Ruby {
 		Renderable& operator=(Renderable&& other) noexcept = default;
 		virtual ~Renderable() = default;
 
-		// The assumption is made that a shader program is bound prior to this being called
-		virtual void render() const;
+		virtual void render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const;
+
+		Malachite::Matrix4f& getModelMatrix();
 
 	protected:
 		VertexAttributeObject m_VAO{ };
 		VertexBufferObject m_VBO{ };
 		ElementBufferObject m_EBO{ };
 		
-		MaterialPtr m_Material;
-		GeometryDataPtr m_GeometryData;
+		Material* m_Material;
+		GeometryData* m_GeometryData;
+
+		Malachite::Matrix4f m_ModelMatrix{ 1.0f }; // TODO replace with a transform class
 	};
 }

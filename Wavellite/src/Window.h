@@ -49,6 +49,7 @@ namespace Wavellite {
 
 		GLFWwindow* getWindow() const { return m_Window; }
 		Malachite::Matrix4f getProjectionMatrix() const { return m_ProjectionMatrix; }
+		Malachite::Matrix4f& getProjectionMatrix() { return m_ProjectionMatrix; }
 		unsigned int getWidth() const { return m_Width; }
 		unsigned int getHeight() const { return m_Height; }
 

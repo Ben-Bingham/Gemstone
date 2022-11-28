@@ -5,21 +5,16 @@
 // Ruby
 #include "Renderer.h"
 #include "Camera.h"
-#include "Renderable Objects/Phong/PhongGeometry.h"
-#include "Geometry/CubeGeometry.h"
-#include "Geometry/SphereGeometry.h"
-#include "Renderable Objects/Solid/SolidGeometry.h"
-
-// Pyrite
-#include "PhysicsObject.h"
-#include "Collision/Colliders/AxisAlignedBoxCollider.h"
-#include "Collision/Colliders/SphereCollider.h"
-#include "ForceGenerator.h"
-#include "Collision/CollisionWorld.h"
-#include "Collision/CollisionDetection.h"
+#include "Renderable.h"
+#include "Geometry/CubeGeometryData.h"
+#include "Geometry/SphereGeometryData.h"
+#include "Materials/PhongMaterial.h"
+#include "Materials/SolidMaterial.h"
 
 // Malachite
 #include "Utility.h"
+
+
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -67,8 +62,6 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 	camera.updateCameraVectors();
 }
 
-using namespace Pyrite::Literals;
-
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f};
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
@@ -78,29 +71,9 @@ int main() {
 	window.disableCursor();
 
 	Wavellite::Time time{ };
-	Ruby::Renderer renderer{ camera };
+	Ruby::Renderer renderer{ camera, window };
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
-
-	std::vector<Ruby::PointLight*> pointLights;
-
-	// Shader setup
-	Ruby::PointLight pointLight{ Malachite::Vector3f{ 2.0f } };
-	pointLights.push_back(&pointLight);
-
-	std::vector<Ruby::DirectionalLight*> directionalLights;
-
-	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
-	directionalLights.push_back(&directionalLight);
-
-	// Solid setup
-	Ruby::Colour staticColour{ Malachite::Vector3f{ 0.0f, 0.0f, 1.0f } };
-	Ruby::Colour defaultColour{ Malachite::Vector3f{ 1.0f, 0.0f, 0.0f } };
-	Ruby::Colour collidedColour{ Malachite::Vector3f{ 0.0f, 1.0f, 0.0f } };
-
-	Ruby::SolidGeometry staticSphere{ std::make_unique<Ruby::SphereGeometry>(), defaultColour };
-	staticSphere.model.scale(3.0f);
-	Ruby::SolidGeometry movingSphere{ std::make_unique<Ruby::CubeGeometry>(), collidedColour };
 
 	// SkyBox setup
 	std::vector<Ruby::Image> skyboxImages {
@@ -112,8 +85,9 @@ int main() {
 		Ruby::Image{ "assets\\SkyBox\\back.jpg", false },
 	};
 
-	// normal rendering setup
-	Ruby::SkyBox skybox{ skyboxImages };
+	// Ruby::SkyBox skybox{ skyboxImages };
+
+
 
 	Ruby::Image containerImage{ "assets\\container2.png" };
 	Ruby::Image containerSpecularImage{ "assets\\container2_specular.png" };
@@ -121,48 +95,66 @@ int main() {
 	Ruby::Texture contianerTexture{ containerImage };
 	Ruby::Texture containerSpecularTexture{ containerSpecularImage };
 
-	Ruby::PhongMaterial cubeMaterial{ contianerTexture, containerSpecularTexture };
-	Ruby::PhongGeometry sun{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
-	Ruby::PhongGeometry earth{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
-	
-	Ruby::PhongGeometry testObj1{ std::make_unique<Ruby::CubeGeometry>(), cubeMaterial };
-	Ruby::PhongGeometry testObj2{ std::make_unique<Ruby::SphereGeometry>(), cubeMaterial };
-	testObj2.model.translate(Malachite::Vector3f{ 3.0f, 0.0f, 0.0f });
-	Ruby::SolidGeometry testObj3{ std::make_unique<Ruby::SphereGeometry>(), staticColour };
-	testObj3.model.translate(Malachite::Vector3f{ -3.0f, 0.0f, 0.0f });
+
+
+
+	Ruby::SolidMaterial blueMaterial{ Ruby::Colour::blue };
+	Ruby::CubeGeometryData cubeGeometryData{};
+	Ruby::SphereGeometryData sphereGeometryData{};
+
+	Ruby::Renderable testCube{ cubeGeometryData, blueMaterial };
+
+
+	Ruby::PhongMaterial containerMaterial{ contianerTexture, containerSpecularTexture };
+
+	std::vector<Ruby::DirectionalLight> directionalLights{};
+	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
+	directionalLights.push_back(directionalLight);
+
+	containerMaterial.directionalLights = directionalLights;
+
+	Ruby::Renderable phongCube{ cubeGeometryData, containerMaterial };
+	phongCube.getModelMatrix().translate(-3.0f, 0.0f, 0.0f);
+
+
+	Ruby::Image donutImg{ "assets\\Donut4.png" };
+	Ruby::Image earthImg{ "assets\\earth.jpg" };
+	Ruby::Image pawnImg{ "assets\\White Pawn.png" };
+	Ruby::Image awesomeFaceImg{ "assets\\awesomeface.png" };
+
+	Ruby::Texture donutTexture{ donutImg };
+	Ruby::Texture earthTexture{ earthImg };
+	Ruby::Texture pawnTexture{ pawnImg };
+	Ruby::Texture awesomeFaceTexture{ awesomeFaceImg };
+
+	Ruby::PhongMaterial donutMat{ donutTexture, donutTexture };
+	donutMat.directionalLights = directionalLights;
+	Ruby::PhongMaterial earthMat{ earthTexture, earthTexture };
+	earthMat.directionalLights = directionalLights;
+	Ruby::PhongMaterial pawnMat{ pawnTexture, pawnTexture };
+	pawnMat.directionalLights = directionalLights;
+	Ruby::PhongMaterial awesomeMat{ awesomeFaceTexture, awesomeFaceTexture };
+	awesomeMat.directionalLights = directionalLights;
+
+
+	Ruby::Renderable donut{ sphereGeometryData, donutMat };
+	donut.getModelMatrix().scale(1.0f, 0.4f, 1.0f);
+	donut.getModelMatrix().translate(-6.0f, 0.0f, 0.0f);
+
+	Ruby::Renderable earthRenderable{ sphereGeometryData, earthMat };
+	earthRenderable.getModelMatrix().translate(3.0f, 0.0f, 0.0f);
+
+	Ruby::Renderable pawn{ cubeGeometryData, pawnMat };
+	pawn.getModelMatrix().scale(0.6f, 2.0f, 0.6f);
+	pawn.getModelMatrix().translate(6.0f, 0.0f, 0.0f);
+
+	Ruby::Renderable awesomeRenderable{ cubeGeometryData, awesomeMat };
+	awesomeRenderable.getModelMatrix().translate(0.0f, 3.0f, 0.0f);
+
+	Ruby::Renderable awesomeRenderalbe2{ sphereGeometryData, awesomeMat };
+	awesomeRenderalbe2.getModelMatrix().translate(0.0f, -3.0f, 0.0f);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
-
-	// Shader setup
-	renderer.shaders.phongShader.use();
-	Ruby::ShaderProgram::upload("pointLights", pointLights);
-	Ruby::ShaderProgram::upload("directionalLights", 2, directionalLights);
-
-	// Renderer setup
-	renderer.init(window.getProjectionMatrix());
-
-	// Physics
-	using namespace Pyrite::Literals;
-
-	Pyrite::CollisionWorld collisionWorld{ };
-
-	Pyrite::PhysicsObject staticObject{ 10_kg };
-	Pyrite::SphereCollider staticCollider{ 3_m, Pyrite::Point3D{ 0.0_m } };
-	collisionWorld.addCollider(staticCollider);
-	//Pyrite::PhysicsObject movingObject{ 2.0_kg, Pyrite::Point3D{ 5.0_m, 0.0_m, 0.0_m } };
-	//Pyrite::AxisAlignedBoxCollider movingCollider{ Pyrite::Point3D{ movingObject.position - 0.5_m }, Pyrite::Point3D{ movingObject.position + 0.5_m } };
-	//collisionWorld.addCollider(movingCollider);
-
-	Pyrite::Collider::Collision collision;
-
-	Pyrite::PhysicsObject sunPhysics{ ((5.0_mPerS * 5.0_mPerS) * 30.0_m) / Pyrite::GravitationalConstant };
-	//Pyrite::PhysicsObject earthPhysics{ ((2.0_mPerS * 2.0_mPerS) * 10.0_m) / Pyrite::GravitationalConstant, Pyrite::Point3D{ 30.0_m, 0.0_m, 0.0_m }};
-
-	//earthPhysics.velocity.z = 5.0_mPerS;
-
-	float val = 0.0f;
-	//std::unique_ptr<Ruby::Uniform::Float> test = std::make_unique<Ruby::Uniform::Float>("u_Temp", val);
-	val = 5.0f;
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -199,101 +191,23 @@ int main() {
 
 		float spd = 1.0f;
 
-		/*if (keyboard->KEY_UP) {
-			movingObject.netForce += Malachite::Vector3f{0, 0, -1 * spd};
-		}
-
-		if (keyboard->KEY_DOWN) {
-			movingObject.netForce += Malachite::Vector3f{ 0, 0, 1 * spd };
-		}
-
-		if (keyboard->KEY_LEFT) {
-			movingObject.netForce += Malachite::Vector3f{ -1 * spd, 0, 0 };
-		}
-
-		if (keyboard->KEY_RIGHT) {
-			movingObject.netForce += Malachite::Vector3f{ 1 * spd, 0, 0 };
-		}
-
-		if (keyboard->KEY_I) {
-			movingObject.netForce += Malachite::Vector3f{ 0, 1 * spd, 0 };
-		}
-
-		if (keyboard->KEY_K) {
-			movingObject.netForce += Malachite::Vector3f{ 0, -1 * spd, 0 };
-		}*/
-
 		{ // Physics
-			/*movingObject.calcVelocity(time.deltaTime);
-			movingObject.calcPosition(time.deltaTime);
-			movingObject.netForce = Pyrite::Newton3D{ 0.0_N };
 
-			movingSphere.model = Malachite::Matrix4f{ 1.0f };
-			movingSphere.model.translate(movingObject.position);
-
-			movingCollider.min = movingObject.position - 0.5_m;
-			movingCollider.max = movingObject.position + 0.5_m;
-
-			staticObject.calcVelocity(time.deltaTime);
-			staticObject.calcPosition(time.deltaTime);
-			staticObject.netForce = Pyrite::Newton3D{ 0.0_N };*/
-
-			staticSphere.model = Malachite::Matrix4f{ 1.0f };
-			staticSphere.model.scale(3.0f);
-			staticSphere.model.translate(staticObject.position);
-
-			staticCollider.position = staticObject.position;
-
-			collisionWorld.step();
-
-			//collision = Pyrite::CollisionDetection::AABBWithSphere(&movingCollider, &staticCollider);
-
-			//collision = movingCollider.collidesWithAABB(&staticCollider);
-
-			/*if (collision.hasCollision) {
-				Pyrite::Speed speed = dot(collision.normal, movingObject.velocity - staticObject.velocity);
-				if (speed > 0) {
-					Pyrite::KilogramMeterPerSeconds impulse = 2 * speed / (movingObject.mass + staticObject.mass);
-
-					movingObject.velocity -= (impulse * staticObject.mass * collision.normal);
-					staticObject.velocity += (impulse * staticObject.mass * collision.normal);
-				}
-			}
-
-			if (collision.hasCollision) {
-				staticCube.material = collidedMat;
-			}
-			else {
-				staticCube.material = defaultMat;
-			}*/
-
-			/*earthPhysics.netForce = Pyrite::Newton3D{ 0.0_N };
-			earthPhysics.netForce += Pyrite::ForceGenerator::gravitationalForce(&sunPhysics, &earthPhysics);
-			earthPhysics.calcVelocity(time.deltaTime);
-			earthPhysics.calcPosition(time.deltaTime);
-
-			sun.model = Malachite::Matrix4f{ 1.0f };
-			sun.model.scale(2.0f);
-			sun.model.translate(sunPhysics.position);
-
-			earth.model = Malachite::Matrix4f{ 1.0f };
-			earth.model.scale(2.0f);
-			earth.model.translate(earthPhysics.position);*/
 		}
 
 		{ // Rendering
-			renderer.prep();
+			renderer.beginFrame();
 
-			/*renderer.render(staticSphere);
-			renderer.render(movingSphere);
+			renderer.render(donut);
+			renderer.render(earthRenderable);
+			renderer.render(pawn);
+			renderer.render(awesomeRenderable);
+			renderer.render(awesomeRenderalbe2);
 
-			renderer.render(sun);
-			renderer.render(earth);*/
-			renderer.render(testObj1);
-			renderer.render(testObj3);
-			renderer.render(testObj2);
+			renderer.render(testCube);
+			renderer.render(phongCube);
 
-			renderer.render(skybox);
+			//renderer.render(skybox);
 
 			{ // ImGui
 				renderer.imGuiPrep();
@@ -306,7 +220,7 @@ int main() {
 				renderer.imGuiEnd();
 			}
 
-			renderer.end();
+			renderer.endFrame();
 		}
 
 		window.swapBuffers();

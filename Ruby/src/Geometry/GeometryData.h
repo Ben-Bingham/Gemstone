@@ -2,12 +2,14 @@
 
 #include <vector>
 
+#include "Shaders/VertexShader.h"
+
 namespace Ruby {
 	class GeometryData {
 	public:
 		GeometryData();
 
-		virtual std::vector<float> getVerticies(bool normals, bool textureCordinates) const = 0;
-		virtual std::vector<unsigned int> getIndicies() const = 0;
+		[[nodiscard]] virtual std::vector<float> getVertices(VertexShader::LayoutData) const = 0;
+		[[nodiscard]] virtual std::vector<unsigned int> getIndices() const = 0;
 	};
 }

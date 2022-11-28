@@ -1,14 +1,30 @@
-#include "SphereGeometry.h"
+#include "SphereGeometryData.h"
 
 #include "Angles.h"
 
+#include "Shaders/VertexShader.h"
+
 namespace Ruby {
-	SphereGeometry::SphereGeometry(unsigned int NumberOfStacks, unsigned int NumberOfSectors)
-		: numberOfStacks(NumberOfStacks), numberOfSectors(NumberOfSectors) {
+	SphereGeometryData::SphereGeometryData(unsigned int NumberOfStacks, unsigned int NumberOfSectors)
+		: numberOfSectors(NumberOfSectors)
+		, numberOfStacks(NumberOfStacks) { }
 
-	}
+	std::vector<float> SphereGeometryData::getVertices(VertexShader::LayoutData layoutData) const {
+		bool normals = false;
+		bool textureCoordinates = false;
 
-	std::vector<float> SphereGeometry::getVerticies(bool normals, bool textureCordinates) const {
+		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
+			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
+			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::NORMAL) {
+			normals = true;
+		}
+
+		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
+			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
+			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES) {
+			textureCoordinates = true;
+		}
+
 		std::vector<float> verticies;
 
 		Malachite::Radian sectorStep = 2 * Malachite::pi / numberOfSectors;
@@ -31,11 +47,11 @@ namespace Ruby {
 					verticies.push_back(sinf(stackAngle));
 					verticies.push_back(sinf(sectorAngle) * cosf(stackAngle));
 				}
-				
-				if (textureCordinates) {
+
+				if (textureCoordinates) {
 					// texture cordinates
-					verticies.push_back((float)j / numberOfSectors);
-					verticies.push_back((float)i / numberOfStacks);
+					verticies.push_back(static_cast<float>(j) / numberOfSectors);
+					verticies.push_back(static_cast<float>(i) / numberOfStacks);
 				}
 			}
 		}
@@ -43,7 +59,7 @@ namespace Ruby {
 		return verticies;
 	}
 
-	std::vector<unsigned int> SphereGeometry::getIndicies() const {
+	std::vector<unsigned int> SphereGeometryData::getIndices() const {
 		std::vector<unsigned int> indicies;
 
 		for (unsigned int i = 0; i < numberOfStacks; i++) {
