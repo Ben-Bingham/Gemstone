@@ -13,7 +13,7 @@ namespace Ruby {
 			
 		}
 
-		OpenGlContext use(const Malachite::Matrix4f& model, const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) override {
+		void use(const Malachite::Matrix4f& model, const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) override {
 			m_Program->use();
 			m_Uniforms.upload();
 
@@ -21,8 +21,6 @@ namespace Ruby {
 
 			ShaderProgram::upload("modelViewProjection", modelViewProjection);
 			ShaderProgram::upload("model", model);
-
-			return OpenGlContext{};
 		}
 
 		Malachite::Vector3f cameraPosition{ 0.0f };

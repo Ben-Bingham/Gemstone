@@ -14,7 +14,7 @@ namespace Ruby {
 			
 		}
 
-		OpenGlContext use(const Malachite::Matrix4f& model, const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) override {
+		void use(const Malachite::Matrix4f& model, const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) override {
 			m_Program->use();
 			m_Uniforms.upload();
 
@@ -28,12 +28,17 @@ namespace Ruby {
 			Malachite::Matrix4f viewProjection = viewMat * projection;
 			ShaderProgram::upload("viewProjection", viewProjection);
 
+			m_PreDrawContext = OpenGlContext::getCurrent();
+
 			OpenGlContext context{};
 			context.depthMask = false;
 			context.faceToCull = OpenGlContext::FaceCull::FRONT;
 			context.depthFunction = OpenGlContext::DepthFunction::LESS_THAN_OR_EQUAL;
+			context.makeCurrent();
+		}
 
-			return context;
+		void end() override {
+			m_PreDrawContext.makeCurrent();
 		}
 
 		Cubemap cubeMap;
@@ -44,5 +49,7 @@ namespace Ruby {
 		> m_Uniforms{
 			Uniform{"cubeMap", cubeMap}
 		};
+
+		OpenGlContext m_PreDrawContext;
 	};
 }
