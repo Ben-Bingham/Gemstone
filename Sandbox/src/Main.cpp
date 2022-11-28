@@ -187,8 +187,6 @@ int main() {
 			window.close();
 		}
 
-		float spd = 1.0f;
-
 		{ // Physics
 
 		}

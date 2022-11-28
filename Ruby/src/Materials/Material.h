@@ -7,7 +7,7 @@ namespace Ruby {
 	public:
 		explicit Material(ShaderProgram& program);
 
-		virtual void use() = 0;
+		virtual void use(const Malachite::Matrix4f& model, const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) = 0;
 
 		[[nodiscard]] VertexShader::LayoutData getLayout() const;
 

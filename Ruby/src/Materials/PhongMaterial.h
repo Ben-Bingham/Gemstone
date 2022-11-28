@@ -13,9 +13,14 @@ namespace Ruby {
 			
 		}
 
-		void use() override {
+		void use(const Malachite::Matrix4f& model, const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) override {
 			m_Program->use();
 			m_Uniforms.upload();
+
+			const Malachite::Matrix4f modelViewProjection = model * view * projection;
+
+			ShaderProgram::upload("modelViewProjection", modelViewProjection);
+			ShaderProgram::upload("model", model);
 		}
 
 		Malachite::Vector3f cameraPosition{ 0.0f };

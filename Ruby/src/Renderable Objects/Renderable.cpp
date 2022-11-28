@@ -20,12 +20,8 @@ namespace Ruby {
 	}
 
 	void Renderable::render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const {
-		m_Material->use();
+		m_Material->use(m_ModelMatrix, view, projection);
 		m_VAO.bind();
-		const Malachite::Matrix4f modelViewProjection = m_ModelMatrix * view * projection;
-
-		ShaderProgram::upload("modelViewProjection", modelViewProjection);
-		ShaderProgram::upload("model", m_ModelMatrix);
 
 		glDrawElements(GL_TRIANGLES, (GLsizei)m_EBO.getNumberOfIndices(), GL_UNSIGNED_INT, 0);
 	}
