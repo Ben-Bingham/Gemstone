@@ -6,12 +6,4 @@ namespace Ruby {
 
 		return instance;
 	}
-
-	void ShaderLibrary::upload(const std::string& variableName, const Malachite::Matrix4f& value) const {
-		for (ShaderProgram* program : m_Programs) {
-			program->use();
-			ShaderProgram::upload(variableName, value);
-		}
-	}
-
 }

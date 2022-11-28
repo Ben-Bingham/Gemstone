@@ -19,8 +19,6 @@ namespace Ruby {
 		ShaderProgram phongShader;
 		ShaderProgram screenQuadShader;
 
-		void upload(const std::string& variableName, const Malachite::Matrix4f& value) const;
-
 	private:
 		ShaderLibrary()
 			: shadowPhongShader(

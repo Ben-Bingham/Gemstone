@@ -1,5 +1,7 @@
 #include "Renderable.h"
 
+#include "OpenGLContext.h"
+
 namespace Ruby {
 	Renderable::Renderable(GeometryData& geometry, Material& material) 
 		: m_Material(&material), m_GeometryData(&geometry) {
@@ -20,9 +22,12 @@ namespace Ruby {
 	}
 
 	void Renderable::render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const {
-		m_Material->use(m_ModelMatrix, view, projection);
+		const OpenGlContext materialContext = m_Material->use(m_ModelMatrix, view, projection);
 		m_VAO.bind();
+		const OpenGlContext mainContext = OpenGlContext::getCurrent();
 
+		materialContext.makeCurrent();
 		glDrawElements(GL_TRIANGLES, (GLsizei)m_EBO.getNumberOfIndices(), GL_UNSIGNED_INT, 0);
+		mainContext.makeCurrent();
 	}
 }

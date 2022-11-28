@@ -4,14 +4,7 @@ namespace Ruby {
 	Renderer::Renderer(Camera& camera, Wavellite::Window& window)
 		: m_Camera(&camera), m_Window(&window) {
 
-		//ShaderLibrary::get().upload("projection", m_Window->getProjectionMatrix());
-		ShaderLibrary::get().upload("view", m_Camera->getViewMatrix());
-
-		glEnable(GL_DEPTH_TEST);
-
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glFrontFace(GL_CW);
+		m_Context.makeCurrent();
 
 		int flags;
 		glGetIntegerv(GL_CONTEXT_FLAGS, &flags);

@@ -9,6 +9,8 @@
 
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
+#include "OpenGLContext.h"
+
 #include "Renderable Objects/Renderable.h"
 #include "Window.h"
 
@@ -61,5 +63,7 @@ namespace Ruby {
     private:
     	Camera* m_Camera{ nullptr };
         Wavellite::Window* m_Window{ nullptr };
+
+        OpenGlContext m_Context{ OpenGlContext{} };
 	};
 }

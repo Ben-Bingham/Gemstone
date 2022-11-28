@@ -94,8 +94,8 @@ int main() {
 	Ruby::Renderable awesomeRenderable{ cubeGeometryData, awesomeMat };
 	awesomeRenderable.getModelMatrix().translate(0.0f, 3.0f, 0.0f);
 
-	Ruby::Renderable awesomeRenderalbe2{ sphereGeometryData, awesomeMat };
-	awesomeRenderalbe2.getModelMatrix().translate(0.0f, -3.0f, 0.0f);
+	Ruby::Renderable awesomeRenderable2{ sphereGeometryData, awesomeMat };
+	awesomeRenderable2.getModelMatrix().translate(0.0f, -3.0f, 0.0f);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -143,7 +143,7 @@ int main() {
 			renderer.render(earthRenderable);
 			renderer.render(pawn);
 			renderer.render(awesomeRenderable);
-			renderer.render(awesomeRenderalbe2);
+			renderer.render(awesomeRenderable2);
 
 			renderer.render(testCube);
 			renderer.render(phongCube);
