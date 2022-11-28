@@ -54,7 +54,7 @@ namespace Ruby {
             ImGui::DestroyContext();
         }
 
-        void render(const Renderable& renderable);
+        void render(const Renderable& renderable) const;
 
         ShaderLibrary& shaders{ ShaderLibrary::get() };
 

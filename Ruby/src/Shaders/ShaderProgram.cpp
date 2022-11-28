@@ -159,6 +159,11 @@ namespace Ruby {
 		m_ActiveProgram->upload(variableName, (int)unit);
 	}
 
+	void ShaderProgram::upload(const std::string& variableName, const Cubemap& cubemap) {
+		const int unit = (int)getNextUnit();
+		upload(variableName, unit, cubemap);
+	}
+
 	void ShaderProgram::upload(const std::string& variableName, const PointLight& pointLight) {
 		m_ActiveProgram->upload(variableName + ".position", pointLight.position);
 

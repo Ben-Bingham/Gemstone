@@ -9,14 +9,16 @@
 namespace Ruby {
 	class Cubemap {
 	public:
-		Cubemap(std::vector<Image>& faces) { 
+		Cubemap(std::initializer_list<Image> faces) {
+			assert(faces.size() == 6);
 			glGenTextures(1, &m_Cubemap);
 
 			bind(); 
 
+			std::vector<Image> images{ faces };
+
 			unsigned int i{ 0 };
-			for (Image& image : faces) {
-				images[i] = &image;
+			for (Image& image : images) {
 
 				GLenum imageFormat;
 				if (image.getChannels() == 3) {
@@ -45,16 +47,12 @@ namespace Ruby {
 		Cubemap& operator=(Cubemap&) = delete;
 		Cubemap& operator=(Cubemap&& other) noexcept {
 			m_Cubemap = std::move(other.m_Cubemap);
-			images = std::move(other.images);
 			other.m_Cubemap = 0;
-			other.images.clear();
 		}
 
 		Cubemap(Cubemap&& other) noexcept
-			: m_Cubemap(std::move(other.m_Cubemap))
-			, images(std::move(other.images)) {
+			: m_Cubemap(std::move(other.m_Cubemap)) {
 			other.m_Cubemap = 0;
-			other.images.clear();
 		}
 
 		~Cubemap() { glDeleteTextures(1, &m_Cubemap); }
@@ -66,6 +64,5 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Cubemap{ 0 };
-		std::vector<Image*> images{ 6 };
 	};
 }

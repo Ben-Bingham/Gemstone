@@ -53,6 +53,7 @@ namespace Ruby {
 		static void upload(const std::string& variableName, const Texture& texture);
 		static void upload(const std::string& variableName, unsigned int unit, const BufferTexture& texture);
 		static void upload(const std::string& variableName, unsigned int unit, const Cubemap& cubemap);
+		static void upload(const std::string& variableName, const Cubemap& cubemap);
 
 	private:
 		unsigned int m_Program;

@@ -26,13 +26,6 @@ namespace Ruby {
 	}
 
 	void Renderer::beginFrame() {
-		// Malachite::Matrix4f skyboxView = Malachite::Matrix4f{
-		// 	Malachite::Vector4f{viewMatrix.row1.x, viewMatrix.row1.y, viewMatrix.row1.z, 0.0f},
-		// 	Malachite::Vector4f{viewMatrix.row2.x, viewMatrix.row2.y, viewMatrix.row2.z, 0.0f},
-		// 	Malachite::Vector4f{viewMatrix.row3.x, viewMatrix.row3.y, viewMatrix.row3.z, 0.0f},
-		// 	Malachite::Vector4f{0.0f, 0.0f, 0.0f, 1.0f}
-		// };
-
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -41,22 +34,9 @@ namespace Ruby {
 		
 	}
 
-	void Renderer::render(const Renderable& renderable) {
+	void Renderer::render(const Renderable& renderable) const {
 		renderable.render(m_Camera->getViewMatrix(), m_Window->getProjectionMatrix());
 	}
-
-	// void Renderer::render(const SkyBox& skyBox) {
-	// 	shaders.skyBoxShader.use();
-	// 	glDepthMask(GL_FALSE);
-	// 	glCullFace(GL_FRONT);
-	// 	glDepthFunc(GL_LEQUAL);
-	//
-	// 	skyBox.render();
-	//
-	// 	glDepthFunc(GL_LESS);
-	// 	glCullFace(GL_BACK);
-	// 	glDepthMask(GL_TRUE);
-	// }
 
 	void APIENTRY glDebugOutput(
 		GLenum source,

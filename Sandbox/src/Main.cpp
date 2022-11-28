@@ -14,7 +14,7 @@
 // Malachite
 #include "Utility.h"
 
-
+#include "Renderable Objects/SkyBox.h"
 
 Ruby::Camera camera{ };
 struct FPSController {
@@ -75,17 +75,16 @@ int main() {
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
-	// SkyBox setup
-	std::vector<Ruby::Image> skyboxImages {
+	Ruby::SkyBoxMaterial skyboxMat{ {
 		Ruby::Image{ "assets\\SkyBox\\right.jpg", false },
 		Ruby::Image{ "assets\\SkyBox\\left.jpg", false },
 		Ruby::Image{ "assets\\SkyBox\\top.jpg", false },
 		Ruby::Image{ "assets\\SkyBox\\bottom.jpg", false },
 		Ruby::Image{ "assets\\SkyBox\\front.jpg", false },
-		Ruby::Image{ "assets\\SkyBox\\back.jpg", false },
-	};
+		Ruby::Image{ "assets\\SkyBox\\back.jpg", false }
+	} };
 
-	// Ruby::SkyBox skybox{ skyboxImages };
+	Ruby::SkyBox skyBox{ skyboxMat };
 
 
 
@@ -135,7 +134,6 @@ int main() {
 	pawnMat.directionalLights = directionalLights;
 	Ruby::PhongMaterial awesomeMat{ awesomeFaceTexture, awesomeFaceTexture };
 	awesomeMat.directionalLights = directionalLights;
-
 
 	Ruby::Renderable donut{ sphereGeometryData, donutMat };
 	donut.getModelMatrix().scale(1.0f, 0.4f, 1.0f);
@@ -207,7 +205,7 @@ int main() {
 			renderer.render(testCube);
 			renderer.render(phongCube);
 
-			//renderer.render(skybox);
+			renderer.render(skyBox);
 
 			{ // ImGui
 				renderer.imGuiPrep();
