@@ -6,7 +6,6 @@ namespace Ruby {
 	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader)
 		: m_LayoutData(vertexShader.getLayout()) {
 		int success;
-		char infoLog[512];
 
 		m_Program = glCreateProgram();
 
@@ -17,6 +16,7 @@ namespace Ruby {
 
 		glGetProgramiv(m_Program, GL_LINK_STATUS, &success);
 		if (!success) {
+			char infoLog[512];
 			glGetProgramInfoLog(m_Program, 512, NULL, infoLog);
 			LOG("Shader program failed to link.\n" + std::string(infoLog), Lazuli::LogLevel::ERROR);
 		}
@@ -25,7 +25,6 @@ namespace Ruby {
 	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const GeometryShader& geometryShader, const FragmentShader& fragmentShader)
 		: m_LayoutData(vertexShader.getLayout()) {
 		int success;
-		char infoLog[512];
 
 		m_Program = glCreateProgram();
 
@@ -37,11 +36,11 @@ namespace Ruby {
 
 		glGetProgramiv(m_Program, GL_LINK_STATUS, &success);
 		if (!success) {
+			char infoLog[512];
 			glGetProgramInfoLog(m_Program, 512, NULL, infoLog);
 			LOG("Shader program failed to link.\n" + std::string(infoLog), Lazuli::LogLevel::ERROR);
 		}
 	}
-
 
 	ShaderProgram::ShaderProgram(ShaderProgram&& other) noexcept
 		: m_Program(std::move(other.m_Program)),
@@ -67,10 +66,9 @@ namespace Ruby {
 		m_ActiveProgram = this;
 	}
 
-	VertexShader::LayoutData ShaderProgram::getLayout() {
+	VertexShader::LayoutData ShaderProgram::getLayout() const {
 		return m_LayoutData;
 	}
-
 
 	// Basic uniforms
 	void ShaderProgram::upload(const std::string& variableName, const int value) {
@@ -98,30 +96,29 @@ namespace Ruby {
 		m_ActiveProgram->upload(variableName, colour.toVec3()); // If need be can be changed to upload the alpha channel too.
 	}
 
-
 	void ShaderProgram::upload(const std::string& variableName, const std::vector<PointLight*>& pointLights) {
-		m_ActiveProgram->upload("numberOfPointLights", (int)pointLights.size());
+		upload("numberOfPointLights", (int)pointLights.size());
 		unsigned int i{ 0 };
 		for (const PointLight* pointLight : pointLights) {
-			m_ActiveProgram->upload(variableName + '[' + std::to_string(i) + ']', *pointLight);
+			upload(variableName + '[' + std::to_string(i) + ']', *pointLight);
 			i++;
 		}
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, const std::vector<PointLight>& pointLights) {
-		m_ActiveProgram->upload("numberOfPointLights", (int)pointLights.size());
+		upload("numberOfPointLights", (int)pointLights.size());
 		unsigned int i{ 0 };
 		for (const PointLight pointLight : pointLights) {
-			m_ActiveProgram->upload(variableName + '[' + std::to_string(i) + ']', pointLight);
+			upload(variableName + '[' + std::to_string(i) + ']', pointLight);
 			i++;
 		}
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const std::vector<DirectionalLight*>& directionalLights) {
-		m_ActiveProgram->upload("numberOfdirectionalLights", (int)directionalLights.size());
+		upload("numberOfdirectionalLights", (int)directionalLights.size());
 		unsigned int i{ 0 };
 		for (const DirectionalLight* directionalLight : directionalLights) {
-			m_ActiveProgram->upload(variableName + '[' + std::to_string(i) + ']', unit + i, *directionalLight);
+			upload(variableName + '[' + std::to_string(i) + ']', unit + i, *directionalLight);
 			i++;
 		}
 	}
@@ -133,16 +130,16 @@ namespace Ruby {
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, const std::vector<DirectionalLight>& directionalLights) {
-		m_ActiveProgram->upload("numberOfdirectionalLights", (int)directionalLights.size());
+		upload("numberOfdirectionalLights", (int)directionalLights.size());
 		unsigned int i{ 0 };
 		for (const DirectionalLight directionalLight : directionalLights) {
-			m_ActiveProgram->upload(variableName + '[' + std::to_string(i) + ']', directionalLight);
+			upload(variableName + '[' + std::to_string(i) + ']', directionalLight);
 			i++;
 		}
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const Texture& texture) {
-		texture.activateUnit(unit);
+		Texture::activateUnit(unit);
 		texture.bind();
 		m_ActiveProgram->upload(variableName, (int)unit);
 	}
@@ -152,22 +149,21 @@ namespace Ruby {
 		upload(variableName, unit, texture);
 	}
 
-
 	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const BufferTexture& texture) {
-		texture.activateUnit(unit);
+		Texture::activateUnit(unit);
 		texture.bind();
 		m_ActiveProgram->upload(variableName, (int)unit);
 	}
 
-	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const Cubemap& cubemap) {
-		cubemap.activateUnit(unit);
-		cubemap.bind();
+	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const Cubemap& cubeMap) {
+		Cubemap::activateUnit(unit);
+		cubeMap.bind();
 		m_ActiveProgram->upload(variableName, (int)unit);
 	}
 
-	void ShaderProgram::upload(const std::string& variableName, const Cubemap& cubemap) {
+	void ShaderProgram::upload(const std::string& variableName, const Cubemap& cubeMap) {
 		const int unit = (int)getNextUnit();
-		upload(variableName, unit, cubemap);
+		upload(variableName, unit, cubeMap);
 	}
 
 	void ShaderProgram::upload(const std::string& variableName, const PointLight& pointLight) {
@@ -207,5 +203,4 @@ namespace Ruby {
 		m_NextUnit++;
 		return unit;
 	}
-
 }

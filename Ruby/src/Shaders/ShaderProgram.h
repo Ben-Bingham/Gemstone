@@ -31,7 +31,7 @@ namespace Ruby {
 
 		void use();
 
-		VertexShader::LayoutData getLayout();
+		VertexShader::LayoutData getLayout() const;
 
 		// Basic uniforms Static Versions
 		static void upload(const std::string& variableName, const int value);
@@ -43,20 +43,22 @@ namespace Ruby {
 		// Advanced uniforms
 		static void upload(const std::string& variableName, const Colour& colour);
 		static void upload(const std::string& variableName, const PointLight& pointLight);
-		static void upload(const std::string& variableName, unsigned int unit, const DirectionalLight& directionalLight);
 		static void upload(const std::string& variableName, const DirectionalLight& directionalLight);
 		static void upload(const std::string& variableName, const std::vector<PointLight*>& pointLights);
 		static void upload(const std::string& variableName, const std::vector<PointLight>& pointLights);
-		static void upload(const std::string& variableName, unsigned int unit, const std::vector<DirectionalLight*>& directionalLights);
 		static void upload(const std::string& variableName, const std::vector<DirectionalLight*>& directionalLights);
 		static void upload(const std::string& variableName, const std::vector<DirectionalLight>& directionalLights);
-		static void upload(const std::string& variableName, unsigned int unit, const Texture& texture);
 		static void upload(const std::string& variableName, const Texture& texture);
-		static void upload(const std::string& variableName, unsigned int unit, const BufferTexture& texture);
-		static void upload(const std::string& variableName, unsigned int unit, const Cubemap& cubemap);
-		static void upload(const std::string& variableName, const Cubemap& cubemap);
+		static void upload(const std::string& variableName, const Cubemap& cubeMap);
 
 	private:
+		// Private Uniforms
+		static void upload(const std::string& variableName, unsigned int unit, const DirectionalLight& directionalLight);
+		static void upload(const std::string& variableName, unsigned int unit, const std::vector<DirectionalLight*>& directionalLights);
+		static void upload(const std::string& variableName, unsigned int unit, const Texture& texture);
+		static void upload(const std::string& variableName, unsigned int unit, const BufferTexture& texture);
+		static void upload(const std::string& variableName, unsigned int unit, const Cubemap& cubeMap);
+
 		unsigned int m_Program;
 
 		VertexShader::LayoutData m_LayoutData;
