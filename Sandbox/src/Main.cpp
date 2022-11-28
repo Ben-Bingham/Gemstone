@@ -19,6 +19,8 @@
 // Custom
 #include "FPSCamera.h"
 
+#include "Geometry/PlaneGeometryData.h"
+
 #include "Utility/Bank.h"
 
 int main() {
@@ -50,8 +52,10 @@ int main() {
 	Ruby::SkyBox skyBox{ skyBoxMat };
 
 	Ruby::SolidMaterial blueMaterial{ Ruby::Colour::blue };
-	Ruby::CubeGeometryData cubeGeometryData{};
+
+	Ruby::CubeGeometryData cubeGeometryData{ };
 	Ruby::SphereGeometryData sphereGeometryData{};
+	Ruby::PlaneGeometryData planeGeometryData{ };
 
 	Ruby::Renderable testCube{ cubeGeometryData, blueMaterial };
 
@@ -97,6 +101,9 @@ int main() {
 
 	Ruby::Renderable awesomeRenderable2{ sphereGeometryData, awesomeMat };
 	awesomeRenderable2.getModelMatrix().translate(0.0f, -3.0f, 0.0f);
+
+	Ruby::Renderable planeRenderable{ planeGeometryData, containerMaterial };
+	planeRenderable.getModelMatrix().translate(0.0f, 3.0f, 3.0f);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -148,6 +155,8 @@ int main() {
 
 			renderer.render(testCube);
 			renderer.render(phongCube);
+
+			renderer.render(planeRenderable);
 
 			renderer.render(skyBox);
 

@@ -1,13 +1,11 @@
 #pragma once
 
-#include <vector>
-
 #include "GeometryData.h"
 
 namespace Ruby {
-	class CubeGeometryData : public GeometryData {
+	class PlaneGeometryData : public GeometryData {
 	public:
-		CubeGeometryData() = default;
+		PlaneGeometryData() = default;
 
 		[[nodiscard]] std::vector<float> getVertices(VertexShader::LayoutData) const override;
 		[[nodiscard]] std::vector<unsigned int> getIndices() const override;
@@ -15,7 +13,7 @@ namespace Ruby {
 	private:
 		const static std::vector<float> positionalData;
 		const static std::vector<float> normalData;
-		const static std::vector<float> textureCordinateData;
+		const static std::vector<float> textureCoordinateData;
 
 		const static std::vector<unsigned int> indexData;
 	};

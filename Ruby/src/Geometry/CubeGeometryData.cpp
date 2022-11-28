@@ -1,8 +1,6 @@
 #include "CubeGeometryData.h"
 
 namespace Ruby {
-	CubeGeometryData::CubeGeometryData() { }
-
 	std::vector<float> CubeGeometryData::getVertices(const VertexShader::LayoutData layoutData) const {
 		bool normals = false;
 		bool textureCoordinates = false;
