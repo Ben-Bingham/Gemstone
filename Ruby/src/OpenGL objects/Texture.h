@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Image.h"
+#include "Resources/Image.h"
 
 namespace Ruby {
 	class Texture {

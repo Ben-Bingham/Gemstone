@@ -11,10 +11,12 @@
 #include "Materials/PhongMaterial.h"
 #include "Materials/SolidMaterial.h"
 #include "Renderable Objects/SkyBox.h"
+#include "Resources/Image.h"
 
 // Malachite
 #include "Utility.h"
 
+// Custom
 #include "FPSCamera.h"
 
 int main() {

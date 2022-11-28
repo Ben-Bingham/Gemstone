@@ -3,7 +3,7 @@
 
 #include <GL/glew.h>
 
-#include "Colour.h"
+#include "Utility/Colour.h"
 #include "VertexShader.h"
 #include "FragmentShader.h"
 #include "GeometryShader.h"

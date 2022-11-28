@@ -4,7 +4,7 @@
 
 #include <GL/glew.h>
 
-#include "Image.h"
+#include "Resources/Image.h"
 
 namespace Ruby {
 	class Cubemap {

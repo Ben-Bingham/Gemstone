@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Colour.h"
+#include "Utility/Colour.h"
 #include "Material.h"
 #include "Shaders/Uniforms/UniformSet.h"
 #include "Shaders/Uniforms/Uniform.h"

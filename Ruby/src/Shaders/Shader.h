@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include "TextFile.h"
+#include "Resources/TextFile.h"
 
 namespace Ruby {
 	class Shader {
