@@ -5,7 +5,7 @@
 // Ruby
 #include "Renderer.h"
 #include "Camera.h"
-#include "Renderable.h"
+#include "Renderable Objects/Renderable.h"
 #include "Geometry/CubeGeometryData.h"
 #include "Geometry/SphereGeometryData.h"
 #include "Materials/PhongMaterial.h"

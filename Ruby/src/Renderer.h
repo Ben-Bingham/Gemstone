@@ -9,7 +9,7 @@
 
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
-#include "Renderable.h"
+#include "Renderable Objects/Renderable.h"
 #include "Window.h"
 
 namespace Ruby {
