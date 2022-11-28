@@ -167,12 +167,18 @@ int main() {
 			renderer.render(testCube);
 			renderer.render(phongCube);
 
+			Ruby::OpenGlContext backupContext = Ruby::OpenGlContext::getCurrent();
+			Ruby::OpenGlContext newContext = backupContext;
+			newContext.faceToCull = Ruby::OpenGlContext::FaceCull::NONE;
+			newContext.makeCurrent();
+
 			renderer.render(planeRenderable);
 			renderer.render(texturedRenderable);
 			renderer.render(screenQuadRenderable);
 
-			renderer.render(skyBox);
+			backupContext.makeCurrent();
 
+			renderer.render(skyBox);
 
 			{ // ImGui
 				renderer.imGuiPrep();
