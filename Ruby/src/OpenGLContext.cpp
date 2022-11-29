@@ -3,12 +3,12 @@
 #include <GL/glew.h>
 
 namespace Ruby {
-	void OpenGlContext::makeCurrent() const {
-		if (m_Context == this) {
+	void OpenGlContext::makeCurrent(bool force) const {
+		if ( !force && m_Context == this) {
 			return;
 		}
 
-		if (m_Context != nullptr && m_Context->depthMask != this->depthMask) {
+		if (force || m_Context != nullptr && m_Context->depthMask != this->depthMask) {
 			if (depthMask) {
 				glDepthMask(GL_TRUE);
 			}
@@ -17,7 +17,7 @@ namespace Ruby {
 			}
 		}
 
-		if (m_Context != nullptr && m_Context->faceToCull != this->faceToCull) {
+		if (force || m_Context != nullptr && m_Context->faceToCull != this->faceToCull) {
 			switch (faceToCull) {
 			case FaceCull::NONE:
 				glDisable(GL_CULL_FACE);
@@ -33,7 +33,7 @@ namespace Ruby {
 			}
 		}
 
-		if (m_Context != nullptr && m_Context->depthFunction != this->depthFunction) {
+		if (force || m_Context != nullptr && m_Context->depthFunction != this->depthFunction) {
 			switch (depthFunction) {
 			case DepthFunction::NONE:
 				glDisable(GL_DEPTH_TEST);
@@ -61,7 +61,7 @@ namespace Ruby {
 			}
 		}
 
-		if (m_Context != nullptr && m_Context->frontFace != this->frontFace) {
+		if (force || m_Context != nullptr && m_Context->frontFace != this->frontFace) {
 			switch (frontFace) {
 			case FrontFace::CLOCKWISE:
 				glFrontFace(GL_CW);
@@ -74,6 +74,11 @@ namespace Ruby {
 
 		m_Context = this;
 	}
+	
+	void OpenGlContext::forceMakeCurrent() const {
+		makeCurrent(true);
+	}
+
 
 	OpenGlContext OpenGlContext::getCurrent() {
 		return *m_Context;

@@ -30,15 +30,22 @@ namespace Ruby {
 
 			m_PreDrawContext = OpenGlContext::getCurrent();
 
-			OpenGlContext context{};
+			/*OpenGlContext context{};
 			context.depthMask = false;
 			context.faceToCull = OpenGlContext::FaceCull::FRONT;
 			context.depthFunction = OpenGlContext::DepthFunction::LESS_THAN_OR_EQUAL;
-			context.makeCurrent();
+			context.makeCurrent();*/
+
+			glDepthMask(GL_FALSE);
+			glCullFace(GL_FRONT);
+			glDepthFunc(GL_LEQUAL);
 		}
 
 		void end() override {
-			m_PreDrawContext.makeCurrent();
+			//m_PreDrawContext.makeCurrent();
+			glDepthFunc(GL_LESS);
+			glCullFace(GL_BACK);
+			glDepthMask(GL_TRUE);
 		}
 
 		Cubemap cubeMap;

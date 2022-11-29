@@ -4,8 +4,6 @@ namespace Ruby {
 	Renderer::Renderer(Camera& camera, Wavellite::Window& window)
 		: m_Camera(&camera), m_Window(&window) {
 
-		m_Context.makeCurrent();
-
 		int flags;
 		glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
 
@@ -16,6 +14,8 @@ namespace Ruby {
 			glDebugMessageCallback(glDebugOutput, nullptr);
 			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
 		}
+
+		m_Context.forceMakeCurrent();
 	}
 
 	void Renderer::beginFrame() {

@@ -27,7 +27,8 @@ namespace Ruby {
 		};
 		FrontFace frontFace{ FrontFace::CLOCKWISE };
 
-		void makeCurrent() const;
+		void makeCurrent(bool force = false) const;
+		void forceMakeCurrent() const;
 
 		static OpenGlContext getCurrent();
 

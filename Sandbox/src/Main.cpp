@@ -174,22 +174,11 @@ int main() {
 
 			renderer.render(planeRenderable);
 			renderer.render(texturedRenderable);
-			renderer.render(screenQuadRenderable);
+			//renderer.render(screenQuadRenderable);
 
 			backupContext.makeCurrent();
 
 			renderer.render(skyBox);
-
-			{ // ImGui
-				renderer.imGuiPrep();
-
-				//ImGui::ShowDemoWindow();
-				{
-
-				}
-
-				renderer.imGuiEnd();
-			}
 
 			renderer.endFrame();
 		}
