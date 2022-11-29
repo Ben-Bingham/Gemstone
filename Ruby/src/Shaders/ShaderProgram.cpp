@@ -91,109 +91,6 @@ namespace Ruby {
 		glUniform4fv(glGetUniformLocation(m_ActiveProgram->m_Program, variableName.c_str()), 1, &vector.x);
 	}
 
-	// Composite Uniforms
-	void ShaderProgram::upload(const std::string& variableName, const Colour& colour) {
-		m_ActiveProgram->upload(variableName, colour.toVec3()); // If need be can be changed to upload the alpha channel too.
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const std::vector<PointLight*>& pointLights) {
-		upload("numberOfPointLights", (int)pointLights.size());
-		unsigned int i{ 0 };
-		for (const PointLight* pointLight : pointLights) {
-			upload(variableName + '[' + std::to_string(i) + ']', *pointLight);
-			i++;
-		}
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const std::vector<PointLight>& pointLights) {
-		upload("numberOfPointLights", (int)pointLights.size());
-		unsigned int i{ 0 };
-		for (const PointLight pointLight : pointLights) {
-			upload(variableName + '[' + std::to_string(i) + ']', pointLight);
-			i++;
-		}
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const std::vector<DirectionalLight*>& directionalLights) {
-		upload("numberOfdirectionalLights", (int)directionalLights.size());
-		unsigned int i{ 0 };
-		for (const DirectionalLight* directionalLight : directionalLights) {
-			upload(variableName + '[' + std::to_string(i) + ']', unit + i, *directionalLight);
-			i++;
-		}
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const std::vector<DirectionalLight*>& directionalLights) {
-		const int unit = (int)getNextUnit();
-
-		upload(variableName, unit, directionalLights);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const std::vector<DirectionalLight>& directionalLights) {
-		upload("numberOfdirectionalLights", (int)directionalLights.size());
-		unsigned int i{ 0 };
-		for (const DirectionalLight directionalLight : directionalLights) {
-			upload(variableName + '[' + std::to_string(i) + ']', directionalLight);
-			i++;
-		}
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const Texture& texture) {
-		Texture::activateUnit(unit);
-		texture.bind();
-		m_ActiveProgram->upload(variableName, (int)unit);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const Texture& texture) {
-		const int unit = (int)getNextUnit();
-		upload(variableName, unit, texture);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const BufferTexture& texture) {
-		Texture::activateUnit(unit);
-		texture.bind();
-		m_ActiveProgram->upload(variableName, (int)unit);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const Cubemap& cubeMap) {
-		Cubemap::activateUnit(unit);
-		cubeMap.bind();
-		m_ActiveProgram->upload(variableName, (int)unit);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const Cubemap& cubeMap) {
-		const int unit = (int)getNextUnit();
-		upload(variableName, unit, cubeMap);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const PointLight& pointLight) {
-		m_ActiveProgram->upload(variableName + ".position", pointLight.position);
-
-		m_ActiveProgram->upload(variableName + ".ambient", pointLight.ambient);
-		m_ActiveProgram->upload(variableName + ".diffuse", pointLight.diffuse);
-		m_ActiveProgram->upload(variableName + ".specular", pointLight.specular);
-
-		m_ActiveProgram->upload(variableName + ".constant", pointLight.constant);
-		m_ActiveProgram->upload(variableName + ".linear", pointLight.linear);
-		m_ActiveProgram->upload(variableName + ".quadratic", pointLight.quadratic);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, unsigned int unit, const DirectionalLight& directionalLight) {
-		m_ActiveProgram->upload(variableName + ".direction", directionalLight.direction);
-
-		m_ActiveProgram->upload(variableName + ".ambient", directionalLight.ambient);
-		m_ActiveProgram->upload(variableName + ".diffuse", directionalLight.diffuse);
-		m_ActiveProgram->upload(variableName + ".specular", directionalLight.specular);
-	}
-
-	void ShaderProgram::upload(const std::string& variableName, const DirectionalLight& directionalLight) {
-		m_ActiveProgram->upload(variableName + ".direction", directionalLight.direction);
-
-		m_ActiveProgram->upload(variableName + ".ambient", directionalLight.ambient);
-		m_ActiveProgram->upload(variableName + ".diffuse", directionalLight.diffuse);
-		m_ActiveProgram->upload(variableName + ".specular", directionalLight.specular);
-	}
-
 	ShaderProgram* ShaderProgram::m_ActiveProgram{ nullptr };
 
 	unsigned int ShaderProgram::m_NextUnit{ 0 };
@@ -202,5 +99,130 @@ namespace Ruby {
 		const unsigned int unit = m_NextUnit;
 		m_NextUnit++;
 		return unit;
+	}
+}
+
+namespace ShaderProgramUploads {
+	// Composite Uniforms
+	void upload(const std::string& variableName, const Ruby::Colour& colour) {
+		Ruby::ShaderProgram::upload(variableName, colour.toVec3()); // If need be can be changed to upload the alpha channel too.
+	}
+
+	void upload(const std::string& variableName, const std::vector<Ruby::PointLight*>& pointLights) {
+		upload("numberOfPointLights", (int)pointLights.size());
+		unsigned int i{ 0 };
+		for (const Ruby::PointLight* pointLight : pointLights) {
+			upload(variableName + '[' + std::to_string(i) + ']', *pointLight);
+			i++;
+		}
+	}
+
+	void upload(const std::string& variableName, const std::vector<Ruby::PointLight>& pointLights) {
+		upload("numberOfPointLights", (int)pointLights.size());
+		unsigned int i{ 0 };
+		for (const Ruby::PointLight& pointLight : pointLights) {
+			upload(variableName + '[' + std::to_string(i) + ']', pointLight);
+			i++;
+		}
+	}
+
+	void upload(const std::string& variableName, unsigned int unit, const std::vector<Ruby::DirectionalLight*>& directionalLights) {
+		upload("numberOfdirectionalLights", (int)directionalLights.size());
+		unsigned int i{ 0 };
+		for (const Ruby::DirectionalLight* directionalLight : directionalLights) {
+			upload(variableName + '[' + std::to_string(i) + ']', unit + i, *directionalLight);
+			i++;
+		}
+	}
+
+	void upload(const std::string& variableName, const std::vector<Ruby::DirectionalLight*>& directionalLights) {
+		const int unit = (int)Ruby::ShaderProgram::getNextUnit();
+
+		upload(variableName, unit, directionalLights);
+	}
+
+	void upload(const std::string& variableName, const std::vector<Ruby::DirectionalLight>& directionalLights) {
+		upload("numberOfdirectionalLights", (int)directionalLights.size());
+		unsigned int i{ 0 };
+		for (const Ruby::DirectionalLight& directionalLight : directionalLights) {
+			upload(variableName + '[' + std::to_string(i) + ']', directionalLight);
+			i++;
+		}
+	}
+
+	void upload(const std::string& variableName, unsigned int unit, const Ruby::Texture& texture) {
+		Ruby::Texture::activateUnit(unit);
+		texture.bind();
+		Ruby::ShaderProgram::upload(variableName, (int)unit);
+	}
+
+	void upload(const std::string& variableName, const Ruby::Texture& texture) {
+		const int unit = (int)Ruby::ShaderProgram::getNextUnit();
+		upload(variableName, unit, texture);
+	}
+
+	void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture& texture) {
+		Ruby::Texture::activateUnit(unit);
+		texture.bind();
+		Ruby::ShaderProgram::upload(variableName, (int)unit);
+	}
+
+	void upload(const std::string& variableName, unsigned int unit, const Ruby::Cubemap& cubeMap) {
+		Ruby::Cubemap::activateUnit(unit);
+		cubeMap.bind();
+		Ruby::ShaderProgram::upload(variableName, (int)unit);
+	}
+
+	void upload(const std::string& variableName, const Ruby::Cubemap& cubeMap) {
+		const int unit = (int)Ruby::ShaderProgram::getNextUnit();
+		upload(variableName, unit, cubeMap);
+	}
+
+	void upload(const std::string& variableName, const Ruby::PointLight& pointLight) {
+		Ruby::ShaderProgram::upload(variableName + ".position", pointLight.position);
+
+		Ruby::ShaderProgram::upload(variableName + ".ambient", pointLight.ambient);
+		Ruby::ShaderProgram::upload(variableName + ".diffuse", pointLight.diffuse);
+		Ruby::ShaderProgram::upload(variableName + ".specular", pointLight.specular);
+
+		Ruby::ShaderProgram::upload(variableName + ".constant", pointLight.constant);
+		Ruby::ShaderProgram::upload(variableName + ".linear", pointLight.linear);
+		Ruby::ShaderProgram::upload(variableName + ".quadratic", pointLight.quadratic);
+	}
+
+	void upload(const std::string& variableName, unsigned int unit, const Ruby::DirectionalLight& directionalLight) {
+		Ruby::ShaderProgram::upload(variableName + ".direction", directionalLight.direction);
+
+		Ruby::ShaderProgram::upload(variableName + ".ambient", directionalLight.ambient);
+		Ruby::ShaderProgram::upload(variableName + ".diffuse", directionalLight.diffuse);
+		Ruby::ShaderProgram::upload(variableName + ".specular", directionalLight.specular);
+	}
+
+	void upload(const std::string& variableName, const Ruby::DirectionalLight& directionalLight) {
+		Ruby::ShaderProgram::upload(variableName + ".direction", directionalLight.direction);
+
+		Ruby::ShaderProgram::upload(variableName + ".ambient", directionalLight.ambient);
+		Ruby::ShaderProgram::upload(variableName + ".diffuse", directionalLight.diffuse);
+		Ruby::ShaderProgram::upload(variableName + ".specular", directionalLight.specular);
+	}
+
+	void upload(const std::string& variableName, const int value) {
+		Ruby::ShaderProgram::upload(variableName, value);
+	}
+
+	void upload(const std::string& variableName, const float value) {
+		Ruby::ShaderProgram::upload(variableName, value);
+	}
+
+	void upload(const std::string& variableName, const Malachite::Matrix4f& matrix) {
+		Ruby::ShaderProgram::upload(variableName, matrix);
+	}
+
+	void upload(const std::string& variableName, const Malachite::Vector3f& vector) {
+		Ruby::ShaderProgram::upload(variableName, vector);
+	}
+
+	void upload(const std::string& variableName, const Malachite::Vector4f& vector) {
+		Ruby::ShaderProgram::upload(variableName, vector);
 	}
 }

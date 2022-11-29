@@ -14,7 +14,7 @@ namespace Ruby {
 		}
 
 		void upload() {
-			ShaderProgram::upload(m_Name, m_Value);
+			ShaderProgramUploads::upload(m_Name, m_Value);
 		}
 
 	private:

@@ -1,16 +1,16 @@
 #include "Renderable.h"
 
 namespace Ruby {
-	Renderable::Renderable(GeometryData& geometry, Material& material) 
-		: m_Material(&material), m_GeometryData(&geometry) {
+	Renderable::Renderable(const GeometryData& geometry, Material& material)
+		: m_Material(&material) {
 
 		m_VAO.bind();
 
 		m_VBO.bind();
-		m_VBO.setData(m_GeometryData->getVertices(material.getLayout()));
+		m_VBO.setData(geometry.getVertices(material.getLayout()));
 
 		m_EBO.bind();
-		m_EBO.setData(m_GeometryData->getIndices());
+		m_EBO.setData(geometry.getIndices());
 
 		m_VAO.configureForLayout(material.getLayout());
 	}
@@ -18,6 +18,11 @@ namespace Ruby {
 	Malachite::Matrix4f& Renderable::getModelMatrix() {
 		return m_ModelMatrix;
 	}
+
+	void Renderable::setMaterial(Material& material) {
+		m_Material = &material;
+	}
+
 
 	void Renderable::render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const {
 		m_VAO.bind();

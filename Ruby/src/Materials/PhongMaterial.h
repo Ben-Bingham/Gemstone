@@ -2,6 +2,7 @@
 
 #include "Material.h"
 
+#include "Shaders/ShaderLibrary.h"
 #include "Shaders/Uniforms/Uniform.h"
 #include "Shaders/Uniforms/UniformSet.h"
 
