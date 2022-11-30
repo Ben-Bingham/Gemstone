@@ -10,13 +10,15 @@
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
 #include "OpenGLContext.h"
-
+#include "DebugRenderer.h"
 #include "Renderable Objects/Renderable.h"
 #include "Window.h"
 
 namespace Ruby {
     void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id,
         GLenum severity, GLsizei length, const char* message, const void* userParam);
+
+    class DebugRenderer;
 
     class Renderer {
     public:
@@ -57,6 +59,7 @@ namespace Ruby {
         }
 
         void render(const Renderable& renderable) const;
+        void render(std::vector<Malachite::Vector3f> points);
 
         ShaderLibrary& shaders{ ShaderLibrary::get() };
 
@@ -65,5 +68,7 @@ namespace Ruby {
         Wavellite::Window* m_Window{ nullptr };
 
         OpenGlContext m_Context{ OpenGlContext{} };
+
+        DebugRenderer m_DebugRenderer{ };
 	};
 }

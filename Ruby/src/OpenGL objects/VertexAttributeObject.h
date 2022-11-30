@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 #include <vector>
 
+#include "Shaders/VertexShader.h"
+
 namespace Ruby {
 	using Attribute = unsigned int;
 

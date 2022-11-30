@@ -1,11 +1,13 @@
 #pragma once
 
-#include "Renderer.h"
+#include "OpenGL objects/VertexAttributeObject.h"
+#include "OpenGL objects/VertexBufferObject.h"
+#include "Window.h"
 
 namespace Ruby {
-	class DebugRenderer : public Renderer {
+	class DebugRenderer {
 	public:
-		DebugRenderer(Camera& camera, Wavellite::Window& window);
+		DebugRenderer();
 
 		void queue(const std::vector<Malachite::Vector3f>& points);
 

@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "DebugRenderer.h"
 
 namespace Ruby {
 	Renderer::Renderer(Camera& camera, Wavellite::Window& window)
@@ -24,12 +25,17 @@ namespace Ruby {
 	}
 
 	void Renderer::endFrame() {
-		
+		m_DebugRenderer.render();
 	}
 
 	void Renderer::render(const Renderable& renderable) const {
 		renderable.render(m_Camera->getViewMatrix(), m_Window->getProjectionMatrix());
 	}
+
+	void Renderer::render(std::vector<Malachite::Vector3f> points) {
+		m_DebugRenderer.queue(points);
+	}
+
 
 	void APIENTRY glDebugOutput(
 		GLenum source,

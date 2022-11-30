@@ -167,16 +167,20 @@ int main() {
 			renderer.render(testCube);
 			renderer.render(phongCube);
 
-			Ruby::OpenGlContext backupContext = Ruby::OpenGlContext::getCurrent();
-			Ruby::OpenGlContext newContext = backupContext;
-			newContext.faceToCull = Ruby::OpenGlContext::FaceCull::NONE;
-			newContext.makeCurrent();
+			{ // Planes
+				Ruby::OpenGlContext backupContext = Ruby::OpenGlContext::getCurrent();
+				Ruby::OpenGlContext newContext = backupContext;
+				newContext.faceToCull = Ruby::OpenGlContext::FaceCull::NONE;
+				newContext.makeCurrent();
 
-			renderer.render(planeRenderable);
-			renderer.render(texturedRenderable);
-			//renderer.render(screenQuadRenderable);
+				renderer.render(planeRenderable);
+				renderer.render(texturedRenderable);
+				//renderer.render(screenQuadRenderable);
 
-			backupContext.makeCurrent();
+				backupContext.makeCurrent();
+			}
+
+			renderer.render(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
 
 			renderer.render(skyBox);
 

@@ -1,8 +1,8 @@
 #include "DebugRenderer.h"
+#include "Renderer.h"
 
 namespace Ruby {
-	DebugRenderer::DebugRenderer(Camera& camera, Wavellite::Window& window) 
-		: Renderer(camera, window) {
+	DebugRenderer::DebugRenderer() {
 		m_VAO.bind();
 
 		m_VBO.bind();
@@ -30,9 +30,17 @@ namespace Ruby {
 	}
 
 	void DebugRenderer::render() {
-		m_VAO.bind();
+		std::vector<float> pointsAsFloats;
+		pointsAsFloats.reserve(m_Points.size() * 3);
 
-		glDrawArrays(GL_LINES, 0, m_Points.size());
+		void* voidPoints = (void*)&m_Points;
+
+		pointsAsFloats = *(std::vector<float>*)voidPoints;
+
+		m_VBO.setPartialData(pointsAsFloats, 0);
+
+		m_VAO.bind();
+		glDrawArrays(GL_LINES, 0, (GLsizei)m_Points.size());
 
 		m_Points.clear();
 	}
