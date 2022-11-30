@@ -28,7 +28,14 @@ namespace Ruby {
 		template<typename T>
 		void setPartialData(const std::vector<T>& indicies, int offset) {
 			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, indicies.size() * sizeof(indicies[0]), &indicies[0]);
+			m_NumberOfIndices = (unsigned int)indicies.size();
 		}
+
+		void setNoData(unsigned int size, int usage = GL_STATIC_DRAW) {
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, NULL, usage);
+			m_NumberOfIndices = size;
+		}
+
 
 		unsigned int getNumberOfIndices() const { return m_NumberOfIndices; }
 

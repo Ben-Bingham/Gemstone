@@ -33,6 +33,8 @@ namespace Ruby {
 		ElementBufferObject m_EBO{ };
 		
 		Material* m_Material;
+		//GeometryData* m_GeometryData;
+
 		Malachite::Matrix4f m_ModelMatrix{ 1.0f }; // TODO replace with a transform class
 	};
 }

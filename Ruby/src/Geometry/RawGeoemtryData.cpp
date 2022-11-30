@@ -18,7 +18,7 @@ namespace Ruby {
 		}
 
 		std::vector<float> verticies;
-		unsigned int numberOfVerticies{ 24u };
+		unsigned int numberOfVerticies{ (unsigned int)m_PositionalData.size() / 3u };
 		unsigned int j{ 0 };
 		unsigned int g{ 0 };
 		unsigned int v{ 0 };
@@ -61,7 +61,7 @@ namespace Ruby {
 
 		std::vector<float> normals;
 		std::vector<float> textureCoordinates;
-		unsigned int numberOfVerticies = positionalData.size() / 3;
+		unsigned int numberOfVerticies = m_PositionalData.size() / 3;
 		for (unsigned int i = 0; i < numberOfVerticies; i++) {
 			normals.push_back(0.0f);
 			normals.push_back(1.0f);
@@ -80,7 +80,7 @@ namespace Ruby {
 		m_NormalData = std::move(normals);
 		m_TextureCoordinateData = std::move(textureCoordinates);
 
-		setIndicies(positionalData);
+		setIndicies(m_PositionalData);
 	}
 
 	void RawGeometryData::setData(std::vector<float> positionalData, std::vector<unsigned int> indexData) {

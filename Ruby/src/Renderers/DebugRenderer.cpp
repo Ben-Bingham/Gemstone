@@ -5,7 +5,7 @@
 
 namespace Ruby {
 	DebugRenderer::DebugRenderer(Renderer* renderer) 
-		: m_Material(Colour{ 221, 224, 18 }), m_Renderable(RawGeometryData{}, m_Material), m_Renderer(renderer) {
+		: m_Material(Colour{ 221, 224, 18 })/*, m_Renderable(RawGeometryData{}, m_Material)*/, m_Renderer(renderer) {
 
 		/*m_VAO.bind();
 
@@ -46,10 +46,11 @@ namespace Ruby {
 		RawGeometryData geoData{};
 		geoData.setData(pointsAsFloats);
 
-		m_Renderable.setGeometryData(geoData);
+		//m_Renderable.setGeometryData(geoData);
 
-		m_Renderer->render(m_Renderable);
+		//m_Renderer->render(m_Renderable);
 
+		m_Points.clear();
 		/*if (pointsAsFloats.size() > 0) {
 			m_VAO.bind();
 			m_VBO.setPartialData(pointsAsFloats, 0);

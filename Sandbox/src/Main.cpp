@@ -181,7 +181,7 @@ int main() {
 				backupContext.makeCurrent();
 			}
 
-			renderer.render(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
+			//renderer.render(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
 
 			renderer.render(skyBox);
 

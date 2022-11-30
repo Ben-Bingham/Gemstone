@@ -20,7 +20,7 @@ namespace Ruby {
 	private:
 		std::vector<Malachite::Vector3f> m_Points;
 		SolidMaterial m_Material;
-		Renderable m_Renderable;
+		//Renderable m_Renderable;
 		Renderer* m_Renderer{ nullptr };
 
 		size_t m_VBOSize{ 512 * sizeof(float) * 3 };
