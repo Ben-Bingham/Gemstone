@@ -4,6 +4,7 @@
 #include "Material.h"
 #include "Shaders/Uniforms/UniformSet.h"
 #include "Shaders/Uniforms/Uniform.h"
+#include "Shaders/ShaderLibrary.h"
 
 namespace Ruby {
 	class SolidMaterial : public Material {

@@ -1,9 +1,13 @@
 #include "DebugRenderer.h"
 #include "Renderer.h"
+#include "OpenGlErrors.h"
+#include "Geometry/RawGeometryData.h"
 
 namespace Ruby {
-	DebugRenderer::DebugRenderer() {
-		m_VAO.bind();
+	DebugRenderer::DebugRenderer(Renderer* renderer) 
+		: m_Material(Colour{ 221, 224, 18 }), m_Renderable(RawGeometryData{}, m_Material), m_Renderer(renderer) {
+
+		/*m_VAO.bind();
 
 		m_VBO.bind();
 		m_VBO.setNoData(m_VBOSize, GL_DYNAMIC_DRAW);
@@ -15,7 +19,7 @@ namespace Ruby {
 			}
 		};
 
-		m_VAO.configureForLayout(layoutData);
+		m_VAO.configureForLayout(layoutData);*/
 	}
 
 	void DebugRenderer::queue(const std::vector<Malachite::Vector3f>& points) {
@@ -33,15 +37,30 @@ namespace Ruby {
 		std::vector<float> pointsAsFloats;
 		pointsAsFloats.reserve(m_Points.size() * 3);
 
-		void* voidPoints = (void*)&m_Points;
+		for (Malachite::Vector3f& point : m_Points) {
+			pointsAsFloats.push_back(point.x);
+			pointsAsFloats.push_back(point.y);
+			pointsAsFloats.push_back(point.z);
+		}
 
-		pointsAsFloats = *(std::vector<float>*)voidPoints;
+		RawGeometryData geoData{};
+		geoData.setData(pointsAsFloats);
 
-		m_VBO.setPartialData(pointsAsFloats, 0);
+		m_Renderable.setGeometryData(geoData);
 
-		m_VAO.bind();
-		glDrawArrays(GL_LINES, 0, (GLsizei)m_Points.size());
+		m_Renderer->render(m_Renderable);
 
-		m_Points.clear();
+		/*if (pointsAsFloats.size() > 0) {
+			m_VAO.bind();
+			m_VBO.setPartialData(pointsAsFloats, 0);
+
+			m_VBO.bind();
+			ShaderLibrary::get().solidShader.use();
+			ShaderProgramUploads::upload("objectColour", Colour{ 221, 224, 18 });
+			glDrawArrays(GL_LINES, 0, (GLsizei)m_Points.size());
+
+			glCheckError();
+			m_Points.clear();
+		}*/
 	}
 }

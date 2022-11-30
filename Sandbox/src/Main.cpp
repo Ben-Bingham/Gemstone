@@ -25,6 +25,7 @@
 #include "Materials/TextureMaterial.h"
 
 #include "Utility/Bank.h"
+#include <OpenGlErrors.h>
 
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
@@ -185,6 +186,7 @@ int main() {
 			renderer.render(skyBox);
 
 			renderer.endFrame();
+			glCheckError();
 		}
 
 		window.swapBuffers();

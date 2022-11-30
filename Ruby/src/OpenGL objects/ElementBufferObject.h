@@ -25,6 +25,11 @@ namespace Ruby {
 			m_NumberOfIndices = (unsigned int)indices.size();
 		}
 
+		template<typename T>
+		void setPartialData(const std::vector<T>& indicies, int offset) {
+			glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, indicies.size() * sizeof(indicies[0]), &indicies[0]);
+		}
+
 		unsigned int getNumberOfIndices() const { return m_NumberOfIndices; }
 
 		void bind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO); }

@@ -69,6 +69,6 @@ namespace Ruby {
 
         OpenGlContext m_Context{ OpenGlContext{} };
 
-        DebugRenderer m_DebugRenderer{ };
+        DebugRenderer m_DebugRenderer{ this };
 	};
 }

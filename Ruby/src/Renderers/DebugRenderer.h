@@ -3,11 +3,15 @@
 #include "OpenGL objects/VertexAttributeObject.h"
 #include "OpenGL objects/VertexBufferObject.h"
 #include "Window.h"
+#include "Materials/SolidMaterial.h"
+#include "Renderable Objects/Renderable.h"
 
 namespace Ruby {
+	class Renderer;
+
 	class DebugRenderer {
 	public:
-		DebugRenderer();
+		DebugRenderer(Renderer* renderer);
 
 		void queue(const std::vector<Malachite::Vector3f>& points);
 
@@ -15,9 +19,10 @@ namespace Ruby {
 
 	private:
 		std::vector<Malachite::Vector3f> m_Points;
-		VertexAttributeObject m_VAO{ };
-		VertexBufferObject m_VBO{ };
+		SolidMaterial m_Material;
+		Renderable m_Renderable;
+		Renderer* m_Renderer{ nullptr };
 
-		size_t m_VBOSize{ 512 * sizeof(float) };
+		size_t m_VBOSize{ 512 * sizeof(float) * 3 };
 	};
 }

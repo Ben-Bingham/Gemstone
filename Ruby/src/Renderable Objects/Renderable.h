@@ -25,6 +25,8 @@ namespace Ruby {
 
 		Malachite::Matrix4f& getModelMatrix();
 
+		void setGeometryData(const GeometryData& geometry);
+
 	protected:
 		VertexAttributeObject m_VAO{ };
 		VertexBufferObject m_VBO{ };

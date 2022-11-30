@@ -7,7 +7,13 @@ namespace Ruby {
 		m_VAO.bind();
 
 		m_VBO.bind();
-		m_VBO.setData(geometry.getVertices(material.getLayout()));
+		std::vector<float> vertexData = geometry.getVertices(material.getLayout());
+		if (vertexData.size() > 0) {
+			m_VBO.setData(vertexData);
+		}
+		else {
+			m_VBO.setNoData(0);
+		}
 
 		m_EBO.bind();
 		m_EBO.setData(geometry.getIndices());
@@ -23,6 +29,21 @@ namespace Ruby {
 		m_Material = &material;
 	}
 
+	void Renderable::setGeometryData(const GeometryData& geometry) {
+		m_VAO.bind();
+
+		m_VBO.bind();
+		std::vector<float> newVertexData = geometry.getVertices(m_Material->getLayout());
+		std::vector<unsigned int> newIndexData = geometry.getIndices();
+
+		if (newIndexData.size() < m_EBO.getNumberOfIndices()) {
+			m_VBO.setPartialData(newVertexData, 0);
+			m_EBO.setPartialData(newIndexData, 0);
+		}
+		else {
+			// TODO
+		}
+	}
 
 	void Renderable::render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const {
 		m_VAO.bind();
