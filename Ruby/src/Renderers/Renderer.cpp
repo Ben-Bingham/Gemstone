@@ -37,7 +37,6 @@ namespace Ruby {
 		m_DebugRenderer.queue(points);
 	}
 
-
 	void APIENTRY glDebugOutput(
 		GLenum source,
 		GLenum type,

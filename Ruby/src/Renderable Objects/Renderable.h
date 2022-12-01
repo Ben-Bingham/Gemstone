@@ -11,7 +11,7 @@
 namespace Ruby {
 	class Renderable {
 	public:
-		Renderable(const GeometryData& geometry, Material& material);
+		Renderable(GeometryData& geometry, Material& material);
 
 		Renderable(const Renderable& other) = delete;
 		Renderable(Renderable&& other) noexcept = default;
@@ -33,7 +33,7 @@ namespace Ruby {
 		IndexBuffer m_IndexBuffer{ };
 		
 		Material* m_Material;
-		//GeometryData* m_GeometryData;
+		GeometryData* m_GeometryData;
 
 		Malachite::Matrix4f m_ModelMatrix{ 1.0f }; // TODO replace with a transform class
 	};

@@ -74,6 +74,10 @@ namespace Ruby {
 		void setData(const std::vector<T>& data, const int usage = GL_STATIC_DRAW) {
 			bind();
 
+			if (data.size() <= 0) {
+				setNoData(usage);
+			}
+
 #ifdef RUBY_DEBUG
 			if (m_Initialized) {
 				LOG("Attempting to place data into preinitilized buffer. Please use setSubData() instead.", Lazuli::LogLevel::WARNING);
@@ -206,11 +210,17 @@ namespace Ruby {
 		}
 
 	private:
+		void setNoData(int usage) {
+			
+		}
+
 		unsigned int m_BufferAddress;
 
-		size_t m_Size{ 0 }; // Number of bytes allocated to the buffer
+		size_t m_Size{ 0 }; // Number of bytes allocated to the buffer.
 
 		static inline const GlBuffer<T, BufferType>* m_BoundBuffer{ nullptr };
+
+		constexpr int m_DefaultSize = 256; // Number of bytes that will be allocated if no data is given.
 
 #ifdef RUBY_DEBUG
 		bool m_Initialized{ false };

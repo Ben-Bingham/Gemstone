@@ -2,6 +2,9 @@
 
 #include <vector>
 
+#include "OpenGL objects/GlBuffer.h"
+#include "OpenGL objects/VertexAttributeObject.h"
+
 #include "Shaders/VertexShader.h"
 
 namespace Ruby {
@@ -13,8 +16,8 @@ namespace Ruby {
 		[[nodiscard]] virtual std::vector<unsigned int> getIndices() const = 0;
 
 	private:
-		//VertexAttributeObject m_VAO{ };
-		//VertexBufferObject m_VertexBuffer{ };
-		//ElementBufferObject m_IndexBuffer{ };
+		VertexAttributeObject m_VAO{ };
+		VertexBuffer m_VertexBuffer{ };
+		IndexBuffer m_IndexBuffer{ };
 	};
 }

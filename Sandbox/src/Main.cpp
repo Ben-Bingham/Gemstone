@@ -55,7 +55,7 @@ int main() {
 		*imageBank.createAndGet("assets\\SkyBox\\back.jpg", false)
 	} };
 
-	Ruby::SkyBox skyBox{ skyBoxMat };
+	// Ruby::SkyBox skyBox{ skyBoxMat };
 
 	Ruby::SolidMaterial blueMaterial{ Ruby::Colour::blue };
 
@@ -185,7 +185,7 @@ int main() {
 
 			//renderer.render(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
 
-			renderer.render(skyBox);
+			// renderer.render(skyBox);
 
 			renderer.endFrame();
 			glCheckError();

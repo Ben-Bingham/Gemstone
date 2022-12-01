@@ -2,9 +2,10 @@
 
 namespace Ruby {
 	GeometryData::GeometryData() {
-		//m_VAO.bind();
+		m_VAO.bind();
 
-		//m_VBO.bind();
-		//m_EBO.bind()
+		m_VertexBuffer.bind();
+		m_VertexBuffer.setData(nullptr);
+		m_EBO.bind();
 	}
 }

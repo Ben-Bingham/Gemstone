@@ -1,8 +1,8 @@
 #include "Renderable.h"
 
 namespace Ruby {
-	Renderable::Renderable(const GeometryData& geometry, Material& material)
-		: m_Material(&material)/*, m_GeometryData(&geometry)*/ {
+	Renderable::Renderable(GeometryData& geometry, Material& material)
+		: m_Material(&material), m_GeometryData(&geometry) {
 		m_VAO.bind();
 
 		m_VertexBuffer.bind();
