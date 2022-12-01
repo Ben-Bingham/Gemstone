@@ -20,7 +20,7 @@ namespace Ruby {
 			: m_BufferAddress(0) {
 			glGenBuffers(1, &m_BufferAddress);
 
-			setData(args);
+			setData(args...);
 		}
 
 		GlBuffer(const GlBuffer& other) = delete;
@@ -209,7 +209,7 @@ namespace Ruby {
 
 		size_t m_Size{ 0 }; // Number of bytes allocated to the buffer
 
-		static inline GlBuffer<T, BufferType>* m_BoundBuffer{ nullptr };
+		static inline const GlBuffer<T, BufferType>* m_BoundBuffer{ nullptr };
 
 #ifdef RUBY_DEBUG
 		bool m_Initialized{ false };

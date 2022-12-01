@@ -27,6 +27,8 @@
 #include "Utility/Bank.h"
 #include <OpenGlErrors.h>
 
+#include "OpenGL objects/GlBuffer.h"
+
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
@@ -118,6 +120,13 @@ int main() {
 	screenQuadRenderable.getModelMatrix().scale(0.5f).translate(-0.5f, -0.5f, 0.0f);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
+
+	std::vector data = {
+		0.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 1.0f,
+	};
+
+	Ruby::VertexBuffer VBO{ data };
 
 	// Rendering loop
 	while (window.isOpen()) {
