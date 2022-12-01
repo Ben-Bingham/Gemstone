@@ -14,7 +14,7 @@ namespace Ruby {
 
 	private:
 		//VertexAttributeObject m_VAO{ };
-		//VertexBufferObject m_VBO{ };
-		//ElementBufferObject m_EBO{ };
+		//VertexBufferObject m_VertexBuffer{ };
+		//ElementBufferObject m_IndexBuffer{ };
 	};
 }

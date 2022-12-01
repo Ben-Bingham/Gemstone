@@ -8,6 +8,8 @@
 #include "Geometry/GeometryData.h"
 #include "Materials/Material.h"
 
+#include "OpenGL objects/GlBuffer.h"
+
 namespace Ruby {
 	class Renderable {
 	public:
@@ -29,8 +31,8 @@ namespace Ruby {
 
 	protected:
 		VertexAttributeObject m_VAO{ };
-		VertexBufferObject m_VBO{ };
-		ElementBufferObject m_EBO{ };
+		VertexBuffer m_VertexBuffer;
+		IndexBuffer m_IndexBuffer{ };
 		
 		Material* m_Material;
 		//GeometryData* m_GeometryData;

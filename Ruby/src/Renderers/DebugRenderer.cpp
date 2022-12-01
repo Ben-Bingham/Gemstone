@@ -9,8 +9,8 @@ namespace Ruby {
 
 		/*m_VAO.bind();
 
-		m_VBO.bind();
-		m_VBO.setNoData(m_VBOSize, GL_DYNAMIC_DRAW);
+		m_VertexBuffer.bind();
+		m_VertexBuffer.setNoData(m_VBOSize, GL_DYNAMIC_DRAW);
 
 		VertexShader::LayoutData layoutData {
 			VertexShader::LayoutDataElement {
@@ -53,9 +53,9 @@ namespace Ruby {
 		m_Points.clear();
 		/*if (pointsAsFloats.size() > 0) {
 			m_VAO.bind();
-			m_VBO.setPartialData(pointsAsFloats, 0);
+			m_VertexBuffer.setPartialData(pointsAsFloats, 0);
 
-			m_VBO.bind();
+			m_VertexBuffer.bind();
 			ShaderLibrary::get().solidShader.use();
 			ShaderProgramUploads::upload("objectColour", Colour{ 221, 224, 18 });
 			glDrawArrays(GL_LINES, 0, (GLsizei)m_Points.size());

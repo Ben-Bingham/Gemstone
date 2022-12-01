@@ -121,13 +121,6 @@ int main() {
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
-	std::vector data = {
-		0.0f, 0.0f, 0.0f,
-		1.0f, 1.0f, 1.0f,
-	};
-
-	Ruby::VertexBuffer VBO{ data };
-
 	// Rendering loop
 	while (window.isOpen()) {
 		window.pollEvents();
