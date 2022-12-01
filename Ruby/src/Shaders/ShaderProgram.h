@@ -74,6 +74,6 @@ namespace ShaderProgramUploads {
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::DirectionalLight& directionalLight);
 	void upload(const std::string& variableName, unsigned int unit, const std::vector<Ruby::DirectionalLight*>& directionalLights);
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::Texture& texture);
-	void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture& texture);
+	// void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture& texture);
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::Cubemap& cubeMap);
 }

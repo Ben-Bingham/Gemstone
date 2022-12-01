@@ -1,7 +1,5 @@
 #pragma once
 
-#include "OpenGL objects/VertexAttributeObject.h"
-#include "OpenGL objects/VertexBufferObject.h"
 #include "Window.h"
 #include "Materials/SolidMaterial.h"
 #include "Renderable Objects/Renderable.h"

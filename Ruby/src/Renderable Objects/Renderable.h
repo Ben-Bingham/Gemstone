@@ -3,8 +3,6 @@
 #include "Shaders/ShaderProgram.h"
 
 #include "OpenGL objects/VertexAttributeObject.h"
-#include "OpenGL objects/VertexBufferObject.h"
-#include "OpenGL objects/ElementBufferObject.h"
 #include "Geometry/GeometryData.h"
 #include "Materials/Material.h"
 

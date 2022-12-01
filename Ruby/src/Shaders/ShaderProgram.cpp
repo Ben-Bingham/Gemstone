@@ -161,11 +161,11 @@ namespace ShaderProgramUploads {
 		upload(variableName, unit, texture);
 	}
 
-	void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture& texture) {
-		Ruby::Texture::activateUnit(unit);
-		texture.bind();
-		Ruby::ShaderProgram::upload(variableName, (int)unit);
-	}
+	// void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture& texture) {
+	// 	Ruby::Texture::activateUnit(unit);
+	// 	texture.bind();
+	// 	Ruby::ShaderProgram::upload(variableName, (int)unit);
+	// }
 
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::Cubemap& cubeMap) {
 		Ruby::Cubemap::activateUnit(unit);
