@@ -26,7 +26,12 @@ namespace Ruby {
 		GlBuffer(const GlBuffer& other) = delete;
 
 		GlBuffer(GlBuffer&& other) noexcept
-			: m_BufferAddress(other.m_BufferAddress) {}
+			: m_BufferAddress(other.m_BufferAddress)
+			, m_Size(other.m_Size)
+#ifdef RUBY_DEBUG
+			, m_Initialized(other.m_Initialized)
+#endif
+		{}
 
 		GlBuffer& operator=(const GlBuffer& other) = delete;
 
@@ -34,11 +39,36 @@ namespace Ruby {
 			if (this == &other)
 				return *this;
 			m_BufferAddress = other.m_BufferAddress;
+			m_Size = other.m_Size;
+#ifdef RUBY_DEBUG 
+			m_Initialized = other.m_Initialized;
+#endif
 			return *this;
 		}
 
 		~GlBuffer() {
 			glDeleteBuffers(1, &m_BufferAddress);
+		}
+
+		void bind() const {
+			if (m_BoundBuffer == this) {
+				return;
+			}
+			glBindBuffer(BufferType, m_BufferAddress);
+			m_BoundBuffer = this;
+		}
+
+		static void unbind() {
+			m_BoundBuffer = nullptr;
+			glBindBuffer(BufferType, 0);
+		}
+
+		[[nodiscard]] size_t getSize() const { // Returns the size in bytes
+			return m_Size;
+		}
+
+		[[nodiscard]] size_t getElementCount() const { // Returns the number of elements
+			return m_Size / sizeof(T);
 		}
 
 		void setData(const std::vector<T>& data, const int usage = GL_STATIC_DRAW) {
@@ -54,7 +84,6 @@ namespace Ruby {
 			glBufferData(BufferType, m_Size, data.data(), usage);
 #ifdef RUBY_DEBUG
 			m_Initialized = true;
-			unbind();
 #endif
 		}
 
@@ -72,7 +101,6 @@ namespace Ruby {
 			glBufferData(BufferType, m_Size, data.data(), usage);
 #ifdef RUBY_DEBUG
 			m_Initialized = true;
-			unbind();
 #endif
 		}
 
@@ -90,7 +118,6 @@ namespace Ruby {
 			glBufferData(BufferType, m_Size, data.data(), usage);
 #ifdef RUBY_DEBUG
 			m_Initialized = true;
-			unbind();
 #endif
 		}
 
@@ -108,7 +135,6 @@ namespace Ruby {
 			glBufferData(BufferType, m_Size, data.data(), usage);
 #ifdef RUBY_DEBUG
 			m_Initialized = true;
-			unbind();
 #endif
 		}
 
@@ -126,9 +152,6 @@ namespace Ruby {
 #endif
 			bind();
 			glBufferSubData(BufferType, offset, dataSize, data.data());
-#ifdef RUBY_DEBUG
-			unbind();
-#endif
 		}
 
 		void setSubData(const std::vector<Malachite::Vector2<T>>& data, const unsigned int offset = 0) {
@@ -146,9 +169,6 @@ namespace Ruby {
 #endif
 			bind();
 			glBufferSubData(BufferType, offset, dataSize, data.data());
-#ifdef RUBY_DEBUG
-			unbind();
-#endif
 		}
 
 		void setSubData(const std::vector<Malachite::Vector3<T>>& data, const unsigned int offset = 0) {
@@ -166,9 +186,6 @@ namespace Ruby {
 #endif
 			bind();
 			glBufferSubData(BufferType, offset, dataSize, data.data());
-#ifdef RUBY_DEBUG
-			unbind();
-#endif
 		}
 
 		void setSubData(const std::vector<Malachite::Vector4<T>>& data, const unsigned int offset = 0) {
@@ -186,25 +203,9 @@ namespace Ruby {
 #endif
 			bind();
 			glBufferSubData(BufferType, offset, dataSize, data.data());
-#ifdef RUBY_DEBUG
-			unbind();
-#endif
 		}
 
 	private:
-		void bind() const {
-			if (m_BoundBuffer == this) {
-				return;
-			}
-			glBindBuffer(BufferType, m_BufferAddress);
-			m_BoundBuffer = this;
-		}
-
-		static void unbind() {
-			m_BoundBuffer = nullptr;
-			glBindBuffer(BufferType, 0);
-		}
-
 		unsigned int m_BufferAddress;
 
 		size_t m_Size{ 0 }; // Number of bytes allocated to the buffer
