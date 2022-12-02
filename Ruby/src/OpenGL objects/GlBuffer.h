@@ -74,11 +74,11 @@ namespace Ruby {
 		void setData(const std::vector<T>& data, const int usage = GL_STATIC_DRAW) {
 			bind();
 
-			if (data.size() <= 0) {
-				setNoData(usage);
+#ifdef RUBY_DEBUG
+			if (data.empty()) {
+				LOG("Attempting to initilize a buffer with no data. Consider using setNoData() instead.", Lazuli::LogLevel::WARNING);
 			}
 
-#ifdef RUBY_DEBUG
 			if (m_Initialized) {
 				LOG("Attempting to place data into preinitilized buffer. Please use setSubData() instead.", Lazuli::LogLevel::WARNING);
 			}
@@ -95,6 +95,10 @@ namespace Ruby {
 			bind();
 
 #ifdef RUBY_DEBUG
+			if (data.empty()) {
+				LOG("Attempting to initilize a buffer with no data. Consider using setNoData() instead.", Lazuli::LogLevel::WARNING);
+			}
+
 			if (m_Initialized) {
 				LOG("Attempting to place data into preinitilized buffer. Please use setSubData() instead.", Lazuli::LogLevel::WARNING);
 			}
@@ -112,6 +116,10 @@ namespace Ruby {
 			bind();
 
 #ifdef RUBY_DEBUG
+			if (data.empty()) {
+				LOG("Attempting to initilize a buffer with no data. Consider using setNoData() instead.", Lazuli::LogLevel::WARNING);
+			}
+
 			if (m_Initialized) {
 				LOG("Attempting to place data into preinitilized buffer. Please use setSubData() instead.", Lazuli::LogLevel::WARNING);
 			}
@@ -209,18 +217,30 @@ namespace Ruby {
 			glBufferSubData(BufferType, offset, dataSize, data.data());
 		}
 
-	private:
-		void setNoData(int usage) {
-			
+		void setNoData(const int usage = GL_STATIC_DRAW) {
+			bind();
+
+#ifdef RUBY_DEBUG
+			if (m_Initialized) {
+				LOG("Attempting to place data into preinitilized buffer. Please use setSubData() instead.", Lazuli::LogLevel::WARNING);
+			}
+#endif
+
+			m_Size = defaultBufferSize;
+			glBufferData(BufferType, m_Size, nullptr, usage);
+#ifdef RUBY_DEBUG
+			m_Initialized = true;
+#endif
 		}
 
+	private:
 		unsigned int m_BufferAddress;
 
 		size_t m_Size{ 0 }; // Number of bytes allocated to the buffer.
 
 		static inline const GlBuffer<T, BufferType>* m_BoundBuffer{ nullptr };
 
-		constexpr int m_DefaultSize = 256; // Number of bytes that will be allocated if no data is given.
+		static constexpr int defaultBufferSize = 256; // Number of bytes that will be allocated if setNoData() is used for initialization.
 
 #ifdef RUBY_DEBUG
 		bool m_Initialized{ false };
