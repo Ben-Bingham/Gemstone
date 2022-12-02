@@ -3,15 +3,15 @@
 namespace Ruby {
 	Renderable::Renderable(GeometryData& geometry, Material& material)
 		: m_Material(&material), m_GeometryData(&geometry) {
-		m_VAO.bind();
+		//m_VAO.bind();
 
-		m_VertexBuffer.bind();
-		m_VertexBuffer.setData(geometry.getVertices(material.getLayout()));
+		//m_VertexBuffer.bind();
+		//m_VertexBuffer.setData(geometry.getVertices(material.getLayout()));
 
-		m_IndexBuffer.bind();
-		m_IndexBuffer.setData(geometry.getIndices());
+		//m_IndexBuffer.bind();
+		//m_IndexBuffer.setData(geometry.getIndices());
 
-		m_VAO.configureForLayout(material.getLayout());
+		//m_VAO.configureForLayout(material.getLayout());
 		//m_VAO.bind();
 
 		//m_VertexBuffer.bind();

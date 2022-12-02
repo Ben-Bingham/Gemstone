@@ -7,6 +7,7 @@
 #include "Materials/Material.h"
 
 #include "OpenGL objects/GlBuffer.h"
+#include "Geometry/GeometryInstance.h"
 
 namespace Ruby {
 	class Renderable {
@@ -28,9 +29,10 @@ namespace Ruby {
 		void setGeometryData(const GeometryData& geometry);
 
 	protected:
-		VertexAttributeObject m_VAO{ };
+		/*VertexAttributeObject m_VAO{ };
 		VertexBuffer m_VertexBuffer;
-		IndexBuffer m_IndexBuffer{ };
+		IndexBuffer m_IndexBuffer{ };*/
+		GeometryInstance m_GeometryInstance;
 		
 		Material* m_Material;
 		GeometryData* m_GeometryData;
