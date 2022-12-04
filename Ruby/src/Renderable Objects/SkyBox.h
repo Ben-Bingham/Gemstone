@@ -6,11 +6,11 @@
 #include "Geometry/GeometryInstances.h"
 
 namespace Ruby {
-	// class SkyBox final : public Renderable {
-	// public:
-	// 	SkyBox(SkyBoxMaterial& skyBoxMaterial)
-	// 		: Renderable(GeometryInstances::get(), skyBoxMaterial) {
-	//
-	// 	}
-	// };
+	class SkyBox final : public Renderable {
+	public:
+		SkyBox(SkyBoxMaterial& skyBoxMaterial)
+			: Renderable(createPtr<CubeGeometryData>(), skyBoxMaterial) {
+	
+		}
+	};
 }
