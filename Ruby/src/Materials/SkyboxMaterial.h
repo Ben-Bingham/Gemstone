@@ -9,7 +9,7 @@
 namespace Ruby {
 	class SkyBoxMaterial : public Material {
 	public:
-		SkyBoxMaterial(const std::initializer_list<Image>& faces)
+		SkyBoxMaterial(const std::initializer_list<Ptr<Image>>& faces)
 			: Material(ShaderLibrary::get().skyBoxShader), cubeMap(faces) {
 			
 		}

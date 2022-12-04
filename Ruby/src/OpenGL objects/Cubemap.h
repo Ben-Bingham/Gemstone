@@ -5,26 +5,27 @@
 #include <GL/glew.h>
 
 #include "Resources/Image.h"
+#include "Pointer.h"
 
 namespace Ruby {
 	class Cubemap {
 	public:
-		Cubemap(std::initializer_list<Image> faces) {
+		Cubemap(const std::initializer_list<Ptr<Image>>& faces) {
 			assert(faces.size() == 6);
 			glGenTextures(1, &m_Cubemap);
 
 			bind(); 
 
-			std::vector<Image> images{ faces };
+			std::vector<Ptr<Image>> images{ faces };
 
 			unsigned int i{ 0 };
-			for (Image& image : images) {
+			for (Ptr<Image> image : images) {
 
 				GLenum imageFormat;
-				if (image.getChannels() == 3) {
+				if (image->getChannels() == 3) {
 					imageFormat = GL_RGB;
 				}
-				else if (image.getChannels() == 4) {
+				else if (image->getChannels() == 4) {
 					imageFormat = GL_RGBA;
 				}
 				else {
@@ -32,7 +33,7 @@ namespace Ruby {
 					imageFormat = GL_RGB;
 				}
 
-				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, imageFormat, image.getWidth(), image.getHeight(), 0, imageFormat, GL_UNSIGNED_BYTE, &image.getContent()[0]);
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, imageFormat, image->getWidth(), image->getHeight(), 0, imageFormat, GL_UNSIGNED_BYTE, &image->getContent()[0]);
 				i++;
 			}
 

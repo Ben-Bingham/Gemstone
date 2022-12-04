@@ -3,8 +3,8 @@
 #include <GL/glew.h>
 
 namespace Ruby {
-	Texture::Texture(const Image& image)
-		: m_Image(&image) {
+	Texture::Texture(const Ptr<Image>& image)
+		: m_Image(image) {
 		glGenTextures(1, &m_Texture);
 
 		bind();
@@ -34,17 +34,7 @@ namespace Ruby {
 
 	Texture::~Texture() { glDeleteTextures(1, &m_Texture); }
 
-	Texture::Texture(Texture&& other) noexcept
-		: m_Texture(std::move(other.m_Texture)),
-		m_Image(std::move(other.m_Image)) {
-		other.m_Texture = 0;
-	}
 
-	Texture& Texture::operator=(Texture&& other) noexcept {
-		m_Texture = std::move(other.m_Texture);
-		m_Image = std::move(other.m_Image);
-		return *this;
-	}
 
 	void Texture::bind() const { glBindTexture(GL_TEXTURE_2D, m_Texture); }
 	void Texture::activateUnit(const int unit) { glActiveTexture(GL_TEXTURE0 + unit); }
@@ -52,15 +42,15 @@ namespace Ruby {
 	unsigned int Texture::getTexture() const { return m_Texture; }
 
 	void Texture::updateData() {
-		setSubData(0, 0, *m_Image);
+		setSubData(0, 0, m_Image);
 	}
 
-	void Texture::setSubData(unsigned int posX, unsigned int posY, const Image& image) {
+	void Texture::setSubData(unsigned int posX, unsigned int posY, const Ptr<Image>& image) {
 		GLenum imageFormat;
-		if (image.getChannels() == 3) {
+		if (image->getChannels() == 3) {
 			imageFormat = GL_RGB;
 		}
-		else if (image.getChannels() == 4) {
+		else if (image->getChannels() == 4) {
 			imageFormat = GL_RGBA;
 		}
 		else {
@@ -69,6 +59,6 @@ namespace Ruby {
 		}
 
 		bind();
-		glTexSubImage2D(GL_TEXTURE_2D, 0, posX, posY, image.getWidth(), image.getHeight(), imageFormat, GL_UNSIGNED_BYTE, &image.getContent()[0]);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, posX, posY, image->getWidth(), image->getHeight(), imageFormat, GL_UNSIGNED_BYTE, &image->getContent()[0]);
 	}
 }
