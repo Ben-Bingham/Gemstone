@@ -9,8 +9,8 @@
 namespace Ruby {
 	class ScreenMaterial : public Material {
 	public:
-		ScreenMaterial(Texture& texture)
-			: Material(ShaderLibrary::get().screenQuadShader), texture(&texture) {
+		ScreenMaterial(const Ptr<Texture>& texture)
+			: Material(ShaderLibrary::get().screenQuadShader), texture(texture) {
 
 		}
 
@@ -21,7 +21,7 @@ namespace Ruby {
 			ShaderProgram::upload("model", model);
 		}
 
-		Texture* texture;
+		Ptr<Texture> texture;
 
 	private:
 		UniformSet<

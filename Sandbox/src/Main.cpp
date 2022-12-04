@@ -105,11 +105,11 @@ int main() {
 	Ruby::Renderable planeRenderable{ planeGeometryData, containerMaterial };
 	planeRenderable.getModelMatrix().translate(3.0f, 3.0f, 0.0f);
 
-	Ruby::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Ruby::createPtr<Ruby::TextureMaterial>( * awesomeFaceTexture );
+	Ruby::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Ruby::createPtr<Ruby::TextureMaterial>( awesomeFaceTexture );
 	Ruby::Renderable texturedRenderable{ planeGeometryData, awesomeFaceMaterial };
 	texturedRenderable.getModelMatrix().translate(-3.0f, 3.0f, 0.0f);
 
-	Ruby::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Ruby::createPtr<Ruby::ScreenMaterial>( * earthTexture );
+	Ruby::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Ruby::createPtr<Ruby::ScreenMaterial>( earthTexture );
 	Ruby::Renderable screenQuadRenderable{ planeGeometryData, awesomeFaceMaterial2 };
 	screenQuadRenderable.getModelMatrix().scale(0.5f).translate(-0.5f, -0.5f, 0.0f);
 

@@ -9,8 +9,8 @@
 namespace Ruby {
 	class TextureMaterial : public Material {
 	public:
-		TextureMaterial(Texture& texture)
-			: Material(ShaderLibrary::get().imageShader), texture(&texture) {
+		TextureMaterial(const Ptr<Texture>& texture)
+			: Material(ShaderLibrary::get().imageShader), texture(texture) {
 
 		}
 
@@ -23,7 +23,7 @@ namespace Ruby {
 			ShaderProgram::upload("modelViewProjection", modelViewProjection);
 		}
 
-		Texture* texture;
+		Ptr<Texture> texture;
 
 	private:
 		UniformSet<
