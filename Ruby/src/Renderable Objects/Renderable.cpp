@@ -3,46 +3,17 @@
 #include "Geometry/GeometryInstances.h"
 
 namespace Ruby {
-	Renderable::Renderable(Ptr<GeometryData> geometryData, Material& material)
-		: m_GeometryInstance(GeometryInstances::get(geometryData, material.getLayout())), m_Material(&material) {
-		//m_VAO.bind();
+	Renderable::Renderable(const Ptr<GeometryData>& geometryData, const Ptr<Material>& material)
+		: m_GeometryInstance(GeometryInstances::get(geometryData, material->getLayout())), m_Material(material) {
 
-		//m_VertexBuffer.bind();
-		//m_VertexBuffer.setData(geometry.getVertices(material.getLayout()));
-
-		//m_IndexBuffer.bind();
-		//m_IndexBuffer.setData(geometry.getIndices());
-
-		//m_VAO.configureForLayout(material.getLayout());
-		//m_VAO.bind();
-
-		//m_VertexBuffer.bind();
-		//std::vector<float> vertexData = geometry.getVertices(material.getLayout());
-		//if (vertexData.size() > 0) {
-		//	m_VertexBuffer.setData(vertexData);
-		//}
-		//else {
-		//	m_VertexBuffer.setNoData(512 * sizeof(float) * 3);
-		//}
-
-		//m_IndexBuffer.bind();
-		//std::vector<unsigned int> indexData = geometry.getIndices();
-		//if (indexData.size() > 0) {
-		//	m_IndexBuffer.setData(geometry.getIndices());
-		//}
-		//else {
-		//	m_IndexBuffer.setNoData(512 * sizeof(unsigned int));
-		//}
-
-		//m_VAO.configureForLayout(material.getLayout());
 	}
 
 	Malachite::Matrix4f& Renderable::getModelMatrix() {
 		return m_ModelMatrix;
 	}
 
-	void Renderable::setMaterial(Material& material) {
-		m_Material = &material;
+	void Renderable::setMaterial(const Ptr<Material>& material) {
+		m_Material = material;
 	}
 
 	void Renderable::setGeometryData(const GeometryData& geometry) {

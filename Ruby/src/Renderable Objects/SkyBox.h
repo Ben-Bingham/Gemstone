@@ -8,7 +8,7 @@
 namespace Ruby {
 	class SkyBox final : public Renderable {
 	public:
-		SkyBox(SkyBoxMaterial& skyBoxMaterial)
+		SkyBox(const Ptr<SkyBoxMaterial>& skyBoxMaterial)
 			: Renderable(createPtr<CubeGeometryData>(), skyBoxMaterial) {
 	
 		}

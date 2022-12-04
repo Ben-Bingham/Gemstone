@@ -13,9 +13,6 @@
 #include "Renderable Objects/SkyBox.h"
 #include "Resources/Image.h"
 
-// Malachite
-#include "Utility.h"
-
 // Custom
 #include "FPSCamera.h"
 
@@ -28,8 +25,6 @@
 #include <OpenGlErrors.h>
 
 #include "Pointer.h"
-
-#include "OpenGL objects/GlBuffer.h"
 
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
@@ -48,18 +43,18 @@ int main() {
 	Ruby::ImageBank imageBank{ };
 	Ruby::TextureBank textureBank{ };
 
-	Ruby::SkyBoxMaterial skyBoxMat{ {
+	Ruby::Ptr<Ruby::SkyBoxMaterial> skyBoxMat = Ruby::createPtr<Ruby::SkyBoxMaterial>( std::initializer_list<Ruby::Image>{
 		*imageBank.createAndGet("assets\\SkyBox\\right.jpg", false),
 		*imageBank.createAndGet("assets\\SkyBox\\left.jpg", false),
 		*imageBank.createAndGet("assets\\SkyBox\\top.jpg", false),
 		*imageBank.createAndGet("assets\\SkyBox\\bottom.jpg", false),
 		*imageBank.createAndGet("assets\\SkyBox\\front.jpg", false),
 		*imageBank.createAndGet("assets\\SkyBox\\back.jpg", false)
-	} };
+	} );
 
 	Ruby::SkyBox skyBox{ skyBoxMat };
 
-	Ruby::SolidMaterial blueMaterial{ Ruby::Colour::blue };
+	Ruby::Ptr<Ruby::SolidMaterial> blueMaterial = Ruby::createPtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
 
 	Ruby::Ptr<Ruby::CubeGeometryData> cubeGeometryData = Ruby::createPtr<Ruby::CubeGeometryData>();
 	Ruby::Ptr<Ruby::SphereGeometryData> sphereGeometryData = Ruby::createPtr<Ruby::SphereGeometryData>();
@@ -67,10 +62,10 @@ int main() {
 
 	Ruby::Renderable testCube{ cubeGeometryData, blueMaterial };
 
-	Ruby::PhongMaterial containerMaterial{
+	Ruby::Ptr<Ruby::PhongMaterial> containerMaterial = Ruby::createPtr<Ruby::PhongMaterial>(
 		*textureBank.createAndGet(*imageBank.createAndGet("assets\\container2.png")),
 		*textureBank.createAndGet(*imageBank.createAndGet("assets\\container2_specular.png"))
-	};
+	);
 
 	std::vector<Ruby::DirectionalLight*> directionalLights{};
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
@@ -81,17 +76,17 @@ int main() {
 	Ruby::Renderable phongCube{ cubeGeometryData, containerMaterial };
 	phongCube.getModelMatrix().translate(-3.0f, 0.0f, 0.0f);
 
-	auto* doughnutTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\Donut4.png"));
-	Ruby::PhongMaterial donutMat{ *doughnutTexture, *doughnutTexture };
+	auto doughnutTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\Donut4.png"));
+	Ruby::Ptr<Ruby::PhongMaterial> donutMat = Ruby::createPtr<Ruby::PhongMaterial>(*doughnutTexture, * doughnutTexture);
 
 	auto* earthTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\earth.jpg"));
-	Ruby::PhongMaterial earthMat{ *earthTexture, *earthTexture };
+	Ruby::Ptr<Ruby::PhongMaterial> earthMat = Ruby::createPtr<Ruby::PhongMaterial>(*earthTexture, *earthTexture);
 
 	auto* pawnTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\White Pawn.png"));
-	Ruby::PhongMaterial pawnMat{ *pawnTexture, *pawnTexture };
+	Ruby::Ptr<Ruby::PhongMaterial> pawnMat = Ruby::createPtr<Ruby::PhongMaterial>(*pawnTexture, *pawnTexture );
 
 	auto* awesomeFaceTexture = textureBank.createAndGet(*imageBank.createAndGet("assets\\awesomeface.png"));
-	Ruby::PhongMaterial awesomeMat{ *awesomeFaceTexture, *awesomeFaceTexture };
+	Ruby::Ptr<Ruby::PhongMaterial> awesomeMat = Ruby::createPtr<Ruby::PhongMaterial>(*awesomeFaceTexture, *awesomeFaceTexture);
 
 	Ruby::Renderable donut{ sphereGeometryData, donutMat };
 	donut.getModelMatrix().scale(1.0f, 0.4f, 1.0f);
@@ -113,12 +108,12 @@ int main() {
 	Ruby::Renderable planeRenderable{ planeGeometryData, containerMaterial };
 	planeRenderable.getModelMatrix().translate(3.0f, 3.0f, 0.0f);
 
-	Ruby::TextureMaterial awesomeFaceMaterial{ *awesomeFaceTexture };
+	Ruby::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Ruby::createPtr<Ruby::TextureMaterial>( * awesomeFaceTexture );
 	Ruby::Renderable texturedRenderable{ planeGeometryData, awesomeFaceMaterial };
 	texturedRenderable.getModelMatrix().translate(-3.0f, 3.0f, 0.0f);
 
-	Ruby::ScreenMaterial earthMaterial{ *earthTexture };
-	Ruby::Renderable screenQuadRenderable{ planeGeometryData, earthMaterial };
+	Ruby::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Ruby::createPtr<Ruby::ScreenMaterial>( * earthTexture );
+	Ruby::Renderable screenQuadRenderable{ planeGeometryData, awesomeFaceMaterial2 };
 	screenQuadRenderable.getModelMatrix().scale(0.5f).translate(-0.5f, -0.5f, 0.0f);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
