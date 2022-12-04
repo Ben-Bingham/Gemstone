@@ -40,9 +40,6 @@ int main() {
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
-	// Ruby::ImageBank imageBank{ };
-	Ruby::TextureBank textureBank{ };
-
 	Ruby::Ptr<Ruby::SkyBoxMaterial> skyBoxMat = Ruby::createPtr<Ruby::SkyBoxMaterial>( std::initializer_list<Ruby::Ptr<Ruby::Image>>{
 		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\right.jpg", false),
 		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\left.jpg", false),
@@ -63,8 +60,8 @@ int main() {
 	Ruby::Renderable testCube{ cubeGeometryData, blueMaterial };
 
 	Ruby::Ptr<Ruby::PhongMaterial> containerMaterial = Ruby::createPtr<Ruby::PhongMaterial>(
-		*textureBank.createAndGet(Ruby::createPtr<Ruby::Image>("assets\\container2.png")),
-		*textureBank.createAndGet(Ruby::createPtr<Ruby::Image>("assets\\container2_specular.png"))
+		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2.png")),
+		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2_specular.png"))
 	);
 
 	std::vector<Ruby::DirectionalLight*> directionalLights{};
@@ -76,17 +73,17 @@ int main() {
 	Ruby::Renderable phongCube{ cubeGeometryData, containerMaterial };
 	phongCube.getModelMatrix().translate(-3.0f, 0.0f, 0.0f);
 
-	auto doughnutTexture = textureBank.createAndGet(Ruby::createPtr<Ruby::Image>("assets\\Donut4.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> donutMat = Ruby::createPtr<Ruby::PhongMaterial>(*doughnutTexture, * doughnutTexture);
+	auto doughnutTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\Donut4.png"));
+	Ruby::Ptr<Ruby::PhongMaterial> donutMat = Ruby::createPtr<Ruby::PhongMaterial>(doughnutTexture,doughnutTexture);
 
-	auto* earthTexture = textureBank.createAndGet(Ruby::createPtr<Ruby::Image>("assets\\earth.jpg"));
-	Ruby::Ptr<Ruby::PhongMaterial> earthMat = Ruby::createPtr<Ruby::PhongMaterial>(*earthTexture, *earthTexture);
+	auto earthTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\earth.jpg"));
+	Ruby::Ptr<Ruby::PhongMaterial> earthMat = Ruby::createPtr<Ruby::PhongMaterial>(earthTexture, earthTexture);
 
-	auto* pawnTexture = textureBank.createAndGet(Ruby::createPtr<Ruby::Image>("assets\\White Pawn.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> pawnMat = Ruby::createPtr<Ruby::PhongMaterial>(*pawnTexture, *pawnTexture );
+	auto pawnTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\White Pawn.png"));
+	Ruby::Ptr<Ruby::PhongMaterial> pawnMat = Ruby::createPtr<Ruby::PhongMaterial>(pawnTexture, pawnTexture );
 
-	auto* awesomeFaceTexture = textureBank.createAndGet(Ruby::createPtr<Ruby::Image>("assets\\awesomeface.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> awesomeMat = Ruby::createPtr<Ruby::PhongMaterial>(*awesomeFaceTexture, *awesomeFaceTexture);
+	auto awesomeFaceTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\awesomeface.png"));
+	Ruby::Ptr<Ruby::PhongMaterial> awesomeMat = Ruby::createPtr<Ruby::PhongMaterial>(awesomeFaceTexture, awesomeFaceTexture);
 
 	Ruby::Renderable donut{ sphereGeometryData, donutMat };
 	donut.getModelMatrix().scale(1.0f, 0.4f, 1.0f);

@@ -9,8 +9,8 @@
 namespace Ruby {
 	class PhongMaterial : public Material {
 	public:
-		PhongMaterial(Texture& diffuseTexture, Texture& specularTexture, const float shininess = 32.0f)
-			: Material(ShaderLibrary::get().phongShader), diffuseTexture(&diffuseTexture), specularTexture(&specularTexture), shininess(shininess) {
+		PhongMaterial(const Ptr<Texture>& diffuseTexture, const Ptr<Texture>& specularTexture, const float shininess = 32.0f)
+			: Material(ShaderLibrary::get().phongShader), diffuseTexture(diffuseTexture), specularTexture(specularTexture), shininess(shininess) {
 			
 		}
 
@@ -27,8 +27,8 @@ namespace Ruby {
 		Malachite::Vector3f cameraPosition{ 0.0f };
 		inline static std::vector<PointLight*> pointLights{ };
 		inline static std::vector<DirectionalLight*> directionalLights{ };
-		Texture* diffuseTexture;
-		Texture* specularTexture;
+		Ptr<Texture> diffuseTexture;
+		Ptr<Texture> specularTexture;
 		float shininess;
 
 	private:
