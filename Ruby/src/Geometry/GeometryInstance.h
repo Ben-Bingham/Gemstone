@@ -18,7 +18,7 @@ namespace Ruby {
 		[[nodiscard]] size_t getIndexCount() const;
 
 	private:
-		std::shared_ptr<GeometryData> m_GeometryData;
+		Ptr<GeometryData> m_GeometryData;
 
 		VertexShader::LayoutData m_LayoutData;
 

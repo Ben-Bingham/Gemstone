@@ -29,9 +29,6 @@ namespace Ruby {
 		void setGeometryData(const GeometryData& geometry);
 
 	protected:
-		/*VertexAttributeObject m_VAO{ };
-		VertexBuffer m_VertexBuffer;
-		IndexBuffer m_IndexBuffer{ };*/
 		GeometryInstance& m_GeometryInstance;
 		
 		Material* m_Material;

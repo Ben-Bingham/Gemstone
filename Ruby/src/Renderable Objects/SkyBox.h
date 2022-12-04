@@ -3,16 +3,14 @@
 #include "Renderable.h"
 #include "Materials/SkyboxMaterial.h"
 #include "Geometry/CubeGeometryData.h"
+#include "Geometry/GeometryInstances.h"
 
 namespace Ruby {
 	// class SkyBox final : public Renderable {
 	// public:
 	// 	SkyBox(SkyBoxMaterial& skyBoxMaterial)
-	// 		: Renderable(m_SkyBoxGeometryData, skyBoxMaterial) {
+	// 		: Renderable(GeometryInstances::get(), skyBoxMaterial) {
 	//
 	// 	}
-	//
-	// private:
-	// 	static CubeGeometryData m_SkyBoxGeometryData;
 	// };
 }

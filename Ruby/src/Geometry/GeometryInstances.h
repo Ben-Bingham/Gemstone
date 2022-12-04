@@ -17,6 +17,6 @@ namespace Ruby {
 	private:
 		GeometryInstances() = default;
 
-		inline static std::vector<std::unique_ptr<GeometryInstance>> m_GeometryInstances{};
+		inline static std::vector<UPtr<GeometryInstance>> m_GeometryInstances{};
 	};
 }
