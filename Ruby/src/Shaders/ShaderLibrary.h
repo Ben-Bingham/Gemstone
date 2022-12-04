@@ -97,6 +97,5 @@ namespace Ruby {
 		static ShaderProgram shaderInit(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const VertexShader::LayoutData layoutData) {
 			return ShaderProgram{VertexShader{vertexShaderPath, layoutData}, FragmentShader{fragmentShaderPath}};
 		}
-
 	};
 }

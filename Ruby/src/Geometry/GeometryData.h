@@ -2,9 +2,6 @@
 
 #include <vector>
 
-#include "OpenGL objects/GlBuffer.h"
-#include "OpenGL objects/VertexAttributeObject.h"
-
 #include "Shaders/VertexShader.h"
 
 namespace Ruby {

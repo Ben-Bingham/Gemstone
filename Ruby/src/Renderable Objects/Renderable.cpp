@@ -1,8 +1,10 @@
 #include "Renderable.h"
 
+#include "Geometry/GeometryInstances.h"
+
 namespace Ruby {
-	Renderable::Renderable(GeometryData& geometry, Material& material)
-		: m_Material(&material), m_GeometryData(&geometry) {
+	Renderable::Renderable(Ptr<GeometryData> geometryData, Material& material)
+		: m_GeometryInstance(GeometryInstances::get(geometryData, material.getLayout())), m_Material(&material) {
 		//m_VAO.bind();
 
 		//m_VertexBuffer.bind();
@@ -60,10 +62,10 @@ namespace Ruby {
 	}
 
 	void Renderable::render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const {
-		m_VAO.bind();
+		m_GeometryInstance.use();
 
 		m_Material->use(m_ModelMatrix, view, projection);
-		glDrawElements(GL_TRIANGLES, (GLsizei)m_IndexBuffer.getElementCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, (GLsizei)m_GeometryInstance.getIndexCount(), GL_UNSIGNED_INT, 0);
 		m_Material->end();
 	}
 }

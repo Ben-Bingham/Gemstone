@@ -27,6 +27,8 @@
 #include "Utility/Bank.h"
 #include <OpenGlErrors.h>
 
+#include "Pointer.h"
+
 #include "OpenGL objects/GlBuffer.h"
 
 int main() {
@@ -59,9 +61,9 @@ int main() {
 
 	Ruby::SolidMaterial blueMaterial{ Ruby::Colour::blue };
 
-	Ruby::CubeGeometryData cubeGeometryData{ };
-	Ruby::SphereGeometryData sphereGeometryData{};
-	Ruby::PlaneGeometryData planeGeometryData{ };
+	Ruby::Ptr<Ruby::CubeGeometryData> cubeGeometryData = Ruby::createPtr<Ruby::CubeGeometryData>();
+	Ruby::Ptr<Ruby::SphereGeometryData> sphereGeometryData = Ruby::createPtr<Ruby::SphereGeometryData>();
+	Ruby::Ptr<Ruby::PlaneGeometryData> planeGeometryData = Ruby::createPtr<Ruby::PlaneGeometryData>();
 
 	Ruby::Renderable testCube{ cubeGeometryData, blueMaterial };
 
@@ -185,7 +187,7 @@ int main() {
 
 			//renderer.render(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
 
-			// renderer.render(skyBox);
+			//renderer.render(skyBox);
 
 			renderer.endFrame();
 			glCheckError();

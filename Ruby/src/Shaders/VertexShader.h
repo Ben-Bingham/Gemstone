@@ -23,6 +23,13 @@ namespace Ruby {
 
 			DataType type;
 			DataName name;
+
+			friend bool operator==(const LayoutDataElement& lhs, const LayoutDataElement& rhs) {
+				return lhs.type == rhs.type
+					&& lhs.name == rhs.name;
+			}
+
+			friend bool operator!=(const LayoutDataElement& lhs, const LayoutDataElement& rhs) { return !(lhs == rhs); }
 		};
 
 		struct LayoutData {
@@ -35,6 +42,14 @@ namespace Ruby {
 			LayoutDataElement location1;
 			LayoutDataElement location2;
 			LayoutDataElement location3;
+
+			friend bool operator==(const LayoutData& lhs, const LayoutData& rhs) {
+				return lhs.location1 == rhs.location1
+					&& lhs.location2 == rhs.location2
+					&& lhs.location3 == rhs.location3;
+			}
+
+			friend bool operator!=(const LayoutData& lhs, const LayoutData& rhs) { return !(lhs == rhs); }
 		};
 
 		VertexShader(const TextFile& shaderSourceFile, const LayoutData layoutData);
