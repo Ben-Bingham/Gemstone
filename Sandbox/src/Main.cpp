@@ -44,7 +44,7 @@ int main() {
 			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\back.jpg", false)
 	});
 
-	// Ruby::SkyBox skyBox{ skyBoxMat };
+	Ruby::SkyBox skyBox{ skyBoxMat };
 
 	Ruby::Ptr<Ruby::SolidMaterial> blueMaterial = Ruby::createPtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
 
@@ -187,7 +187,7 @@ int main() {
 			// renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
 			// renderer.debugRender(cubeGeometryData, Malachite::Vector3f{-6.0f, 3.0f, 0.0f}, Malachite::Vector3f{2.0f, 2.0f, 2.0f});
 
-			// renderer.render(skyBox);
+			renderer.render(skyBox);
 
 			renderer.endFrame();
 			glCheckError();
