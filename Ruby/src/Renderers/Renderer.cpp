@@ -22,11 +22,18 @@ namespace Ruby {
 	void Renderer::beginFrame() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		m_DebugRenderer.render();
 	}
 
 	void Renderer::endFrame() {
-		
+		const OpenGlContext backupContext = OpenGlContext::getCurrent();
+		OpenGlContext newContext = backupContext;
+		newContext.depthFunction = OpenGlContext::DepthFunction::LESS_THAN_OR_EQUAL;
+		newContext.depthMask = false;
+		newContext.makeCurrent();
+
+		m_DebugRenderer.render();
+
+		backupContext.makeCurrent();
 	}
 
 	void Renderer::render(const Renderable& renderable) const {

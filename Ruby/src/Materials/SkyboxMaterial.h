@@ -33,7 +33,7 @@ namespace Ruby {
 			/*OpenGlContext context{};
 			context.depthMask = false;
 			context.faceToCull = OpenGlContext::FaceCull::FRONT;
-			context.depthFunction = OpenGlContext::DepthFunction::LESS_THAN_OR_EQUAL;
+			context.depthFunction = OpenGlContext::DepthFunction::LESS_THAN_OR_EQUAL; //TODO
 			context.makeCurrent();*/
 
 			glDepthMask(GL_FALSE);

@@ -96,6 +96,7 @@ namespace Ruby {
 		}
 
 		if (newVertices.size() + offset < m_VertexBuffer.getElementCount() / 5) {
+			m_VertexAttributes.bind();
 			m_VertexBuffer.setSubData(*(std::vector<float>*)(void*)&newVertices, offset);
 		}
 		else {
@@ -110,8 +111,9 @@ namespace Ruby {
 		else {
 			m_Indices = newIndices;
 		}
-
+		
 		if (newIndices.size() + offset < m_VertexBuffer.getElementCount() / 5) {
+			m_VertexAttributes.bind();
 			m_IndexBuffer.setSubData(*(std::vector<unsigned int>*)(void*)&newIndices, offset);
 		}
 		else {

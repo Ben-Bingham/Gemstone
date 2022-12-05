@@ -37,6 +37,7 @@ namespace Ruby {
 	}
 
 	void VertexAttributeObject::configure() {
+		bind();
 		std::vector<Attribute> attributes;
 
 		attributes.push_back(3);

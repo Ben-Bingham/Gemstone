@@ -42,31 +42,32 @@ namespace Ruby {
 		const std::vector<float> pointsAsFloats = *(std::vector<float>*)(void*)&m_Points;
 		Vertices vertices{};
 		vertices.resize(pointsAsFloats.size() / 3);
-
-		size_t i = 0;
-		for (Vertex& vertex : vertices) {
-			vertex.position = pointsAsFloats[i];
-			vertex.position = pointsAsFloats[i + 1];
-			vertex.position = pointsAsFloats[i + 2];
-			i += 3;
+		
+		size_t j = 0;
+		for (size_t i = 0; i < vertices.size(); i++) {
+			vertices[i].position.x = pointsAsFloats[j];
+			vertices[i].position.y = pointsAsFloats[j + 1];
+			vertices[i].position.z = pointsAsFloats[j + 2];
+			j += 3;
 		}
-
+		
+		
 		if (!vertices.empty() && m_Mesh->getVertices() != vertices) {
 			m_Mesh->edit(vertices);
 		}
-
+		
 		Indices indices{};
-
+		
 		for (unsigned int i = 0; i < vertices.size(); i++) {
 			indices.emplace_back(i);
 		}
-
+		
 		if (!indices.empty() && m_Mesh->getIndices() != indices) {
 			m_Mesh->edit(indices);
 		}
-
+		
 		m_Renderer->render(m_Renderable);
-
+		
 		m_Points.clear();
 	}
 }

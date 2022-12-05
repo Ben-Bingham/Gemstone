@@ -184,8 +184,8 @@ int main() {
 				backupContext.makeCurrent();
 			}
 
-			renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
 			// renderer.debugRender(cubeGeometryData, Malachite::Vector3f{-6.0f, 3.0f, 0.0f}, Malachite::Vector3f{2.0f, 2.0f, 2.0f});
+			renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ (float)mouse.xPosition, (float)mouse.yPosition, 5.0f } });
 
 			renderer.render(skyBox);
 
