@@ -1,20 +1,10 @@
 #pragma once
-#include <vector>
+#include "ShapeData.h"
 
-#include "Vector.h"
+#include "OpenGL objects/GlBuffer.h"
+#include "OpenGL objects/VertexAttributeObject.h"
 
 namespace Ruby {
-	using Index = unsigned int;
-
-	struct Vertex {
-		Malachite::Vector3f position;
-		Malachite::Vector3f normal;
-		Malachite::Vector2f textureCoordinate;
-	};
-
-	using Indices = std::vector<Index>;
-	using Vertices = std::vector<Vertex>;
-
 	class Mesh {
 	public:
 		enum class Shape {
@@ -23,14 +13,40 @@ namespace Ruby {
 			PLANE
 		};
 
+		enum class DrawMode {
+			TRIANGLES = GL_TRIANGLES,
+			LINES = GL_LINES
+		};
+
 		Mesh(Shape shape);
 		Mesh();
 
-	private:
-		[[nodiscard]] Vertices initVertFromShape(Shape shape) const;
-		[[nodiscard]] Indices initIndFromShape(Shape shape) const;
+		void bind() const;
 
-		Vertices m_Vertices;
-		Indices m_Indices;
+		[[nodiscard]] DrawMode getDrawMode() const;
+		void setDrawMode(DrawMode drawMode);
+
+		[[nodiscard]] size_t getIndexCount() const;
+
+		void edit(const Vertices& newVertices, unsigned int offset);
+		void edit(const Indices& newIndices, unsigned int offset);
+
+		void edit(const Vertices& newVertices);
+		void edit(const Indices& newIndices);
+
+		void edit(const Vertices& newVertices, const Indices& newIndices);
+
+	private:
+		static [[nodiscard]] Vertices getVerticesFromShape(Shape shape);
+		static [[nodiscard]] Indices getIndicesFromShape(Shape shape);
+
+		Vertices m_Vertices{ };
+		Indices m_Indices{ };
+
+		DrawMode m_DrawMode{ DrawMode::TRIANGLES };
+
+		VertexAttributeObject m_VertexAttributes{ };
+		VertexBuffer m_VertexBuffer{ };
+		IndexBuffer m_IndexBuffer{ };
 	};
 }

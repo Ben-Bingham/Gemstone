@@ -163,7 +163,7 @@ namespace Ruby {
 			}
 #endif
 			bind();
-			glBufferSubData(BufferType, offset, dataSize, data.data());
+			glBufferSubData(BufferType, offset * sizeof(T), dataSize, data.data());
 		}
 
 		void setSubData(const std::vector<Malachite::Vector2<T>>& data, const unsigned int offset = 0) {
@@ -180,7 +180,7 @@ namespace Ruby {
 			}
 #endif
 			bind();
-			glBufferSubData(BufferType, offset, dataSize, data.data());
+			glBufferSubData(BufferType, offset * sizeof(T), dataSize, data.data());
 		}
 
 		void setSubData(const std::vector<Malachite::Vector3<T>>& data, const unsigned int offset = 0) {
@@ -197,7 +197,7 @@ namespace Ruby {
 			}
 #endif
 			bind();
-			glBufferSubData(BufferType, offset, dataSize, data.data());
+			glBufferSubData(BufferType, offset * sizeof(T), dataSize, data.data());
 		}
 
 		void setSubData(const std::vector<Malachite::Vector4<T>>& data, const unsigned int offset = 0) {
@@ -214,7 +214,7 @@ namespace Ruby {
 			}
 #endif
 			bind();
-			glBufferSubData(BufferType, offset, dataSize, data.data());
+			glBufferSubData(BufferType, offset * sizeof(T), dataSize, data.data());
 		}
 
 		void setNoData(const int usage = GL_STATIC_DRAW) {
