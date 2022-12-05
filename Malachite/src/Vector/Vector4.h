@@ -10,6 +10,7 @@ namespace Malachite {
 		Vector4() {}
 		Vector4(T X, T Y, T Z, T W) : x(X), y(Y), z(Z), w(W) {}
 		Vector4(T val) : x(val), y(val), z(val), w(val) {}
+		Vector4(Vector3<T> vector3, T W) : x(vector3.x), y(vector3.y), z(vector3.z), w(W) {}
 
 		T x{ };
 		T y{ };

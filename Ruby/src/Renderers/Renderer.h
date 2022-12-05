@@ -59,7 +59,11 @@ namespace Ruby {
         }
 
         void render(const Renderable& renderable) const;
-        void render(std::vector<Malachite::Vector3f> points);
+
+        template<typename... T>
+        void debugRender(T...args) {
+            m_DebugRenderer.queue(args...);
+        }
 
         ShaderLibrary& shaders{ ShaderLibrary::get() };
 

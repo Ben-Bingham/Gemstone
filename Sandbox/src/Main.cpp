@@ -21,7 +21,6 @@
 #include "Materials/ScreenMaterial.h"
 #include "Materials/TextureMaterial.h"
 
-#include "Utility/Bank.h"
 #include <OpenGlErrors.h>
 
 #include "Pointer.h"
@@ -155,14 +154,14 @@ int main() {
 		{ // Rendering
 			renderer.beginFrame();
 
-			renderer.render(donut);
-			renderer.render(earthRenderable);
-			renderer.render(pawn);
-			renderer.render(awesomeRenderable);
-			renderer.render(awesomeRenderable2);
+			// renderer.render(donut);
+			// renderer.render(earthRenderable);
+			// renderer.render(pawn);
+			// renderer.render(awesomeRenderable);
+			// renderer.render(awesomeRenderable2);
 
-			renderer.render(testCube);
-			renderer.render(phongCube);
+			// renderer.render(testCube);
+			// renderer.render(phongCube);
 
 			{ // Planes
 				Ruby::OpenGlContext backupContext = Ruby::OpenGlContext::getCurrent();
@@ -170,16 +169,17 @@ int main() {
 				newContext.faceToCull = Ruby::OpenGlContext::FaceCull::NONE;
 				newContext.makeCurrent();
 
-				renderer.render(planeRenderable);
-				renderer.render(texturedRenderable);
+				// renderer.render(planeRenderable);
+				// renderer.render(texturedRenderable);
 				//renderer.render(screenQuadRenderable);
 
 				backupContext.makeCurrent();
 			}
 
-			//renderer.render(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
+			renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
+			renderer.debugRender(cubeGeometryData, Malachite::Vector3f{-6.0f, 3.0f, 0.0f}, Malachite::Vector3f{2.0f, 2.0f, 2.0f});
 
-			renderer.render(skyBox);
+			// renderer.render(skyBox);
 
 			renderer.endFrame();
 			glCheckError();

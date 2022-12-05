@@ -5,7 +5,7 @@
 namespace Ruby {
 	class RawGeometryData : public GeometryData {
 	public:
-		RawGeometryData() = default;
+		explicit RawGeometryData(DrawMode drawMode = DrawMode::TRIANGLES);
 
 		void setData(std::vector<float> positionalData);
 		void setData(std::vector<float> positionalData, std::vector<unsigned int> indexData);
@@ -17,7 +17,7 @@ namespace Ruby {
 		[[nodiscard]] std::vector<unsigned int> getIndices() const override;
 
 	private:
-		void setIndicies(std::vector<float> positionalData);
+		void setIndices(std::vector<float> positionalData);
 
 		std::vector<float> m_PositionalData;
 		std::vector<float> m_NormalData;

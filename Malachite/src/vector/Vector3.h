@@ -5,11 +5,15 @@
 
 namespace Malachite {
 	template<typename T>
+	class Vector4;
+
+	template<typename T>
 	class Vector3 {
 	public:
 		Vector3() {}
 		Vector3(T X, T Y, T Z) : x(X), y(Y), z(Z) {}
 		Vector3(T val) : x(val), y(val), z(val) {}
+		Vector3(Vector4<T> vector4) : x(vector4.x), y(vector4.y), z(vector4.z) {}
 
 		T x{ };
 		T y{ };

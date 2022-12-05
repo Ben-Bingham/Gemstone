@@ -23,13 +23,13 @@ namespace Ruby {
 		virtual void render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const;
 
 		void setMaterial(const Ptr<Material>& material);
+		void setGeometryData(const Ptr<GeometryData>& geometryData);
+		void setGeometryInstance(const Ptr<GeometryInstance>& geometryInstance);
 
 		Malachite::Matrix4f& getModelMatrix();
 
-		void setGeometryData(const GeometryData& geometry);
-
 	protected:
-		GeometryInstance& m_GeometryInstance;
+		Ptr<GeometryInstance> m_GeometryInstance;
 		
 		Ptr<Material> m_Material;
 

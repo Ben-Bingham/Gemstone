@@ -17,9 +17,10 @@ namespace Ruby {
 		[[nodiscard]] GeometryData& getGeometryData() const;
 		[[nodiscard]] size_t getIndexCount() const;
 
-	private:
-		Ptr<GeometryData> m_GeometryData;
+		void setData(const Ptr<GeometryData>& geometryData);
 
+	private:
+		Ptr<GeometryData> m_GeometryData{ nullptr };
 		VertexShader::LayoutData m_LayoutData;
 
 		VertexAttributeObject m_VAO{ };

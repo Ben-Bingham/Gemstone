@@ -1,6 +1,12 @@
 #include "RawGeometryData.h"
 
 namespace Ruby {
+	RawGeometryData::RawGeometryData(const DrawMode drawMode)
+		: GeometryData(drawMode) {
+		
+	}
+
+
 	std::vector<float> RawGeometryData::getVertices(VertexShader::LayoutData layoutData) const {
 		bool normals = false;
 		bool textureCoordinates = false;
@@ -46,7 +52,7 @@ namespace Ruby {
 		return m_IndexData;
 	}
 
-	void RawGeometryData::setIndicies(std::vector<float> positionalData) {
+	void RawGeometryData::setIndices(std::vector<float> positionalData) {
 		unsigned int numberOfVerticies = positionalData.size() / 3;
 		std::vector<unsigned int> indexData;
 		for (unsigned int i = 0; i < numberOfVerticies; i++) {
@@ -80,7 +86,7 @@ namespace Ruby {
 		m_NormalData = std::move(normals);
 		m_TextureCoordinateData = std::move(textureCoordinates);
 
-		setIndicies(m_PositionalData);
+		setIndices(m_PositionalData);
 	}
 
 	void RawGeometryData::setData(std::vector<float> positionalData, std::vector<unsigned int> indexData) {
@@ -93,7 +99,7 @@ namespace Ruby {
 		m_PositionalData = std::move(m_PositionalData);
 		m_NormalData = std::move(normalData);
 		m_TextureCoordinateData = std::move(textureCoordinateData);
-		setIndicies(positionalData);
+		setIndices(positionalData);
 	}
 
 	void RawGeometryData::setData(std::vector<float> positionalData, std::vector<float> normalData, std::vector<float> textureCoordinateData, std::vector<unsigned int> indexData) {
