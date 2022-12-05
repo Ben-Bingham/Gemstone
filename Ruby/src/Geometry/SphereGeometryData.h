@@ -9,7 +9,7 @@ namespace Ruby {
 	public:
 		SphereGeometryData(unsigned int numberOfStacks = 18u, unsigned int numberOfSectors = 36u);
 
-		[[nodiscard]] std::vector<float> getVertices(VertexShader::LayoutData layoutData) const override;
+		[[nodiscard]] std::vector<float> getVertices() const override;
 		[[nodiscard]] std::vector<unsigned int> getIndices() const override;
 
 	private:

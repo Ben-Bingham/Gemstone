@@ -1,13 +1,13 @@
 #include "GeometryInstance.h"
 
 namespace Ruby {
-	GeometryInstance::GeometryInstance(Ptr<GeometryData> geometryData, const VertexShader::LayoutData& layoutData)
-		: m_GeometryData(std::move(geometryData)), m_LayoutData(layoutData) {
+	GeometryInstance::GeometryInstance(Ptr<GeometryData> geometryData)
+		: m_GeometryData(std::move(geometryData)) {
 
 		m_VAO.bind();
 
 		m_VertexBuffer.bind();
-		const std::vector<float> vertices = m_GeometryData->getVertices(m_LayoutData);
+		const std::vector<float> vertices = m_GeometryData->getVertices();
 		if (!vertices.empty()) {
 			m_VertexBuffer.setData(vertices);
 		}
@@ -24,15 +24,11 @@ namespace Ruby {
 			m_IndexBuffer.setNoData();
 		}
 
-		m_VAO.configureForLayout(m_LayoutData);
+		m_VAO.configure();
 	}
 
 	void GeometryInstance::use() const {
 		m_VAO.bind();
-	}
-
-	VertexShader::LayoutData GeometryInstance::getDataLayout() const {
-		return m_LayoutData;
 	}
 
 	GeometryData& GeometryInstance::getGeometryData() const {
@@ -46,7 +42,7 @@ namespace Ruby {
 	void GeometryInstance::setData(const Ptr<GeometryData>& geometryData) {
 		m_GeometryData = geometryData;
 
-		const std::vector<float> vertices = m_GeometryData->getVertices(m_LayoutData);
+		const std::vector<float> vertices = m_GeometryData->getVertices();
 		const std::vector<unsigned int> indices = m_GeometryData->getIndices();
 
 		if (vertices.size() < m_VertexBuffer.getElementCount()) {

@@ -19,7 +19,7 @@ namespace Ruby {
 		void bind() const;
 		static void unbind();
 
-		void configureForLayout(VertexShader::LayoutData layoutData);
+		void configure();
 
 	private:
 		void compileAttributes(const std::vector<Attribute>& attributes);

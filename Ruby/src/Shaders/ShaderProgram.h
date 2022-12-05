@@ -31,8 +31,6 @@ namespace Ruby {
 
 		void use();
 
-		VertexShader::LayoutData getLayout() const;
-
 		// Basic uniforms Static Versions
 		static void upload(const std::string& variableName, const int value);
 		static void upload(const std::string& variableName, const float value);
@@ -44,8 +42,6 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Program;
-
-		VertexShader::LayoutData m_LayoutData;
 
 		static ShaderProgram* m_ActiveProgram;
 

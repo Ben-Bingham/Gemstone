@@ -3,8 +3,7 @@
 #include "Shaders/Uniforms/UniformSet.h"
 
 namespace Ruby {
-	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader)
-		: m_LayoutData(vertexShader.getLayout()) {
+	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const FragmentShader& fragmentShader) {
 		int success;
 
 		m_Program = glCreateProgram();
@@ -22,8 +21,7 @@ namespace Ruby {
 		}
 	}
 
-	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const GeometryShader& geometryShader, const FragmentShader& fragmentShader)
-		: m_LayoutData(vertexShader.getLayout()) {
+	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const GeometryShader& geometryShader, const FragmentShader& fragmentShader) {
 		int success;
 
 		m_Program = glCreateProgram();
@@ -43,8 +41,7 @@ namespace Ruby {
 	}
 
 	ShaderProgram::ShaderProgram(ShaderProgram&& other) noexcept
-		: m_Program(std::move(other.m_Program)),
-		m_LayoutData(std::move(other.m_LayoutData)) {
+		: m_Program(std::move(other.m_Program)){
 		other.m_Program = 0;
 	}
 
@@ -52,7 +49,6 @@ namespace Ruby {
 		m_Program = std::move(other.m_Program);
 		other.m_Program = 0;
 
-		m_LayoutData = std::move(other.m_LayoutData);
 		return *this;
 	}
 
@@ -64,10 +60,6 @@ namespace Ruby {
 		}
 		glUseProgram(m_Program);
 		m_ActiveProgram = this;
-	}
-
-	VertexShader::LayoutData ShaderProgram::getLayout() const {
-		return m_LayoutData;
 	}
 
 	// Basic uniforms

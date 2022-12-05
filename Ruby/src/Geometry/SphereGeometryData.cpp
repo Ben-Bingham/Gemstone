@@ -9,22 +9,7 @@ namespace Ruby {
 		: numberOfSectors(NumberOfSectors)
 		, numberOfStacks(NumberOfStacks) { }
 
-	std::vector<float> SphereGeometryData::getVertices(VertexShader::LayoutData layoutData) const {
-		bool normals = false;
-		bool textureCoordinates = false;
-
-		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
-			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
-			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::NORMAL) {
-			normals = true;
-		}
-
-		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
-			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
-			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES) {
-			textureCoordinates = true;
-		}
-
+	std::vector<float> SphereGeometryData::getVertices() const {
 		std::vector<float> verticies;
 
 		Malachite::Radian sectorStep = 2 * Malachite::pi / numberOfSectors;
@@ -41,18 +26,16 @@ namespace Ruby {
 				verticies.push_back(sinf(stackAngle));
 				verticies.push_back(sinf(sectorAngle) * cosf(stackAngle));
 
-				if (normals) {
-					// normals
-					verticies.push_back(cosf(sectorAngle) * cosf(stackAngle));
-					verticies.push_back(sinf(stackAngle));
-					verticies.push_back(sinf(sectorAngle) * cosf(stackAngle));
-				}
+				// normals
+				verticies.push_back(cosf(sectorAngle) * cosf(stackAngle));
+				verticies.push_back(sinf(stackAngle));
+				verticies.push_back(sinf(sectorAngle) * cosf(stackAngle));
+			
 
-				if (textureCoordinates) {
-					// texture cordinates
-					verticies.push_back(static_cast<float>(j) / numberOfSectors);
-					verticies.push_back(static_cast<float>(i) / numberOfStacks);
-				}
+				// texture cordinates
+				verticies.push_back(static_cast<float>(j) / numberOfSectors);
+				verticies.push_back(static_cast<float>(i) / numberOfStacks);
+				
 			}
 		}
 

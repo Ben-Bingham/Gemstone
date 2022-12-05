@@ -9,11 +9,10 @@
 namespace Ruby {
 	class GeometryInstance {
 	public:
-		GeometryInstance(Ptr<GeometryData> geometryData, const VertexShader::LayoutData& layoutData);
+		GeometryInstance(Ptr<GeometryData> geometryData);
 
 		void use() const;
 
-		[[nodiscard]] VertexShader::LayoutData getDataLayout() const;
 		[[nodiscard]] GeometryData& getGeometryData() const;
 		[[nodiscard]] size_t getIndexCount() const;
 
@@ -21,7 +20,6 @@ namespace Ruby {
 
 	private:
 		Ptr<GeometryData> m_GeometryData{ nullptr };
-		VertexShader::LayoutData m_LayoutData;
 
 		VertexAttributeObject m_VAO{ };
 		VertexBuffer m_VertexBuffer{ };

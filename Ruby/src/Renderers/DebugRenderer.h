@@ -22,7 +22,7 @@ namespace Ruby {
 		std::vector<Malachite::Vector3f> m_Points;
 		Ptr<SolidMaterial> m_Material;
 		Renderable m_Renderable;
-		Ptr<GeometryInstance> m_GeometryInstance{ createPtr<GeometryInstance>(createPtr<RawGeometryData>(), m_Material->getLayout()) };
+		Ptr<GeometryInstance> m_GeometryInstance{ createPtr<GeometryInstance>(createPtr<RawGeometryData>()) };
 		Renderer* m_Renderer{ nullptr };
 	};
 }

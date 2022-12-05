@@ -7,7 +7,7 @@ namespace Ruby {
 	public:
 		PlaneGeometryData() = default;
 
-		[[nodiscard]] std::vector<float> getVertices(VertexShader::LayoutData) const override;
+		[[nodiscard]] std::vector<float> getVertices() const override;
 		[[nodiscard]] std::vector<unsigned int> getIndices() const override;
 
 	private:

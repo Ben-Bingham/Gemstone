@@ -36,40 +36,12 @@ namespace Ruby {
 		glBindVertexArray(0);
 	}
 
-	void VertexAttributeObject::configureForLayout(VertexShader::LayoutData layoutData) {
+	void VertexAttributeObject::configure() {
 		std::vector<Attribute> attributes;
-		switch (layoutData.location1.type) {
-		case VertexShader::LayoutDataElement::DataType::NONE: 
-			break;
-		case VertexShader::LayoutDataElement::DataType::VECTOR_3F:
-			attributes.push_back(3);
-			break;
-		case VertexShader::LayoutDataElement::DataType::VECTOR_2F:
-			attributes.push_back(2);
-			break;
-		}
 
-		switch (layoutData.location2.type) {
-		case VertexShader::LayoutDataElement::DataType::NONE: 
-			break;
-		case VertexShader::LayoutDataElement::DataType::VECTOR_3F:
-			attributes.push_back(3);
-			break;
-		case VertexShader::LayoutDataElement::DataType::VECTOR_2F:
-			attributes.push_back(2);
-			break;
-		}
-
-		switch (layoutData.location3.type) {
-		case VertexShader::LayoutDataElement::DataType::NONE: 
-			break;
-		case VertexShader::LayoutDataElement::DataType::VECTOR_3F:
-			attributes.push_back(3);
-			break;
-		case VertexShader::LayoutDataElement::DataType::VECTOR_2F:
-			attributes.push_back(2);
-			break;
-		}
+		attributes.push_back(3);
+		attributes.push_back(3);
+		attributes.push_back(2);
 
 		compileAttributes(attributes);
 	}

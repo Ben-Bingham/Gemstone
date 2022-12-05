@@ -4,7 +4,7 @@
 
 namespace Ruby {
 	Renderable::Renderable(const Ptr<GeometryData>& geometryData, const Ptr<Material>& material)
-		: m_GeometryInstance(GeometryInstances::get(geometryData, material->getLayout())), m_Material(material) {
+		: m_GeometryInstance(GeometryInstances::get(geometryData)), m_Material(material) {
 
 	}
 
@@ -17,7 +17,7 @@ namespace Ruby {
 	}
 
 	void Renderable::setGeometryData(const Ptr<GeometryData>& geometryData) {
-		m_GeometryInstance = GeometryInstances::get(geometryData, m_Material->getLayout());
+		m_GeometryInstance = GeometryInstances::get(geometryData);
 	}
 
 	void Renderable::setGeometryInstance(const Ptr<GeometryInstance>& geometryInstance) {

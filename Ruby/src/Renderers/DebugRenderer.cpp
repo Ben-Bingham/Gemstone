@@ -39,7 +39,7 @@ namespace Ruby {
 	}
 
 	void DebugRenderer::queue(const Ptr<GeometryData>& geometryData, Malachite::Vector3f position, Malachite::Vector3f scale) {
-		const std::vector<float> floatVertices = geometryData->getVertices(m_Material->getLayout());
+		const std::vector<float> floatVertices = geometryData->getVertices();
 
 		std::vector<Malachite::Vector3f> vec3Vertices{};
 		for (size_t i = 0; i < floatVertices.size(); i += 3) {

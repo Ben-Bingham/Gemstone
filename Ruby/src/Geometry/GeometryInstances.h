@@ -12,7 +12,7 @@ namespace Ruby {
 		GeometryInstances(const GeometryInstances& other) = delete;
 		GeometryInstances& operator=(const GeometryInstances& other) = delete;
 
-		static Ptr<GeometryInstance> get(const Ptr<GeometryData>& geometryData, VertexShader::LayoutData layoutData);
+		static Ptr<GeometryInstance> get(const Ptr<GeometryData>& geometryData);
 
 	private:
 		GeometryInstances() = default;

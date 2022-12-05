@@ -24,78 +24,49 @@ namespace Ruby {
 			: shadowPhongShader(
 				shaderInit(
 					std::string(RUBY_ASSETS) + "\\shaders\\ShadowPhong.vert",
-					std::string(RUBY_ASSETS) + "\\shaders\\ShadowPhong.frag",
-					VertexShader::LayoutData{
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::POSITION },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::NORMAL },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_2F, VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES }
-					}
+					std::string(RUBY_ASSETS) + "\\shaders\\ShadowPhong.frag"
 				)
 			)
 			, solidShader(
 				shaderInit(
 					std::string(RUBY_ASSETS) + "\\shaders\\Solid.vert",
-					std::string(RUBY_ASSETS) + "\\shaders\\Solid.frag",
-					VertexShader::LayoutData{
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::POSITION },
-					}
+					std::string(RUBY_ASSETS) + "\\shaders\\Solid.frag"
 				)
 			)
 			, directionalDepthShader(
 				shaderInit(
 					std::string(RUBY_ASSETS) + "\\shaders\\DirectionalDepth.vert",
-					std::string(RUBY_ASSETS) + "\\shaders\\DirectionalDepth.frag",
-					VertexShader::LayoutData{
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::POSITION },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::NORMAL },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_2F, VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES }
-					}
+					std::string(RUBY_ASSETS) + "\\shaders\\DirectionalDepth.frag"
 				)
 			)
 			, imageShader(
 				shaderInit(
 					std::string(RUBY_ASSETS) + "\\shaders\\Image.vert",
-					std::string(RUBY_ASSETS) + "\\shaders\\Image.frag",
-					VertexShader::LayoutData{
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::POSITION },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_2F, VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES }
-					}
+					std::string(RUBY_ASSETS) + "\\shaders\\Image.frag"
 				)
 			)
 			, skyBoxShader(
 				shaderInit(
 					std::string(RUBY_ASSETS) + "\\shaders\\Skybox.vert",
-					std::string(RUBY_ASSETS) + "\\shaders\\Skybox.frag",
-					VertexShader::LayoutData{
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::POSITION }
-					}
+					std::string(RUBY_ASSETS) + "\\shaders\\Skybox.frag"
 				)
 			)
 			, phongShader(
 				shaderInit(
 					std::string(RUBY_ASSETS) + "\\shaders\\Phong.vert",
-					std::string(RUBY_ASSETS) + "\\shaders\\Phong.frag",
-					VertexShader::LayoutData{
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::POSITION },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::NORMAL },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_2F, VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES }
-					}
+					std::string(RUBY_ASSETS) + "\\shaders\\Phong.frag"
 				)
 			)
 			, screenQuadShader(
 				shaderInit(
 					std::string(RUBY_ASSETS) + "\\shaders\\ScreenQuad.vert",
-					std::string(RUBY_ASSETS) + "\\shaders\\ScreenQuad.frag",
-					VertexShader::LayoutData{
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_3F, VertexShader::LayoutDataElement::DataName::POSITION },
-						VertexShader::LayoutDataElement{ VertexShader::LayoutDataElement::DataType::VECTOR_2F, VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES }
-					}
+					std::string(RUBY_ASSETS) + "\\shaders\\ScreenQuad.frag"
 				)
 			) {
 		}
 
-		static ShaderProgram shaderInit(const std::string& vertexShaderPath, const std::string& fragmentShaderPath, const VertexShader::LayoutData layoutData) {
-			return ShaderProgram{VertexShader{vertexShaderPath, layoutData}, FragmentShader{fragmentShaderPath}};
+		static ShaderProgram shaderInit(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
+			return ShaderProgram{VertexShader{vertexShaderPath}, FragmentShader{fragmentShaderPath}};
 		}
 	};
 }

@@ -12,8 +12,6 @@ namespace Ruby {
 		virtual void use(const Malachite::Matrix4f& model, const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) = 0;
 		virtual void end();
 
-		[[nodiscard]] VertexShader::LayoutData getLayout() const;
-
 	protected:
 		ShaderProgram* m_Program;
 	};

@@ -7,22 +7,7 @@ namespace Ruby {
 	}
 
 
-	std::vector<float> RawGeometryData::getVertices(VertexShader::LayoutData layoutData) const {
-		bool normals = false;
-		bool textureCoordinates = false;
-
-		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
-			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::NORMAL ||
-			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::NORMAL) {
-			normals = true;
-		}
-
-		if (layoutData.location1.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
-			layoutData.location2.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES ||
-			layoutData.location3.name == VertexShader::LayoutDataElement::DataName::TEXTURE_COORDINATES) {
-			textureCoordinates = true;
-		}
-
+	std::vector<float> RawGeometryData::getVertices() const {
 		std::vector<float> verticies;
 		unsigned int numberOfVerticies{ (unsigned int)m_PositionalData.size() / 3u };
 		unsigned int j{ 0 };
@@ -33,16 +18,13 @@ namespace Ruby {
 			verticies.push_back(m_PositionalData[j + 1]);
 			verticies.push_back(m_PositionalData[j + 2]);
 
-			if (normals) {
-				verticies.push_back(m_NormalData[g + 0]);
-				verticies.push_back(m_NormalData[g + 1]);
-				verticies.push_back(m_NormalData[g + 2]);
-			}
+			verticies.push_back(m_NormalData[g + 0]);
+			verticies.push_back(m_NormalData[g + 1]);
+			verticies.push_back(m_NormalData[g + 2]);
+		
 
-			if (textureCoordinates) {
-				verticies.push_back(m_TextureCoordinateData[v + 0]);
-				verticies.push_back(m_TextureCoordinateData[v + 1]);
-			}
+			verticies.push_back(m_TextureCoordinateData[v + 0]);
+			verticies.push_back(m_TextureCoordinateData[v + 1]);
 		}
 
 		return verticies;

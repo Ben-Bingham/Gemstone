@@ -39,14 +39,14 @@ int main() {
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
-	Ruby::Ptr<Ruby::SkyBoxMaterial> skyBoxMat = Ruby::createPtr<Ruby::SkyBoxMaterial>( std::initializer_list<Ruby::Ptr<Ruby::Image>>{
+	Ruby::Ptr<Ruby::SkyBoxMaterial> skyBoxMat = Ruby::createPtr<Ruby::SkyBoxMaterial>(std::initializer_list<Ruby::Ptr<Ruby::Image>>{
 		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\right.jpg", false),
-		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\left.jpg", false),
-		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\top.jpg", false),
-		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\bottom.jpg", false),
-		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\front.jpg", false),
-		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\back.jpg", false)
-	} );
+			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\left.jpg", false),
+			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\top.jpg", false),
+			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\bottom.jpg", false),
+			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\front.jpg", false),
+			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\back.jpg", false)
+	});
 
 	Ruby::SkyBox skyBox{ skyBoxMat };
 
@@ -61,7 +61,7 @@ int main() {
 	Ruby::Ptr<Ruby::PhongMaterial> containerMaterial = Ruby::createPtr<Ruby::PhongMaterial>(
 		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2.png")),
 		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2_specular.png"))
-	);
+		);
 
 	std::vector<Ruby::DirectionalLight*> directionalLights{};
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
@@ -73,13 +73,13 @@ int main() {
 	phongCube.getModelMatrix().translate(-3.0f, 0.0f, 0.0f);
 
 	auto doughnutTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\Donut4.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> donutMat = Ruby::createPtr<Ruby::PhongMaterial>(doughnutTexture,doughnutTexture);
+	Ruby::Ptr<Ruby::PhongMaterial> donutMat = Ruby::createPtr<Ruby::PhongMaterial>(doughnutTexture, doughnutTexture);
 
 	auto earthTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\earth.jpg"));
 	Ruby::Ptr<Ruby::PhongMaterial> earthMat = Ruby::createPtr<Ruby::PhongMaterial>(earthTexture, earthTexture);
 
 	auto pawnTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\White Pawn.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> pawnMat = Ruby::createPtr<Ruby::PhongMaterial>(pawnTexture, pawnTexture );
+	Ruby::Ptr<Ruby::PhongMaterial> pawnMat = Ruby::createPtr<Ruby::PhongMaterial>(pawnTexture, pawnTexture);
 
 	auto awesomeFaceTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\awesomeface.png"));
 	Ruby::Ptr<Ruby::PhongMaterial> awesomeMat = Ruby::createPtr<Ruby::PhongMaterial>(awesomeFaceTexture, awesomeFaceTexture);
@@ -104,13 +104,16 @@ int main() {
 	Ruby::Renderable planeRenderable{ planeGeometryData, containerMaterial };
 	planeRenderable.getModelMatrix().translate(3.0f, 3.0f, 0.0f);
 
-	Ruby::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Ruby::createPtr<Ruby::TextureMaterial>( awesomeFaceTexture );
+	Ruby::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Ruby::createPtr<Ruby::TextureMaterial>(awesomeFaceTexture);
 	Ruby::Renderable texturedRenderable{ planeGeometryData, awesomeFaceMaterial };
 	texturedRenderable.getModelMatrix().translate(-3.0f, 3.0f, 0.0f);
 
-	Ruby::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Ruby::createPtr<Ruby::ScreenMaterial>( earthTexture );
+	Ruby::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Ruby::createPtr<Ruby::ScreenMaterial>(earthTexture);
 	Ruby::Renderable screenQuadRenderable{ planeGeometryData, awesomeFaceMaterial2 };
 	screenQuadRenderable.getModelMatrix().scale(0.5f).translate(-0.5f, -0.5f, 0.0f);
+
+	Ruby::Renderable bigSphere{sphereGeometryData, blueMaterial};
+	bigSphere.getModelMatrix().scale(100.0f, 100.0f, 100.0f).translate(0.0f, 100.0f, 0.0f);
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -154,14 +157,15 @@ int main() {
 		{ // Rendering
 			renderer.beginFrame();
 
-			// renderer.render(donut);
-			// renderer.render(earthRenderable);
-			// renderer.render(pawn);
-			// renderer.render(awesomeRenderable);
-			// renderer.render(awesomeRenderable2);
+			renderer.render(donut);
+			// renderer.render(bigSphere);
+			renderer.render(earthRenderable);
+			renderer.render(pawn);
+			renderer.render(awesomeRenderable);
+			renderer.render(awesomeRenderable2);
 
-			// renderer.render(testCube);
-			// renderer.render(phongCube);
+			renderer.render(testCube);
+			renderer.render(phongCube);
 
 			{ // Planes
 				Ruby::OpenGlContext backupContext = Ruby::OpenGlContext::getCurrent();
@@ -169,17 +173,17 @@ int main() {
 				newContext.faceToCull = Ruby::OpenGlContext::FaceCull::NONE;
 				newContext.makeCurrent();
 
-				// renderer.render(planeRenderable);
-				// renderer.render(texturedRenderable);
+				renderer.render(planeRenderable);
+				renderer.render(texturedRenderable);
 				//renderer.render(screenQuadRenderable);
 
 				backupContext.makeCurrent();
 			}
 
-			renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
-			renderer.debugRender(cubeGeometryData, Malachite::Vector3f{-6.0f, 3.0f, 0.0f}, Malachite::Vector3f{2.0f, 2.0f, 2.0f});
+			// renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ 5.0f, 5.0f, 5.0f } });
+			// renderer.debugRender(cubeGeometryData, Malachite::Vector3f{-6.0f, 3.0f, 0.0f}, Malachite::Vector3f{2.0f, 2.0f, 2.0f});
 
-			// renderer.render(skyBox);
+			renderer.render(skyBox);
 
 			renderer.endFrame();
 			glCheckError();

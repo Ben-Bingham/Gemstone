@@ -13,7 +13,7 @@ namespace Ruby {
 		void setData(std::vector<float> positionalData, std::vector<float> normalData, std::vector<float> textureCoordinateData);
 		void setData(std::vector<float> positionalData, std::vector<float> normalData, std::vector<float> textureCoordinateData, std::vector<unsigned int> indexData);
 
-		[[nodiscard]] std::vector<float> getVertices(VertexShader::LayoutData) const override;
+		[[nodiscard]] std::vector<float> getVertices() const override;
 		[[nodiscard]] std::vector<unsigned int> getIndices() const override;
 
 	private:
