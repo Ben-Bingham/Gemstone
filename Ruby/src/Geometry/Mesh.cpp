@@ -53,6 +53,14 @@ namespace Ruby {
 		return m_IndexBuffer.getElementCount();
 	}
 
+	Vertices Mesh::getVertices() const {
+		return m_Vertices;
+	}
+
+	Indices Mesh::getIndices() const {
+		return m_Indices;
+	}
+
 	Vertices Mesh::getVerticesFromShape(const Shape shape) {
 		switch (shape) {
 		case Shape::CUBE:
@@ -80,7 +88,12 @@ namespace Ruby {
 	}
 
 	void Mesh::edit(const Vertices& newVertices, const unsigned offset) {
-		m_Vertices.insert(m_Vertices.begin() + offset - 1, newVertices.begin(), newVertices.end());
+		if (newVertices.size() + offset < m_Vertices.size()) {
+			memcpy(m_Vertices.data() + offset, newVertices.data(), newVertices.size() * sizeof(Vertex));
+		}
+		else {
+			m_Vertices = newVertices;
+		}
 
 		if (newVertices.size() + offset < m_VertexBuffer.getElementCount() / 5) {
 			m_VertexBuffer.setSubData(*(std::vector<float>*)(void*)&newVertices, offset);
@@ -91,7 +104,12 @@ namespace Ruby {
 	}
 
 	void Mesh::edit(const Indices& newIndices, const unsigned offset) {
-		m_Indices.insert(m_Indices.begin() + offset, newIndices.begin(), newIndices.end());
+		if (newIndices.size() + offset < m_Indices.size()) {
+			memcpy(m_Indices.data() + offset, newIndices.data(), newIndices.size() * sizeof(Index));
+		}
+		else {
+			m_Indices = newIndices;
+		}
 
 		if (newIndices.size() + offset < m_VertexBuffer.getElementCount() / 5) {
 			m_IndexBuffer.setSubData(*(std::vector<unsigned int>*)(void*)&newIndices, offset);

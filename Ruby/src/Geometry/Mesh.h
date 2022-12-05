@@ -27,6 +27,9 @@ namespace Ruby {
 		void setDrawMode(DrawMode drawMode);
 
 		[[nodiscard]] size_t getIndexCount() const;
+		[[nodiscard]] Vertices getVertices() const;
+		[[nodiscard]] Indices getIndices() const;
+	
 
 		void edit(const Vertices& newVertices, unsigned int offset);
 		void edit(const Indices& newIndices, unsigned int offset);

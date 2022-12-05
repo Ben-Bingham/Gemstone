@@ -62,7 +62,7 @@ namespace Ruby {
 
         template<typename... T>
         void debugRender(T...args) {
-            // m_DebugRenderer.queue(args...);
+            m_DebugRenderer.queue(args...);
         }
 
         ShaderLibrary& shaders{ ShaderLibrary::get() };
@@ -73,6 +73,6 @@ namespace Ruby {
 
         OpenGlContext m_Context{ OpenGlContext{} };
 
-        // DebugRenderer m_DebugRenderer{ this };
+        DebugRenderer m_DebugRenderer{ this };
 	};
 }
