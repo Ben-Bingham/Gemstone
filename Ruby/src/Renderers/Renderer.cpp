@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "DebugRenderer.h"
+#include "OpenGLState.h"
 
 namespace Ruby {
 	Renderer::Renderer(Camera& camera, Wavellite::Window& window)
@@ -16,7 +17,11 @@ namespace Ruby {
 			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
 		}
 
-		m_Context.forceMakeCurrent();
+		OpenGlState::get().setDepthTesting(true);
+		OpenGlState::get().setDepthBufferWriting(true);
+		OpenGlState::get().setDepthFunction(OpenGlState::Comparison::LESS_THAN);
+		OpenGlState::get().setFaceToCull(OpenGlState::Face::BACK);
+		OpenGlState::get().setFrontFaceDirection(OpenGlState::Direction::CLOCKWISE);
 	}
 
 	void Renderer::beginFrame() {
@@ -25,15 +30,13 @@ namespace Ruby {
 	}
 
 	void Renderer::endFrame() {
-		const OpenGlContext backupContext = OpenGlContext::getCurrent();
-		OpenGlContext newContext = backupContext;
-		newContext.depthFunction = OpenGlContext::DepthFunction::LESS_THAN_OR_EQUAL;
-		newContext.depthMask = false;
-		newContext.makeCurrent();
+		const bool depthTesting = OpenGlState::get().getDepthTesting();
+
+		OpenGlState::get().setDepthTesting(false);
 
 		m_DebugRenderer.render();
 
-		backupContext.makeCurrent();
+		OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
 	void Renderer::render(const Renderable& renderable) const {

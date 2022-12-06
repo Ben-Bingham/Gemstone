@@ -1,7 +1,5 @@
 #pragma once
 
-#include "OpenGLContext.h"
-
 #include "Shaders/ShaderProgram.h"
 
 namespace Ruby {

@@ -172,20 +172,18 @@ int main() {
 			renderer.render(phongCube);
 
 			{ // Planes
-				Ruby::OpenGlContext backupContext = Ruby::OpenGlContext::getCurrent();
-				Ruby::OpenGlContext newContext = backupContext;
-				newContext.faceToCull = Ruby::OpenGlContext::FaceCull::NONE;
-				newContext.makeCurrent();
+				Ruby::OpenGlState::Face culledFace = Ruby::OpenGlState::get().getFaceToCull();
+				Ruby::OpenGlState::get().setFaceToCull(Ruby::OpenGlState::Face::NONE);
 
 				renderer.render(planeRenderable);
 				renderer.render(texturedRenderable);
 				// renderer.render(screenQuadRenderable);
 
-				backupContext.makeCurrent();
+				Ruby::OpenGlState::get().setFaceToCull(culledFace);
 			}
 
-			// renderer.debugRender(cubeGeometryData, Malachite::Vector3f{-6.0f, 3.0f, 0.0f}, Malachite::Vector3f{2.0f, 2.0f, 2.0f});
 			renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ (float)mouse.xPosition, (float)mouse.yPosition, 5.0f } });
+			//renderer.debugRender(cubeMesh, Malachite::Vector3f{0.0f, 0.0f, 0.0f}, Malachite::Vector3f{3.0f, 3.0f, 3.0f});
 
 			renderer.render(skyBox);
 

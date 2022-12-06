@@ -12,7 +12,8 @@ namespace Ruby {
 	
 		void queue(const std::vector<float>& points);
 		void queue(const std::vector<Malachite::Vector3f>& points);
-	
+		void queue(const Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale);
+
 		void render();
 	
 	private:

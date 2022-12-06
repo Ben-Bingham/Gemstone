@@ -38,6 +38,26 @@ namespace Ruby {
 		}
 	}
 
+	void DebugRenderer::queue(const Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale) {
+		const Vertices vertices = mesh->getVertices();
+
+		if (vertices.empty()) {
+			LOG("Empty mesh supplied, noting will be queued.", Lazuli::LogLevel::WARNING);
+			return;
+		}
+
+		Malachite::Matrix4f transformMatrix{ 1.0f };
+		transformMatrix.translate(position).scale(scale);
+
+		std::vector<Malachite::Vector3f> points;
+		for (const Vertex& vertex : vertices) {
+			const Malachite::Vector3f vector = Malachite::Vector3f{ Malachite::Vector4f{vertex.position, 1.0f} *transformMatrix };
+			points.push_back(vector);
+		}
+
+		queue(points);
+	}
+
 	void DebugRenderer::render() {
 		const std::vector<float> pointsAsFloats = *(std::vector<float>*)(void*)&m_Points;
 		Vertices vertices{};
