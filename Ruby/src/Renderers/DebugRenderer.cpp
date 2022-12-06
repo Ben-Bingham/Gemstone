@@ -71,7 +71,6 @@ namespace Ruby {
 			j += 3;
 		}
 		
-		
 		if (!vertices.empty() && m_Mesh->getVertices() != vertices) {
 			m_Mesh->edit(vertices);
 		}
