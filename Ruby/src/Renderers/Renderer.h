@@ -71,5 +71,7 @@ namespace Ruby {
         Wavellite::Window* m_Window{ nullptr };
 
         DebugRenderer m_DebugRenderer{ this };
+
+        Malachite::Matrix4f m_ViewMatrix{ 1.0f };
 	};
 }

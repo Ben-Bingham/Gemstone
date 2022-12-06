@@ -27,6 +27,8 @@ namespace Ruby {
 	void Renderer::beginFrame() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
 	void Renderer::endFrame() {
@@ -40,7 +42,7 @@ namespace Ruby {
 	}
 
 	void Renderer::render(const Renderable& renderable) const {
-		renderable.render(m_Camera->getViewMatrix(), m_Window->getProjectionMatrix()); //TODO every time getViewMatrix is called it is recalculated
+		renderable.render(m_ViewMatrix, m_Window->getProjectionMatrix());
 	}
 
 	void APIENTRY glDebugOutput(

@@ -10,15 +10,18 @@
 #include "Materials/SolidMaterial.h"
 #include "Renderable Objects/SkyBox.h"
 #include "Resources/Image.h"
+#include "Materials/ScreenMaterial.h"
+#include "Materials/TextureMaterial.h"
+#include "OpenGlErrors.h"
+
+// Pyrite
+#include "Units.h"
+#include "PhysicsWorld.h"
 
 // Custom
 #include "FPSCamera.h"
 
-#include "Materials/ScreenMaterial.h"
-#include "Materials/TextureMaterial.h"
-
-#include <OpenGlErrors.h>
-
+// Base
 #include "Pointer.h"
 
 int main() {
@@ -57,7 +60,7 @@ int main() {
 	Ruby::Ptr<Ruby::PhongMaterial> containerMaterial = Ruby::createPtr<Ruby::PhongMaterial>(
 		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2.png")),
 		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2_specular.png"))
-		);
+	);
 
 	std::vector<Ruby::DirectionalLight*> directionalLights{};
 	Ruby::DirectionalLight directionalLight{ Malachite::Vector3f{ 3.0f, -3.0f, 0.5f } };
@@ -183,7 +186,7 @@ int main() {
 			}
 
 			renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ (float)mouse.xPosition, (float)mouse.yPosition, 5.0f } });
-			renderer.debugRender(cubeMesh, Malachite::Vector3f{0.0f, 0.0f, 0.0f}, Malachite::Vector3f{3.0f, 3.0f, 3.0f});
+			//renderer.debugRender(cubeMesh, Malachite::Vector3f{0.0f, 0.0f, 0.0f}, Malachite::Vector3f{3.0f, 3.0f, 3.0f}); //TODO non functional
 
 			renderer.render(skyBox);
 

@@ -9,7 +9,7 @@
 namespace Ruby {
 	class SolidMaterial : public Material {
 	public:
-		explicit SolidMaterial(const Colour& colour = Colour{ 224, 17, 95 }) //TODO split into .h and .cpp
+		explicit SolidMaterial(const Colour& colour = Colour{ 224, 17, 95 })
 			: Material(ShaderLibrary::get().solidShader), colour(colour) {
 			
 		}
