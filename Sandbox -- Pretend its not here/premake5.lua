@@ -1,10 +1,11 @@
 project "Sandbox"
+	print "Initializing Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
 
-	targetdir ("%{wks.location}/build/bin/%{prj.name}")
-	objdir ("%{wks.location}/build/bin-int/%{prj.name}")
+	targetdir "%{wks.location}/build/bin/%{prj.name}"
+	objdir "%{wks.location}/build/bin-int/%{prj.name}"
 
 	files {
 		"src/**.h",
@@ -12,7 +13,7 @@ project "Sandbox"
 	}
 
 	includedirs {
-		"src",
+		"src"
 		-- -- Vendor
 		-- "%{wks.location}/vendor/GLFW/include",
 		-- "%{wks.location}/vendor/glew-2.1.0/include",
@@ -31,7 +32,7 @@ project "Sandbox"
 	-- 	"%{wks.location}/vendor/glew-2.1.0/lib/Release/x64"
 	-- }
 
-	include "%{wks.location}/Gemstone/Gemstone"
+	include "../Gemstone"
 	-- links {
 	-- 	-- Vendor
 	-- 	"glfw3",
@@ -45,3 +46,4 @@ project "Sandbox"
 	-- 	"Wavellite",
 	-- 	"ImGui"
 	-- }
+	print "Sandbox Initialized"

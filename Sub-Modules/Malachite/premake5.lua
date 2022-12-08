@@ -1,5 +1,7 @@
 project "Malachite"
-	kind "SharedLib"
+	print "Initializing Malachite"
+
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++20"
 	
@@ -13,14 +15,16 @@ project "Malachite"
 	
 	filter {}
 	
-	targetdir ("build/bin/%{prj.name}")
-	objdir ("build/bin-int/%{prj.name}")
+	targetdir "%{wks.location}/build/bin/%{prj.name}"
+	objdir "%{wks.location}/build/bin-int/%{prj.name}"
 	
 	files {
-		"Malachite/src/**.h",
-		"Malachite/src/**.cpp"
+		"src/**.h",
+		"src/**.cpp"
 	}
 	
 	includedirs {
-		"Malachite/src"
+		"src"
 	}
+
+	print "Malachite Initialized"

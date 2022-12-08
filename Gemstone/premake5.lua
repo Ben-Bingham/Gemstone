@@ -1,21 +1,22 @@
 project "Gemstone"
-	print "Initializing Gemstone (Project)"
+	print "Initializing Gemstone"
+
 	kind "SharedLib"
 	language "C++"
 	cppdialect "C++20"
 
 	filter "configurations:Debug"
-		defines { "GEMSTONE_DEBUG"}
+		defines "GEMSTONE_DEBUG"
 		symbols "On"
 	
 	filter "configurations:Release"
-		defines { "GEMSTONE_RELEASE" }
+		defines "GEMSTONE_RELEASE"
 		optimize "On"
 
 	filter {}
 
-	targetdir ("build/bin/%{prj.name}")
-	objdir ("build/bin-int/%{prj.name}")
+	targetdir "%{wks.location}/build/bin/%{prj.name}"
+	objdir "%{wks.location}/build/bin-int/%{prj.name}"
 
 	-- includedirs {
 	-- 	workspaceDir .. "Ruby/src",
@@ -35,19 +36,22 @@ project "Gemstone"
 	-- 	workspaceDir .. "vendor/glew-2.1.0/lib/Release/x64"
 	-- }
 
-	include {
+	-- include {
 	-- 	-- Vendor
 	-- 	-- "glfw3",
 	-- 	-- "glew32s",
 	-- 	-- "opengl32",
 	-- 	-- Dependencies
-		"Malachite",
-		"Lazuli",
-		"Wavellite",
-		"Pyrite",
-		"Ruby"
-	}
-
+		-- "Malachite",
+		-- "Lazuli",
+		-- "Wavellite",
+		-- "Pyrite",
+		-- "Ruby"
+	-- }
+	--group "Dependencies"
+		--include "Dependencies/Malachite"
+	--group ""
 	-- group "Vendor"
 	-- 	project_ImGui("")
 	-- group ""
+	print "Gemstone Initialized"

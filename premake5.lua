@@ -5,11 +5,11 @@
 -- require "Ruby/premake5"
 --require "vendor/imgui/premake5"
 
-workspace "Sandbox"
-	print "Initializing Master Workspace"
+workspace "Gemstone"
+	print "Initializing Gemstone"
 
 	configurations { "Debug", "Release" }
-	-- platforms { "x64" }
+	platforms { "x64" }
 
 	filter "platforms:x64"
 		architecture "x64"
@@ -45,9 +45,14 @@ workspace "Sandbox"
 	-- group "Vendor"
 	-- 	project_ImGui("")
 	-- group ""
+	group "Core"
+		include "Gemstone"
+	group ""
 
-	-- include "Gemstone"
-	include "Sandbox"
+	group "Sub-modules"
+		include "Gemstone/Malachite"
+	group ""
+	--include "Sandbox"
 	-- links {
 	-- 	"Gemstone",
 	-- 	-- "Sandbox"
@@ -64,3 +69,5 @@ workspace "Sandbox"
 		--project_Emerald("")
 		--include "Sandbox"
 	--group ""
+
+	print "Gemstone Initialized"
