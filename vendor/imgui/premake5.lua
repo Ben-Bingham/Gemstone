@@ -1,30 +1,36 @@
-function project_ImGui(workspaceDir)
-    project "ImGui"
-        kind "StaticLib"
-        location(workspaceDir .."vendor/imgui")
-        language "C++"
+require "../GLFW/premake5"
 
-        cppdialect "C++17"
+function useImGui()
+    links "ImGui"
 
-        targetdir (workspaceDir .. "vendor/imgui/build/bin/%{prj.name}")
-		objdir (workspaceDir .. "vendor/imgui/build/bin-int/%{prj.name}")
-
-        files {
-            workspaceDir .. "vendor/imgui/src/**.cpp",
-            workspaceDir .. "vendor/imgui/src/**.h"
-        }
-
-        includedirs {
-            -- Vendor
-            workspaceDir .. "vendor/GLFW/include"
-        }
-
-        filter "configurations:Debug"
-            runtime "Debug"
-            symbols "on"
-
-        filter "configurations:Release"
-            runtime "Release"
-            optimize "on"
-        filter {}
+    includedirs "%{wks.location}/vendor/ImGui/src"
 end
+
+project "ImGui"
+    print "Initializing ImGui"
+
+    kind "StaticLib"
+    language "C++"
+    cppdialect "C++17"
+
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
+    filter {}
+
+	targetdir "%{wks.location}/build/vendor/bin/%{prj.name}"
+	objdir "%{wks.location}/build/vendor/bin-int/%{prj.name}"
+
+    files {
+        "src/**.cpp",
+        "src/**.h"
+    }
+
+    useGLFW()
+
+    print "ImGui Initialized"
+    

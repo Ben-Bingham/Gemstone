@@ -13,16 +13,29 @@
 #include "Materials/ScreenMaterial.h"
 #include "Materials/TextureMaterial.h"
 #include "OpenGlErrors.h"
+#include "Lights.h"
+#include "OpenGLState.h"
+#include "Pointer.h"
+#include "Geometry/Mesh.h"
+#include "Materials/SkyboxMaterial.h"
+#include "OpenGL objects/Texture.h"
+#include "Utility/Colour.h"
 
 // Pyrite
-#include "Units.h"
-#include "PhysicsWorld.h"
+// #include "Pyrite/Units.h"
+// #include "Pyrite/PhysicsWorld.h"
+
+#include "Log.h"
+#include "Vector.h"
+#include "Window.h"
 
 // Custom
 #include "FPSCamera.h"
 
 // Base
-#include "Pointer.h"
+// #include "Core/Pointer.h" //TODO move to core folder
+
+#include "Vector.h"
 
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
