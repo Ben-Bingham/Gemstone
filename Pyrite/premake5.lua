@@ -1,7 +1,9 @@
+require "../Malachite/use"
+require "../Lazuli/use"
 require "../Celestite/use"
 
-project "Lazuli"
-	print "Initializing Lazuli"
+project "Pyrite"
+	print "Initializing Pyrite"
 
     kind "StaticLib"
 	language "C++"
@@ -12,9 +14,9 @@ project "Lazuli"
 
 	flags "MultiProcessorCompile"
 
-    defines { 
-        "LAZULI_DEBUG",
-        "LAZULI_RELEASE"
+    defines {
+        "PYRITE_DEBUG",
+        "PYRITE_RELEASE"
     }
 
 	files {
@@ -25,7 +27,9 @@ project "Lazuli"
 	includedirs {
 		"src"
 	}
-	
-    useCelestite()
 
-	print "Lazuli Initialized"
+	useLazuli()
+	useMalachite()
+	useCelestite()
+
+	print "Pyrite Initialized"

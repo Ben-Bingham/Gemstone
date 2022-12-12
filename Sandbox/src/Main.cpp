@@ -22,8 +22,8 @@
 #include "Utility/Colour.h"
 
 // Pyrite
-// #include "Pyrite/Units.h"
-// #include "Pyrite/PhysicsWorld.h"
+#include "Units.h"
+#include "PhysicsWorld.h"
 
 #include "Log.h"
 #include "Vector.h"
@@ -33,7 +33,7 @@
 #include "FPSCamera.h"
 
 // Base
-// #include "Core/Pointer.h" //TODO move to core folder
+#include "Pointer.h" //TODO move to core folder
 
 #include "Vector.h"
 

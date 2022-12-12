@@ -17,23 +17,22 @@ workspace "Gemstone"
 
 	startproject "Sandbox"
 
-	group "Core"
-		-- include "Celestite"
+	group "Gems"
+		include "Celestite"
 		include "Lazuli"
 		include "Malachite"
 		include "Wavellite"
 		include "Ruby"
-		-- include "Pyrite"
-	group ""
-
-	group "Dependencies"
-		include "vendor/ImGui"
+		include "Pyrite"
 	group ""
 
 	group "Misc"
 		include "Sandbox"
 	group ""
 
+	group "Dependencies"
+		include "vendor/ImGui"
+	group ""
+
 	print "Workspace Initialized"
 	print "---------------------------------------------"
-

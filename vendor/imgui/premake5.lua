@@ -1,10 +1,4 @@
-require "../GLFW/premake5"
-
-function useImGui()
-    links "ImGui"
-
-    includedirs "%{wks.location}/vendor/ImGui/src"
-end
+require "../GLFW/use"
 
 project "ImGui"
     print "Initializing ImGui"

@@ -1,4 +1,4 @@
-require "../Gemstone/premake5"
+require "../Gemstone/use"
 
 project "Sandbox"
 	print "Initializing Sandbox"

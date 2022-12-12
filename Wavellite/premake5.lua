@@ -1,25 +1,9 @@
-require "../Malachite/premake5"
-require "../Lazuli/premake5"
-require "../vendor/GLFW/premake5"
-require "../vendor/ImGui/premake5"
-require "../vendor/GLEW/premake5"
-
-function useWavellite()
-	links "Wavellite"
-
-	includedirs "%{wks.location}/Wavellite/src"
-
-	defines { 
-        "WAVELLITE_DEBUG",
-        "WAVELLITE_RELEASE"
-    }
-
-	useMalachite()
-	useLazuli()
-	useGLFW()
-	useImGui()
-	useGLEW()
-end
+require "../Malachite/use"
+require "../Lazuli/use"
+require "../vendor/GLFW/use"
+require "../vendor/ImGui/use"
+require "../vendor/GLEW/use"
+require "../Celestite/use"
 
 project "Wavellite"
 	print "Initializing Wavellite"
@@ -52,5 +36,6 @@ project "Wavellite"
 	useGLFW()
 	useImGui()
 	useGLEW()
+	useCelestite()
 
 	print "Wavellite Initialized"

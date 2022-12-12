@@ -1,17 +1,5 @@
-require "../Lazuli/premake5"
-
-function useMalachite()
-	links "Malachite"
-
-	includedirs "%{wks.location}/Malachite/src"
-
-	defines { 
-        "MALACHITE_DEBUG",
-        "MALACHITE_RELEASE"
-    }
-
-	useLazuli()
-end
+require "../Lazuli/use"
+require "../Celestite/use"
 
 project "Malachite"
 	print "Initializing Malachite"
@@ -40,5 +28,6 @@ project "Malachite"
 	}
 
 	useLazuli()
+	useCelestite()
 
 	print "Malachite Initialized"

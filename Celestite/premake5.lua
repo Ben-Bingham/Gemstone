@@ -1,7 +1,5 @@
-require "../Celestite/use"
-
-project "Lazuli"
-	print "Initializing Lazuli"
+project "Celestite"
+	print "Initializing Celestite"
 
     kind "StaticLib"
 	language "C++"
@@ -12,9 +10,9 @@ project "Lazuli"
 
 	flags "MultiProcessorCompile"
 
-    defines { 
-        "LAZULI_DEBUG",
-        "LAZULI_RELEASE"
+    defines {
+        "CELESTITE_DEBUG",
+        "CELESTITE_DEBUG_RELEASE"
     }
 
 	files {
@@ -25,7 +23,5 @@ project "Lazuli"
 	includedirs {
 		"src"
 	}
-	
-    useCelestite()
 
-	print "Lazuli Initialized"
+	print "Celestite Initialized"
