@@ -7,32 +7,16 @@ require "../vendor/GLEW/use"
 require "../vendor/stb_image/use"
 require "../Celestite/use"
 
-project "Ruby"
-	print "Initializing Ruby"
+function useRuby()
+	links "Ruby"
 
-    kind "StaticLib"
-	language "C++"
-	cppdialect "C++20"
+	includedirs "%{wks.location}/Ruby/src"
 
-	targetdir "%{wks.location}/build/bin/%{prj.name}"
-	objdir "%{wks.location}/build/bin-int/%{prj.name}"
-
-	flags "MultiProcessorCompile"
-
-    defines {
+	defines {
         "RUBY_DEBUG",
         "RUBY_RELEASE",
 		"RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
-
-	files {
-		"src/**.h",
-		"src/**.cpp"
-	}
-
-	includedirs {
-		"src"
-	}
 
 	useStbImage()
 	useLazuli()
@@ -42,5 +26,4 @@ project "Ruby"
 	useGLEW()
 	useWavellite()
 	useCelestite()
-
-	print "Ruby Initialized"
+end

@@ -1,62 +1,41 @@
-function project_Wavellite(workspaceDir)
-	require (workspaceDir .. "vendor/imgui/premake5")
+require "../Malachite/use"
+require "../Lazuli/use"
+require "../vendor/GLFW/use"
+require "../vendor/ImGui/use"
+require "../vendor/GLEW/use"
+require "../Celestite/use"
 
-	project "Wavellite"
-		kind "StaticLib"
-		location(workspaceDir .."Wavellite")
-		language "C++"
+project "Wavellite"
+	print "Initializing Wavellite"
 
-		cppdialect "C++20"
+    kind "StaticLib"
+	language "C++"
+	cppdialect "C++20"
 
-		filter "configurations:Debug"
-			defines { "DEBUG", "GLEW_STATIC", "WAVELLITE_DEBUG"}
-			symbols "On"
-		
-		filter "configurations:Release"
-			defines { "NDEBUG", "GLEW_STATIC", "WAVELLITE_RELEASE" }
-			optimize "On"
+	targetdir "%{wks.location}/build/bin/%{prj.name}"
+	objdir "%{wks.location}/build/bin-int/%{prj.name}"
 
-		filter {}
+	flags "MultiProcessorCompile"
 
-		targetdir (workspaceDir .. "build/bin/%{prj.name}")
-		objdir (workspaceDir .. "build/bin-int/%{prj.name}")
+    defines {
+        "WAVELLITE_DEBUG",
+        "WAVELLITE_RELEASE"
+    }
 
-		files {
-			workspaceDir .. "Wavellite/src/**.h",
-			workspaceDir .. "Wavellite/src/**.cpp",
-			workspaceDir .. "vendor/imgui/*.h"
-		}
+	files {
+		"src/**.h",
+		"src/**.cpp"
+	}
 
-		includedirs {
-			workspaceDir .. "Wavellite/src",
-			-- Vendor
-			workspaceDir .. "vendor/GLFW/include",
-			workspaceDir .. "vendor/glew-2.1.0/include",
-			workspaceDir .. "vendor/stb_image",
-			workspaceDir .. "vendor/imgui/src",
-			-- Dependencies
-			workspaceDir .. "Lazuli/src",
-			workspaceDir .. "Malachite/src"
-		}
+	includedirs {
+		"src"
+	}
 
-		libdirs {
-			workspaceDir .. "vendor/GLFW/lib-vc2022",
-			workspaceDir .. "vendor/glew-2.1.0/lib/Release/x64",
-			workspaceDir .. "vendor/imgui/build"
-		}
+	useMalachite()
+	useLazuli()
+	useGLFW()
+	useImGui()
+	useGLEW()
+	useCelestite()
 
-		-- group "Vendor"
-		-- 	project_ImGui("")
-		-- group ""
-
-		links {
-			-- Vendor
-			"glfw3",
-			"glew32s",
-			"opengl32",
-			-- "ImGui",
-			-- Dependencies
-			"Lazuli",
-			"Malachite"
-		}
-end
+	print "Wavellite Initialized"
