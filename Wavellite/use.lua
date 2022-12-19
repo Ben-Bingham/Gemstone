@@ -10,11 +10,14 @@ function useWavellite()
 
 	includedirs "%{wks.location}/Wavellite/src"
 
-	defines { 
-        "WAVELLITE_DEBUG",
-        "WAVELLITE_RELEASE"
-    }
-
+	filter "configurations:Debug"
+		defines "WAVELLITE_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		defines "WAVELLITE_RELEASE"
+	filter {}
+	
 	useMalachite()
 	useLazuli()
 	useGLFW()

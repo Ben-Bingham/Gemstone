@@ -10,10 +10,15 @@ project "Celestite"
 
 	flags "MultiProcessorCompile"
 
-    defines {
-        "CELESTITE_DEBUG",
-        "CELESTITE_DEBUG_RELEASE"
-    }
+	filter "configurations:Debug"
+		symbols "On"
+		defines "CELESTITE_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		optimize "On"
+		defines "CELESTITE_RELEASE"
+	filter {}
 
 	files {
 		"src/**.h",

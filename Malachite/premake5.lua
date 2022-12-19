@@ -13,11 +13,16 @@ project "Malachite"
 
 	flags "MultiProcessorCompile"
 
-    defines { 
-        "MALACHITE_DEBUG",
-        "MALACHITE_RELEASE"
-    }
-
+	filter "configurations:Debug"
+		symbols "On"
+		defines "MALACHITE_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		optimize "On"
+		defines "MALACHITE_RELEASE"
+	filter {}
+	
 	files {
 		"src/**.h",
 		"src/**.cpp"

@@ -6,11 +6,14 @@ function useMalachite()
 
 	includedirs "%{wks.location}/Malachite/src"
 
-	defines { 
-        "MALACHITE_DEBUG",
-        "MALACHITE_RELEASE"
-    }
-
+	filter "configurations:Debug"
+		defines "MALACHITE_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		defines "MALACHITE_RELEASE"
+	filter {}
+	
 	useLazuli()
 	useCelestite()
 end

@@ -6,11 +6,14 @@ function usePyrite()
 	links "Pyrite"
 
 	includedirs "%{wks.location}/Pyrite/src"
-
-	defines {
-        "PYRITE_DEBUG",
-        "PYRITE_RELEASE"
-    }
+	
+	filter "configurations:Debug"
+		defines "PYRITE_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		defines "PYRITE_RELEASE"
+	filter {}
 
 	useLazuli()
 	useMalachite()

@@ -16,12 +16,17 @@ project "Wavellite"
 	objdir "%{wks.location}/build/bin-int/%{prj.name}"
 
 	flags "MultiProcessorCompile"
-
-    defines {
-        "WAVELLITE_DEBUG",
-        "WAVELLITE_RELEASE"
-    }
-
+	
+	filter "configurations:Debug"
+		symbols "On"
+		defines "WAVELLITE_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		optimize "On"
+		defines "WAVELLITE_RELEASE"
+	filter {}
+	
 	files {
 		"src/**.h",
 		"src/**.cpp"

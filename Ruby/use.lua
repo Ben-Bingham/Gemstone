@@ -13,10 +13,16 @@ function useRuby()
 	includedirs "%{wks.location}/Ruby/src"
 
 	defines {
-        "RUBY_DEBUG",
-        "RUBY_RELEASE",
 		"RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
+
+	filter "configurations:Debug"
+		defines "RUBY_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		defines "RUBY_RELEASE"
+	filter {}
 
 	useStbImage()
 	useLazuli()

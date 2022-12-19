@@ -14,10 +14,15 @@ project "Pyrite"
 
 	flags "MultiProcessorCompile"
 
-    defines {
-        "PYRITE_DEBUG",
-        "PYRITE_RELEASE"
-    }
+	filter "configurations:Debug"
+		symbols "On"
+		defines "PYRITE_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		optimize "On"
+		defines "PYRITE_RELEASE"
+	filter {}
 
 	files {
 		"src/**.h",

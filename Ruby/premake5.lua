@@ -20,11 +20,19 @@ project "Ruby"
 	flags "MultiProcessorCompile"
 
     defines {
-        "RUBY_DEBUG",
-        "RUBY_RELEASE",
 		"RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
 
+	filter "configurations:Debug"
+		symbols "On"
+		defines "RUBY_DEBUG"
+	filter {}
+	
+	filter "configurations:Release"
+		optimize "On"
+		defines "RUBY_RELEASE"
+	filter {}
+	
 	files {
 		"src/**.h",
 		"src/**.cpp"

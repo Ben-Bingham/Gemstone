@@ -12,10 +12,15 @@ project "Lazuli"
 
 	flags "MultiProcessorCompile"
 
-    defines { 
-        "LAZULI_DEBUG",
-        "LAZULI_RELEASE"
-    }
+    filter "configurations:Debug"
+		symbols "On"
+        defines "LAZULI_DEBUG"
+    filter {}
+
+    filter "configurations:Release"
+		optimize "On"
+        defines "LAZULI_RELEASE"
+    filter {}
 
 	files {
 		"src/**.h",
