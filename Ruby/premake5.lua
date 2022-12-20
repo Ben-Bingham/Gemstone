@@ -42,13 +42,13 @@ project "Ruby"
 		"src"
 	}
 
-	useStbImage()
-	useLazuli()
-	useMalachite()
-	useGLFW()
-	useImGui()
-	useGLEW()
-	useWavellite()
-	useCelestite()
+	useStbImage("../")
+	useLazuli("../")
+	useMalachite("../")
+	useGLFW("../")
+	useImGui("../")
+	useGLEW("../")
+	useWavellite("../")
+	useCelestite("../")
 
 	print "Ruby Initialized"

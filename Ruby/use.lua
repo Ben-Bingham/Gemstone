@@ -7,13 +7,14 @@ require "../vendor/GLEW/use"
 require "../vendor/stb_image/use"
 require "../Celestite/use"
 
-function useRuby()
+function useRuby(dir)
+	dir = dir or ""
 	links "Ruby"
 
-	includedirs "%{wks.location}/Ruby/src"
+	includedirs(dir .. "Ruby/src")
 
 	defines {
-		"RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
+		"RUBY_ASSETS=\"" .. dir .. "\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
 
 	filter "configurations:Debug"
@@ -24,12 +25,12 @@ function useRuby()
 		defines "RUBY_RELEASE"
 	filter {}
 
-	useStbImage()
-	useLazuli()
-	useMalachite()
-	useGLFW()
-	useImGui()
-	useGLEW()
-	useWavellite()
-	useCelestite()
+	useStbImage(dir)
+	useLazuli(dir)
+	useMalachite(dir)
+	useGLFW(dir)
+	useImGui(dir)
+	useGLEW(dir)
+	useWavellite(dir)
+	useCelestite(dir)
 end

@@ -5,11 +5,12 @@ require "../Ruby/use"
 require "../Pyrite/use"
 require "../Celestite/use"
 
-function useGemstone()
-    useCelestite()
-    useLazuli()
-    useMalachite()
-    useWavellite()
-    useRuby()
-    usePyrite()
+function useGemstone(dir)
+    dir = dir or ""
+    useCelestite(dir)
+    useLazuli(dir)
+    useMalachite(dir)
+    useWavellite(dir)
+    useRuby(dir)
+    usePyrite(dir)
 end

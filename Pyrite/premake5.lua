@@ -33,8 +33,8 @@ project "Pyrite"
 		"src"
 	}
 
-	useLazuli()
-	useMalachite()
-	useCelestite()
+	useLazuli("../")
+	useMalachite("../")
+	useCelestite("../")
 
 	print "Pyrite Initialized"

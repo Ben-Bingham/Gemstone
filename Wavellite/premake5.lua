@@ -36,11 +36,11 @@ project "Wavellite"
 		"src"
 	}
 
-	useMalachite()
-	useLazuli()
-	useGLFW()
-	useImGui()
-	useGLEW()
-	useCelestite()
+	useMalachite("../")
+	useLazuli("../")
+	useGLFW("../")
+	useImGui("../")
+	useGLEW("../")
+	useCelestite("../")
 
 	print "Wavellite Initialized"

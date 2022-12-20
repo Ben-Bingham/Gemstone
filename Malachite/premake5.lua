@@ -32,7 +32,7 @@ project "Malachite"
 		"src"
 	}
 
-	useLazuli()
-	useCelestite()
+	useLazuli("../")
+	useCelestite("../")
 
 	print "Malachite Initialized"

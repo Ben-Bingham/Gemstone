@@ -1,10 +1,11 @@
 require "../Lazuli/use"
 require "../Celestite/use"
 
-function useMalachite()
+function useMalachite(dir)
+	dir = dir or ""
 	links "Malachite"
 
-	includedirs "%{wks.location}/Malachite/src"
+	includedirs(dir .. "Malachite/src")
 
 	filter "configurations:Debug"
 		defines "MALACHITE_DEBUG"
@@ -14,6 +15,6 @@ function useMalachite()
 		defines "MALACHITE_RELEASE"
 	filter {}
 	
-	useLazuli()
-	useCelestite()
+	useLazuli(dir)
+	useCelestite(dir)
 end
