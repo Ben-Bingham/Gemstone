@@ -19,8 +19,8 @@ project "Ruby"
 
 	flags "MultiProcessorCompile"
 
-    defines {
-		"RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
+	defines {
+		"RUBY_ASSETS=\"" .. gemstoneDirectory .. "\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
 
 	filter "configurations:Debug"
@@ -42,13 +42,13 @@ project "Ruby"
 		"src"
 	}
 
-	useStbImage()
-	useLazuli()
-	useMalachite()
-	useGLFW()
-	useImGui()
-	useGLEW()
-	useWavellite()
-	useCelestite()
+	useStbImage("../")
+	useLazuli("../")
+	useMalachite("../")
+	useGLFW("../")
+	useImGui("../")
+	useGLEW("../")
+	useWavellite("../")
+	useCelestite("../")
 
 	print "Ruby Initialized"

@@ -1,5 +1,7 @@
-function useGLFW()
-    libdirs "%{wks.location}/vendor/GLFW/lib-vc2022"
+function useGLFW(dir)
+    dir = dir or ""
+
+    libdirs(dir .. "vendor/GLFW/lib-vc2022")
     links "glfw3"
-    includedirs "%{wks.location}/vendor/GLFW/include"
+    includedirs(dir .. "vendor/GLFW/include")
 end

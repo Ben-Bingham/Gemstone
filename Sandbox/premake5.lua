@@ -24,6 +24,6 @@ project "Sandbox"
 		"src"
 	}
 
-	useGemstone()
+	useGemstone("../")
 
 	print "Sandbox Initialized"

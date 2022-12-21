@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 
 namespace Ruby {
+	using namespace Celestite;
+
 	Texture::Texture(const Ptr<Image>& image)
 		: m_Image(image) {
 		glGenTextures(1, &m_Texture);

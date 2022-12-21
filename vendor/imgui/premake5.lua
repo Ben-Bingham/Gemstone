@@ -24,7 +24,7 @@ project "ImGui"
         "src/**.h"
     }
 
-    useGLFW()
+    useGLFW("../../")
 
     print "ImGui Initialized"
     

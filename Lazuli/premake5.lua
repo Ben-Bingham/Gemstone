@@ -31,6 +31,6 @@ project "Lazuli"
 		"src"
 	}
 	
-    useCelestite()
+    useCelestite("../")
 
 	print "Lazuli Initialized"

@@ -1,7 +1,8 @@
-function useCelestite()
+function useCelestite(dir)
+    dir = dir or ""
 	links "Celestite"
 
-	includedirs "%{wks.location}/Celestite/src"
+	includedirs(dir .. "Celestite/src")
 
     filter "configurations:Debug"
         defines "CELESTITE_DEBUG"

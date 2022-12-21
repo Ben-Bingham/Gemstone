@@ -6,8 +6,8 @@ namespace Ruby {
 
 	}
 
-	Malachite::Matrix4f& Renderable::getModelMatrix() {
-		return m_ModelMatrix;
+	Malachite::Matrix4f Renderable::getModelMatrix() const {
+		return transform.getModelMatrix();
 	}
 
 	void Renderable::setMaterial(const Ptr<Material>& material) {
@@ -17,7 +17,7 @@ namespace Ruby {
 	void Renderable::render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection) const {
 		m_Mesh->bind();
 
-		m_Material->use(m_ModelMatrix, view, projection);
+		m_Material->use(transform.getModelMatrix(), view, projection);
 		glDrawElements((GLenum)(int)m_Mesh->getDrawMode(), (GLsizei)m_Mesh->getIndexCount(), GL_UNSIGNED_INT, 0);
 		m_Material->end();
 	}

@@ -1,9 +1,10 @@
 require "../Celestite/use"
 
-function useLazuli()
+function useLazuli(dir)
+    dir = dir or ""
 	links "Lazuli"
 
-	includedirs "%{wks.location}/Lazuli/src"
+	includedirs(dir .. "Lazuli/src")
 
     filter "configurations:Debug"
         defines "LAZULI_DEBUG"
@@ -13,5 +14,5 @@ function useLazuli()
         defines "LAZULI_RELEASE"
     filter {}
 
-    useCelestite()
+    useCelestite(dir)
 end

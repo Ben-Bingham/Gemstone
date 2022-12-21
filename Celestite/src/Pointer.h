@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace Ruby {
+namespace Celestite {
 	template<typename T>
 	using Ptr = std::shared_ptr<T>;
 

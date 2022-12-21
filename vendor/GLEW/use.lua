@@ -1,5 +1,7 @@
-function useGLEW()
-    libdirs "%{wks.location}/vendor/GLEW/lib/Release/x64"
+function useGLEW(dir)
+    dir = dir or ""
+
+    libdirs(dir .. "vendor/GLEW/lib/Release/x64")
 
     links { 
         "glew32s",
@@ -8,5 +10,5 @@ function useGLEW()
 
     defines "GLEW_STATIC"
 
-    includedirs "%{wks.location}/vendor/GLEW/include"
+    includedirs(dir .. "vendor/GLEW/include")
 end

@@ -5,6 +5,8 @@
 #include "Resources/Image.h"
 
 namespace Ruby {
+	using namespace Celestite;
+
 	class Texture {
 	public:
 		explicit Texture(const Ptr<Image>& image);

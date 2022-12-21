@@ -7,6 +7,8 @@
 #include "Shaders/Uniforms/UniformSet.h"
 
 namespace Ruby {
+	using namespace Celestite;
+
 	class PhongMaterial : public Material {
 	public:
 		PhongMaterial(const Ptr<Texture>& diffuseTexture, const Ptr<Texture>& specularTexture, const float shininess = 32.0f)

@@ -1,5 +1,7 @@
-function useImGui()
+function useImGui(dir)
+    dir = dir or ""
+
     links "ImGui"
 
-    includedirs "%{wks.location}/vendor/ImGui/src"
+    includedirs(dir .. "vendor/ImGui/src")
 end

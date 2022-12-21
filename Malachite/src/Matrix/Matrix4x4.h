@@ -74,7 +74,7 @@ namespace Malachite {
 		}
 
 		// Rotation
-		Matrix4x4<T>& rotate(const Radian& angle, Vector3<T>& vector) {
+		Matrix4x4<T>& rotate(const Radian& angle, const Vector3<T>& vector) {
 			T const a = (T)angle;
 			T const c = (T)cos(a);
 			T const s = (T)sin(a);

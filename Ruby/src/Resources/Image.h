@@ -11,9 +11,9 @@
 namespace Ruby {
 	class Image {
 	public:
-		explicit Image(std::string path, bool flipVertically = true);
-		explicit Image(const Malachite::Vector3f& colour, unsigned int width = 1, unsigned int height = 1);
-		explicit Image(const Malachite::Vector4f& colour, unsigned int width = 1, unsigned int height = 1);
+		Image(std::string path, bool flipVertically = true);
+		Image(const Malachite::Vector3f& colour, unsigned int width = 1, unsigned int height = 1);
+		Image(const Malachite::Vector4f& colour, unsigned int width = 1, unsigned int height = 1);
 		Image(std::vector<unsigned char> content, unsigned int width, unsigned int height, unsigned int channels);
 
 		[[nodiscard]] std::vector<unsigned char> getContent() const { return m_Content; }
@@ -21,8 +21,6 @@ namespace Ruby {
 		[[nodiscard]] unsigned int getWidth() const { return m_Width; }
 		[[nodiscard]] unsigned int getHeight() const { return m_Height; }
 		[[nodiscard]] unsigned int getChannels() const { return m_Channels; }
-
-		static const Image noImage;
 
 	private:
 		std::vector<unsigned char> m_Content;

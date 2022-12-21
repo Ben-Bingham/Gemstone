@@ -57,7 +57,7 @@ namespace Ruby {
             ImGui::DestroyContext();
         }
 
-        void render(const Renderable& renderable) const;
+        void render(const Ptr<Renderable>& renderable) const;
 
         template<typename... T>
         void debugRender(T...args) {

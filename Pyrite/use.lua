@@ -2,10 +2,11 @@ require "../Malachite/use"
 require "../Lazuli/use"
 require "../Celestite/use"
 
-function usePyrite()
+function usePyrite(dir)
+	dir = dir or ""
 	links "Pyrite"
 
-	includedirs "%{wks.location}/Pyrite/src"
+	includedirs(dir .. "Pyrite/src")
 	
 	filter "configurations:Debug"
 		defines "PYRITE_DEBUG"
@@ -15,7 +16,7 @@ function usePyrite()
 		defines "PYRITE_RELEASE"
 	filter {}
 
-	useLazuli()
-	useMalachite()
-	useCelestite()
+	useLazuli(dir)
+	useMalachite(dir)
+	useCelestite(dir)
 end
