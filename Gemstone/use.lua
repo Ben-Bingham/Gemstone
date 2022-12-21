@@ -1,3 +1,4 @@
+gemstoneDirectory = gemstoneDirectory or ""
 require "../Lazuli/use"
 require "../Malachite/use"
 require "../Wavellite/use"

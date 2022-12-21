@@ -19,8 +19,8 @@ project "Ruby"
 
 	flags "MultiProcessorCompile"
 
-    defines {
-		"RUBY_ASSETS=\"..\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
+	defines {
+		"RUBY_ASSETS=\"" .. gemstoneDirectory .. "\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
 
 	filter "configurations:Debug"
