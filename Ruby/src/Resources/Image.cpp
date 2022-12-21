@@ -11,7 +11,7 @@ namespace Ruby {
 		m_Channels = channels;
 
 		if (!data) {
-			LOG("Image: " + m_Path + "Failed to load. ", Lazuli::LogLevel::ERROR);
+			LOG("Image: " + m_Path + " Failed to load. ", Lazuli::LogLevel::ERROR);
 		}
 
 		m_Content.resize(m_Width * m_Height * m_Channels);
@@ -64,6 +64,4 @@ namespace Ruby {
 		, m_Width(width)
 		, m_Height(height)
 		, m_Channels(channels) { }
-
-	const Image Image::noImage{std::string(RUBY_ASSETS) + "\\images\\noTexture.png"};
 }
