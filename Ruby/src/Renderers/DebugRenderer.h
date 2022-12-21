@@ -5,7 +5,8 @@
 
 namespace Ruby {
 	class Renderer;
-	
+	using namespace Celestite;
+
 	class DebugRenderer {
 	public:
 		DebugRenderer(Renderer* renderer);

@@ -5,6 +5,8 @@
 #include "Geometry/Mesh.h"
 
 namespace Ruby {
+	using namespace Celestite;
+
 	DebugRenderer::DebugRenderer(Renderer* renderer) 
 		: m_Mesh(createPtr<Mesh>())
 		, m_Material(createPtr<SolidMaterial>(Colour{ 221, 224, 18 }))
