@@ -45,6 +45,10 @@ namespace Ruby {
 		renderable.render(m_ViewMatrix, m_Window->getProjectionMatrix());
 	}
 
+	void Renderer::render(const Ptr<Renderable>& renderable) const {
+		renderable->render(m_ViewMatrix, m_Window->getProjectionMatrix());
+	}
+
 	void APIENTRY glDebugOutput(
 		GLenum source,
 		GLenum type,
