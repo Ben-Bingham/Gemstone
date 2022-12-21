@@ -14,7 +14,7 @@ function useRuby(dir)
 	includedirs(dir .. "Ruby/src")
 
 	defines {
-		"RUBY_ASSETS=\"" .. dir .. "\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
+		"RUBY_ASSETS=\"" .. dir .. "\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
 
 	filter "configurations:Debug"
