@@ -8,6 +8,8 @@
 
 #include "Geometry/Mesh.h"
 
+#include "Utility/Transform.h"
+
 namespace Ruby {
 	class Renderable {
 	public:
@@ -23,12 +25,14 @@ namespace Ruby {
 
 		void setMaterial(const Ptr<Material>& material);
 
-		Malachite::Matrix4f& getModelMatrix();
+		Malachite::Matrix4f getModelMatrix() const;
+
+		Malachite::Transform transform{};
 
 	protected:
 		Ptr<Mesh> m_Mesh;
 		Ptr<Material> m_Material;
 
-		Malachite::Matrix4f m_ModelMatrix{ 1.0f }; // TODO replace with a transform class
+		// Malachite::Matrix4f m_ModelMatrix{ 1.0f }; // TODO replace with a transform class
 	};
 }

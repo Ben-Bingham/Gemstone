@@ -41,10 +41,6 @@ namespace Ruby {
 		OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
-	void Renderer::render(const Renderable& renderable) const {
-		renderable.render(m_ViewMatrix, m_Window->getProjectionMatrix());
-	}
-
 	void Renderer::render(const Ptr<Renderable>& renderable) const {
 		renderable->render(m_ViewMatrix, m_Window->getProjectionMatrix());
 	}

@@ -87,7 +87,7 @@ namespace Ruby {
 			m_Mesh->edit(indices);
 		}
 		
-		m_Renderer->render(m_Renderable);
+		// m_Renderer->render(m_Renderable);
 		
 		m_Points.clear();
 	}
