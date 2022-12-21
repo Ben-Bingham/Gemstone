@@ -60,19 +60,19 @@ int main() {
 			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\back.jpg", false)
 	});
 
-	Ruby::SkyBox skyBox{ skyBoxMat };
+	auto skyBox = Ruby::createPtr<Ruby::SkyBox>(skyBoxMat);
 
-	Ruby::Ptr<Ruby::SolidMaterial> blueMaterial = Ruby::createPtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
+	Celestite::Ptr<Ruby::SolidMaterial> blueMaterial = Ruby::createPtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
 
-	Ruby::Ptr<Ruby::Mesh> cubeMesh = Ruby::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::CUBE);
-	Ruby::Ptr<Ruby::Mesh> planeMesh = Ruby::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::PLANE);
-	Ruby::Ptr<Ruby::Mesh> sphereMesh = Ruby::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::SPHERE);
+	Celestite::Ptr<Ruby::Mesh> cubeMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::CUBE);
+	Celestite::Ptr<Ruby::Mesh> planeMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::PLANE);
+	Celestite::Ptr<Ruby::Mesh> sphereMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::SPHERE);
 
-	Ruby::Renderable testCube{ cubeMesh, blueMaterial };
+	auto testCube = Celestite::createPtr<Ruby::Renderable>(cubeMesh, blueMaterial );
 
-	Ruby::Ptr<Ruby::PhongMaterial> containerMaterial = Ruby::createPtr<Ruby::PhongMaterial>(
-		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2.png")),
-		Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\container2_specular.png"))
+	Celestite::Ptr<Ruby::PhongMaterial> containerMaterial = Ruby::createPtr<Ruby::PhongMaterial>(
+		Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\container2.png")),
+		Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\container2_specular.png"))
 	);
 
 	std::vector<Ruby::DirectionalLight*> directionalLights{};
@@ -81,56 +81,63 @@ int main() {
 
 	Ruby::PhongMaterial::directionalLights = directionalLights;
 
-	Ruby::Renderable phongCube{ cubeMesh, containerMaterial };
-	phongCube.getModelMatrix().translate(-3.0f, 0.0f, 0.0f);
+	auto phongCube = Celestite::createPtr<Ruby::Renderable>(cubeMesh, containerMaterial);
+	phongCube->transform.position.x = -3.0f;
 
-	auto doughnutTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\Donut4.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> donutMat = Ruby::createPtr<Ruby::PhongMaterial>(doughnutTexture, doughnutTexture);
+	auto doughnutTexture = Celestite::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\Donut4.png"));
+	Celestite::Ptr<Ruby::PhongMaterial> donutMat = Celestite::createPtr<Ruby::PhongMaterial>(doughnutTexture, doughnutTexture);
 
 	auto earthTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\earth.jpg"));
-	Ruby::Ptr<Ruby::PhongMaterial> earthMat = Ruby::createPtr<Ruby::PhongMaterial>(earthTexture, earthTexture);
+	Celestite::Ptr<Ruby::PhongMaterial> earthMat = Celestite::createPtr<Ruby::PhongMaterial>(earthTexture, earthTexture);
 
 	auto pawnTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\White Pawn.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> pawnMat = Ruby::createPtr<Ruby::PhongMaterial>(pawnTexture, pawnTexture);
+	Celestite::Ptr<Ruby::PhongMaterial> pawnMat = Celestite::createPtr<Ruby::PhongMaterial>(pawnTexture, pawnTexture);
 
 	auto awesomeFaceTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\awesomeface.png"));
-	Ruby::Ptr<Ruby::PhongMaterial> awesomeMat = Ruby::createPtr<Ruby::PhongMaterial>(awesomeFaceTexture, awesomeFaceTexture);
+	Celestite::Ptr<Ruby::PhongMaterial> awesomeMat = Celestite::createPtr<Ruby::PhongMaterial>(awesomeFaceTexture, awesomeFaceTexture);
 
-	Ruby::Renderable donut{ sphereMesh, donutMat };
-	donut.getModelMatrix().scale(1.0f, 0.4f, 1.0f);
-	donut.getModelMatrix().translate(-6.0f, 0.0f, 0.0f);
+	auto donut = Celestite::createPtr<Ruby::Renderable>(sphereMesh, donutMat);
+	donut->transform.scale.x = 1.0f;
+	donut->transform.scale.y = 0.4f;
+	donut->transform.scale.y = 1.0f;
+	donut->transform.position.x = -6.0f;
 	
-	Ruby::Renderable earthRenderable{ sphereMesh, earthMat };
-	earthRenderable.getModelMatrix().translate(3.0f, 0.0f, 0.0f);
+	auto earthRenderable = Celestite::createPtr<Ruby::Renderable>(sphereMesh, earthMat );
+	earthRenderable->transform.position.x = 3.0f;
 	
-	Ruby::Renderable pawn{ cubeMesh, pawnMat };
-	pawn.getModelMatrix().scale(0.6f, 2.0f, 0.6f);
-	pawn.getModelMatrix().translate(6.0f, 0.0f, 0.0f);
+	auto pawn = Celestite::createPtr<Ruby::Renderable>(cubeMesh, pawnMat );
+	pawn->transform.scale = Malachite::Vector3f{ 0.6f, 2.0f, 0.6f };
+	pawn->transform.position = Malachite::Vector3f{ 6.0f, 0.0f, 0.0f };
 	
-	Ruby::Renderable awesomeRenderable{ cubeMesh, awesomeMat };
-	awesomeRenderable.getModelMatrix().translate(0.0f, 3.0f, 0.0f);
+	auto awesomeRenderable = Celestite::createPtr<Ruby::Renderable>( cubeMesh, awesomeMat );
+	awesomeRenderable->transform.position.y = 3.0f;
 	
-	Ruby::Renderable awesomeRenderable2{ sphereMesh, awesomeMat };
-	awesomeRenderable2.getModelMatrix().translate(0.0f, -3.0f, 0.0f);
+	auto awesomeRenderable2 = Celestite::createPtr<Ruby::Renderable>(sphereMesh, awesomeMat );
+	awesomeRenderable2->transform.position.y = -3.0f;
 	
-	Ruby::Renderable planeRenderable{ planeMesh, containerMaterial };
-	planeRenderable.getModelMatrix().translate(3.0f, 3.0f, 0.0f);
+	auto planeRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, containerMaterial );
+	planeRenderable->transform.position.y = 3.0f;
+	planeRenderable->transform.position.x = 3.0f;
 	
 	Ruby::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Ruby::createPtr<Ruby::TextureMaterial>(awesomeFaceTexture);
-	Ruby::Renderable texturedRenderable{ planeMesh, awesomeFaceMaterial };
-	texturedRenderable.getModelMatrix().translate(-3.0f, 3.0f, 0.0f);
+	auto texturedRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial );
+	texturedRenderable->transform.position.y = -3.0f;
+	texturedRenderable->transform.position.x = 3.0f;
 	
 	Ruby::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Ruby::createPtr<Ruby::ScreenMaterial>(earthTexture);
-	Ruby::Renderable screenQuadRenderable{ planeMesh, awesomeFaceMaterial2 };
-	screenQuadRenderable.getModelMatrix().scale(0.5f).translate(-0.5f, -0.5f, 0.0f);
+	auto screenQuadRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial2 );
+	screenQuadRenderable->transform.position.y = -0.5f;
+	screenQuadRenderable->transform.position.x = -0.5f;
+	screenQuadRenderable->transform.scale = Malachite::Vector3f{ 0.5f };
 	
-	Ruby::Renderable bigSphere{ sphereMesh, blueMaterial};
-	bigSphere.getModelMatrix().scale(100.0f, 100.0f, 100.0f).translate(0.0f, 100.0f, 0.0f);
+	auto bigSphere = Celestite::createPtr<Ruby::Renderable>(sphereMesh, blueMaterial);
+	bigSphere->transform.position.x = 100.0f;
+	bigSphere->transform.scale = Malachite::Vector3f{ 100.0f };
 
-	Ruby::Renderable cubeRenderable{ cubeMesh, blueMaterial };
+	auto cubeRenderable = Celestite::createPtr<Ruby::Renderable>(cubeMesh, blueMaterial );
 
-	Ruby::Renderable cubeRenderable2{ cubeMesh, earthMat };
-	cubeRenderable2.getModelMatrix().translate(3.0f, 0.0f, 0.0f);
+	auto cubeRenderable2 = Celestite::createPtr<Ruby::Renderable>(cubeMesh, earthMat );
+	texturedRenderable->transform.position.x = 3.0f;
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
