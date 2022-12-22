@@ -11,17 +11,19 @@ namespace Ruby {
 	public:
 		Renderable(const Celestite::Ptr<Mesh>& mesh, const Celestite::Ptr<Material>& material);
 
-		Renderable(const Renderable& other) = delete;
+		/*Renderable(const Renderable& other) = delete;
 		Renderable(Renderable&& other) noexcept = default;
 		Renderable& operator=(const Renderable& other) = delete;
 		Renderable& operator=(Renderable&& other) noexcept = default;
-		virtual ~Renderable() = default;
+		virtual ~Renderable() = default;*/
 
 		virtual void render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection);
 
-		void setMaterial(const Celestite::Ptr<Material>& material);
+		//void setMaterial(const Celestite::Ptr<Material>& material);
 
-		[[nodiscard]] Malachite::Transform& transform() const { return *m_Transform; }
+		Celestite::Ptr<Mesh>& mesh() { return m_Mesh; }
+		Celestite::Ptr<Material>& material() { return m_Material; }
+		Celestite::Ptr<Malachite::Transform>& transform() { return m_Transform; }
 
 	protected:
 		Celestite::Ptr<Mesh> m_Mesh;

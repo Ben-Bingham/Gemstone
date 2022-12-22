@@ -22,6 +22,8 @@ namespace Ruby {
 		OpenGlState::get().setDepthFunction(OpenGlState::Comparison::LESS_THAN);
 		OpenGlState::get().setFaceToCull(OpenGlState::Face::BACK);
 		OpenGlState::get().setFrontFaceDirection(OpenGlState::Direction::CLOCKWISE);
+
+		m_Renderables.reserve(100);
 	}
 
 	void Renderer::beginFrame() {
@@ -31,7 +33,25 @@ namespace Ruby {
 		m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
+	struct RenderableBucket {
+		std::vector<Celestite::Ptr<Renderable>> renderables;
+		VertexBuffer instancedArray;
+	};
+
 	void Renderer::endFrame() {
+		using Bucket = std::vector<Celestite::Ptr<Renderable>>;
+		std::vector<Bucket> buckets;
+
+		for (Celestite::Ptr<Renderable> renderable : m_Renderables) {
+			for (Bucket& bucket : buckets) {
+				if (!bucket.empty()) {
+					if (bucket[0]->mesh() == renderable->mesh() && bucket[0]->material() == renderable->material()) {
+						bucket.push_back(renderable);
+					}
+				}
+			}
+		}
+
 		const bool depthTesting = OpenGlState::get().getDepthTesting();
 
 		OpenGlState::get().setDepthTesting(false);
@@ -41,8 +61,9 @@ namespace Ruby {
 		OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
-	void Renderer::render(const Celestite::Ptr<Renderable>& renderable) const {
-		renderable->render(m_ViewMatrix, m_Window->getProjectionMatrix());
+	void Renderer::render(const Celestite::Ptr<Renderable>& renderable) {
+		//renderable->render(m_ViewMatrix, m_Window->getProjectionMatrix());
+		m_Renderables.push_back(renderable);
 	}
 
 	void APIENTRY glDebugOutput(

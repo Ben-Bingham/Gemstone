@@ -73,5 +73,7 @@ namespace Ruby {
         DebugRenderer m_DebugRenderer{ this };
 
         Malachite::Matrix4f m_ViewMatrix{ 1.0f };
+
+        std::vector<Celestite::Ptr<Renderable>> m_Renderables;
 	};
 }

@@ -9,7 +9,7 @@
 namespace Ruby {
 	class TextureMaterial : public Material {
 	public:
-		TextureMaterial(const Ptr<Texture>& texture)
+		TextureMaterial(const Celestite::Ptr<Texture>& texture)
 			: Material(ShaderLibrary::get().imageShader), texture(texture) {
 
 		}
@@ -23,7 +23,7 @@ namespace Ruby {
 			ShaderProgram::upload("modelViewProjection", modelViewProjection);
 		}
 
-		Ptr<Texture> texture;
+		Celestite::Ptr<Texture> texture;
 
 	private:
 		UniformSet<

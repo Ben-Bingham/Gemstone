@@ -83,7 +83,7 @@ int main() {
 	Ruby::PhongMaterial::directionalLights = directionalLights;
 
 	auto phongCube = Celestite::createPtr<Ruby::Renderable>(cubeMesh, containerMaterial);
-	phongCube->transform().position().x = -3.0f;
+	phongCube->transform()->position().x = -3.0f;
 
 	auto doughnutTexture = Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\Donut4.png"));
 	Celestite::Ptr<Ruby::PhongMaterial> donutMat = Celestite::createPtr<Ruby::PhongMaterial>(doughnutTexture, doughnutTexture);
@@ -98,47 +98,47 @@ int main() {
 	Celestite::Ptr<Ruby::PhongMaterial> awesomeMat = Celestite::createPtr<Ruby::PhongMaterial>(awesomeFaceTexture, awesomeFaceTexture);
 
 	auto donut = Celestite::createPtr<Ruby::Renderable>(sphereMesh, donutMat);
-	donut->transform().scale().x = 1.0f;
-	donut->transform().scale().y = 0.4f;
-	donut->transform().scale().y = 1.0f;
-	donut->transform().position().x = -6.0f;
+	donut->transform()->scale().x = 1.0f;
+	donut->transform()->scale().y = 0.4f;
+	donut->transform()->scale().y = 1.0f;
+	donut->transform()->position().x = -6.0f;
 	
 	auto earthRenderable = Celestite::createPtr<Ruby::Renderable>(sphereMesh, earthMat );
-	earthRenderable->transform().position().x = 3.0f;
+	earthRenderable->transform()->position().x = 3.0f;
 	
 	auto pawn = Celestite::createPtr<Ruby::Renderable>(cubeMesh, pawnMat );
-	pawn->transform().scale() = Malachite::Vector3f{ 0.6f, 2.0f, 0.6f };
-	pawn->transform().position() = Malachite::Vector3f{ 6.0f, 0.0f, 0.0f };
+	pawn->transform()->scale() = Malachite::Vector3f{ 0.6f, 2.0f, 0.6f };
+	pawn->transform()->position() = Malachite::Vector3f{ 6.0f, 0.0f, 0.0f };
 	
 	auto awesomeRenderable = Celestite::createPtr<Ruby::Renderable>( cubeMesh, awesomeMat );
-	awesomeRenderable->transform().position().y = 3.0f;
+	awesomeRenderable->transform()->position().y = 3.0f;
 	
 	auto awesomeRenderable2 = Celestite::createPtr<Ruby::Renderable>(sphereMesh, awesomeMat );
-	awesomeRenderable2->transform().position().y = -3.0f;
+	awesomeRenderable2->transform()->position().y = -3.0f;
 	
 	auto planeRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, containerMaterial );
-	planeRenderable->transform().position().y = 3.0f;
-	planeRenderable->transform().position().x = 3.0f;
+	planeRenderable->transform()->position().y = 3.0f;
+	planeRenderable->transform()->position().x = 3.0f;
 	
 	Celestite::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Celestite::createPtr<Ruby::TextureMaterial>(awesomeFaceTexture);
 	auto texturedRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial );
-	texturedRenderable->transform().position().y = -3.0f;
-	texturedRenderable->transform().position().x = 3.0f;
+	texturedRenderable->transform()->position().y = -3.0f;
+	texturedRenderable->transform()->position().x = 3.0f;
 	
 	Celestite::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Celestite::createPtr<Ruby::ScreenMaterial>(earthTexture);
 	auto screenQuadRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial2 );
-	screenQuadRenderable->transform().position().y = -0.5f;
-	screenQuadRenderable->transform().position().x = -0.5f;
-	screenQuadRenderable->transform().scale() = Malachite::Vector3f{ 0.5f };
+	screenQuadRenderable->transform()->position().y = -0.5f;
+	screenQuadRenderable->transform()->position().x = -0.5f;
+	screenQuadRenderable->transform()->scale() = Malachite::Vector3f{ 0.5f };
 	
 	auto bigSphere = Celestite::createPtr<Ruby::Renderable>(sphereMesh, blueMaterial);
-	bigSphere->transform().position().x = 100.0f;
-	bigSphere->transform().scale() = Malachite::Vector3f{ 100.0f };
+	bigSphere->transform()->position().x = 100.0f;
+	bigSphere->transform()->scale() = Malachite::Vector3f{ 100.0f };
 
 	auto cubeRenderable = Celestite::createPtr<Ruby::Renderable>(cubeMesh, blueMaterial );
 
 	auto cubeRenderable2 = Celestite::createPtr<Ruby::Renderable>(cubeMesh, earthMat );
-	cubeRenderable2->transform().position().x = 3.0f;
+	cubeRenderable2->transform()->position().x = 3.0f;
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -226,7 +226,7 @@ int main() {
 			{
 				ImGui::Begin("Settings");
 				{
-					ImGui::SliderFloat3("Position", &pawn->transform().position().x, -10.0f, 10.0f);
+					ImGui::SliderFloat3("Position", &pawn->transform()->position().x, -10.0f, 10.0f);
 				}
 				ImGui::End();
 			}

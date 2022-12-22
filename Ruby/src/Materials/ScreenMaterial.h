@@ -9,7 +9,7 @@
 namespace Ruby {
 	class ScreenMaterial : public Material {
 	public:
-		ScreenMaterial(const Ptr<Texture>& texture)
+		ScreenMaterial(const Celestite::Ptr<Texture>& texture)
 			: Material(ShaderLibrary::get().screenQuadShader), texture(texture) {
 
 		}
@@ -21,7 +21,7 @@ namespace Ruby {
 			ShaderProgram::upload("model", model);
 		}
 
-		Ptr<Texture> texture;
+		Celestite::Ptr<Texture> texture;
 
 	private:
 		UniformSet<
