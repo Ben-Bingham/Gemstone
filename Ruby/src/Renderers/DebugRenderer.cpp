@@ -5,11 +5,9 @@
 #include "Geometry/Mesh.h"
 
 namespace Ruby {
-	using namespace Celestite;
-
 	DebugRenderer::DebugRenderer(Renderer* renderer) 
-		: m_Mesh(createPtr<Mesh>())
-		, m_Material(createPtr<SolidMaterial>(Colour{ 221, 224, 18 }))
+		: m_Mesh(Celestite::createPtr<Mesh>())
+		, m_Material(Celestite::createPtr<SolidMaterial>(Colour{ 221, 224, 18 }))
 		, m_Renderable(m_Mesh, m_Material)
 		, m_Renderer(renderer) {
 
@@ -40,7 +38,7 @@ namespace Ruby {
 		}
 	}
 
-	void DebugRenderer::queue(const Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale) {
+	void DebugRenderer::queue(const Celestite::Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale) {
 		const Vertices vertices = mesh->getVertices();
 
 		if (vertices.empty()) {

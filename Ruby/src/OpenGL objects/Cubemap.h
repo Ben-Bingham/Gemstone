@@ -10,16 +10,16 @@
 namespace Ruby {
 	class Cubemap {
 	public:
-		Cubemap(const std::initializer_list<Ptr<Image>>& faces) {
+		Cubemap(const std::initializer_list<Celestite::Ptr<Image>>& faces) {
 			assert(faces.size() == 6);
 			glGenTextures(1, &m_Cubemap);
 
 			bind(); 
 
-			std::vector<Ptr<Image>> images{ faces };
+			std::vector<Celestite::Ptr<Image>> images{ faces };
 
 			unsigned int i{ 0 };
-			for (Ptr<Image> image : images) {
+			for (Celestite::Ptr<Image> image : images) {
 
 				GLenum imageFormat;
 				if (image->getChannels() == 3) {

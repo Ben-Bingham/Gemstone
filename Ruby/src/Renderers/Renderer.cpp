@@ -41,7 +41,7 @@ namespace Ruby {
 		OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
-	void Renderer::render(const Ptr<Renderable>& renderable) const {
+	void Renderer::render(const Celestite::Ptr<Renderable>& renderable) const {
 		renderable->render(m_ViewMatrix, m_Window->getProjectionMatrix());
 	}
 

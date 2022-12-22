@@ -7,11 +7,9 @@
 #include "Shaders/Uniforms/UniformSet.h"
 
 namespace Ruby {
-	using namespace Celestite;
-
 	class PhongMaterial : public Material {
 	public:
-		PhongMaterial(const Ptr<Texture>& diffuseTexture, const Ptr<Texture>& specularTexture, const float shininess = 32.0f)
+		PhongMaterial(const Celestite::Ptr<Texture>& diffuseTexture, const Celestite::Ptr<Texture>& specularTexture, const float shininess = 32.0f)
 			: Material(ShaderLibrary::get().phongShader), diffuseTexture(diffuseTexture), specularTexture(specularTexture), shininess(shininess) {
 			
 		}
@@ -29,8 +27,8 @@ namespace Ruby {
 		Malachite::Vector3f cameraPosition{ 0.0f };
 		inline static std::vector<PointLight*> pointLights{ };
 		inline static std::vector<DirectionalLight*> directionalLights{ };
-		Ptr<Texture> diffuseTexture;
-		Ptr<Texture> specularTexture;
+		Celestite::Ptr<Texture> diffuseTexture;
+		Celestite::Ptr<Texture> specularTexture;
 		float shininess;
 
 	private:

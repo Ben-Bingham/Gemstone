@@ -5,21 +5,19 @@
 
 namespace Ruby {
 	class Renderer;
-	using namespace Celestite;
-
 	class DebugRenderer {
 	public:
 		DebugRenderer(Renderer* renderer);
 	
 		void queue(const std::vector<float>& points);
 		void queue(const std::vector<Malachite::Vector3f>& points);
-		void queue(const Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale);
+		void queue(const Celestite::Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale);
 
 		void render();
 	
 	private:
-		Ptr<Mesh> m_Mesh;
-		Ptr<SolidMaterial> m_Material;
+		Celestite::Ptr<Mesh> m_Mesh;
+		Celestite::Ptr<SolidMaterial> m_Material;
 
 		Renderable m_Renderable;
 

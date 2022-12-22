@@ -5,11 +5,9 @@
 #include "Resources/Image.h"
 
 namespace Ruby {
-	using namespace Celestite;
-
 	class Texture {
 	public:
-		explicit Texture(const Ptr<Image>& image);
+		explicit Texture(const Celestite::Ptr<Image>& image);
 		Texture(Texture&) = delete;
 		~Texture();
 
@@ -39,8 +37,8 @@ namespace Ruby {
 
 	private:
 		unsigned int m_Texture;
-		Ptr<Image> m_Image;
+		Celestite::Ptr<Image> m_Image;
 
-		void setSubData(unsigned int posX, unsigned int posY, const Ptr<Image>& image);
+		void setSubData(unsigned int posX, unsigned int posY, const Celestite::Ptr<Image>& image);
 	};
 }

@@ -3,9 +3,7 @@
 #include <GL/glew.h>
 
 namespace Ruby {
-	using namespace Celestite;
-
-	Texture::Texture(const Ptr<Image>& image)
+	Texture::Texture(const Celestite::Ptr<Image>& image)
 		: m_Image(image) {
 		glGenTextures(1, &m_Texture);
 
@@ -47,7 +45,7 @@ namespace Ruby {
 		setSubData(0, 0, m_Image);
 	}
 
-	void Texture::setSubData(unsigned int posX, unsigned int posY, const Ptr<Image>& image) {
+	void Texture::setSubData(unsigned int posX, unsigned int posY, const Celestite::Ptr<Image>& image) {
 		GLenum imageFormat;
 		if (image->getChannels() == 3) {
 			imageFormat = GL_RGB;

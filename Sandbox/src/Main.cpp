@@ -44,6 +44,7 @@ int main() {
 
 	FPSCamera camera{};
 	mouse.addMousePositionCallback(mousePositionCallback, (void*)&camera);
+	bool cursor = false;
 	window.disableCursor();
 
 	Wavellite::Time time{ };
@@ -51,18 +52,18 @@ int main() {
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
-	Ruby::Ptr<Ruby::SkyBoxMaterial> skyBoxMat = Ruby::createPtr<Ruby::SkyBoxMaterial>(std::initializer_list<Ruby::Ptr<Ruby::Image>>{
-		Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\right.jpg", false),
-			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\left.jpg", false),
-			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\top.jpg", false),
-			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\bottom.jpg", false),
-			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\front.jpg", false),
-			Ruby::createPtr<Ruby::Image>("assets\\SkyBox\\back.jpg", false)
+	Celestite::Ptr<Ruby::SkyBoxMaterial> skyBoxMat = Celestite::createPtr<Ruby::SkyBoxMaterial>(std::initializer_list<Celestite::Ptr<Ruby::Image>>{
+		Celestite::createPtr<Ruby::Image>("assets\\SkyBox\\right.jpg", false),
+			Celestite::createPtr<Ruby::Image>("assets\\SkyBox\\left.jpg", false),
+			Celestite::createPtr<Ruby::Image>("assets\\SkyBox\\top.jpg", false),
+			Celestite::createPtr<Ruby::Image>("assets\\SkyBox\\bottom.jpg", false),
+			Celestite::createPtr<Ruby::Image>("assets\\SkyBox\\front.jpg", false),
+			Celestite::createPtr<Ruby::Image>("assets\\SkyBox\\back.jpg", false)
 	});
 
-	auto skyBox = Ruby::createPtr<Ruby::SkyBox>(skyBoxMat);
+	auto skyBox = Celestite::createPtr<Ruby::SkyBox>(skyBoxMat);
 
-	Celestite::Ptr<Ruby::SolidMaterial> blueMaterial = Ruby::createPtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
+	Celestite::Ptr<Ruby::SolidMaterial> blueMaterial = Celestite::createPtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
 
 	Celestite::Ptr<Ruby::Mesh> cubeMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::CUBE);
 	Celestite::Ptr<Ruby::Mesh> planeMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::PLANE);
@@ -70,7 +71,7 @@ int main() {
 
 	auto testCube = Celestite::createPtr<Ruby::Renderable>(cubeMesh, blueMaterial );
 
-	Celestite::Ptr<Ruby::PhongMaterial> containerMaterial = Ruby::createPtr<Ruby::PhongMaterial>(
+	Celestite::Ptr<Ruby::PhongMaterial> containerMaterial = Celestite::createPtr<Ruby::PhongMaterial>(
 		Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\container2.png")),
 		Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\container2_specular.png"))
 	);
@@ -82,62 +83,62 @@ int main() {
 	Ruby::PhongMaterial::directionalLights = directionalLights;
 
 	auto phongCube = Celestite::createPtr<Ruby::Renderable>(cubeMesh, containerMaterial);
-	phongCube->transform.position.x = -3.0f;
+	phongCube->transform().position().x = -3.0f;
 
-	auto doughnutTexture = Celestite::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\Donut4.png"));
+	auto doughnutTexture = Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\Donut4.png"));
 	Celestite::Ptr<Ruby::PhongMaterial> donutMat = Celestite::createPtr<Ruby::PhongMaterial>(doughnutTexture, doughnutTexture);
 
-	auto earthTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\earth.jpg"));
+	auto earthTexture = Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\earth.jpg"));
 	Celestite::Ptr<Ruby::PhongMaterial> earthMat = Celestite::createPtr<Ruby::PhongMaterial>(earthTexture, earthTexture);
 
-	auto pawnTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\White Pawn.png"));
+	auto pawnTexture = Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\White Pawn.png"));
 	Celestite::Ptr<Ruby::PhongMaterial> pawnMat = Celestite::createPtr<Ruby::PhongMaterial>(pawnTexture, pawnTexture);
 
-	auto awesomeFaceTexture = Ruby::createPtr<Ruby::Texture>(Ruby::createPtr<Ruby::Image>("assets\\awesomeface.png"));
+	auto awesomeFaceTexture = Celestite::createPtr<Ruby::Texture>(Celestite::createPtr<Ruby::Image>("assets\\awesomeface.png"));
 	Celestite::Ptr<Ruby::PhongMaterial> awesomeMat = Celestite::createPtr<Ruby::PhongMaterial>(awesomeFaceTexture, awesomeFaceTexture);
 
 	auto donut = Celestite::createPtr<Ruby::Renderable>(sphereMesh, donutMat);
-	donut->transform.scale.x = 1.0f;
-	donut->transform.scale.y = 0.4f;
-	donut->transform.scale.y = 1.0f;
-	donut->transform.position.x = -6.0f;
+	donut->transform().scale().x = 1.0f;
+	donut->transform().scale().y = 0.4f;
+	donut->transform().scale().y = 1.0f;
+	donut->transform().position().x = -6.0f;
 	
 	auto earthRenderable = Celestite::createPtr<Ruby::Renderable>(sphereMesh, earthMat );
-	earthRenderable->transform.position.x = 3.0f;
+	earthRenderable->transform().position().x = 3.0f;
 	
 	auto pawn = Celestite::createPtr<Ruby::Renderable>(cubeMesh, pawnMat );
-	pawn->transform.scale = Malachite::Vector3f{ 0.6f, 2.0f, 0.6f };
-	pawn->transform.position = Malachite::Vector3f{ 6.0f, 0.0f, 0.0f };
+	pawn->transform().scale() = Malachite::Vector3f{ 0.6f, 2.0f, 0.6f };
+	pawn->transform().position() = Malachite::Vector3f{ 6.0f, 0.0f, 0.0f };
 	
 	auto awesomeRenderable = Celestite::createPtr<Ruby::Renderable>( cubeMesh, awesomeMat );
-	awesomeRenderable->transform.position.y = 3.0f;
+	awesomeRenderable->transform().position().y = 3.0f;
 	
 	auto awesomeRenderable2 = Celestite::createPtr<Ruby::Renderable>(sphereMesh, awesomeMat );
-	awesomeRenderable2->transform.position.y = -3.0f;
+	awesomeRenderable2->transform().position().y = -3.0f;
 	
 	auto planeRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, containerMaterial );
-	planeRenderable->transform.position.y = 3.0f;
-	planeRenderable->transform.position.x = 3.0f;
+	planeRenderable->transform().position().y = 3.0f;
+	planeRenderable->transform().position().x = 3.0f;
 	
-	Ruby::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Ruby::createPtr<Ruby::TextureMaterial>(awesomeFaceTexture);
+	Celestite::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Celestite::createPtr<Ruby::TextureMaterial>(awesomeFaceTexture);
 	auto texturedRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial );
-	texturedRenderable->transform.position.y = -3.0f;
-	texturedRenderable->transform.position.x = 3.0f;
+	texturedRenderable->transform().position().y = -3.0f;
+	texturedRenderable->transform().position().x = 3.0f;
 	
-	Ruby::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Ruby::createPtr<Ruby::ScreenMaterial>(earthTexture);
+	Celestite::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Celestite::createPtr<Ruby::ScreenMaterial>(earthTexture);
 	auto screenQuadRenderable = Celestite::createPtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial2 );
-	screenQuadRenderable->transform.position.y = -0.5f;
-	screenQuadRenderable->transform.position.x = -0.5f;
-	screenQuadRenderable->transform.scale = Malachite::Vector3f{ 0.5f };
+	screenQuadRenderable->transform().position().y = -0.5f;
+	screenQuadRenderable->transform().position().x = -0.5f;
+	screenQuadRenderable->transform().scale() = Malachite::Vector3f{ 0.5f };
 	
 	auto bigSphere = Celestite::createPtr<Ruby::Renderable>(sphereMesh, blueMaterial);
-	bigSphere->transform.position.x = 100.0f;
-	bigSphere->transform.scale = Malachite::Vector3f{ 100.0f };
+	bigSphere->transform().position().x = 100.0f;
+	bigSphere->transform().scale() = Malachite::Vector3f{ 100.0f };
 
 	auto cubeRenderable = Celestite::createPtr<Ruby::Renderable>(cubeMesh, blueMaterial );
 
 	auto cubeRenderable2 = Celestite::createPtr<Ruby::Renderable>(cubeMesh, earthMat );
-	texturedRenderable->transform.position.x = 3.0f;
+	cubeRenderable2->transform().position().x = 3.0f;
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
@@ -172,6 +173,17 @@ int main() {
 
 		if (keyboard.KEY_ESCAPE) {
 			window.close();
+		}
+
+		if (mouse.button2) {
+			if (cursor) {
+				window.disableCursor();
+				cursor = false;
+			}
+			else {
+				window.enableCursor();
+				cursor = true;
+			}
 		}
 
 		{ // Physics
@@ -209,6 +221,16 @@ int main() {
 			//renderer.debugRender(cubeMesh, Malachite::Vector3f{0.0f, 0.0f, 0.0f}, Malachite::Vector3f{3.0f, 3.0f, 3.0f}); //TODO non functional
 
 			renderer.render(skyBox);
+
+			renderer.imGuiPrep();
+			{
+				ImGui::Begin("Settings");
+				{
+					ImGui::SliderFloat3("Position", &pawn->transform().position().x, -10.0f, 10.0f);
+				}
+				ImGui::End();
+			}
+			renderer.imGuiEnd();
 
 			renderer.endFrame();
 			glCheckError();

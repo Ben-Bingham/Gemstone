@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-
 #include "Matrix.h"
 
 namespace Malachite {
@@ -10,14 +8,32 @@ namespace Malachite {
 	public:
 		Transform(const Vector3f& position = Vector3f{ 0.0f }, const Vector3f& scale = Vector3f{ 1.0f }, const Rotation& rotation = Rotation{ 0.0f });
 
-		Vector3f position;
-		Vector3f scale;
-		Rotation rotation;
-
-		[[nodiscard]] Matrix4f getModelMatrix() const {
-			Matrix4f mat{};
-			mat.translate(position).scale(scale).rotate(rotation.x, Vector3f::east).rotate(rotation.y, Vector3f::up).rotate(rotation.z, Vector3f::south);
-			return mat;
+		Vector3f& position() {
+			m_Modified = true;
+			return m_Position;
 		}
+		[[nodiscard]] Vector3f position() const { return m_Position; }
+
+		Vector3f& scale() {
+			m_Modified = true;
+			return m_Scale;
+		}
+		[[nodiscard]] Vector3f scale() const { return m_Scale; }
+
+		Rotation& rotation() {
+			m_Modified = true;
+			return m_Rotation;
+		}
+		[[nodiscard]] Rotation rotation() const { return m_Rotation; }
+
+		[[nodiscard]] Matrix4f getModelMatrix();
+
+	private:
+		Vector3f m_Position;
+		Vector3f m_Scale;
+		Rotation m_Rotation;
+
+		bool m_Modified{ false };
+		Matrix4f m_ModelMatrix{ 1.0f };
 	};
 }
