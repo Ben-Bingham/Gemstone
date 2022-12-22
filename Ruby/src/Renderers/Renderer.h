@@ -57,7 +57,7 @@ namespace Ruby {
             ImGui::DestroyContext();
         }
 
-        void render(const Celestite::Ptr<Renderable>& renderable) const;
+        void render(const Celestite::Ptr<Renderable>& renderable);
 
         template<typename... T>
         void debugRender(T...args) {
