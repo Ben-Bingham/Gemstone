@@ -33,37 +33,29 @@ namespace Ruby {
 		m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
-	struct RenderableBucket {
-		std::vector<Celestite::Ptr<Renderable>> renderables;
-		VertexBuffer instancedArray;
-	};
-
-	void Renderer::endFrame() {
-		using Bucket = std::vector<Celestite::Ptr<Renderable>>;
-		std::vector<Bucket> buckets;
-
-		for (Celestite::Ptr<Renderable> renderable : m_Renderables) {
-			for (Bucket& bucket : buckets) {
-				if (!bucket.empty()) {
-					if (bucket[0]->mesh() == renderable->mesh() && bucket[0]->material() == renderable->material()) {
-						bucket.push_back(renderable);
-					}
-				}
-			}
-		}
-
-		const bool depthTesting = OpenGlState::get().getDepthTesting();
-
-		OpenGlState::get().setDepthTesting(false);
-
-		m_DebugRenderer.render();
-
-		OpenGlState::get().setDepthTesting(depthTesting);
+	void Renderer::render(const Celestite::Ptr<Renderable> renderable) {
+		m_Renderables.push_back(renderable);
 	}
 
-	void Renderer::render(const Celestite::Ptr<Renderable>& renderable) {
-		//renderable->render(m_ViewMatrix, m_Window->getProjectionMatrix());
-		m_Renderables.push_back(renderable);
+	void Renderer::endFrame() {
+		for (Celestite::Ptr<Renderable> renderable : m_Renderables) {
+			renderable->mesh()->bind();
+		
+			renderable->material()->use(renderable->transform()->getModelMatrix(), m_ViewMatrix, m_Window->getProjectionMatrix());
+			glDrawElements((GLenum)(int)renderable->mesh()->getDrawMode(), (GLsizei)renderable->mesh()->getIndexCount(), GL_UNSIGNED_INT, 0);
+			renderable->material()->end();
+		}
+
+		m_Renderables.clear();
+
+		// ========== Debug Renderer ==========
+		// const bool depthTesting = OpenGlState::get().getDepthTesting();
+		//
+		// OpenGlState::get().setDepthTesting(false);
+		//
+		// m_DebugRenderer.render();
+		//
+		// OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
 	void APIENTRY glDebugOutput(

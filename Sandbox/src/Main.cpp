@@ -39,6 +39,7 @@
 
 int main() {
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
+	// window.setSwapInterval(0);
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
 	Wavellite::Keyboard& keyboard = window.ioManger.getKeyboard();
 
@@ -142,6 +143,22 @@ int main() {
 
 	//Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
+	auto testRenderable = Celestite::createPtr<Ruby::Renderable>(sphereMesh, blueMaterial); //TODO is not added to buckets properly
+
+	std::vector<Celestite::Ptr<Ruby::Renderable>> cubes;
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			for (int k = 0; k < 4; k++) {
+				cubes.push_back(Celestite::createPtr<Ruby::Renderable>(cubeMesh, blueMaterial));
+				cubes.back()->transform()->position() = Malachite::Vector3f{(float)i, (float)j, (float)k};
+			}
+		}
+	}
+
+	int frameCount = 0;
+	float averageDelta = 0.0f;
+
 	// Rendering loop
 	while (window.isOpen()) {
 		window.pollEvents();
@@ -193,7 +210,14 @@ int main() {
 		{ // Rendering
 			renderer.beginFrame();
 
-			renderer.render(cubeRenderable);
+			for (const Celestite::Ptr<Ruby::Renderable>& cube : cubes) {
+				renderer.render(cube);
+			}
+
+			if (keyboard.KEY_B) {
+				renderer.render(testRenderable);
+			}
+
 			renderer.render(cubeRenderable2);
 
 			renderer.render(donut);
@@ -238,6 +262,19 @@ int main() {
 
 		window.swapBuffers();
 		time.endFrame();
+		frameCount++;
+		averageDelta += time.deltaTime;
+
+		if (frameCount == 100) {
+			// break;
+		}
 	}
+
+	LOG("Number of frames: " + std::to_string(frameCount));
+	LOG("Average delta time: " + std::to_string(averageDelta / (float)frameCount));
+	LOG("Average FPS: " + std::to_string(1 / (averageDelta / (float)frameCount)));
+
+	std::cin.get();
+
 	renderer.imGuiTerminate();
 }

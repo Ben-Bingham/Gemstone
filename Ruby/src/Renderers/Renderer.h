@@ -57,7 +57,7 @@ namespace Ruby {
             ImGui::DestroyContext();
         }
 
-        void render(const Celestite::Ptr<Renderable>& renderable);
+        void render(const Celestite::Ptr<Renderable> renderable);
 
         template<typename... T>
         void debugRender(T...args) {
@@ -75,5 +75,24 @@ namespace Ruby {
         Malachite::Matrix4f m_ViewMatrix{ 1.0f };
 
         std::vector<Celestite::Ptr<Renderable>> m_Renderables;
+        std::vector<Celestite::Ptr<Renderable>> m_OldRenderables;
+
+        bool m_Changed{ true };
+
+
+        struct MeshBucket {
+            Celestite::Ptr<Mesh> mesh;
+            std::vector<Celestite::Ptr<Renderable>> renderables;
+        };
+
+        struct MaterialBucket {
+            Celestite::Ptr<Material> material;
+            std::vector<Celestite::Ptr<Renderable>> renderables;
+            std::vector<MeshBucket> meshBuckets;
+        };
+
+
+        std::vector<MaterialBucket> m_Buckets;
+
 	};
 }
