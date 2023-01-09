@@ -33,11 +33,21 @@
 #include "FPSCamera.h"
 
 // Base
+#include "Engine.h"
 #include "Pointer.h" //TODO move to core folder
 
 #include "Vector.h"
 
+#include "ECS/GameObject.h"
+#include "ECS/Components/MaterialComponent.h"
+#include "ECS/Components/MeshComponent.h"
+#include "ECS/Components/RenderingComponent.h"
+#include "ECS/Components/Transform.h"
+
 int main() {
+	Emerald::Engine engine{};
+	engine.init();
+
 	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
 	// window.setSwapInterval(0);
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
@@ -159,6 +169,19 @@ int main() {
 	int frameCount = 0;
 	float averageDelta = 0.0f;
 
+	Emerald::GameObject gb{};
+
+	auto transform = Celestite::createPtr<Emerald::TransformComponent>();
+	gb.addComponent(transform);
+	auto mesh = Celestite::createPtr<Emerald::MeshComponent>(cubeMesh);
+	gb.addComponent(mesh);
+	auto material = Celestite::createPtr<Emerald::MaterialComponent>(earthMat);
+	gb.addComponent(material);
+
+	auto renderable = Celestite::createPtr<Emerald::RenderingComponent>(transform, mesh, material);
+
+	engine.enlist(gb);
+
 	// Rendering loop
 	while (window.isOpen()) {
 		window.pollEvents();
@@ -274,7 +297,7 @@ int main() {
 	LOG("Average delta time: " + std::to_string(averageDelta / (float)frameCount));
 	LOG("Average FPS: " + std::to_string(1 / (averageDelta / (float)frameCount)));
 
-	std::cin.get();
+	// std::cin.get();
 
 	renderer.imGuiTerminate();
 }
