@@ -23,7 +23,7 @@ project "Ruby"
 	windowsDir = string.gsub(gemstoneDirectory, "/", "\\\\")
 
 	defines {
-		"RUBY_ASSETS=\"" .. windowsDir .. "Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
+		"RUBY_ASSETS=\"" .. windowsDir .. "\\\\Ruby\\\\assets\"" -- Quad slashes needed because premake and the compiler both remove a set
     }
 
 	filter "configurations:Debug"

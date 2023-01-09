@@ -26,7 +26,7 @@ namespace Ruby {
 
 		Malachite::Vector3f cameraPosition{ 0.0f };
 		inline static std::vector<PointLight*> pointLights{ };
-		inline static std::vector<DirectionalLight*> directionalLights{ };
+		inline static std::vector<DirectionalLight*> directionalLights{ }; // TODO should be a shared pointer not a raw pointer
 		Celestite::Ptr<Texture> diffuseTexture;
 		Celestite::Ptr<Texture> specularTexture;
 		float shininess;
