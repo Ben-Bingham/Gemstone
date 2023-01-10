@@ -3,8 +3,8 @@
 #include "OpenGLState.h"
 
 namespace Ruby {
-	Renderer::Renderer(Camera& camera, Wavellite::Window& window)
-		: m_Camera(&camera), m_Window(&window) {
+	Renderer::Renderer(Wavellite::Window& window, Camera* camera)
+		: m_Camera(camera), m_Window(&window) {
 
 		int flags;
 		glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
@@ -30,10 +30,16 @@ namespace Ruby {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+#ifdef RUBY_DEBUG
+		if (m_Camera == nullptr) {
+			LOG("Camera is null, please set a camera.", Lazuli::LogLevel::ERROR);
+		}
+#endif
+
 		m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
-	void Renderer::render(const Celestite::Ptr<Renderable> renderable) {
+	void Renderer::render(Celestite::Ptr<Renderable> renderable) {
 		m_Renderables.push_back(renderable);
 	}
 

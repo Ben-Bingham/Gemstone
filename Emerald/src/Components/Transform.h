@@ -8,6 +8,8 @@ namespace Emerald {
 	public:
 		TransformComponent() = default;
 
+		Malachite::Transform& transform() { return m_Transform; }
+
 	private:
 		Malachite::Transform m_Transform;
 	};

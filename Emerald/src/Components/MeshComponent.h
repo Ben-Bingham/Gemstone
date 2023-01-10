@@ -16,6 +16,8 @@ namespace Emerald {
 
 		MeshComponent(Celestite::Ptr<Ruby::Mesh> mesh);
 
+		Celestite::Ptr<Ruby::Mesh>& mesh() { return m_Mesh; }
+
 	private:
 		Celestite::Ptr<Ruby::Mesh> m_Mesh;
 	};

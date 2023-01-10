@@ -9,7 +9,7 @@
 namespace Ruby {
 	class Renderable {
 	public:
-		Renderable(const Celestite::Ptr<Mesh>& mesh, const Celestite::Ptr<Material>& material);
+		Renderable(const Celestite::Ptr<Mesh>& mesh, const Celestite::Ptr<Material>& material, const Celestite::Ptr<Malachite::Transform> transform = Celestite::createPtr<Malachite::Transform>());
 
 		/*Renderable(const Renderable& other) = delete;
 		Renderable(Renderable&& other) noexcept = default;
@@ -28,6 +28,6 @@ namespace Ruby {
 	protected:
 		Celestite::Ptr<Mesh> m_Mesh;
 		Celestite::Ptr<Material> m_Material;
-		Celestite::Ptr<Malachite::Transform> m_Transform{ Celestite::createPtr<Malachite::Transform>() };
+		Celestite::Ptr<Malachite::Transform> m_Transform;
 	};
 }

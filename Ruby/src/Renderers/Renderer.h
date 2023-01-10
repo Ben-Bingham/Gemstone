@@ -21,7 +21,7 @@ namespace Ruby {
 
     class Renderer {
     public:
-    	Renderer(Camera& camera, Wavellite::Window& window);
+    	Renderer(Wavellite::Window& window, Camera* camera = nullptr);
 
         Renderer(Renderer&) = delete;
         Renderer& operator=(Renderer&) = delete;
@@ -57,7 +57,7 @@ namespace Ruby {
             ImGui::DestroyContext();
         }
 
-        void render(const Celestite::Ptr<Renderable> renderable);
+        void render(Celestite::Ptr<Renderable> renderable);
 
         template<typename... T>
         void debugRender(T...args) {
@@ -65,6 +65,10 @@ namespace Ruby {
         }
 
         ShaderLibrary& shaders{ ShaderLibrary::get() };
+
+        void setCamera(Camera* camera) {
+            m_Camera = camera;
+        }
 
     private:
     	Camera* m_Camera{ nullptr };
@@ -78,7 +82,6 @@ namespace Ruby {
         std::vector<Celestite::Ptr<Renderable>> m_OldRenderables;
 
         bool m_Changed{ true };
-
 
         struct MeshBucket {
             Celestite::Ptr<Mesh> mesh;

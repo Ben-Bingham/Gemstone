@@ -14,6 +14,8 @@ namespace Emerald {
 
 		MaterialComponent(Celestite::Ptr<Ruby::Material> material);
 
+		Celestite::Ptr<Ruby::Material>& material() { return m_Material; }
+
 	private:
 		Celestite::Ptr<Ruby::Material> m_Material;
 	};

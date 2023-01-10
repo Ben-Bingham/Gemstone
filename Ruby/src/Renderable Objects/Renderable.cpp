@@ -1,8 +1,8 @@
 #include "Renderable.h"
 
 namespace Ruby {
-	Renderable::Renderable(const Celestite::Ptr<Mesh>& mesh, const Celestite::Ptr<Material>& material)
-		: m_Mesh(mesh), m_Material(material) {
+	Renderable::Renderable(const Celestite::Ptr<Mesh>& mesh, const Celestite::Ptr<Material>& material, const Celestite::Ptr<Malachite::Transform> transform)
+		: m_Mesh(mesh), m_Material(material), m_Transform(transform) {
 
 	}
 

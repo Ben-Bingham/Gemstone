@@ -48,8 +48,10 @@ int main() {
 	Emerald::Engine engine{};
 	engine.init();
 
-	Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
+	// Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
 	// window.setSwapInterval(0);
+	Wavellite::Window& window = engine.window();
+
 	Wavellite::Mouse& mouse = window.ioManger.getMouse();
 	Wavellite::Keyboard& keyboard = window.ioManger.getKeyboard();
 
@@ -58,8 +60,8 @@ int main() {
 	bool cursor = false;
 	window.disableCursor();
 
-	Wavellite::Time time{ };
-	Ruby::Renderer renderer{ camera, window };
+	Wavellite::Time time{ }; //TODO add to engine class
+	// Ruby::Renderer renderer{ window, &camera };
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 
@@ -180,7 +182,7 @@ int main() {
 
 	auto renderable = Celestite::createPtr<Emerald::RenderingComponent>(transform, mesh, material);
 
-	engine.enlist(gb);
+	// engine.enlist(gb);
 
 	// Rendering loop
 	while (window.isOpen()) {
@@ -231,56 +233,56 @@ int main() {
 		}
 
 		{ // Rendering
-			renderer.beginFrame();
-
-			for (const Celestite::Ptr<Ruby::Renderable>& cube : cubes) {
-				renderer.render(cube);
-			}
-
-			if (keyboard.KEY_B) {
-				renderer.render(testRenderable);
-			}
-
-			renderer.render(cubeRenderable2);
-
-			renderer.render(donut);
-			// renderer.render(bigSphere);
-			renderer.render(earthRenderable);
-			renderer.render(pawn);
-			renderer.render(awesomeRenderable);
-			renderer.render(awesomeRenderable2);
-
-			renderer.render(testCube);
-			renderer.render(phongCube);
-
-			{ // Planes
-				Ruby::OpenGlState::Face culledFace = Ruby::OpenGlState::get().getFaceToCull();
-				Ruby::OpenGlState::get().setFaceToCull(Ruby::OpenGlState::Face::NONE);
-
-				renderer.render(planeRenderable);
-				renderer.render(texturedRenderable);
-				// renderer.render(screenQuadRenderable);
-
-				Ruby::OpenGlState::get().setFaceToCull(culledFace);
-			}
-
-			renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ (float)mouse.xPosition, (float)mouse.yPosition, 5.0f } });
-			//renderer.debugRender(cubeMesh, Malachite::Vector3f{0.0f, 0.0f, 0.0f}, Malachite::Vector3f{3.0f, 3.0f, 3.0f}); //TODO non functional
-
-			renderer.render(skyBox);
-
-			renderer.imGuiPrep();
-			{
-				ImGui::Begin("Settings");
-				{
-					ImGui::SliderFloat3("Position", &pawn->transform()->position().x, -10.0f, 10.0f);
-				}
-				ImGui::End();
-			}
-			renderer.imGuiEnd();
-
-			renderer.endFrame();
-			glCheckError();
+			// renderer.beginFrame();
+			//
+			// for (const Celestite::Ptr<Ruby::Renderable>& cube : cubes) {
+			// 	renderer.render(cube);
+			// }
+			//
+			// if (keyboard.KEY_B) {
+			// 	renderer.render(testRenderable);
+			// }
+			//
+			// renderer.render(cubeRenderable2);
+			//
+			// renderer.render(donut);
+			// // renderer.render(bigSphere);
+			// renderer.render(earthRenderable);
+			// renderer.render(pawn);
+			// renderer.render(awesomeRenderable);
+			// renderer.render(awesomeRenderable2);
+			//
+			// renderer.render(testCube);
+			// renderer.render(phongCube);
+			//
+			// { // Planes
+			// 	Ruby::OpenGlState::Face culledFace = Ruby::OpenGlState::get().getFaceToCull();
+			// 	Ruby::OpenGlState::get().setFaceToCull(Ruby::OpenGlState::Face::NONE);
+			//
+			// 	renderer.render(planeRenderable);
+			// 	renderer.render(texturedRenderable);
+			// 	// renderer.render(screenQuadRenderable);
+			//
+			// 	Ruby::OpenGlState::get().setFaceToCull(culledFace);
+			// }
+			//
+			// renderer.debugRender(std::vector{ Malachite::Vector3f{ 0.0f, 0.0f, 0.0f }, Malachite::Vector3f{ (float)mouse.xPosition, (float)mouse.yPosition, 5.0f } });
+			// //renderer.debugRender(cubeMesh, Malachite::Vector3f{0.0f, 0.0f, 0.0f}, Malachite::Vector3f{3.0f, 3.0f, 3.0f}); //TODO non functional
+			//
+			// renderer.render(skyBox);
+			//
+			// renderer.imGuiPrep();
+			// {
+			// 	ImGui::Begin("Settings");
+			// 	{
+			// 		ImGui::SliderFloat3("Position", &pawn->transform()->position().x, -10.0f, 10.0f);
+			// 	}
+			// 	ImGui::End();
+			// }
+			// renderer.imGuiEnd();
+			//
+			// renderer.endFrame();
+			// glCheckError();
 		}
 
 		window.swapBuffers();
@@ -299,5 +301,5 @@ int main() {
 
 	// std::cin.get();
 
-	renderer.imGuiTerminate();
+	// renderer.imGuiTerminate();
 }
