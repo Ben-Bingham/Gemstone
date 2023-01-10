@@ -6,6 +6,7 @@ require "../Ruby/use"
 require "../Pyrite/use"
 require "../Celestite/use"
 require "../Emerald/use"
+require "../Esperite/use"
 
 function useGemstoneWorkspace(dir)
     dir = dir or ""
@@ -18,6 +19,7 @@ function useGemstoneWorkspace(dir)
         include(dir .. "Ruby/premake5")
         include(dir .. "Pyrite/premake5")
         include(dir .. "Emerald/premake5")
+        include(dir .. "Esperite/premake5")
     group ""
 
     group "Gemstone/Vendor"

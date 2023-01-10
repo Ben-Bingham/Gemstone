@@ -1,6 +1,7 @@
 require "../Malachite/use"
 require "../Lazuli/use"
 require "../Celestite/use"
+require "../Esperite/use"
 
 function usePyrite(dir)
 	dir = dir or ""
@@ -16,6 +17,7 @@ function usePyrite(dir)
 		defines "PYRITE_RELEASE"
 	filter {}
 
+	useEsperite(dir)
 	useLazuli(dir)
 	useMalachite(dir)
 	useCelestite(dir)

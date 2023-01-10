@@ -4,6 +4,7 @@ require "../vendor/GLFW/use"
 require "../Celestite/use"
 require "../Ruby/use"
 require "../Pyrite/use"
+require "../Esperite/use"
 
 function useEmerald(dir)
 	dir = dir or ""
@@ -20,6 +21,7 @@ function useEmerald(dir)
 	filter {}
 
 	useLazuli(dir)
+	useEsperite(dir)
 	useMalachite(dir)
 	useWavellite(dir)
 	useCelestite(dir)

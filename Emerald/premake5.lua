@@ -4,6 +4,7 @@ require "../vendor/GLFW/use"
 require "../Celestite/use"
 require "../Ruby/use"
 require "../Pyrite/use"
+require "../Esperite/use"
 
 project "Emerald"
 	print "Initializing Emerald"
@@ -36,6 +37,7 @@ project "Emerald"
 		"src"
 	}
 
+	useEsperite("../")
 	useLazuli("../")
 	useMalachite("../")
 	useWavellite("../")

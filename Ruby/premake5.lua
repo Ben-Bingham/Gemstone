@@ -6,6 +6,7 @@ require "../vendor/ImGui/use"
 require "../vendor/GLEW/use"
 require "../vendor/stb_image/use"
 require "../Celestite/use"
+require "../Esperite/use"
 
 project "Ruby"
 	print "Initializing Ruby"
@@ -45,6 +46,7 @@ project "Ruby"
 		"src"
 	}
 
+	useEsperite("../")
 	useStbImage("../")
 	useLazuli("../")
 	useMalachite("../")

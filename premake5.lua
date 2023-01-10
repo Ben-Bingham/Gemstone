@@ -25,6 +25,7 @@ workspace "Gemstone"
 		include "Ruby"
 		include "Pyrite"
 		include "Emerald"
+		include "Esperite"
 	group ""
 
 	group "Misc"

@@ -1,10 +1,5 @@
-require "../Malachite/use"
-require "../Lazuli/use"
-require "../Celestite/use"
-require "../Esperite/use"
-
-project "Pyrite"
-	print "Initializing Pyrite"
+project "Esperite"
+	print "Initializing Esperite"
 
     kind "StaticLib"
 	language "C++"
@@ -17,12 +12,12 @@ project "Pyrite"
 
 	filter "configurations:Debug"
 		symbols "On"
-		defines "PYRITE_DEBUG"
+		defines "ESPERITE_DEBUG"
 	filter {}
 	
 	filter "configurations:Release"
 		optimize "On"
-		defines "PYRITE_RELEASE"
+		defines "ESPERITE_RELEASE"
 	filter {}
 
 	files {
@@ -34,9 +29,4 @@ project "Pyrite"
 		"src"
 	}
 
-	useEsperite("../")
-	useLazuli("../")
-	useMalachite("../")
-	useCelestite("../")
-
-	print "Pyrite Initialized"
+	print "Esperite Initialized"

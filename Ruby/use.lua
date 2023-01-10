@@ -6,6 +6,7 @@ require "../vendor/ImGui/use"
 require "../vendor/GLEW/use"
 require "../vendor/stb_image/use"
 require "../Celestite/use"
+require "../Esperite/use"
 
 function useRuby(dir)
 	dir = dir or ""
@@ -27,6 +28,7 @@ function useRuby(dir)
 		defines "RUBY_RELEASE"
 	filter {}
 
+	useEsperite(dir)
 	useStbImage(dir)
 	useLazuli(dir)
 	useMalachite(dir)
