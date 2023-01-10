@@ -129,8 +129,20 @@ struct Entity {
 		signature |= 1UL << componentId;
 	}
 
+	void removeComponent(const size_t componentId) {
+		assert(componentId <= sizeof signature); // Id too big
+		signature &= ~(1UL << componentId);
+	}
+
 private:
 	Entity() = default;
+};
+
+class Component {
+public:
+	BitSet signature;
+
+	inline static BitSet usedBitSets{ 0 };
 };
 
 class Scene {
