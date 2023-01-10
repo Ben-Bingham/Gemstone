@@ -2,10 +2,10 @@
 
 #include "Camera.h"
 
-#include "ECS/Component.h"
+#include "Component.h"
 
 namespace Emerald {
-	class CameraComponent : public Component {
+	class CameraComponent : public Esperite::Component {
 	public:
 		CameraComponent() = default;
 

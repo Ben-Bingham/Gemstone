@@ -1,7 +1,6 @@
 #pragma once
+#include "GameObject.h"
 #include "Window.h"
-
-#include "ECS/GameObject.h"
 
 #include "Renderers/Renderer.h"
 
@@ -14,7 +13,7 @@ namespace Emerald {
 		void start();
 
 		// GameObject Utility
-		void enlist(const Celestite::Ptr<GameObject>& gameObject);
+		void enlist(const Celestite::Ptr<Esperite::GameObject>& gameObject);
 		
 		Wavellite::Window& window() { return m_Window; } // TODO maybe replace with some kind of IO interface of something
 		Ruby::Renderer& renderer() { return m_Renderer; } // TODO this is probably not needed
@@ -24,6 +23,6 @@ namespace Emerald {
 		Ruby::Renderer m_Renderer;
 		// Pyrite::Physician m_Physician;
 
-		std::vector<Celestite::Ptr<GameObject>> m_GameObjects;
+		std::vector<Celestite::Ptr<Esperite::GameObject>> m_GameObjects;
 	};
 }

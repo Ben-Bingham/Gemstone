@@ -5,7 +5,7 @@
 #include "Component.h"
 #include "Pointer.h"
 
-namespace Emerald {
+namespace Esperite {
 	class ComponentManager {
 	public:
 		ComponentManager(const ComponentManager& other) = delete;
@@ -16,8 +16,6 @@ namespace Emerald {
 		static ComponentManager& get();
 
 		void addComponent(const Celestite::Ptr<Component>& component);
-
-
 
 		template<typename T>
 		std::pair<typename std::vector<Celestite::Ptr<T>>::iterator, typename std::vector<Celestite::Ptr<T>>::iterator> getComponents() {

@@ -58,6 +58,7 @@ namespace Ruby {
         }
 
         void render(Celestite::Ptr<Renderable> renderable);
+        // void render(Celestite::Ptr<Mesh> mesh, )
 
         template<typename... T>
         void debugRender(T...args) {

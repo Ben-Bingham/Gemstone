@@ -1,3 +1,6 @@
+require "../Lazuli/use"
+require "../Celestite/use"
+
 project "Esperite"
 	print "Initializing Esperite"
 
@@ -28,5 +31,8 @@ project "Esperite"
 	includedirs {
 		"src"
 	}
+
+	useLazuli("../")
+	useCelestite("../")
 
 	print "Esperite Initialized"

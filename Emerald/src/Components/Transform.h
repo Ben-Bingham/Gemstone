@@ -1,10 +1,10 @@
 #pragma once
-#include "ECS/Component.h"
+#include "Component.h"
 
 #include "Utility/Transform.h"
 
 namespace Emerald {
-	class TransformComponent : public Component {
+	class TransformComponent : public Esperite::Component {
 	public:
 		TransformComponent() = default;
 

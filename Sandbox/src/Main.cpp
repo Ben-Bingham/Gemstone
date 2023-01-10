@@ -38,13 +38,147 @@
 
 #include "Vector.h"
 
-#include "ECS/GameObject.h"
-#include "ECS/Components/MaterialComponent.h"
-#include "ECS/Components/MeshComponent.h"
-#include "ECS/Components/RenderingComponent.h"
-#include "ECS/Components/Transform.h"
+#include "GameObject.h"
+#include "Components/MaterialComponent.h"
+#include "Components/MeshComponent.h"
+#include "Components/RenderingComponent.h"
+#include "Components/Transform.h"
+#include <any>
+#include <array>
+
+
+// ECS Testing:
+
+// class GameObject {
+// public:
+// 	uint64_t components;
+// };
+//
+// using BitSet = uint64_t;
+//
+// class ECSManager {
+// public:
+// 	static constexpr size_t maxEntities = 2048;
+//
+// 	std::array<BitSet, maxEntities> entities; // Bit set is the entity, the index of the array is the index of the entity.
+//
+// 	static constexpr unsigned char getNextComponentIndex() {
+// 		
+// 	}
+// };
+//
+// template<BitSet Signature>
+// class System {
+// public:
+// 	BitSet signature{ Signature };
+//
+// };
+//
+// template<unsigned char BitIndex>
+// class Component {
+// public:
+// 	static BitSet allBitSet;
+//
+// };
+//
+// class Transform : public Component<ECSManager::getNextComponentIndex()> {
+// 	
+// };
+//
+// class RigidBody : public Component<getNextComponentIndex()>{
+// 	
+// };
+//
+// class Renderer : public System<0x1> {
+// public:
+//
+// };
+
+//
+// class Component {
+// public:
+// 	Component() = default;
+// };
+//
+// class ECSManager {
+// public:
+// 	template<typename T>
+// 	BitSet getBitFieldForType() {
+// 		
+// 	}
+// };
+//
+// class Entity {
+// public:
+// 	template<typename T>
+// 	void addComponent() {
+// 		static_assert(std::derived_from<T, Component>, "T is not a child of the component class");
+//
+//
+// 	}
+// };
+//
+
+using BitSet = uint64_t;
+
+struct Entity {
+	BitSet signature;
+
+	void addComponent(const size_t componentId) {
+		assert(componentId <= sizeof signature); // Id too big
+		signature |= 1UL << componentId;
+	}
+
+private:
+	Entity() = default;
+};
+
+class Scene {
+public:
+	Entity& getNewEntity() {
+		Entity& ref = m_Entities[m_LastEntity];
+
+		augmentLastEntity();
+
+		return ref;
+	}
+
+	void augmentLastEntity() {
+		// TODO
+	}
+
+private:
+	std::array<Entity, 100> m_Entities{};
+	size_t m_LastEntity{ 0 };
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 int main() {
+	Scene scene{};
+
+	Entity entity = scene.getNewEntity();
+
+
+	// GameObject<Transform, RigidBody> gb{};
+
+	// auto val = std::get<0>(gb.components);
+
+
+
+
+
+
 	Emerald::Engine engine{};
 	engine.init();
 
@@ -171,16 +305,16 @@ int main() {
 	int frameCount = 0;
 	float averageDelta = 0.0f;
 
-	Emerald::GameObject gb{};
+	Esperite::GameObject gb{};
 
-	auto transform = Celestite::createPtr<Emerald::TransformComponent>();
-	gb.addComponent(transform);
-	auto mesh = Celestite::createPtr<Emerald::MeshComponent>(cubeMesh);
-	gb.addComponent(mesh);
-	auto material = Celestite::createPtr<Emerald::MaterialComponent>(earthMat);
-	gb.addComponent(material);
+	// auto transform = Celestite::createPtr<Emerald::TransformComponent>();
+	// gb.addComponent(transform);
+	// auto mesh = Celestite::createPtr<Emerald::MeshComponent>(cubeMesh);
+	// gb.addComponent(mesh);
+	// auto material = Celestite::createPtr<Emerald::MaterialComponent>(earthMat);
+	// gb.addComponent(material);
 
-	auto renderable = Celestite::createPtr<Emerald::RenderingComponent>(transform, mesh, material);
+	// auto renderable = Celestite::createPtr<Emerald::RenderingComponent>(transform, mesh, material);
 
 	// engine.enlist(gb);
 

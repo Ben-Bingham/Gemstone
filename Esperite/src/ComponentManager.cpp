@@ -2,7 +2,7 @@
 
 #include <typeindex>
 
-namespace Emerald {
+namespace Esperite {
 	ComponentManager& ComponentManager::get() {
 		static ComponentManager manager;
 		return manager;

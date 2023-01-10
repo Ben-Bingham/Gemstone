@@ -1,3 +1,6 @@
+require "../Lazuli/use"
+require "../Celestite/use"
+
 function useEsperite(dir)
     dir = dir or ""
 	links "Esperite"
@@ -11,4 +14,7 @@ function useEsperite(dir)
     filter "configurations:Release"
         defines "ESPERITE_RELEASE"
     filter {}
+
+    useLazuli(dir)
+	useCelestite(dir)
 end

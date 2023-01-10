@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Emerald {
+namespace Esperite {
 	class Component {
 	public:
 		Component() = default;

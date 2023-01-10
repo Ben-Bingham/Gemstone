@@ -1,12 +1,12 @@
 #pragma once
 #include "Pointer.h"
 
-#include "ECS/Component.h"
+#include "Component.h"
 
 #include "Geometry/Mesh.h"
 
 namespace Emerald {
-	class MeshComponent : public Component {
+	class MeshComponent : public Esperite::Component {
 	public:
 		template<typename ... Args>
 		MeshComponent(Args&& ... args)

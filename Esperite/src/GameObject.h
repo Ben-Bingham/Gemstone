@@ -4,7 +4,7 @@
 #include "Component.h"
 #include "Pointer.h"
 
-namespace Emerald {
+namespace Esperite {
 	class GameObject {
 	public:
 		GameObject() = default;

@@ -2,12 +2,12 @@
 #include "MaterialComponent.h"
 #include "MeshComponent.h"
 
-#include "ECS/Component.h"
+#include "Component.h"
 #include "Pointer.h"
 #include "Transform.h"
 
 namespace Emerald {
-	class RenderingComponent : public Component {
+	class RenderingComponent : public Esperite::Component {
 	public:
 		RenderingComponent(Celestite::Ptr<TransformComponent> transform, Celestite::Ptr<MeshComponent> mesh, Celestite::Ptr<MaterialComponent> material);
 

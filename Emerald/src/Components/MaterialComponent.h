@@ -1,10 +1,10 @@
 #pragma once
-#include "ECS/Component.h"
+#include "Component.h"
 
 #include "Materials/Material.h"
 
 namespace Emerald {
-	class MaterialComponent : public Component {
+	class MaterialComponent : public Esperite::Component {
 	public:
 		template<typename ... Args>
 		MaterialComponent(Args&& ... args)
