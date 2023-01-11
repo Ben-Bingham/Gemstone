@@ -344,7 +344,7 @@ class Test {
 
 
 
-int main() {
+int main() { //TODO there is an issue with pool creation in the scene class, pools keep getting accessed without even being created.
 	Scene scene{};
 
 	GameObject gameObject = scene.newGameObject();
