@@ -46,128 +46,6 @@
 #include <any>
 #include <array>
 
-
-// ECS Testing:
-
-// class GameObject {
-// public:
-// 	uint64_t components;
-// };
-//
-// using BitSet = uint64_t;
-//
-// class ECSManager {
-// public:
-// 	static constexpr size_t maxEntities = 2048;
-//
-// 	std::array<BitSet, maxEntities> entities; // Bit set is the entity, the index of the array is the index of the entity.
-//
-// 	static constexpr unsigned char getNextComponentIndex() {
-// 		
-// 	}
-// };
-//
-// template<BitSet Signature>
-// class System {
-// public:
-// 	BitSet signature{ Signature };
-//
-// };
-//
-// template<unsigned char BitIndex>
-// class Component {
-// public:
-// 	static BitSet allBitSet;
-//
-// };
-//
-// class Transform : public Component<ECSManager::getNextComponentIndex()> {
-// 	
-// };
-//
-// class RigidBody : public Component<getNextComponentIndex()>{
-// 	
-// };
-//
-// class Renderer : public System<0x1> {
-// public:
-//
-// };
-
-//
-// class Component {
-// public:
-// 	Component() = default;
-// };
-//
-// class ECSManager {
-// public:
-// 	template<typename T>
-// 	BitSet getBitFieldForType() {
-// 		
-// 	}
-// };
-//
-// class Entity {
-// public:
-// 	template<typename T>
-// 	void addComponent() {
-// 		static_assert(std::derived_from<T, Component>, "T is not a child of the component class");
-//
-//
-// 	}
-// };
-//
-
-// using BitSet = uint64_t;
-//
-// struct Entity {
-// 	BitSet signature;
-//
-// 	void addComponent(const size_t componentId) {
-// 		assert(componentId <= sizeof signature); // Id too big
-// 		signature |= 1UL << componentId;
-// 	}
-//
-// 	void removeComponent(const size_t componentId) {
-// 		assert(componentId <= sizeof signature); // Id too big
-// 		signature &= ~(1UL << componentId);
-// 	}
-//
-// private:
-// 	Entity() = default;
-// };
-//
-// class Component {
-// public:
-// 	BitSet signature;
-//
-// 	inline static BitSet usedBitSets{ 0 };
-// };
-//
-// class Scene {
-// public:
-// 	Entity& getNewEntity() {
-// 		Entity& ref = m_Entities[m_LastEntity];
-//
-// 		augmentLastEntity();
-//
-// 		return ref;
-// 	}
-//
-// 	void augmentLastEntity() {
-// 		// TODO
-// 	}
-//
-// private:
-// 	std::array<Entity, 100> m_Entities{};
-// 	size_t m_LastEntity{ 0 };
-// };
-//
-//
-
-
-
 constexpr unsigned int MAX_ENTITIES = 1000;
 constexpr unsigned int MAX_COMPONENTS = 128;
 
@@ -184,13 +62,6 @@ unsigned int getId() {
 
 using GameObject = unsigned int;
 
-// class Component {
-// public:
-// 	Component() {
-// 		
-// 	}
-// };
-
 class ComponentPool {
 public:
 	ComponentPool(unsigned int componentSize)
@@ -202,13 +73,10 @@ public:
 		delete[] memoryPool;
 	}
 
-	bool hasComponent(GameObject gb) const {
+	inline bool hasComponent(GameObject gb) const {
 		unsigned int denseIndex = sparse[gb];
 	
-		if (dense[denseIndex] == gb) {
-			return true;
-		}
-		return false;
+		return dense[denseIndex] == gb;
 	}
 
 	template<typename T>
@@ -218,21 +86,10 @@ public:
 		return (T*)(memoryPool + memoryPoolIndex * componentSize);
 	}
 
-	// void addComponent(unsigned int entityId) {
-	// 	if (hasComponent(entityId)) {
-	// 		LOG("Entity already has component", Lazuli::LogLevel::WARNING);
-	// 	}
-	//
-	// 	dense[nextComponent] = entityId;
-	// 	sparse[entityId] = nextComponent;
-	//
-	// 	nextComponent++;
-	// }
-
 	template<typename T>
 	T* addAndGet(GameObject gb) {
 		if (hasComponent(gb)) {
-			LOG("Entity already has component", Lazuli::LogLevel::WARNING);
+			LOG("Entity already has component", Lazuli::LogLevel::WARNING); //TODO maybe just return the component and not complain?
 		}
 	
 		dense[nextComponent] = gb;
@@ -261,7 +118,9 @@ public:
 
 	GameObject newGameObject() {
 		gameObjects[furthestGameObject] = furthestGameObject;
-		return furthestGameObject;
+		GameObject gb = furthestGameObject;
+		furthestGameObject++;
+		return gb;
 	}
 
 	template<typename T>
@@ -270,12 +129,11 @@ public:
 
 		unsigned int poolIndex{ 0 };
 
-		if (componentId < furthestPool) { // Pool already exists for component type
+		if ((int)componentId <= furthestPool) { // Pool already exists for component type
 			poolIndex = componentId;
 		}
-		else {
-			// Pool does not exist for component type
-			pools[furthestPool + 1] = Celestite::createUPtr<ComponentPool>(sizeof(T));
+		else { // Pool does not exist for component type
+			pools[furthestPool + 1u] = Celestite::createUPtr<ComponentPool>(sizeof(T));
 			furthestPool++;
 			poolIndex = furthestPool;
 		}
@@ -287,7 +145,7 @@ public:
 	T* getComponent(GameObject gb) {
 		const unsigned int componentId = getId<T>();
 
-		if (componentId < furthestPool) { // Pool already exists for component type
+		if ((int)componentId <= furthestPool) { // Pool already exists for component type
 			return pools[componentId]->getComponent<T>(gb);
 		}
 
@@ -296,55 +154,22 @@ public:
 	}
 
 	std::array<Celestite::UPtr<ComponentPool>, MAX_COMPONENTS> pools{ };
-	unsigned int furthestPool{ 0 };
+	int furthestPool{ -1 };
 	std::array<GameObject, MAX_ENTITIES> gameObjects{ }; //TODO maybe not even neccasary
 	unsigned int furthestGameObject{ 0 };
 };
-
-// class GameObject {
-// public:
-// 	GameObject() = default;
-//
-// 	template<typename T>
-// 	void addComponent(T& component) {
-// 		Scene::get().getPool(getId<T>()).addComponent(id);
-// 	}
-//
-// 	unsigned int id{ getNextId() };
-//
-// private:
-// 	static inline unsigned int m_NextId{ 0 };
-//
-// 	static unsigned int getNextId() {
-// 		if (m_NextId + 1 > MAX_ENTITIES) {
-// 			LOG("Max numbers of entities reached.", Lazuli::LogLevel::ERROR);
-// 		}
-// 		return m_NextId++;
-// 	}
-// };
 
 class Transform {
 public:
 	Transform(int x = 0, int y = 0)
 		: x(x), y(y) {
-
 	}
 
 	int x;
 	int y;
 };
 
-class Test {
-	
-};
-
-
-
-
-
-
-
-int main() { //TODO there is an issue with pool creation in the scene class, pools keep getting accessed without even being created.
+int main() {
 	Scene scene{};
 
 	GameObject gameObject = scene.newGameObject();
@@ -355,9 +180,6 @@ int main() { //TODO there is an issue with pool creation in the scene class, poo
 	transform->y = 3;
 
 	Transform* transform2 = scene.getComponent<Transform>(gameObject);
-
-	Test* test = scene.getComponent<Test>(gameObject);
-
 
 	// GameObject<Transform, RigidBody> gb{};
 
