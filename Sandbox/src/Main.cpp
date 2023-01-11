@@ -119,56 +119,224 @@
 // };
 //
 
-using BitSet = uint64_t;
+// using BitSet = uint64_t;
+//
+// struct Entity {
+// 	BitSet signature;
+//
+// 	void addComponent(const size_t componentId) {
+// 		assert(componentId <= sizeof signature); // Id too big
+// 		signature |= 1UL << componentId;
+// 	}
+//
+// 	void removeComponent(const size_t componentId) {
+// 		assert(componentId <= sizeof signature); // Id too big
+// 		signature &= ~(1UL << componentId);
+// 	}
+//
+// private:
+// 	Entity() = default;
+// };
+//
+// class Component {
+// public:
+// 	BitSet signature;
+//
+// 	inline static BitSet usedBitSets{ 0 };
+// };
+//
+// class Scene {
+// public:
+// 	Entity& getNewEntity() {
+// 		Entity& ref = m_Entities[m_LastEntity];
+//
+// 		augmentLastEntity();
+//
+// 		return ref;
+// 	}
+//
+// 	void augmentLastEntity() {
+// 		// TODO
+// 	}
+//
+// private:
+// 	std::array<Entity, 100> m_Entities{};
+// 	size_t m_LastEntity{ 0 };
+// };
+//
+//
 
-struct Entity {
-	BitSet signature;
 
-	void addComponent(const size_t componentId) {
-		assert(componentId <= sizeof signature); // Id too big
-		signature |= 1UL << componentId;
+
+constexpr unsigned int MAX_ENTITIES = 1000;
+constexpr unsigned int MAX_COMPONENTS = 128;
+
+inline unsigned int masterComponentCounter{ 0 };
+
+template<typename T>
+unsigned int getId() {
+	if (masterComponentCounter + 1 > MAX_COMPONENTS) {
+		LOG("Max numbers of components reached.", Lazuli::LogLevel::ERROR);
 	}
+	static unsigned int componentId = masterComponentCounter++;
+	return componentId;
+}
 
-	void removeComponent(const size_t componentId) {
-		assert(componentId <= sizeof signature); // Id too big
-		signature &= ~(1UL << componentId);
-	}
+using GameObject = unsigned int;
 
-private:
-	Entity() = default;
-};
+// class Component {
+// public:
+// 	Component() {
+// 		
+// 	}
+// };
 
-class Component {
+class ComponentPool {
 public:
-	BitSet signature;
+	ComponentPool(unsigned int componentSize)
+		: componentSize(componentSize) {
+		memoryPool = new char[componentSize * MAX_ENTITIES];
+	}
 
-	inline static BitSet usedBitSets{ 0 };
+	~ComponentPool() {
+		delete[] memoryPool;
+	}
+
+	bool hasComponent(GameObject gb) const {
+		unsigned int denseIndex = sparse[gb];
+	
+		if (dense[denseIndex] == gb) {
+			return true;
+		}
+		return false;
+	}
+
+	template<typename T>
+	T* getComponent(GameObject gb) const {
+		unsigned int memoryPoolIndex = sparse[gb];
+	
+		return (T*)(memoryPool + memoryPoolIndex * componentSize);
+	}
+
+	// void addComponent(unsigned int entityId) {
+	// 	if (hasComponent(entityId)) {
+	// 		LOG("Entity already has component", Lazuli::LogLevel::WARNING);
+	// 	}
+	//
+	// 	dense[nextComponent] = entityId;
+	// 	sparse[entityId] = nextComponent;
+	//
+	// 	nextComponent++;
+	// }
+
+	template<typename T>
+	T* addAndGet(GameObject gb) {
+		if (hasComponent(gb)) {
+			LOG("Entity already has component", Lazuli::LogLevel::WARNING);
+		}
+	
+		dense[nextComponent] = gb;
+		sparse[gb] = nextComponent;
+	
+		nextComponent++;
+
+		unsigned int memoryPoolIndex = sparse[gb];
+
+		void* componentPointer = memoryPool + memoryPoolIndex * componentSize;
+
+		return new(componentPointer) T();
+	}
+
+	std::array<unsigned int, MAX_ENTITIES> sparse{ 0 };
+	std::array<unsigned int, MAX_ENTITIES> dense{ 0 };
+	char* memoryPool;
+	unsigned int componentSize;
+	unsigned int nextComponent{ 0 };
+	unsigned int componentId{ 0 };
 };
 
 class Scene {
 public:
-	Entity& getNewEntity() {
-		Entity& ref = m_Entities[m_LastEntity];
+	Scene() = default;
 
-		augmentLastEntity();
-
-		return ref;
+	GameObject newGameObject() {
+		gameObjects[furthestGameObject] = furthestGameObject;
+		return furthestGameObject;
 	}
 
-	void augmentLastEntity() {
-		// TODO
+	template<typename T>
+	T* addComponent(GameObject gb) {
+		const unsigned int componentId = getId<T>();
+
+		unsigned int poolIndex{ 0 };
+
+		if (componentId < furthestPool) { // Pool already exists for component type
+			poolIndex = componentId;
+		}
+		else {
+			// Pool does not exist for component type
+			pools[furthestPool + 1] = Celestite::createUPtr<ComponentPool>(sizeof(T));
+			furthestPool++;
+			poolIndex = furthestPool;
+		}
+
+		return pools[poolIndex]->addAndGet<T>(gb);
 	}
 
-private:
-	std::array<Entity, 100> m_Entities{};
-	size_t m_LastEntity{ 0 };
+	template<typename T>
+	T* getComponent(GameObject gb) {
+		const unsigned int componentId = getId<T>();
+
+		if (componentId < furthestPool) { // Pool already exists for component type
+			return pools[componentId]->getComponent<T>(gb);
+		}
+
+		LOG("Game Object does not contain component", Lazuli::LogLevel::WARNING);
+		return nullptr;
+	}
+
+	std::array<Celestite::UPtr<ComponentPool>, MAX_COMPONENTS> pools{ };
+	unsigned int furthestPool{ 0 };
+	std::array<GameObject, MAX_ENTITIES> gameObjects{ }; //TODO maybe not even neccasary
+	unsigned int furthestGameObject{ 0 };
 };
 
+// class GameObject {
+// public:
+// 	GameObject() = default;
+//
+// 	template<typename T>
+// 	void addComponent(T& component) {
+// 		Scene::get().getPool(getId<T>()).addComponent(id);
+// 	}
+//
+// 	unsigned int id{ getNextId() };
+//
+// private:
+// 	static inline unsigned int m_NextId{ 0 };
+//
+// 	static unsigned int getNextId() {
+// 		if (m_NextId + 1 > MAX_ENTITIES) {
+// 			LOG("Max numbers of entities reached.", Lazuli::LogLevel::ERROR);
+// 		}
+// 		return m_NextId++;
+// 	}
+// };
 
+class Transform {
+public:
+	Transform(int x = 0, int y = 0)
+		: x(x), y(y) {
 
+	}
 
+	int x;
+	int y;
+};
 
-
+class Test {
+	
+};
 
 
 
@@ -179,7 +347,16 @@ private:
 int main() {
 	Scene scene{};
 
-	Entity entity = scene.getNewEntity();
+	GameObject gameObject = scene.newGameObject();
+
+	Transform* transform = scene.addComponent<Transform>(gameObject);
+
+	transform->x = 2;
+	transform->y = 3;
+
+	Transform* transform2 = scene.getComponent<Transform>(gameObject);
+
+	Test* test = scene.getComponent<Test>(gameObject);
 
 
 	// GameObject<Transform, RigidBody> gb{};
