@@ -7,15 +7,15 @@
 namespace Esperite {
 	class GameObject {
 	public:
-		GameObject() = default;
+		inline GameObject() = default;
 
 		template<typename T>
-		void addComponent() const {
+		inline void addComponent() const {
 			SceneManager::get().getScene()->addComponent<T>(id);
 		}
 
 		template<typename T>
-		T* getComponent() {
+		inline T* getComponent() {
 			return SceneManager::get().getScene()->getComponent<T>(id);
 		}
 

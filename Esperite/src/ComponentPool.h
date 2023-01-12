@@ -58,6 +58,10 @@ namespace Esperite {
 				m_Dense.resize(m_NextComponent + 1);
 			}
 
+			if (gb + 1 > m_Sparse.size()) {
+				m_Sparse.resize(gb + 1);
+			}
+
 			m_Dense[m_NextComponent] = gb;
 			m_Sparse[gb] = m_NextComponent;
 

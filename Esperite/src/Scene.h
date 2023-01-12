@@ -7,7 +7,9 @@ namespace Esperite {
 	public:
 		Scene();
 
-		void addGameObject(GameObject& gb);
+		inline void addGameObject(GameObject& gb) {
+			gb.id = SceneManager::get().getScene()->newGameObject();
+		}
 
 	private:
 		UglyScene m_Scene{ };

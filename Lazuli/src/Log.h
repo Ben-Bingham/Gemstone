@@ -43,8 +43,11 @@ namespace Lazuli {
 	extern Log LOGGER;
 }
 
+#define ENABLE_LOG_ON_RELEASE
 
 #ifdef LAZULI_DEBUG
+#define LOG(...) Lazuli::LOGGER.log(__LINE__, __FILE__, __VA_ARGS__)
+#elif defined ENABLE_LOG_ON_RELEASE
 #define LOG(...) Lazuli::LOGGER.log(__LINE__, __FILE__, __VA_ARGS__)
 #else
 #define LOG(...)
