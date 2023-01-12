@@ -34,7 +34,7 @@
 
 // Base
 #include "Engine.h"
-#include "Pointer.h" //TODO move to core folder
+#include "Pointer.h"
 
 #include "Vector.h"
 
@@ -60,54 +60,92 @@ unsigned int getId() {
 	return componentId;
 }
 
-using GameObject = unsigned int;
+using GameObjectType = unsigned int; //TODO Shrink
+using GameObject = GameObjectType;
 
 class ComponentPool {
 public:
-	ComponentPool(unsigned int componentSize)
+	ComponentPool(const size_t componentSize)
 		: componentSize(componentSize) {
 		memoryPool = new char[componentSize * MAX_ENTITIES];
+	}
+
+	ComponentPool(const ComponentPool& other) = delete;
+	ComponentPool(ComponentPool&& other) noexcept
+		: sparse(std::move(other.sparse))
+		, dense(std::move(other.dense))
+		, memoryPool(other.memoryPool)
+		, componentSize(other.componentSize)
+		, nextComponent(other.nextComponent)
+		, componentId(other.componentId) {}
+	ComponentPool& operator=(const ComponentPool& other) = delete;
+	ComponentPool& operator=(ComponentPool&& other) noexcept {
+		if (this == &other)
+			return *this;
+		sparse = std::move(other.sparse);
+		dense = std::move(other.dense);
+		memoryPool = other.memoryPool;
+		componentSize = other.componentSize;
+		nextComponent = other.nextComponent;
+		componentId = other.componentId;
+		return *this;
 	}
 
 	~ComponentPool() {
 		delete[] memoryPool;
 	}
 
-	inline bool hasComponent(GameObject gb) const {
-		unsigned int denseIndex = sparse[gb];
-	
+	bool hasComponent(const GameObject gb) {
+		if (sparse.size() < gb + 1) {
+			sparse.resize(gb + 1);
+		}
+
+		const size_t denseIndex = sparse[gb];
+
+		if (denseIndex + 1 > dense.size()) {
+			return false;
+		}
+
 		return dense[denseIndex] == gb;
 	}
 
 	template<typename T>
-	T* getComponent(GameObject gb) const {
-		unsigned int memoryPoolIndex = sparse[gb];
+	[[nodiscard]] T* getComponent(const GameObject gb) {
+		if (!hasComponent(gb)) {
+			return nullptr;
+		}
+
+		const size_t memoryPoolIndex = sparse[gb];
 	
 		return (T*)(memoryPool + memoryPoolIndex * componentSize);
 	}
 
 	template<typename T>
-	T* addAndGet(GameObject gb) {
-		if (hasComponent(gb)) {
-			LOG("Entity already has component", Lazuli::LogLevel::WARNING); //TODO maybe just return the component and not complain?
+	T* addAndGet(const GameObject gb) {
+		if (hasComponent(gb)) { //TODO should only warn in DEBUG mode
+			LOG("Entity already has component", Lazuli::LogLevel::WARNING);
 		}
-	
+
+		if (nextComponent + 1 > dense.size()) {
+			dense.resize(nextComponent + 1);
+		}
+
 		dense[nextComponent] = gb;
 		sparse[gb] = nextComponent;
 	
 		nextComponent++;
 
-		unsigned int memoryPoolIndex = sparse[gb];
+		const size_t memoryPoolIndex = sparse[gb];
 
 		void* componentPointer = memoryPool + memoryPoolIndex * componentSize;
 
 		return new(componentPointer) T();
 	}
 
-	std::array<unsigned int, MAX_ENTITIES> sparse{ 0 };
-	std::array<unsigned int, MAX_ENTITIES> dense{ 0 };
+	std::vector<GameObjectType> sparse{ };
+	std::vector<GameObjectType> dense{ };
 	char* memoryPool;
-	unsigned int componentSize;
+	size_t componentSize;
 	unsigned int nextComponent{ 0 };
 	unsigned int componentId{ 0 };
 };
@@ -117,23 +155,24 @@ public:
 	Scene() = default;
 
 	GameObject newGameObject() {
-		gameObjects[furthestGameObject] = furthestGameObject;
-		GameObject gb = furthestGameObject;
+		gameObjects.push_back(furthestGameObject);
 		furthestGameObject++;
-		return gb;
+		return gameObjects.back();
 	}
 
 	template<typename T>
-	T* addComponent(GameObject gb) {
+	T* addComponent(const GameObject gb) {
 		const unsigned int componentId = getId<T>();
 
-		unsigned int poolIndex{ 0 };
+		unsigned int poolIndex;
 
-		if ((int)componentId <= furthestPool) { // Pool already exists for component type
+		if ((int)componentId <= furthestPool) {
+			// Pool already exists for component type
 			poolIndex = componentId;
 		}
-		else { // Pool does not exist for component type
-			pools[furthestPool + 1u] = Celestite::createUPtr<ComponentPool>(sizeof(T));
+		else {
+			// Pool does not exist for component type
+			pools.emplace_back(Celestite::createUPtr<ComponentPool>(sizeof(T)));
 			furthestPool++;
 			poolIndex = furthestPool;
 		}
@@ -142,10 +181,8 @@ public:
 	}
 
 	template<typename T>
-	T* getComponent(GameObject gb) {
-		const unsigned int componentId = getId<T>();
-
-		if ((int)componentId <= furthestPool) { // Pool already exists for component type
+	T* getComponent(const GameObject gb) {
+		if (const unsigned int componentId = getId<T>(); (int)componentId <= furthestPool) { // Pool already exists for component type
 			return pools[componentId]->getComponent<T>(gb);
 		}
 
@@ -153,20 +190,35 @@ public:
 		return nullptr;
 	}
 
-	std::array<Celestite::UPtr<ComponentPool>, MAX_COMPONENTS> pools{ };
+	template<typename T>
+	[[nodiscard]] bool hasComponent(const GameObject gb) const {
+		const unsigned componentId = getId<T>();
+
+		if (componentId + 1 > pools.size()) {
+			return false;
+		}
+
+		return pools[componentId]->hasComponent(gb);
+	}
+
+	std::vector<Celestite::UPtr<ComponentPool>> pools{ };
 	int furthestPool{ -1 };
-	std::array<GameObject, MAX_ENTITIES> gameObjects{ }; //TODO maybe not even neccasary
+	std::vector<GameObject> gameObjects{ };
 	unsigned int furthestGameObject{ 0 };
 };
 
 class Transform {
 public:
-	Transform(int x = 0, int y = 0)
+	Transform(const int x = 0, const int y = 0)
 		: x(x), y(y) {
 	}
 
 	int x;
 	int y;
+};
+
+class Test {
+	
 };
 
 int main() {
@@ -179,7 +231,18 @@ int main() {
 	transform->x = 2;
 	transform->y = 3;
 
-	Transform* transform2 = scene.getComponent<Transform>(gameObject);
+	bool val = scene.hasComponent<Test>(gameObject);
+
+	GameObject gameObject1 = scene.newGameObject();
+
+	Transform* transform1 = scene.addComponent<Transform>(gameObject);
+	Transform* transform2 = scene.addComponent<Transform>(gameObject1);
+
+	GameObject gameObject2 = scene.newGameObject();
+
+
+	Transform* transform3 = scene.getComponent<Transform>(gameObject2);
+
 
 	// GameObject<Transform, RigidBody> gb{};
 
