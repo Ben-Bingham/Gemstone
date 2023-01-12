@@ -37,7 +37,21 @@ namespace Esperite {
 				poolIndex = m_FurthestPool;
 			}
 
-			return ((ComponentPool<T>*) & *m_Pools[poolIndex])->addAndGet(gb);
+			return ((ComponentPool<T>*)&*m_Pools[poolIndex])->addAndGet(gb);
+		}
+
+		template<typename T>
+		inline void removeComponent(const GameObject gb) {
+#ifdef ESPERITE_DEBUG
+			if (!hasComponent<T>(gb)) {
+				LOG("Game Object aready does not have component of this type.", Lazuli::LogLevel::WARNING);
+				// TThis errror will only be shown in debug mode, be sure to fix it.
+				return;
+			}
+#endif
+			const unsigned int componentId = getId<T>();
+
+			((ComponentPool<T>*) & *m_Pools[componentId])->removeComponent(gb);
 		}
 
 		template<typename T>

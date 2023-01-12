@@ -49,7 +49,8 @@ namespace Esperite {
 
 		T* addAndGet(const GameObject gb) {
 #ifdef ESPERITE_DEBUG
-			if (hasComponent(gb)) {
+			if (hasComponent(gb)) { //TODO the checks should only be called once, either in scene class or in component pool,
+				// it is debug tho so maybe its fine
 				LOG("Entity already has component", Lazuli::LogLevel::WARNING);
 			}
 #endif
@@ -71,7 +72,19 @@ namespace Esperite {
 
 			const size_t index = m_Sparse[gb];
 
-			return &m_Components[index];
+			return &m_Components[index]; //TODO replace last part with a call the the getComponentFunctin
+		}
+
+		void removeComponent(const GameObject gb) { //TODO does not work and shouldent
+#ifdef ESPERITE_DEBUG
+			if (!hasComponent(gb)) { //TODO the checks should only be called once, either in scene class or in component pool,
+				// it is debug tho so maybe its fine
+				LOG("Entity already dosent have component", Lazuli::LogLevel::WARNING);
+			}
+#endif
+			GameObjectType temp = m_Dense[m_NextComponent - 1];
+			m_Dense[m_Sparse[gb]] = temp;
+			m_Sparse[temp] = sparse[gb];
 		}
 
 		unsigned int id{ 0 };

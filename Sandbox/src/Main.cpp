@@ -68,6 +68,16 @@ int main() {
 	Emerald::Engine engine{};
 	engine.init();
 
+	Esperite::Scene testScene{};
+
+	Esperite::GameObject gb = testScene.newGameObject();
+
+	auto* transform = testScene.addComponent<Transform>(gb);
+
+	transform->x += 1;
+
+	testScene.removeComponent<Transform>(gb);
+
 	// Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
 	// window.setSwapInterval(0);
 	Wavellite::Window& window = engine.window();
@@ -81,31 +91,6 @@ int main() {
 	window.disableCursor();
 
 	Wavellite::Time time{ }; //TODO add to engine class
-
-	for (int i = 0; i < 100; i++) {
-
-		float startTime = time.getTime();
-		Esperite::Scene scene{};
-		Esperite::SceneManager::get().setScene(scene);
-
-		for (int j = 0; j < 2500000; j++) {
-			 Esperite::GameObject gameObject = scene.newGameObject();
-			 auto* transform = scene.addComponent<Transform>(gameObject);
-			 auto* val = scene.getComponent<Transform>(gameObject);
-			 val->x += 5;
-			 val->y -= 5;
-			 auto* val2 = scene.getComponent<Transform>(gameObject);
-		}
-
-		float endTime = time.getTime();
-		LOG(endTime - startTime);
-	}
-
-	std::cin.get();
-
-
-
-
 
 	// Ruby::Renderer renderer{ window, &camera };
 
