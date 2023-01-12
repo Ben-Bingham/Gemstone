@@ -10,11 +10,7 @@ namespace Esperite {
 	public:
 		Scene() = default;
 
-		GameObject newGameObject() {
-			m_GameObjects.push_back(m_FurthestGameObject);
-			m_FurthestGameObject++;
-			return m_GameObjects.back();
-		}
+		GameObject newGameObject();
 
 		template<typename T>
 		T* addComponent(const GameObject gb) {
