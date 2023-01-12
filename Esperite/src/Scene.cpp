@@ -1,9 +1,13 @@
 #include "Scene.h"
 
+#include "UglyScene.h"
+
 namespace Esperite {
-	GameObject Scene::newGameObject() {
-		m_GameObjects.push_back(m_FurthestGameObject);
-		m_FurthestGameObject++;
-		return m_GameObjects.back();
+	Scene::Scene() {
+		SceneManager::get().setScene(m_Scene);
+	}
+
+	void Scene::addGameObject(GameObject& gb) {
+		gb.id = SceneManager::get().getScene()->newGameObject();
 	}
 }

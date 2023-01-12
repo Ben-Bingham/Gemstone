@@ -38,6 +38,7 @@
 
 #include "Vector.h"
 
+// #include "UglyGameObject.h"
 #include "GameObject.h"
 #include "Components/MaterialComponent.h"
 #include "Components/MeshComponent.h"
@@ -47,6 +48,8 @@
 #include <array>
 
 #include "Scene.h"
+#include "UglyScene.h"
+#include "SceneManager.h"
 
 class Transform { //TODO remove
 public:
@@ -80,29 +83,30 @@ int main() {
 
 	Wavellite::Time time{ }; //TODO add to engine class
 
-	Esperite::Scene scene{};
+	for (int i = 0; i < 100; i++) {
 
-	float startTime = time.getTime();
+		float startTime = time.getTime();
+		// Esperite::UglyScene scene{};
+		// Esperite::SceneManager::get().setScene(scene);
+		Esperite::Scene scene{ };
 
+		for (int j = 0; j < 10000; j++) {
+			// Esperite::UglyGameObject gameObject = scene.newGameObject();
+			// auto* transform = scene.addComponent<Transform>(gameObject);
+			// auto* val = scene.getComponent<Transform>(gameObject);
 
+			Esperite::GameObject gameObject{};
+			scene.addGameObject(gameObject);
+			
+			gameObject.addComponent<Transform>();
+			auto* val = gameObject.getComponent<Transform>();
+		}
 
-
-
-	for (int i = 0; i < 1000; i++) {
-		Esperite::GameObject gameObject = scene.newGameObject();
-		auto* transform = scene.addComponent<Transform>(gameObject);
-		auto* val = scene.getComponent<Transform>(gameObject);
+		float endTime = time.getTime();
+		LOG(endTime - startTime);
 	}
 
-	float endTime = time.getTime();
-	LOG(endTime - startTime);
 	std::cin.get();
-
-
-
-
-
-
 
 
 	// Ruby::Renderer renderer{ window, &camera };
@@ -215,7 +219,7 @@ int main() {
 	int frameCount = 0;
 	float averageDelta = 0.0f;
 
-	// Esperite::GameObject gb{};
+	// Esperite::UglyGameObject gb{};
 
 	// auto transform = Celestite::createPtr<Emerald::TransformComponent>();
 	// gb.addComponent(transform);

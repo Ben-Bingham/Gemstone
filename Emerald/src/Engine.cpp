@@ -40,7 +40,7 @@ namespace Emerald {
 		// }
 	}
 
-	void Engine::enlist(const Celestite::Ptr<Esperite::GameObject>& gameObject) {
+	void Engine::enlist(const Celestite::Ptr<Esperite::UglyGameObject>& gameObject) {
 		m_GameObjects.push_back(gameObject);
 	}
 }
