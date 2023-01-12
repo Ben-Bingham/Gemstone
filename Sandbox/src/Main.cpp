@@ -46,8 +46,11 @@
 #include <any>
 #include <array>
 
-constexpr unsigned int MAX_ENTITIES = 1000;
-constexpr unsigned int MAX_COMPONENTS = 128;
+using GameObjectType = unsigned short;
+using GameObject = GameObjectType;
+
+constexpr size_t MAX_ENTITIES = 1000;
+constexpr size_t MAX_COMPONENTS = 128;
 
 inline unsigned int masterComponentCounter{ 0 };
 
@@ -60,10 +63,15 @@ unsigned int getId() {
 	return componentId;
 }
 
-using GameObjectType = unsigned int; //TODO Shrink
-using GameObject = GameObjectType;
+// class IComponentPool {
+// public:
+// 	virtual bool hasComponent() = 0;
+// 	template<typename T>
+// 	virtual T* getComponent() = 0;
+//
+// };
 
-class ComponentPool {
+class ComponentPool /* : public IComponentPool*/ {
 public:
 	ComponentPool(const size_t componentSize)
 		: componentSize(componentSize) {
@@ -204,7 +212,7 @@ public:
 	std::vector<Celestite::UPtr<ComponentPool>> pools{ };
 	int furthestPool{ -1 };
 	std::vector<GameObject> gameObjects{ };
-	unsigned int furthestGameObject{ 0 };
+	GameObjectType furthestGameObject{ 0 };
 };
 
 class Transform {
