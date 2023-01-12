@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Scene.h"
+
 namespace Esperite {
 	class UglyScene;
 
@@ -7,12 +9,12 @@ namespace Esperite {
 	public:
 		static SceneManager& get();
 
-		void setScene(UglyScene& scene);
-		[[nodiscard]] UglyScene* getScene() const; //TODO should be a shard_ptr or a ref?
+		void setScene(Scene& scene);
+		[[nodiscard]] Scene* getScene() const; //TODO should be a shard_ptr or a ref?
 
 	private:
 		SceneManager() = default;
 
-		UglyScene* m_Scene; //TODO should this be a shared ptr?
+		Scene* m_Scene; //TODO should this be a shared ptr?
 	};
 }

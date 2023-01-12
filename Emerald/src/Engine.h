@@ -1,5 +1,5 @@
 #pragma once
-#include "UglyGameObject.h"
+#include "GameObject.h"
 #include "Window.h"
 
 #include "Renderers/Renderer.h"
@@ -13,7 +13,7 @@ namespace Emerald {
 		void start();
 
 		// UglyGameObject Utility
-		void enlist(const Celestite::Ptr<Esperite::UglyGameObject>& gameObject);
+		void enlist(const Celestite::Ptr<Esperite::GameObject>& gameObject);
 		
 		Wavellite::Window& window() { return m_Window; } // TODO maybe replace with some kind of IO interface of something
 		Ruby::Renderer& renderer() { return m_Renderer; } // TODO this is probably not needed
@@ -23,6 +23,6 @@ namespace Emerald {
 		Ruby::Renderer m_Renderer;
 		// Pyrite::Physician m_Physician;
 
-		std::vector<Celestite::Ptr<Esperite::UglyGameObject>> m_GameObjects;
+		std::vector<Celestite::Ptr<Esperite::GameObject>> m_GameObjects;
 	};
 }

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "UglyGameObject.h"
+#include "GameObject.h"
 #include "Log.h"
 
 namespace Esperite {
@@ -23,7 +23,7 @@ namespace Esperite {
 			m_Components.reserve(10);
 		}
 
-		bool hasComponent(const UglyGameObject gb) {
+		bool hasComponent(const GameObject gb) {
 			if (m_Sparse.size() < gb + 1) {
 				m_Sparse.resize(gb + 1);
 			}
@@ -37,7 +37,7 @@ namespace Esperite {
 			return m_Dense[denseIndex] == gb;
 		}
 
-		[[nodiscard]] T* getComponent(const UglyGameObject gb) {
+		[[nodiscard]] T* getComponent(const GameObject gb) {
 			if (!hasComponent(gb)) {
 				return nullptr;
 			}
@@ -47,7 +47,7 @@ namespace Esperite {
 			return &m_Components[index];
 		}
 
-		T* addAndGet(const UglyGameObject gb) {
+		T* addAndGet(const GameObject gb) {
 #ifdef ESPERITE_DEBUG
 			if (hasComponent(gb)) {
 				LOG("Entity already has component", Lazuli::LogLevel::WARNING);

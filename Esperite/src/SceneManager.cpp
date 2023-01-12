@@ -1,5 +1,4 @@
 #include "SceneManager.h"
-#include "UglyScene.h"
 
 namespace Esperite {
 	SceneManager& SceneManager::get() {
@@ -7,11 +6,11 @@ namespace Esperite {
 		return sceneManager;
 	}
 
-	void SceneManager::setScene(UglyScene& scene) {
+	void SceneManager::setScene(Scene& scene) {
 		m_Scene = &scene;
 	}
 
-	UglyScene* SceneManager::getScene() const {
+	Scene* SceneManager::getScene() const {
 #ifdef ESPERITE_DEBUG
 		if (m_Scene == nullptr) {
 			LOG("Scene has not been set", Lazuli::LogLevel::WARNING);

@@ -48,7 +48,6 @@
 #include <array>
 
 #include "Scene.h"
-#include "UglyScene.h"
 #include "SceneManager.h"
 
 class Transform { //TODO remove
@@ -86,26 +85,16 @@ int main() {
 	for (int i = 0; i < 100; i++) {
 
 		float startTime = time.getTime();
-		Esperite::UglyScene scene{};
+		Esperite::Scene scene{};
 		Esperite::SceneManager::get().setScene(scene);
-		//Esperite::Scene scene{ };
 
 		for (int j = 0; j < 2500000; j++) {
-			 Esperite::UglyGameObject gameObject = scene.newGameObject();
+			 Esperite::GameObject gameObject = scene.newGameObject();
 			 auto* transform = scene.addComponent<Transform>(gameObject);
 			 auto* val = scene.getComponent<Transform>(gameObject);
 			 val->x += 5;
 			 val->y -= 5;
 			 auto* val2 = scene.getComponent<Transform>(gameObject);
-
-			//Esperite::GameObject gameObject{};
-			//scene.addGameObject(gameObject);
-			//
-			//gameObject.addComponent<Transform>();
-			//auto* val = gameObject.getComponent<Transform>();
-			//val->x += 5;
-			//val->y -= 5;
-			//auto* val2 = gameObject.getComponent<Transform>();
 		}
 
 		float endTime = time.getTime();
