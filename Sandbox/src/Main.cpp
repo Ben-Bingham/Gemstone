@@ -46,176 +46,9 @@
 #include <any>
 #include <array>
 
-using GameObjectType = unsigned short;
-using GameObject = GameObjectType;
+#include "Scene.h"
 
-constexpr size_t MAX_ENTITIES = 1000;
-constexpr size_t MAX_COMPONENTS = 128;
-
-inline unsigned int masterComponentCounter{ 0 };
-
-template<typename T>
-unsigned int getId() {
-	if (masterComponentCounter + 1 > MAX_COMPONENTS) {
-		LOG("Max numbers of components reached.", Lazuli::LogLevel::ERROR);
-	}
-	static unsigned int componentId = masterComponentCounter++;
-	return componentId;
-}
-
-// class IComponentPool {
-// public:
-// 	virtual bool hasComponent() = 0;
-// 	template<typename T>
-// 	virtual T* getComponent() = 0;
-//
-// };
-
-class ComponentPool /* : public IComponentPool*/ {
-public:
-	ComponentPool(const size_t componentSize)
-		: componentSize(componentSize) {
-		memoryPool = new char[componentSize * MAX_ENTITIES];
-	}
-
-	ComponentPool(const ComponentPool& other) = delete;
-	ComponentPool(ComponentPool&& other) noexcept
-		: sparse(std::move(other.sparse))
-		, dense(std::move(other.dense))
-		, memoryPool(other.memoryPool)
-		, componentSize(other.componentSize)
-		, nextComponent(other.nextComponent)
-		, componentId(other.componentId) {}
-	ComponentPool& operator=(const ComponentPool& other) = delete;
-	ComponentPool& operator=(ComponentPool&& other) noexcept {
-		if (this == &other)
-			return *this;
-		sparse = std::move(other.sparse);
-		dense = std::move(other.dense);
-		memoryPool = other.memoryPool;
-		componentSize = other.componentSize;
-		nextComponent = other.nextComponent;
-		componentId = other.componentId;
-		return *this;
-	}
-
-	~ComponentPool() {
-		delete[] memoryPool;
-	}
-
-	bool hasComponent(const GameObject gb) {
-		if (sparse.size() < gb + 1) {
-			sparse.resize(gb + 1);
-		}
-
-		const size_t denseIndex = sparse[gb];
-
-		if (denseIndex + 1 > dense.size()) {
-			return false;
-		}
-
-		return dense[denseIndex] == gb;
-	}
-
-	template<typename T>
-	[[nodiscard]] T* getComponent(const GameObject gb) {
-		if (!hasComponent(gb)) {
-			return nullptr;
-		}
-
-		const size_t memoryPoolIndex = sparse[gb];
-	
-		return (T*)(memoryPool + memoryPoolIndex * componentSize);
-	}
-
-	template<typename T>
-	T* addAndGet(const GameObject gb) {
-		if (hasComponent(gb)) { //TODO should only warn in DEBUG mode
-			LOG("Entity already has component", Lazuli::LogLevel::WARNING);
-		}
-
-		if (nextComponent + 1 > dense.size()) {
-			dense.resize(nextComponent + 1);
-		}
-
-		dense[nextComponent] = gb;
-		sparse[gb] = nextComponent;
-	
-		nextComponent++;
-
-		const size_t memoryPoolIndex = sparse[gb];
-
-		void* componentPointer = memoryPool + memoryPoolIndex * componentSize;
-
-		return new(componentPointer) T();
-	}
-
-	std::vector<GameObjectType> sparse{ };
-	std::vector<GameObjectType> dense{ };
-	char* memoryPool;
-	size_t componentSize;
-	unsigned int nextComponent{ 0 };
-	unsigned int componentId{ 0 };
-};
-
-class Scene {
-public:
-	Scene() = default;
-
-	GameObject newGameObject() {
-		gameObjects.push_back(furthestGameObject);
-		furthestGameObject++;
-		return gameObjects.back();
-	}
-
-	template<typename T>
-	T* addComponent(const GameObject gb) {
-		const unsigned int componentId = getId<T>();
-
-		unsigned int poolIndex;
-
-		if ((int)componentId <= furthestPool) {
-			// Pool already exists for component type
-			poolIndex = componentId;
-		}
-		else {
-			// Pool does not exist for component type
-			pools.emplace_back(Celestite::createUPtr<ComponentPool>(sizeof(T)));
-			furthestPool++;
-			poolIndex = furthestPool;
-		}
-
-		return pools[poolIndex]->addAndGet<T>(gb);
-	}
-
-	template<typename T>
-	T* getComponent(const GameObject gb) {
-		if (const unsigned int componentId = getId<T>(); (int)componentId <= furthestPool) { // Pool already exists for component type
-			return pools[componentId]->getComponent<T>(gb);
-		}
-
-		LOG("Game Object does not contain component", Lazuli::LogLevel::WARNING);
-		return nullptr;
-	}
-
-	template<typename T>
-	[[nodiscard]] bool hasComponent(const GameObject gb) const {
-		const unsigned componentId = getId<T>();
-
-		if (componentId + 1 > pools.size()) {
-			return false;
-		}
-
-		return pools[componentId]->hasComponent(gb);
-	}
-
-	std::vector<Celestite::UPtr<ComponentPool>> pools{ };
-	int furthestPool{ -1 };
-	std::vector<GameObject> gameObjects{ };
-	GameObjectType furthestGameObject{ 0 };
-};
-
-class Transform {
+class Transform { //TODO remove
 public:
 	Transform(const int x = 0, const int y = 0)
 		: x(x), y(y) {
@@ -230,37 +63,6 @@ class Test {
 };
 
 int main() {
-	Scene scene{};
-
-	GameObject gameObject = scene.newGameObject();
-
-	Transform* transform = scene.addComponent<Transform>(gameObject);
-
-	transform->x = 2;
-	transform->y = 3;
-
-	bool val = scene.hasComponent<Test>(gameObject);
-
-	GameObject gameObject1 = scene.newGameObject();
-
-	Transform* transform1 = scene.addComponent<Transform>(gameObject);
-	Transform* transform2 = scene.addComponent<Transform>(gameObject1);
-
-	GameObject gameObject2 = scene.newGameObject();
-
-
-	Transform* transform3 = scene.getComponent<Transform>(gameObject2);
-
-
-	// GameObject<Transform, RigidBody> gb{};
-
-	// auto val = std::get<0>(gb.components);
-
-
-
-
-
-
 	Emerald::Engine engine{};
 	engine.init();
 
@@ -277,6 +79,32 @@ int main() {
 	window.disableCursor();
 
 	Wavellite::Time time{ }; //TODO add to engine class
+
+	Esperite::Scene scene{};
+
+	float startTime = time.getTime();
+
+
+
+
+
+	for (int i = 0; i < 1000; i++) {
+		Esperite::GameObject gameObject = scene.newGameObject();
+		auto* transform = scene.addComponent<Transform>(gameObject);
+		auto* val = scene.getComponent<Transform>(gameObject);
+	}
+
+	float endTime = time.getTime();
+	LOG(endTime - startTime);
+	std::cin.get();
+
+
+
+
+
+
+
+
 	// Ruby::Renderer renderer{ window, &camera };
 
 	camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
@@ -387,7 +215,7 @@ int main() {
 	int frameCount = 0;
 	float averageDelta = 0.0f;
 
-	Esperite::GameObject gb{};
+	// Esperite::GameObject gb{};
 
 	// auto transform = Celestite::createPtr<Emerald::TransformComponent>();
 	// gb.addComponent(transform);
