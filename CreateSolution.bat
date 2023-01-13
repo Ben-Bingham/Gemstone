@@ -7,6 +7,6 @@ rmdir /q /s build
 
 DEL /S imgui.ini
 
-CALL vendor\premake\premake5.exe vs2019
+CALL vendor\premake\premake5.exe vs2022
 
 pause

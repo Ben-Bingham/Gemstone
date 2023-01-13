@@ -13,7 +13,7 @@ namespace Esperite {
 		[[nodiscard]] GameObject newGameObject();
 
 		template<typename T>
-		inline T* addComponent(const GameObject gb) {
+		T* addComponent(const GameObject gb) {
 #ifdef ESPERITE_DEBUG
 			if (hasComponent<T>(gb)) {
 				LOG("Game Object already has component of this type.", Lazuli::LogLevel::WARNING);
@@ -40,22 +40,23 @@ namespace Esperite {
 			return ((ComponentPool<T>*)&*m_Pools[poolIndex])->addAndGet(gb);
 		}
 
+		// If you plan on using this you will need to refresh all the pointers you have to components.
 		template<typename T>
-		inline void removeComponent(const GameObject gb) {
+		void removeComponent(const GameObject gb) {
 #ifdef ESPERITE_DEBUG
 			if (!hasComponent<T>(gb)) {
 				LOG("Game Object aready does not have component of this type.", Lazuli::LogLevel::WARNING);
-				// TThis errror will only be shown in debug mode, be sure to fix it.
+				// TThis error will only be shown in debug mode, be sure to fix it.
 				return;
 			}
 #endif
 			const unsigned int componentId = getId<T>();
 
-			((ComponentPool<T>*) & *m_Pools[componentId])->removeComponent(gb);
+			((ComponentPool<T>*)&*m_Pools[componentId])->removeComponent(gb);
 		}
 
 		template<typename T>
-		inline T* getComponent(const GameObject gb) {
+		[[nodiscard]] T* getComponent(const GameObject gb) {
 			const unsigned int componentId = getId<T>();
 
 			if ((int)componentId <= m_FurthestPool) {
@@ -70,7 +71,7 @@ namespace Esperite {
 		}
 
 		template<typename T>
-		[[nodiscard]] inline bool hasComponent(const GameObject gb) const {
+		[[nodiscard]] bool hasComponent(const GameObject gb) const {
 			const unsigned componentId = getId<T>();
 
 			if (componentId + 1 > m_Pools.size()) {

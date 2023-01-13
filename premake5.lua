@@ -30,6 +30,7 @@ workspace "Gemstone"
 
 	group "Misc"
 		include "Sandbox"
+		include "Unit Testing"
 	group ""
 
 	group "Dependencies"

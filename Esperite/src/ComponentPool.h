@@ -23,10 +23,13 @@ namespace Esperite {
 			m_Components.reserve(10);
 		}
 
-		bool hasComponent(const GameObject gb) {
+		[[nodiscard]] bool hasComponent(const GameObject gb) const {
 			if (m_Sparse.size() < gb + 1) {
-				m_Sparse.resize(gb + 1);
+				return false;
 			}
+			// if (gb >= m_NextComponent) {
+			// 	return false;
+			// }
 
 			const size_t denseIndex = m_Sparse[gb];
 
@@ -57,6 +60,7 @@ namespace Esperite {
 
 			if (m_NextComponent + 1 > m_Dense.size()) {
 				m_Dense.resize(m_NextComponent + 1);
+				m_Components.resize(m_NextComponent + 1);
 			}
 
 			if (gb + 1 > m_Sparse.size()) {
@@ -66,9 +70,14 @@ namespace Esperite {
 			m_Dense[m_NextComponent] = gb;
 			m_Sparse[gb] = m_NextComponent;
 
+
+			// if (m_NextComponent != m_Components.size()) {
+			// 	m_Components.resize(m_Dense.size());
+			// }
+
 			m_NextComponent++;
 
-			m_Components.push_back(T());
+			// m_Components.push_back(T());
 
 			const size_t index = m_Sparse[gb];
 
@@ -82,9 +91,25 @@ namespace Esperite {
 				LOG("Entity already dosent have component", Lazuli::LogLevel::WARNING);
 			}
 #endif
-			GameObjectType temp = m_Dense[m_NextComponent - 1];
-			m_Dense[m_Sparse[gb]] = temp;
-			m_Sparse[temp] = sparse[gb];
+
+			if (m_Dense.size() == 1) {
+				
+			}
+
+			const size_t denseIndex = m_Sparse[gb];
+			const GameObjectType backItem = m_Dense[m_NextComponent - 1];
+			m_Dense[denseIndex] = backItem;
+			m_Sparse[backItem] = (GameObjectType)denseIndex;
+
+			// const size_t oldCompIndex = backItem;
+			// const size_t newCompIndex = m_Dense[denseIndex];
+
+			m_Components[denseIndex] = m_Components[m_NextComponent - 1];
+
+			m_NextComponent--;
+
+			m_Dense.resize(m_Dense.size() - 1);
+			m_Components.resize(m_Components.size() - 1);
 		}
 
 		unsigned int id{ 0 };
