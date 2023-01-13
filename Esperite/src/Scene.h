@@ -81,6 +81,10 @@ namespace Esperite {
 			return ((ComponentPool<T>*)(&*m_Pools[componentId]))->hasComponent(gb);
 		}
 
+		void removeGameObject(const GameObject gb) {
+			
+		}
+
 	private:
 		std::vector<Celestite::UPtr<IComponentPool>> m_Pools{ };
 		int m_FurthestPool{ -1 };
