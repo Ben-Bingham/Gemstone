@@ -2,7 +2,8 @@
 
 #include "Window.h"
 
-// #include "ComponentManager.h"
+#include "Components/Script.h"
+//#include "RigidBody.h"
 #include "Components/CameraComponent.h"
 #include "Components/RenderingComponent.h"
 
@@ -17,6 +18,38 @@ namespace Emerald {
 	}
 
 	void Engine::start() {
+		for (const Esperite::GameObject gb : activeScene->gameObjects) {
+			// Rendering
+			if (activeScene->hasComponent<Ruby::Camera>(gb)) {
+				for (const Esperite::GameObject renderable : activeScene->gameObjects) {
+					if (activeScene->hasComponent<Ruby::Mesh>(renderable) && 
+						activeScene->hasComponent<Ruby::Material>(renderable) &&
+						activeScene->hasComponent<Malachite::Transform>(renderable)) {
+
+						Ruby::Mesh* mesh = activeScene->getComponent<Ruby::Mesh>(renderable);
+						Ruby::Material* material = activeScene->getComponent<Ruby::Material>(renderable);
+						Malachite::Transform* transform = activeScene->getComponent<Malachite::Transform>(renderable);
+
+						m_Renderer.render(*mesh, *material, *transform);
+					}
+				}
+			}
+
+			// TODO Physics
+			/*if (activeScene->hasComponent<Malachite::Transform>(gb) &&
+				activeScene->hasComponent<Pyrite::RigidBody>(gb)) {
+
+				Malachite::Transform* transform = activeScene->getComponent<Malachite::Transform>(gb);
+				Pyrite::RigidBody* rb = activeScene->getComponent<Pyrite::RigidBody>(gb);
+			}*/
+
+			if (activeScene->hasComponent<Script>(gb)) {
+				Script* script = activeScene->getComponent<Script>(gb);
+
+				script->update();
+			}
+		}
+
 		// const auto cameras = Esperite::ComponentManager::get().getComponents<CameraComponent>();
 		//
 		// if (cameras.first + 1 != cameras.second) {
@@ -40,7 +73,7 @@ namespace Emerald {
 		// }
 	}
 
-	void Engine::enlist(const Celestite::Ptr<Esperite::GameObject>& gameObject) {
+	/*void Engine::enlist(const Celestite::Ptr<Esperite::GameObject>& gameObject) {
 		m_GameObjects.push_back(gameObject);
-	}
+	}*/
 }

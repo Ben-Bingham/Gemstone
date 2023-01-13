@@ -8,7 +8,7 @@ namespace Ruby {
 	DebugRenderer::DebugRenderer(Renderer* renderer) 
 		: m_Mesh(Celestite::createPtr<Mesh>())
 		, m_Material(Celestite::createPtr<SolidMaterial>(Colour{ 221, 224, 18 }))
-		, m_Renderable(m_Mesh, m_Material)
+		/*, m_Renderable(m_Mesh, m_Material)*/
 		, m_Renderer(renderer) {
 
 		m_Mesh->setDrawMode(Mesh::DrawMode::LINES);

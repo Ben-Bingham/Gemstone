@@ -19,7 +19,7 @@ namespace Ruby {
 		Celestite::Ptr<Mesh> m_Mesh;
 		Celestite::Ptr<SolidMaterial> m_Material;
 
-		Renderable m_Renderable;
+		//Renderable m_Renderable;
 
 		std::vector<Malachite::Vector3f> m_Points;
 

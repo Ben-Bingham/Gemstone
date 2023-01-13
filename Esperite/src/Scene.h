@@ -82,13 +82,14 @@ namespace Esperite {
 		}
 
 		void removeGameObject(const GameObject gb) {
-			
+			// TODO
 		}
+
+		std::vector<GameObject> gameObjects{ };
 
 	private:
 		std::vector<Celestite::UPtr<IComponentPool>> m_Pools{ };
 		int m_FurthestPool{ -1 };
-		std::vector<GameObject> m_GameObjects{ };
 		GameObjectType m_FurthestGameObject{ 0 };
 	};
 }

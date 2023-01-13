@@ -39,12 +39,22 @@ namespace Ruby {
 		m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
-	void Renderer::render(Celestite::Ptr<Renderable> renderable) {
+	/*void Renderer::render(Celestite::Ptr<Renderable> renderable) {
 		m_Renderables.push_back(renderable);
+	}*/
+
+	void Renderer::render(Mesh& mesh, Material& material, Malachite::Transform& transform) {
+		m_Renderables.push_back(Renderable(mesh, material, transform));
 	}
 
 	void Renderer::endFrame() {
-		for (Celestite::Ptr<Renderable> renderable : m_Renderables) {
+		for (Renderable renderable : m_Renderables) {
+			renderable.material().use(renderable.transform().getModelMatrix(), m_ViewMatrix, m_Window->getProjectionMatrix());
+			glDrawElements((GLenum)(int)renderable.mesh().getDrawMode(), (GLsizei)renderable.mesh().getIndexCount(), GL_UNSIGNED_INT, 0);
+			renderable.material().end();
+		}
+
+		/*for (Celestite::Ptr<Renderable> renderable : m_Renderables) {
 			renderable->mesh()->bind();
 		
 			renderable->material()->use(renderable->transform()->getModelMatrix(), m_ViewMatrix, m_Window->getProjectionMatrix());
@@ -52,7 +62,7 @@ namespace Ruby {
 			renderable->material()->end();
 		}
 
-		m_Renderables.clear();
+		m_Renderables.clear();*/
 
 		// ========== Debug Renderer ==========
 		// const bool depthTesting = OpenGlState::get().getDepthTesting();
