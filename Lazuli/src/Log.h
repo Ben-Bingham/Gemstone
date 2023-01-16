@@ -44,6 +44,7 @@ namespace Lazuli {
 }
 
 #define ENABLE_LOG_ON_RELEASE
+#define ONLY_MESSAGE
 
 #ifdef LAZULI_DEBUG
 #define LOG(...) Lazuli::LOGGER.log(__LINE__, __FILE__, __VA_ARGS__)

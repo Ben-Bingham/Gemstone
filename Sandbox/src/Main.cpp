@@ -50,39 +50,87 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
-//class Transform { //TODO remove
-//public:
-//	Transform(const int x = 0, const int y = 0)
-//		: x(x), y(y) {
-//	}
-//
-//	int x;
-//	int y;
-//};
-//
-//class Test {
-//	
-//};
+class Transform { //TODO remove
+public:
+	Transform(const float x = 0, const float y = 0)
+		: x(x), y(y) {
+	}
+
+	float x;
+	float y;
+};
+
+class Test {
+	
+};
+
+class AdvancedComponent {
+public:
+	AdvancedComponent() = default;
+
+	std::array<float, 20> data;
+};
 
 int main() {
 	Emerald::Engine engine{};
 	engine.init();
 
-	Esperite::Scene testScene{};
+	// Esperite::Scene testScene{};
+	//
+	// Esperite::GameObject gb = testScene.newGameObject();
+	//
+	// testScene.addComponent<Malachite::Transform>(gb);
+	// testScene.addComponent<Ruby::Mesh>(gb);
+	// testScene.addComponent<Ruby::SolidMaterial>(gb);
+	//
+	// Esperite::GameObject cam = testScene.newGameObject();
+	//
+	// testScene.addComponent<Ruby::Camera>(cam);
+	//
+	// engine.activeScene = &testScene;
+	//
+	// engine.start();
 
-	Esperite::GameObject gb = testScene.newGameObject();
+	using TransformComponent = Transform;
+	using AdvComp = AdvancedComponent;
+	Wavellite::Time time{ }; //TODO add to engine class
 
-	testScene.addComponent<Malachite::Transform>(gb);
-	testScene.addComponent<Ruby::Mesh>(gb);
-	testScene.addComponent<Celestite::Ptr<Ruby::Material>>(gb);
+	for (int i = 0; i < 100; i++) {
+		float startTime = time.getTime();
+		
+		Esperite::Scene timingScene{};
 
-	Esperite::GameObject cam = testScene.newGameObject();
+		for (int i = 0; i < 1000000; i++) {
+			Esperite::GameObject gb = timingScene.newGameObject();
 
-	testScene.addComponent<Ruby::Camera>(cam);
+			timingScene.addComponent<TransformComponent>(gb);
+			timingScene.addComponent<AdvComp>(gb);
+		}
 
-	engine.activeScene = &testScene;
+		for (Esperite::GameObject gb : timingScene.gameObjects) {
+			if (timingScene.hasComponent<TransformComponent>(gb) && timingScene.hasComponent<AdvComp>(gb)) {
+				TransformComponent* transform = timingScene.getComponent<TransformComponent>(gb);
+				const AdvComp* advComp = timingScene.getComponent<AdvComp>(gb);
 
-	engine.start();
+				for (auto& val : advComp->data) {
+					transform->x += val;
+					transform->y -= val;
+				}
+			}
+		}
+		
+		float endTime = time.getTime();
+
+		LOG(std::to_string(endTime - startTime));
+	}
+
+	LOG("DONE");
+	std::cin.get();
+
+
+
+
+
 
 	// // Wavellite::Window window{ Wavellite::Window::WindowSize::HALF_SCREEN, "Sandbox", 1000.0f };
 	// // window.setSwapInterval(0);

@@ -8,12 +8,18 @@
 namespace Esperite {
 	class Scene {
 	public:
-		Scene() = default;
+		Scene() {
+			LOG("Scene Created");
+		}
+
+		~Scene() {
+			LOG("Scen Destroyed");
+		}
 
 		[[nodiscard]] GameObject newGameObject();
 
-		template<typename T>
-		T* addComponent(const GameObject gb) {
+		template<typename T, typename ...G>
+		T* addComponent(const GameObject gb, G&& ...args) {
 #ifdef ESPERITE_DEBUG
 			if (hasComponent<T>(gb)) {
 				LOG("Game Object already has component of this type.", Lazuli::LogLevel::WARNING);
@@ -32,12 +38,12 @@ namespace Esperite {
 			}
 			else {
 				// Pool does not exist for component type
-				m_Pools.emplace_back(Celestite::createUPtr<ComponentPool<T>>());
+				m_Pools.push_back(std::move(Celestite::createUPtr<ComponentPool<T>>()));
 				m_FurthestPool++;
 				poolIndex = m_FurthestPool;
 			}
 
-			return ((ComponentPool<T>*)&*m_Pools[poolIndex])->addAndGet(gb);
+			return ((ComponentPool<T>*)&*m_Pools[poolIndex])->addAndGet(gb, args...);
 		}
 
 		// If you plan on using this you will need to refresh all the pointers you have to components.

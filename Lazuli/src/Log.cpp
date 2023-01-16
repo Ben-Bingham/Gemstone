@@ -25,14 +25,21 @@ namespace Lazuli {
 			switch (messageLevel) {
 			default:
 			case LogLevel::INFO:
+#ifdef ONLY_MESSAGE
+				std::cout << message << std::endl;
+#elif 
 				if (m_PrintFilePath) {
 					std::cout << "[INFO" << boilerPlate << message << std::endl;
 				}
 				else {
 					std::cout << "[INFO] " << message << std::endl;
 				}
+#endif
 				break;
 			case LogLevel::WARNING:
+#ifdef ONLY_MESSAGE
+				std::cout << message << std::endl;
+#elif 
 				SetConsoleTextAttribute(hConsole, 14);
 				if (m_PrintFilePath) {
 					std::cout << "[WARNING" << boilerPlate << message << std::endl;
@@ -42,9 +49,12 @@ namespace Lazuli {
 				}
 
 				SetConsoleTextAttribute(hConsole, 7);
-
+#endif
 				break;
 			case LogLevel::ERROR:
+#ifdef ONLY_MESSAGE
+				std::cout << message << std::endl;
+#elif 
 				SetConsoleTextAttribute(hConsole, 12);
 				if (m_PrintFilePath) {
 					std::cout << "[ERROR" << boilerPlate << message << std::endl;
@@ -54,9 +64,13 @@ namespace Lazuli {
 				}
 
 				SetConsoleTextAttribute(hConsole, 7);
+#endif
 
 				break;
 			case LogLevel::TERMINAL:
+#ifdef ONLY_MESSAGE
+				std::cout << message << std::endl;
+#elif 
 				SetConsoleTextAttribute(hConsole, 13);
 				if (m_PrintFilePath) {
 					std::cout << "[TERMINAL" << boilerPlate << message << std::endl;
@@ -66,7 +80,7 @@ namespace Lazuli {
 				}
 
 				SetConsoleTextAttribute(hConsole, 7);
-
+#endif
 				std::cout << "Press enter to terminate the program." << std::endl;
 				std::cin.get();
 

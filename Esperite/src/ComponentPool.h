@@ -14,13 +14,23 @@ namespace Esperite {
 		return componentId;
 	}
 
-	class IComponentPool {};
+	class IComponentPool {
+	public:
+		IComponentPool() = default;
+
+		virtual ~IComponentPool() = default;
+	};
 
 	template<typename T>
 	class ComponentPool : public IComponentPool {
 	public:
 		ComponentPool() {
+			LOG("Pool created");
 			m_Components.reserve(10);
+		}
+
+		~ComponentPool() {
+			LOG("Pool destroyed");
 		}
 
 		[[nodiscard]] bool hasComponent(const GameObject gb) const {
@@ -50,7 +60,8 @@ namespace Esperite {
 			return &m_Components[index];
 		}
 
-		T* addAndGet(const GameObject gb) {
+		template<typename ...G>
+		T* addAndGet(const GameObject gb, G&& ...args) {
 #ifdef ESPERITE_DEBUG
 			if (hasComponent(gb)) { //TODO the checks should only be called once, either in scene class or in component pool,
 				// it is debug tho so maybe its fine
@@ -60,7 +71,7 @@ namespace Esperite {
 
 			if (m_NextComponent + 1 > m_Dense.size()) {
 				m_Dense.resize(m_NextComponent + 1);
-				m_Components.resize(m_NextComponent + 1);
+				// m_Components.resize(m_NextComponent + 1);
 			}
 
 			if (gb + 1 > m_Sparse.size()) {
@@ -70,6 +81,8 @@ namespace Esperite {
 			m_Dense[m_NextComponent] = gb;
 			m_Sparse[gb] = m_NextComponent;
 
+
+			m_Components.push_back(T(args...));
 
 			// if (m_NextComponent != m_Components.size()) {
 			// 	m_Components.resize(m_Dense.size());
