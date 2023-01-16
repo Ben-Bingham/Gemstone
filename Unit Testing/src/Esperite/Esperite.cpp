@@ -59,39 +59,6 @@ void esperite() {
 		scene.removeComponent<Transform>(gb4);
 	}
 
-	// Iteration:
-	{
-		Esperite::Scene scene{};
-		Esperite::GameObject gb1 = scene.newGameObject();
-		scene.addComponent<Transform>(gb1);
-
-		Esperite::GameObject gb2 = scene.newGameObject();
-		scene.addComponent<Transform>(gb2);
-
-		Esperite::GameObject gb3 = scene.newGameObject();
-		scene.addComponent<Transform>(gb3);
-
-		Esperite::GameObject gb4 = scene.newGameObject();
-		scene.addComponent<Mesh>(gb4);
-		scene.addComponent<Transform>(gb4);
-
-		Esperite::GameObject gb5 = scene.newGameObject();
-		scene.addComponent<Mesh>(gb5);
-
-		for (const Esperite::GameObject gb : Esperite::View<Transform>(scene)) {
-			auto* transform = scene.getComponent<Transform>(gb);
-
-			transform->y -= 1.0f;
-		}
-
-		for (Esperite::GameObject gb : Esperite::View<Transform, Mesh>(scene)) {
-			const auto* transform = scene.getComponent<Transform>(gb);
-			auto* mesh = scene.getComponent<Mesh>(gb);
-
-			mesh->val += (int)transform->x;
-		}
-	}
-
 	// Game objects:
 	{
 		Esperite::Scene scene{};
