@@ -21,21 +21,21 @@ namespace Emerald {
 		while (true) {
 			for (const Esperite::GameObject gb : activeScene->gameObjects) {
 				// Rendering
-				if (activeScene->hasComponent<Ruby::Camera>(gb)) {
-					Ruby::Camera* camera = activeScene->getComponent<Ruby::Camera>(gb);
+				if (activeScene->HasComponent<Ruby::Camera>(gb)) {
+					Ruby::Camera* camera = activeScene->GetComponent<Ruby::Camera>(gb);
 					m_Renderer.setCamera(camera);
 
 					m_Renderer.beginFrame();
 
 					int i = 0;
 					for (const Esperite::GameObject renderable : activeScene->gameObjects) {
-						if (activeScene->hasComponent<Ruby::Mesh>(renderable) &&
-							activeScene->hasComponent<Celestite::Ptr<Ruby::Material>>(renderable) &&
-							activeScene->hasComponent<Malachite::Transform>(renderable)) {
+						if (activeScene->HasComponent<Ruby::Mesh>(renderable) &&
+							activeScene->HasComponent<Celestite::Ptr<Ruby::Material>>(renderable) &&
+							activeScene->HasComponent<Malachite::Transform>(renderable)) {
 
-							Ruby::Mesh* mesh = activeScene->getComponent<Ruby::Mesh>(renderable);
-							const Celestite::Ptr<Ruby::Material>* material = activeScene->getComponent<Celestite::Ptr<Ruby::Material>>(renderable);
-							Malachite::Transform* transform = activeScene->getComponent<Malachite::Transform>(renderable);
+							Ruby::Mesh* mesh = activeScene->GetComponent<Ruby::Mesh>(renderable);
+							const Celestite::Ptr<Ruby::Material>* material = activeScene->GetComponent<Celestite::Ptr<Ruby::Material>>(renderable);
+							Malachite::Transform* transform = activeScene->GetComponent<Malachite::Transform>(renderable);
 
 							m_Renderer.render(*mesh, **material, *transform);
 							i++;
@@ -55,8 +55,8 @@ namespace Emerald {
 					Pyrite::RigidBody* rb = activeScene->getComponent<Pyrite::RigidBody>(gb);
 				}*/
 
-				if (activeScene->hasComponent<Script>(gb)) {
-					Script* script = activeScene->getComponent<Script>(gb);
+				if (activeScene->HasComponent<Script>(gb)) {
+					Script* script = activeScene->GetComponent<Script>(gb);
 
 					script->update();
 				}

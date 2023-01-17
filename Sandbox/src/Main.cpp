@@ -95,22 +95,23 @@ int main() {
 	using AdvComp = AdvancedComponent;
 	Wavellite::Time time{ }; //TODO add to engine class
 
+
+	Esperite::Scene timingScene{};
+
+	for (int i = 0; i < 1000000; i++) {
+		Esperite::GameObject gb = timingScene.newGameObject();
+
+		timingScene.AddComponent<TransformComponent>(gb);
+		timingScene.AddComponent<AdvComp>(gb);
+	}
+
 	for (int i = 0; i < 100; i++) {
 		float startTime = time.getTime();
-		
-		Esperite::Scene timingScene{};
-
-		for (int i = 0; i < 1000000; i++) {
-			Esperite::GameObject gb = timingScene.newGameObject();
-
-			timingScene.addComponent<TransformComponent>(gb);
-			timingScene.addComponent<AdvComp>(gb);
-		}
 
 		for (Esperite::GameObject gb : timingScene.gameObjects) {
-			if (timingScene.hasComponent<TransformComponent>(gb) && timingScene.hasComponent<AdvComp>(gb)) {
-				TransformComponent* transform = timingScene.getComponent<TransformComponent>(gb);
-				const AdvComp* advComp = timingScene.getComponent<AdvComp>(gb);
+			if (timingScene.HasComponent<TransformComponent>(gb) && timingScene.HasComponent<AdvComp>(gb)) {
+				TransformComponent* transform = timingScene.GetComponent<TransformComponent>(gb);
+				const AdvComp* advComp = timingScene.GetComponent<AdvComp>(gb);
 
 				for (auto& val : advComp->data) {
 					transform->x += val;
@@ -120,6 +121,11 @@ int main() {
 		}
 		
 		float endTime = time.getTime();
+
+		for (Esperite::GameObject gb : timingScene.gameObjects) {
+			timingScene.GetComponent<TransformComponent>(gb)->x = 0.0f;
+			timingScene.GetComponent<TransformComponent>(gb)->y = 0.0f;
+		}
 
 		LOG(std::to_string(endTime - startTime));
 	}
