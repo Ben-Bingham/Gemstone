@@ -7,8 +7,18 @@
 
 namespace Esperite {
 	class Scene {
+	private:
+		using ComponentPool = BitSetComponentPool;
 	public:
 		Scene() = default;
+
+		~Scene() {
+			for (auto* pool : m_Pools) {
+				if (pool != nullptr) {
+					delete pool;
+				}
+			}
+		}
 
 		[[nodiscard]] GameObject newGameObject();
 
@@ -37,8 +47,11 @@ namespace Esperite {
 			// 	poolIndex = m_FurthestPool;
 			// }
 
-			GetAndOrAddPool<T>()->AddComponent(gb);
-			new (GetAndOrAddPool<T>()->GetComponent(gb)) T();
+			void* component = GetAndOrAddPool<T>()->GetComponent(gb);
+
+			new (component) T();
+			//T* pComponent = new (componentPools[componentId]->get(id)) T();
+			//new (GetAndOrAddPool<T>()->GetComponent(gb)) T();
 
 			// return ((ComponentPool<T>*)&*m_Pools[poolIndex])->addAndGet(gb);
 		}
@@ -103,22 +116,32 @@ namespace Esperite {
 		template<typename T>
 		[[nodiscard]] IComponentPool* GetAndOrAddPool() {
 
-			const unsigned int componentId = getId<T>();
+			const size_t componentId = getId<T>();
 
-			if (componentId + 1 <= m_Pools.size()) {
+			if (componentId + 1 > m_Pools.size()) {
+				m_Pools.resize(componentId + 1, nullptr);
+			}
+
+			if (m_Pools[componentId] == nullptr) {
+				m_Pools[componentId] = new ComponentPool(sizeof(T), getId<T>());
+			}
+
+			return m_Pools[componentId];
+
+			/*if (componentId + 1 <= m_Pools.size()) {
 				if (m_Pools[componentId].get() != nullptr) {
 					return m_Pools[componentId].get();
 				}
 
-				m_Pools[componentId] = Celestite::createUPtr<ComponentPool>(sizeof(T));
+				m_Pools[componentId] = Celestite::createUPtr<ComponentPool>(sizeof(T), getId<T>());
 			}
 
 			m_Pools.resize(componentId + 1);
-			m_Pools[componentId] = Celestite::createUPtr<ComponentPool>(sizeof(T));
-			return m_Pools[componentId].get();
+			m_Pools[componentId] = Celestite::createUPtr<ComponentPool>(sizeof(T), getId<T>());
+			return m_Pools[componentId].get();*/
 		}
 
-		std::vector<Celestite::UPtr<IComponentPool>> m_Pools{ };
+		std::vector<IComponentPool*> m_Pools{ };
 		int m_FurthestPool{ -1 };
 		GameObjectType m_FurthestGameObject{ 0 };
 	};

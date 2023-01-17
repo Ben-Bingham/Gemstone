@@ -96,7 +96,7 @@ int main() {
 	Wavellite::Time time{ }; //TODO add to engine class
 
 
-	Esperite::Scene timingScene{};
+	Esperite::Scene timingScene{}; //TODO test the run time speed penalties of std::vector
 
 	for (int i = 0; i < 1000000; i++) {
 		Esperite::GameObject gb = timingScene.newGameObject();
