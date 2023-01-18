@@ -16,7 +16,7 @@ namespace Emerald {
 		Wavellite::Window& window() { return m_Window; } // TODO maybe replace with some kind of IO interface of something
 		Ruby::Renderer& renderer() { return m_Renderer; } // TODO this is probably not needed
 
-		Esperite::Scene* activeScene{ nullptr };
+		// Esperite::Scene* activeScene{ nullptr };
 
 	private:
 		Wavellite::Window m_Window;

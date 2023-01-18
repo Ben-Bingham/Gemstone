@@ -18,7 +18,7 @@ struct Mesh {
 void esperite() {
 	// Components:
 	{
-		Esperite::Scene scene{};
+		Esperite::Scene<Esperite::VariableSizeSparseSetComponentPool> scene{};
 
 		Esperite::GameObject gb = scene.newGameObject();
 		assert(!scene.HasComponent<Transform>(gb)); // GameObjects should start with no components.
@@ -61,9 +61,9 @@ void esperite() {
 
 	// Game objects:
 	{
-		Esperite::Scene scene{};
+		// Esperite::Scene scene{};
 
-		Esperite::GameObject gb = scene.newGameObject();
+		// Esperite::GameObject gb = scene.newGameObject();
 
 		// scene.removeGameObject(gb);
 	}

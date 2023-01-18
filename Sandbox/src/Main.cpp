@@ -50,6 +50,9 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
+#include "windows.h"
+#include "psapi.h"
+
 class Transform { //TODO remove
 public:
 	Transform(const float x = 0, const float y = 0)
@@ -96,38 +99,50 @@ int main() {
 	Wavellite::Time time{ }; //TODO add to engine class
 
 
-	Esperite::Scene timingScene{}; //TODO test the run time speed penalties of std::vector
 
-	for (int i = 0; i < 1000000; i++) {
-		Esperite::GameObject gb = timingScene.newGameObject();
+	for (int k = 0; k < 100; k++) {
+		{
+			Esperite::Scene<Esperite::VariableSizeSparseSetComponentPool> timingScene{};
 
-		timingScene.AddComponent<TransformComponent>(gb);
-		timingScene.AddComponent<AdvComp>(gb);
-	}
+			PROCESS_MEMORY_COUNTERS_EX pmc;
+			GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+			const SIZE_T startMemory = pmc.PrivateUsage;
 
-	for (int i = 0; i < 100; i++) {
-		float startTime = time.getTime();
+			const float startTime = time.getTime();
 
-		for (Esperite::GameObject gb : timingScene.gameObjects) {
-			if (timingScene.HasComponent<TransformComponent>(gb) && timingScene.HasComponent<AdvComp>(gb)) {
-				TransformComponent* transform = timingScene.GetComponent<TransformComponent>(gb);
-				const AdvComp* advComp = timingScene.GetComponent<AdvComp>(gb);
+			for (int i = 0; i < Esperite::MAX_GAME_OBJECTS / 100; i++) {
+				Esperite::GameObject gb = timingScene.newGameObject();
 
-				for (auto& val : advComp->data) {
-					transform->x += val;
-					transform->y -= val;
+				timingScene.AddComponent<TransformComponent>(gb);
+				timingScene.AddComponent<AdvComp>(gb);
+			}
+
+			for (int i = 0; i < 100; i++) {
+				for (Esperite::GameObject gb : timingScene.gameObjects) {
+					if (timingScene.HasComponent<TransformComponent>(gb) && timingScene.HasComponent<AdvComp>(gb)) {
+						TransformComponent* transform = timingScene.GetComponent<TransformComponent>(gb);
+						const AdvComp* advComp = timingScene.GetComponent<AdvComp>(gb);
+
+						for (auto& val : advComp->data) {
+							transform->x += val;
+							transform->y -= val;
+						}
+					}
+				}
+
+				for (Esperite::GameObject gb : timingScene.gameObjects) {
+					timingScene.GetComponent<TransformComponent>(gb)->x = 0.0f;
+					timingScene.GetComponent<TransformComponent>(gb)->y = 0.0f;
 				}
 			}
-		}
-		
-		float endTime = time.getTime();
 
-		for (Esperite::GameObject gb : timingScene.gameObjects) {
-			timingScene.GetComponent<TransformComponent>(gb)->x = 0.0f;
-			timingScene.GetComponent<TransformComponent>(gb)->y = 0.0f;
-		}
+			const float endTime = time.getTime();
+			GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+			const SIZE_T endMemory = pmc.PrivateUsage;
 
-		LOG(std::to_string(endTime - startTime));
+			// times[i] = endTime - startTime;
+			LOG(std::to_string(endTime - startTime) + ", " + std::to_string(endMemory - startMemory));
+		}
 	}
 
 	LOG("DONE");
