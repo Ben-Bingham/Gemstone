@@ -10,7 +10,7 @@
 // 	public:
 // 		template<typename ... Args>
 // 		MeshComponent(Args&& ... args)
-// 			: m_Mesh(Celestite::createPtr<Ruby::MeshData>(std::forward<Args>(args)...)) {
+// 			: m_Mesh(Celestite::CreatePtr<Ruby::MeshData>(std::forward<Args>(args)...)) {
 //
 // 		}
 //

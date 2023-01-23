@@ -1,7 +1,4 @@
 #pragma once
-#include <vector>
-
-#include "GameObject.h"
 #include "Scene.h"
 
 namespace Esperite {
@@ -11,6 +8,8 @@ namespace Esperite {
 
 		virtual ~System() = default;
 
-		virtual void Process(Scene* scene) = 0;
+		virtual void StartUp(Scene* scene) {} //TODO should be able to get iterators for spedcific type of GameObject as opposd to the whole scene.
+		virtual void Step(Scene* scene) {}
+		virtual void ShutDown(Scene* scene) {}
 	};
 }

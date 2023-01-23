@@ -10,7 +10,7 @@ namespace Ruby {
 	class Renderable {
 	public:
 		Renderable(MeshData& mesh, MaterialData& material, Malachite::Transform& transfrom);
-		//Renderable(const Celestite::Ptr<MeshData>& mesh, const Celestite::Ptr<MaterialData>& material, const Celestite::Ptr<Malachite::Transform> transform = Celestite::createPtr<Malachite::Transform>());
+		//Renderable(const Celestite::Ptr<MeshData>& mesh, const Celestite::Ptr<MaterialData>& material, const Celestite::Ptr<Malachite::Transform> transform = Celestite::CreatePtr<Malachite::Transform>());
 
 		/*Renderable(const Renderable& other) = delete;
 		Renderable(Renderable&& other) noexcept = default;

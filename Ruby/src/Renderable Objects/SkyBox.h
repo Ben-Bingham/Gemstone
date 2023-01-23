@@ -10,7 +10,7 @@ namespace Ruby {
 	//class SkyBox final : public Renderable {
 	//public:
 	//	SkyBox(const Celestite::Ptr<SkyBoxMaterial>& skyBoxMaterial)
-	//		: Renderable(Celestite::createPtr<MeshData>(MeshData::Shape::CUBE), skyBoxMaterial) {
+	//		: Renderable(Celestite::CreatePtr<MeshData>(MeshData::Shape::CUBE), skyBoxMaterial) {
 	//
 	//	}
 	//};

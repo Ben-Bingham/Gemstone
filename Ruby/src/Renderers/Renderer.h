@@ -57,10 +57,7 @@ namespace Ruby {
             ImGui::DestroyContext();
         }
 
-        void Process(Esperite::Scene* scene) override;
-
-        //void render(Celestite::Ptr<Renderable> renderable);
-        void render(MeshData& mesh, MaterialData& material, Malachite::Transform& transform);
+        void Step(Esperite::Scene* scene) override;
 
         template<typename... T>
         void debugRender(T...args) {

@@ -6,8 +6,8 @@
 
 namespace Ruby {
 	DebugRenderer::DebugRenderer(Renderer* renderer) 
-		: m_Mesh(Celestite::createPtr<MeshData>())
-		, m_Material(Celestite::createPtr<SolidMaterial>(Colour{ 221, 224, 18 }))
+		: m_Mesh(Celestite::CreatePtr<MeshData>())
+		, m_Material(Celestite::CreatePtr<SolidMaterial>(Colour{ 221, 224, 18 }))
 		/*, m_Renderable(m_Mesh, m_Material)*/
 		, m_Renderer(renderer) {
 

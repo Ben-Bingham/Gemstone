@@ -8,7 +8,7 @@
 // 	public:
 // 		template<typename ... Args>
 // 		MaterialComponent(Args&& ... args)
-// 			: m_Material(Celestite::createPtr<Ruby::MaterialData>(std::forward<Args>(args)...)) {
+// 			: m_Material(Celestite::CreatePtr<Ruby::MaterialData>(std::forward<Args>(args)...)) {
 // 			
 // 		}
 //

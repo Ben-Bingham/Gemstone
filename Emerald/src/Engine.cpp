@@ -6,67 +6,35 @@
 #include "Components/RenderingComponent.h"
 
 namespace Emerald {
-	Engine::Engine()
-		// , m_Renderer(m_Window)
-	{
+	void Engine::Start() {
+		for (Celestite::Ptr<Esperite::System>& system : m_Systems) {
+			system->StartUp(activeScene);
+		}
 
-	}
-
-	void Engine::init() {
-		Celestite::Ptr<Ruby::Renderer> renderer = Celestite::createPtr<Ruby::Renderer>(m_Window);
-
-		m_Systems.push_back(renderer);
-	}
-
-	void Engine::start() {
 		while (m_Window.isOpen()) {
-			m_Window.pollEvents();
+			m_Window.pollEvents(); //TODO window events should be inside a system
 
 			for (Celestite::Ptr<Esperite::System>& system : m_Systems) {
-				system->Process(activeScene);
+				system->Step(activeScene);
 			}
 
 			m_Window.swapBuffers();
 		}
 
+		for (Celestite::Ptr<Esperite::System>& system : m_Systems) {
+			system->ShutDown(activeScene);
+		}
+	}
 
-		// while (true) {
-		// 	// const float startTime = m_Time.getTime();
-		//
-		// 	for (const Esperite::GameObject gb : activeScene->gameObjects) {
-		// 		// Scripts
-		// 		if (activeScene->HasComponent<Celestite::Ptr<Script>>(gb)) {
-		// 			Celestite::Ptr<Script> script = *activeScene->GetComponent<Celestite::Ptr<Script>>(gb);
-		//
-		// 			script->update(*this);
-		// 		}
-		//
-		// 		// Rendering
-		// 		if (activeScene->HasComponent<Ruby::Camera>(gb)) {
-		// 			Ruby::Camera* camera = activeScene->GetComponent<Ruby::Camera>(gb);
-		// 			m_Renderer.setCamera(camera);
-		//
-		// 			m_Window.pollEvents();
-		//
-		// 			if (!m_Window.isOpen()) {
-		// 				return;
-		// 			}
-		//
-		// 			m_Renderer.beginFrame();
-		//
-		// 			for (const Esperite::GameObject renderable : activeScene->gameObjects) {
-		// 				if (activeScene->HasComponent<Malachite::Transform>(renderable)) {
-		// 					Malachite::Transform* transform = activeScene->GetComponent<Malachite::Transform>(renderable);
-		// 					m_Renderer.render(*mesh, *material, *transform);
-		// 				}
-		// 			}
-		//
-		// 			m_Renderer.endFrame();
-		// 			m_Window.swapBuffers();
-		// 		}
-		// 	}
-		//
-		// 	m_DeltaTime = m_Time.getTime() - startTime;
-		// }
+	Engine& Engine::AddDefaultSystems() {
+		m_Systems.push_back(Celestite::CreatePtr<Ruby::Renderer>(m_Window));
+		// TODO more default systems
+
+		return *this;
+	}
+
+	Engine& Engine::AddSystem(const Celestite::Ptr<Esperite::System> system) {
+		m_Systems.push_back(system);
+		return *this;
 	}
 }

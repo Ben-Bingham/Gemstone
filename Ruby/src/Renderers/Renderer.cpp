@@ -47,7 +47,7 @@ namespace Ruby {
 		m_Renderables.push_back(renderable);
 	}*/
 
-	void Renderer::Process(Esperite::Scene* scene) {
+	void Renderer::Step(Esperite::Scene* scene) {
 		for (auto& gb : scene->gameObjects) {
 			if (scene->HasComponent<Camera>(gb)) {
 				Camera* cam = scene->GetComponent<Camera>(gb);
@@ -55,26 +55,21 @@ namespace Ruby {
 				setCamera(cam);
 				beginFrame();
 
-				for (auto& renderable : scene->gameObjects) {
+				for (const auto& renderable : scene->gameObjects) {
 					if (scene->HasComponent<Mesh>(renderable) &&
 						scene->HasComponent<Material>(renderable) &&
 						scene->HasComponent<Malachite::Transform>(renderable)) {
 
-						Mesh* mesh = scene->GetComponent<Mesh>(renderable);
-						Material* material = scene->GetComponent<Material>(renderable);
+						const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
+						const Material* material = scene->GetComponent<Material>(renderable);
 						Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
 
-						LOG("Render");
-						render(*mesh->mesh, *material->material, *transform);
+						m_Renderables.push_back(Renderable(*mesh->mesh, *material->material, *transform));
 					}
 				}
 				endFrame();
 			}
 		}
-	}
-
-	void Renderer::render(MeshData& mesh, MaterialData& material, Malachite::Transform& transform) {
-		m_Renderables.push_back(Renderable(mesh, material, transform));
 	}
 
 	void Renderer::endFrame() {

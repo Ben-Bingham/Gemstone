@@ -27,7 +27,7 @@ namespace Ruby {
 			}
 		}
 
-		m_Meshes.push_back(Celestite::createPtr<MeshData>(shape));
+		m_Meshes.push_back(Celestite::CreatePtr<MeshData>(shape));
 		return m_Meshes.back();
 	}
 }
