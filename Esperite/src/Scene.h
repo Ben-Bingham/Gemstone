@@ -6,10 +6,9 @@
 #include "Pointer.h"
 
 namespace Esperite {
-	template<typename PoolType>
 	class Scene {
 	private:
-		using ComponentPool = PoolType;
+		using ComponentPool = FixedSizeBitSetComponentPool;
 	public:
 		Scene() = default;
 
@@ -19,7 +18,7 @@ namespace Esperite {
 			}
 		}
 
-		[[nodiscard]] GameObject newGameObject() {
+		[[nodiscard]] GameObject NewGameObject() {
 			if (m_FurthestGameObject >= MAX_GAME_OBJECTS) {
 				LOG("Out of game objects", Lazuli::LogLevel::WARNING);
 				return NULL_GAME_OBJECT;
@@ -80,7 +79,7 @@ namespace Esperite {
 			}
 
 			if (m_Pools[componentId] == nullptr) {
-				m_Pools[componentId] = new ComponentPool(sizeof(T));
+				m_Pools[componentId] = new ComponentPool(sizeof(T), componentId);
 			}
 
 			return m_Pools[componentId];

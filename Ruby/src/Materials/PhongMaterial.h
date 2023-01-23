@@ -1,16 +1,16 @@
 #pragma once
 
-#include "Material.h"
+#include "MaterialData.h"
 
 #include "Shaders/ShaderLibrary.h"
 #include "Shaders/Uniforms/Uniform.h"
 #include "Shaders/Uniforms/UniformSet.h"
 
 namespace Ruby {
-	class PhongMaterial : public Material {
+	class PhongMaterial : public MaterialData {
 	public:
 		PhongMaterial(const Celestite::Ptr<Texture>& diffuseTexture, const Celestite::Ptr<Texture>& specularTexture, const float shininess = 32.0f)
-			: Material(ShaderLibrary::get().phongShader), diffuseTexture(diffuseTexture), specularTexture(specularTexture), shininess(shininess) {
+			: MaterialData(ShaderLibrary::get().phongShader), diffuseTexture(diffuseTexture), specularTexture(specularTexture), shininess(shininess) {
 			
 		}
 

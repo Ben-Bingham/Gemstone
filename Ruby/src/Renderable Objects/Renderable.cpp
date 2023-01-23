@@ -1,17 +1,17 @@
 #include "Renderable.h"
 
 namespace Ruby {
-	Renderable::Renderable(Mesh& mesh, Material& material, Malachite::Transform& transform) 
+	Renderable::Renderable(MeshData& mesh, MaterialData& material, Malachite::Transform& transform) 
 		: m_Mesh(mesh), m_Material(material), m_Transform(transform) {
 
 	}
 
-	/*Renderable::Renderable(const Celestite::Ptr<Mesh>& mesh, const Celestite::Ptr<Material>& material, const Celestite::Ptr<Malachite::Transform> transform)
+	/*Renderable::Renderable(const Celestite::Ptr<MeshData>& mesh, const Celestite::Ptr<MaterialData>& material, const Celestite::Ptr<Malachite::Transform> transform)
 		: m_Mesh(mesh), m_Material(material), m_Transform(transform) {
 
 	}*/
 
-	/*void Renderable::setMaterial(const Celestite::Ptr<Material>& material) {
+	/*void Renderable::setMaterial(const Celestite::Ptr<MaterialData>& material) {
 		m_Material = material;
 	}*/
 

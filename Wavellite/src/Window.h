@@ -10,20 +10,21 @@
 
 #include "Input/IOManager.h"
 #include "Matrix.h"
+#include "System.h"
 
 namespace Wavellite {
 	void windowSizeCallBack(GLFWwindow* window, int width, int height);
 
 	class Window {
 	public:
-		enum class WindowSize {
+		enum class WindowSize { //TODO names should change
 			FULL_SCREEN,
 			HALF_SCREEN,
 			QUARTER_SCREEN
 		};
 
-		Window(WindowSize = WindowSize::QUARTER_SCREEN, std::string name = "Gemstone", float zFar = 100.0f);
-		Window(unsigned int width = 640, unsigned int height = 480, std::string name = "Gemstone", float zFar = 100.0f);
+		Window(WindowSize = WindowSize::HALF_SCREEN, std::string name = "Gemstone", float zFar = 100.0f);
+		Window(unsigned int width, unsigned int height, std::string name = "Gemstone", float zFar = 100.0f);
 		Window(Window&) = delete;
 		Window& operator=(Window&) = delete;
 		Window(Window&& other) noexcept

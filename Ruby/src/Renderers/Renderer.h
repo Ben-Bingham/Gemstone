@@ -19,7 +19,7 @@ namespace Ruby {
 
     class DebugRenderer;
 
-    class Renderer {
+    class Renderer : public Esperite::System {
     public:
     	Renderer(Wavellite::Window& window, Camera* camera = nullptr);
 
@@ -57,8 +57,10 @@ namespace Ruby {
             ImGui::DestroyContext();
         }
 
+        void Process(Esperite::Scene* scene) override;
+
         //void render(Celestite::Ptr<Renderable> renderable);
-        void render(Mesh& mesh, Material& material, Malachite::Transform& transform);
+        void render(MeshData& mesh, MaterialData& material, Malachite::Transform& transform);
 
         template<typename... T>
         void debugRender(T...args) {
@@ -85,12 +87,12 @@ namespace Ruby {
         bool m_Changed{ true };
 
         struct MeshBucket {
-            Celestite::Ptr<Mesh> mesh;
+            Celestite::Ptr<MeshData> mesh;
             std::vector<Celestite::Ptr<Renderable>> renderables;
         };
 
         struct MaterialBucket {
-            Celestite::Ptr<Material> material;
+            Celestite::Ptr<MaterialData> material;
             std::vector<Celestite::Ptr<Renderable>> renderables;
             std::vector<MeshBucket> meshBuckets;
         };

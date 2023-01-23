@@ -2,16 +2,16 @@
 #include "Renderer.h"
 #include "OpenGlErrors.h"
 
-#include "Geometry/Mesh.h"
+#include "Geometry/MeshData.h"
 
 namespace Ruby {
 	DebugRenderer::DebugRenderer(Renderer* renderer) 
-		: m_Mesh(Celestite::createPtr<Mesh>())
+		: m_Mesh(Celestite::createPtr<MeshData>())
 		, m_Material(Celestite::createPtr<SolidMaterial>(Colour{ 221, 224, 18 }))
 		/*, m_Renderable(m_Mesh, m_Material)*/
 		, m_Renderer(renderer) {
 
-		m_Mesh->setDrawMode(Mesh::DrawMode::LINES);
+		m_Mesh->setDrawMode(MeshData::DrawMode::LINES);
 	}
 
 	void DebugRenderer::queue(const std::vector<float>& points) {
@@ -38,7 +38,7 @@ namespace Ruby {
 		}
 	}
 
-	void DebugRenderer::queue(const Celestite::Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale) {
+	void DebugRenderer::queue(const Celestite::Ptr<MeshData>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale) {
 		const Vertices vertices = mesh->getVertices();
 
 		if (vertices.empty()) {

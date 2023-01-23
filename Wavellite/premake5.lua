@@ -4,6 +4,7 @@ require "../vendor/GLFW/use"
 require "../vendor/ImGui/use"
 require "../vendor/GLEW/use"
 require "../Celestite/use"
+require "../Esperite/use"
 
 project "Wavellite"
 	print "Initializing Wavellite"
@@ -42,5 +43,6 @@ project "Wavellite"
 	useImGui("../")
 	useGLEW("../")
 	useCelestite("../")
+	useEsperite("../")
 
 	print "Wavellite Initialized"

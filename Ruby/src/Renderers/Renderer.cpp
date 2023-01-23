@@ -2,6 +2,10 @@
 #include "DebugRenderer.h"
 #include "OpenGLState.h"
 
+#include "Geometry/Mesh.h"
+
+#include "Materials/Material.h"
+
 namespace Ruby {
 	Renderer::Renderer(Wavellite::Window& window, Camera* camera)
 		: m_Camera(camera), m_Window(&window) {
@@ -43,7 +47,33 @@ namespace Ruby {
 		m_Renderables.push_back(renderable);
 	}*/
 
-	void Renderer::render(Mesh& mesh, Material& material, Malachite::Transform& transform) {
+	void Renderer::Process(Esperite::Scene* scene) {
+		for (auto& gb : scene->gameObjects) {
+			if (scene->HasComponent<Camera>(gb)) {
+				Camera* cam = scene->GetComponent<Camera>(gb);
+
+				setCamera(cam);
+				beginFrame();
+
+				for (auto& renderable : scene->gameObjects) {
+					if (scene->HasComponent<Mesh>(renderable) &&
+						scene->HasComponent<Material>(renderable) &&
+						scene->HasComponent<Malachite::Transform>(renderable)) {
+
+						Mesh* mesh = scene->GetComponent<Mesh>(renderable);
+						Material* material = scene->GetComponent<Material>(renderable);
+						Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
+
+						LOG("Render");
+						render(*mesh->mesh, *material->material, *transform);
+					}
+				}
+				endFrame();
+			}
+		}
+	}
+
+	void Renderer::render(MeshData& mesh, MaterialData& material, Malachite::Transform& transform) {
 		m_Renderables.push_back(Renderable(mesh, material, transform));
 	}
 
@@ -54,6 +84,8 @@ namespace Ruby {
 			renderable.material().end();
 		}
 
+		m_Renderables.clear();
+
 		/*for (Celestite::Ptr<Renderable> renderable : m_Renderables) {
 			renderable->mesh()->bind();
 		
@@ -61,8 +93,7 @@ namespace Ruby {
 			glDrawElements((GLenum)(int)renderable->mesh()->getDrawMode(), (GLsizei)renderable->mesh()->getIndexCount(), GL_UNSIGNED_INT, 0);
 			renderable->material()->end();
 		}
-
-		m_Renderables.clear();*/
+		*/
 
 		// ========== Debug Renderer ==========
 		// const bool depthTesting = OpenGlState::get().getDepthTesting();

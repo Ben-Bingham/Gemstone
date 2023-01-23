@@ -4,6 +4,7 @@ require "../vendor/GLFW/use"
 require "../vendor/ImGui/use"
 require "../vendor/GLEW/use"
 require "../Celestite/use"
+require "../Esperite/use"
 
 function useWavellite(dir)
 	dir = dir or ""
@@ -26,4 +27,5 @@ function useWavellite(dir)
 	useImGui(dir)
 	useGLEW(dir)
 	useCelestite(dir)
+	useEsperite(dir)
 end

@@ -18,9 +18,9 @@ struct Mesh {
 void esperite() {
 	// Components:
 	{
-		Esperite::Scene<Esperite::VariableSizeSparseSetComponentPool> scene{};
+		Esperite::Scene scene{};
 
-		Esperite::GameObject gb = scene.newGameObject();
+		Esperite::GameObject gb = scene.NewGameObject();
 		assert(!scene.HasComponent<Transform>(gb)); // GameObjects should start with no components.
 
 
@@ -38,11 +38,11 @@ void esperite() {
 		// assert(!scene.HasComponent<Transform>(gb)); // GameObjects should no longer have a component once its removed.
 
 
-		Esperite::GameObject gb2 = scene.newGameObject();
+		Esperite::GameObject gb2 = scene.NewGameObject();
 		scene.AddComponent<Transform>(gb2);
 		assert(scene.HasComponent<Transform>(gb2)); // GameObjects should get components once added.
 
-		Esperite::GameObject gb3 = scene.newGameObject();
+		Esperite::GameObject gb3 = scene.NewGameObject();
 		scene.AddComponent<Transform>(gb3);
 		assert(scene.HasComponent<Transform>(gb3)); // GameObjects should get components once added.
 
@@ -53,7 +53,7 @@ void esperite() {
 		// assert(!scene.HasComponent<Transform>(gb3)); // Components can be removed out of order
 		//
 		//
-		// Esperite::GameObject gb4 = scene.newGameObject();
+		// Esperite::GameObject gb4 = scene.NewGameObject();
 		// scene.addComponent<Transform>(gb4);
 		// auto* transform2 = scene.getComponent<Transform>(gb4);
 		// scene.removeComponent<Transform>(gb4);
@@ -63,7 +63,7 @@ void esperite() {
 	{
 		// Esperite::Scene scene{};
 
-		// Esperite::GameObject gb = scene.newGameObject();
+		// Esperite::GameObject gb = scene.NewGameObject();
 
 		// scene.removeGameObject(gb);
 	}

@@ -2,91 +2,71 @@
 
 #include "Window.h"
 
-#include "Components/Script.h"
-//#include "RigidBody.h"
 #include "Components/CameraComponent.h"
 #include "Components/RenderingComponent.h"
 
 namespace Emerald {
 	Engine::Engine()
-		: m_Window(Wavellite::Window::WindowSize::HALF_SCREEN), m_Renderer(m_Window) {
+		// , m_Renderer(m_Window)
+	{
 
 	}
 
 	void Engine::init() {
-		
+		Celestite::Ptr<Ruby::Renderer> renderer = Celestite::createPtr<Ruby::Renderer>(m_Window);
+
+		m_Systems.push_back(renderer);
 	}
 
 	void Engine::start() {
-		while (true) {
-// 			for (const Esperite::GameObject gb : activeScene->gameObjects) {
-// 				// Rendering
-// 				if (activeScene->HasComponent<Ruby::Camera>(gb)) {
-// 					Ruby::Camera* camera = activeScene->GetComponent<Ruby::Camera>(gb);
-// 					m_Renderer.setCamera(camera);
-//
-// 					m_Renderer.beginFrame();
-//
-// 					int i = 0;
-// 					for (const Esperite::GameObject renderable : activeScene->gameObjects) {
-// 						if (activeScene->HasComponent<Ruby::Mesh>(renderable) &&
-// 							activeScene->HasComponent<Celestite::Ptr<Ruby::Material>>(renderable) &&
-// 							activeScene->HasComponent<Malachite::Transform>(renderable)) {
-//
-// 							Ruby::Mesh* mesh = activeScene->GetComponent<Ruby::Mesh>(renderable);
-// 							const Celestite::Ptr<Ruby::Material>* material = activeScene->GetComponent<Celestite::Ptr<Ruby::Material>>(renderable);
-// 							Malachite::Transform* transform = activeScene->GetComponent<Malachite::Transform>(renderable);
-//
-// 							m_Renderer.render(*mesh, **material, *transform);
-// 							i++;
-// 						}
-// 					}
-// 					LOG("Number of render calls: " + std::to_string(i));
-//
-// 					m_Renderer.endFrame();
-// 				}
-//
-//
-// 				// TODO Physics
-// 				/*if (activeScene->hasComponent<Malachite::Transform>(gb) &&
-// 					activeScene->hasComponent<Pyrite::RigidBody>(gb)) {
-//
-// 					Malachite::Transform* transform = activeScene->getComponent<Malachite::Transform>(gb);
-// 					Pyrite::RigidBody* rb = activeScene->getComponent<Pyrite::RigidBody>(gb);
-// 				}*/
-//
-// 				if (activeScene->HasComponent<Script>(gb)) {
-// 					Script* script = activeScene->GetComponent<Script>(gb);
-//
-// 					script->update();
-// 				}
-// 			}
-//
-// 			// const auto cameras = Esperite::ComponentManager::get().getComponents<CameraComponent>();
-// 			//
-// 			// if (cameras.first + 1 != cameras.second) {
-// 			// 	LOG("Too many cameras in scene, supply only one or face undefined behaviour."); // TODO allow to switch between cameras
-// 			// }
-// 			//
-// 			// m_Renderer.setCamera(&(*cameras.first)->getCamera());
-// 			//
-// 			// // Game loop
-// 			// while (m_Window.isOpen()) { //TODO maybe should be just true?
-// 			// 	m_Renderer.beginFrame();
-// 			//
-// 			// 	auto renderingComponents = Esperite::ComponentManager::get().getComponents<RenderingComponent>();
-// 			//
-// 			// 	for (auto it = renderingComponents.first; it != renderingComponents.second; ++it) {
-// 			// 		auto val = *it;
-// 			// 		// m_Renderer.render(*it);
-// 			// 	}
-// 			//
-// 			// 	m_Renderer.endFrame();
-// 			// }
-		}
-	}
+		while (m_Window.isOpen()) {
+			m_Window.pollEvents();
 
-	/*void Engine::enlist(const Celestite::Ptr<Esperite::GameObject>& gameObject) {
-		m_GameObjects.push_back(gameObject);
-	}*/
+			for (Celestite::Ptr<Esperite::System>& system : m_Systems) {
+				system->Process(activeScene);
+			}
+
+			m_Window.swapBuffers();
+		}
+
+
+		// while (true) {
+		// 	// const float startTime = m_Time.getTime();
+		//
+		// 	for (const Esperite::GameObject gb : activeScene->gameObjects) {
+		// 		// Scripts
+		// 		if (activeScene->HasComponent<Celestite::Ptr<Script>>(gb)) {
+		// 			Celestite::Ptr<Script> script = *activeScene->GetComponent<Celestite::Ptr<Script>>(gb);
+		//
+		// 			script->update(*this);
+		// 		}
+		//
+		// 		// Rendering
+		// 		if (activeScene->HasComponent<Ruby::Camera>(gb)) {
+		// 			Ruby::Camera* camera = activeScene->GetComponent<Ruby::Camera>(gb);
+		// 			m_Renderer.setCamera(camera);
+		//
+		// 			m_Window.pollEvents();
+		//
+		// 			if (!m_Window.isOpen()) {
+		// 				return;
+		// 			}
+		//
+		// 			m_Renderer.beginFrame();
+		//
+		// 			for (const Esperite::GameObject renderable : activeScene->gameObjects) {
+		// 				if (activeScene->HasComponent<Malachite::Transform>(renderable)) {
+		// 					Malachite::Transform* transform = activeScene->GetComponent<Malachite::Transform>(renderable);
+		// 					m_Renderer.render(*mesh, *material, *transform);
+		// 				}
+		// 			}
+		//
+		// 			m_Renderer.endFrame();
+		// 			m_Window.swapBuffers();
+		// 		}
+		// 	}
+		//
+		// 	m_DeltaTime = m_Time.getTime() - startTime;
+		// }
+	}
 }

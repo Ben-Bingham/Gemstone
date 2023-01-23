@@ -11,12 +11,12 @@ namespace Ruby {
 	
 		void queue(const std::vector<float>& points);
 		void queue(const std::vector<Malachite::Vector3f>& points);
-		void queue(const Celestite::Ptr<Mesh>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale);
+		void queue(const Celestite::Ptr<MeshData>& mesh, const Malachite::Vector3f& position, const Malachite::Vector3f& scale);
 
 		void render();
 	
 	private:
-		Celestite::Ptr<Mesh> m_Mesh;
+		Celestite::Ptr<MeshData> m_Mesh;
 		Celestite::Ptr<SolidMaterial> m_Material;
 
 		//Renderable m_Renderable;

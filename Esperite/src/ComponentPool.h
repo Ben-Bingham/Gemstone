@@ -30,7 +30,7 @@ namespace Esperite {
 		[[nodiscard]] virtual bool HasComponent(GameObject gb) const = 0;
 	};
 
-	class SparseSetComponentPool final : public IComponentPool {
+	/*class SparseSetComponentPool final : public IComponentPool {
 	public:
 		SparseSetComponentPool(const size_t componentSize)
 			: m_ComponentSize(componentSize) {
@@ -157,9 +157,9 @@ namespace Esperite {
 		int m_LastComponent{ -1 };
 		size_t m_ComponentSize;
 		char* m_Components;
-	};
+	};*/
 
-	class FixedSizeSparseSetComponentPool final : public IComponentPool {
+	class FixedSizeSparseSetComponentPool : public IComponentPool {
 	public:
 		FixedSizeSparseSetComponentPool(const size_t componentSize)
 			: m_ComponentSize(componentSize) {

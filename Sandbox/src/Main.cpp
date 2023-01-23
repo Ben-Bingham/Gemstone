@@ -16,7 +16,7 @@
 #include "Lights.h"
 #include "OpenGLState.h"
 #include "Pointer.h"
-#include "Geometry/Mesh.h"
+#include "Geometry/MeshData.h"
 #include "Materials/SkyboxMaterial.h"
 #include "OpenGL objects/Texture.h"
 #include "Utility/Colour.h"
@@ -53,100 +53,51 @@
 #include "windows.h"
 #include "psapi.h"
 
-class Transform { //TODO remove
-public:
-	Transform(const float x = 0, const float y = 0)
-		: x(x), y(y) {
-	}
+#include "Geometry/Mesh.h"
+#include "Geometry/MeshManager.h"
 
-	float x;
-	float y;
-};
-
-class Test {
-	
-};
-
-class AdvancedComponent {
-public:
-	AdvancedComponent() = default;
-
-	std::array<float, 20> data;
-};
+#include "Materials/Material.h"
+#include "Materials/MaterialManager.h"
 
 int main() {
 	Emerald::Engine engine{};
 	engine.init();
 
-	// Esperite::Scene testScene{};
-	//
-	// Esperite::GameObject gb = testScene.newGameObject();
-	//
-	// testScene.addComponent<Malachite::Transform>(gb);
-	// testScene.addComponent<Ruby::Mesh>(gb);
-	// testScene.addComponent<Ruby::SolidMaterial>(gb);
-	//
-	// Esperite::GameObject cam = testScene.newGameObject();
-	//
-	// testScene.addComponent<Ruby::Camera>(cam);
-	//
-	// engine.activeScene = &testScene;
-	//
-	// engine.start();
+	Esperite::Scene testScene{};
+	
+	Esperite::GameObject gb = testScene.NewGameObject();
+	
+	testScene.AddComponent<Malachite::Transform>(gb);
 
-	using TransformComponent = Transform;
-	using AdvComp = AdvancedComponent;
-	Wavellite::Time time{ }; //TODO add to engine class
+	Malachite::Transform* transform = testScene.GetComponent<Malachite::Transform>(gb);
+	transform->position().z -= 5.0f;
+
+	testScene.AddComponent<Ruby::Mesh>(gb);
+	testScene.AddComponent<Ruby::Material>(gb);
+
+	Ruby::Mesh* mesh = testScene.GetComponent<Ruby::Mesh>(gb);
+	mesh->mesh = Ruby::MeshManager::Get().NewMesh(Ruby::SPHERE);
+
+	Ruby::Material* material = testScene.GetComponent<Ruby::Material>(gb);
+	material->material = Ruby::MaterialManager::Get().NewMaterial();
+
+	Esperite::GameObject cam = testScene.NewGameObject();
+	testScene.AddComponent<Ruby::Camera>(cam);
+
+	Esperite::GameObject cam2 = testScene.NewGameObject();
+	testScene.AddComponent<Ruby::Camera>(cam2);
+
+	Ruby::Camera* camera = testScene.GetComponent<Ruby::Camera>(cam2);
+	camera->position.x += 3.0f;
+
+	engine.activeScene = &testScene;
 
 
 
-	for (int k = 0; k < 100; k++) {
-		{
-			Esperite::Scene<Esperite::VariableSizeSparseSetComponentPool> timingScene{};
+	Esperite::GameObject gameController = testScene.NewGameObject();
 
-			PROCESS_MEMORY_COUNTERS_EX pmc;
-			GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
-			const SIZE_T startMemory = pmc.PrivateUsage;
+	engine.start();
 
-			const float startTime = time.getTime();
-
-			for (int i = 0; i < Esperite::MAX_GAME_OBJECTS / 100; i++) {
-				Esperite::GameObject gb = timingScene.newGameObject();
-
-				timingScene.AddComponent<TransformComponent>(gb);
-				timingScene.AddComponent<AdvComp>(gb);
-			}
-
-			for (int i = 0; i < 100; i++) {
-				for (Esperite::GameObject gb : timingScene.gameObjects) {
-					if (timingScene.HasComponent<TransformComponent>(gb) && timingScene.HasComponent<AdvComp>(gb)) {
-						TransformComponent* transform = timingScene.GetComponent<TransformComponent>(gb);
-						const AdvComp* advComp = timingScene.GetComponent<AdvComp>(gb);
-
-						for (auto& val : advComp->data) {
-							transform->x += val;
-							transform->y -= val;
-						}
-					}
-				}
-
-				for (Esperite::GameObject gb : timingScene.gameObjects) {
-					timingScene.GetComponent<TransformComponent>(gb)->x = 0.0f;
-					timingScene.GetComponent<TransformComponent>(gb)->y = 0.0f;
-				}
-			}
-
-			const float endTime = time.getTime();
-			GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
-			const SIZE_T endMemory = pmc.PrivateUsage;
-
-			// times[i] = endTime - startTime;
-			LOG(std::to_string(endTime - startTime) + ", " + std::to_string(endMemory - startMemory));
-		}
-	}
-
-	LOG("DONE");
-	std::cin.get();
 
 
 
@@ -184,9 +135,9 @@ int main() {
 	//
 	// Celestite::Ptr<Ruby::SolidMaterial> blueMaterial = Celestite::createPtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
 	//
-	// Celestite::Ptr<Ruby::Mesh> cubeMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::CUBE);
-	// Celestite::Ptr<Ruby::Mesh> planeMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::PLANE);
-	// Celestite::Ptr<Ruby::Mesh> sphereMesh = Celestite::createPtr<Ruby::Mesh>(Ruby::Mesh::Shape::SPHERE);
+	// Celestite::Ptr<Ruby::MeshData> cubeMesh = Celestite::createPtr<Ruby::MeshData>(Ruby::MeshData::Shape::CUBE);
+	// Celestite::Ptr<Ruby::MeshData> planeMesh = Celestite::createPtr<Ruby::MeshData>(Ruby::MeshData::Shape::PLANE);
+	// Celestite::Ptr<Ruby::MeshData> sphereMesh = Celestite::createPtr<Ruby::MeshData>(Ruby::MeshData::Shape::SPHERE);
 	//
 	// //auto testCube = Celestite::createPtr<Ruby::Renderable>(cubeMesh, blueMaterial );
 	//

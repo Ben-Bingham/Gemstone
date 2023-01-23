@@ -1,16 +1,16 @@
 #pragma once
 
 #include "Utility/Colour.h"
-#include "Material.h"
+#include "MaterialData.h"
 #include "Shaders/Uniforms/UniformSet.h"
 #include "Shaders/Uniforms/Uniform.h"
 #include "Shaders/ShaderLibrary.h"
 
 namespace Ruby {
-	class SolidMaterial : public Material {
+	class SolidMaterial : public MaterialData {
 	public:
 		explicit SolidMaterial(const Colour& colour = Colour{ 224, 17, 95 })
-			: Material(ShaderLibrary::get().solidShader), colour(colour) {
+			: MaterialData(ShaderLibrary::get().solidShader), colour(colour) {
 			
 		}
 

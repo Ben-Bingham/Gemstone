@@ -1,16 +1,16 @@
 #pragma once
 
-#include "Material.h"
+#include "MaterialData.h"
 
 #include "Shaders/ShaderLibrary.h"
 #include "Shaders/Uniforms/Uniform.h"
 #include "Shaders/Uniforms/UniformSet.h"
 
 namespace Ruby {
-	class ScreenMaterial : public Material {
+	class ScreenMaterial : public MaterialData {
 	public:
 		ScreenMaterial(const Celestite::Ptr<Texture>& texture)
-			: Material(ShaderLibrary::get().screenQuadShader), texture(texture) {
+			: MaterialData(ShaderLibrary::get().screenQuadShader), texture(texture) {
 
 		}
 

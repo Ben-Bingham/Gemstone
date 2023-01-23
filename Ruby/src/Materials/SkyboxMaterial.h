@@ -1,5 +1,5 @@
 #pragma once
-#include "Material.h"
+#include "MaterialData.h"
 #include "OpenGLState.h"
 
 #include "OpenGL objects/Cubemap.h"
@@ -9,10 +9,10 @@
 #include "Shaders/Uniforms/Uniform.h"
 
 namespace Ruby {
-	class SkyBoxMaterial : public Material {
+	class SkyBoxMaterial : public MaterialData {
 	public:
 		SkyBoxMaterial(const std::initializer_list<Celestite::Ptr<Image>>& faces)
-			: Material(ShaderLibrary::get().skyBoxShader), cubeMap(faces) {
+			: MaterialData(ShaderLibrary::get().skyBoxShader), cubeMap(faces) {
 			
 		}
 

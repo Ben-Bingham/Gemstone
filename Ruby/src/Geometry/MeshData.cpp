@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "MeshData.h"
 
 namespace Ruby {
 	Vertex::Vertex(const Malachite::Vector3f& positionData, const Malachite::Vector3f& normalData, const Malachite::Vector2f& textureCoordinateData)
@@ -11,7 +11,7 @@ namespace Ruby {
 
 	}
 
-	Mesh::Mesh(const Shape shape)
+	MeshData::MeshData(const Shape shape)
 		: m_Vertices(getVerticesFromShape(shape))
 		, m_Indices(getIndicesFromShape(shape)) {
 		m_VertexAttributes.bind();
@@ -25,7 +25,7 @@ namespace Ruby {
 		m_VertexAttributes.configure();
 	}
 
-	Mesh::Mesh() {
+	MeshData::MeshData() {
 		m_VertexAttributes.bind();
 
 		m_VertexBuffer.bind();
@@ -37,31 +37,31 @@ namespace Ruby {
 		m_VertexAttributes.configure();
 	}
 
-	void Mesh::bind() const {
+	void MeshData::bind() const {
 		m_VertexAttributes.bind();
 	}
 
-	Mesh::DrawMode Mesh::getDrawMode() const {
+	MeshData::DrawMode MeshData::getDrawMode() const {
 		return m_DrawMode;
 	}
 
-	void Mesh::setDrawMode(const DrawMode drawMode) {
+	void MeshData::setDrawMode(const DrawMode drawMode) {
 		m_DrawMode = drawMode;
 	}
 
-	size_t Mesh::getIndexCount() const {
+	size_t MeshData::getIndexCount() const {
 		return m_IndexBuffer.getElementCount();
 	}
 
-	Vertices Mesh::getVertices() const {
+	Vertices MeshData::getVertices() const {
 		return m_Vertices;
 	}
 
-	Indices Mesh::getIndices() const {
+	Indices MeshData::getIndices() const {
 		return m_Indices;
 	}
 
-	Vertices Mesh::getVerticesFromShape(const Shape shape) {
+	Vertices MeshData::getVerticesFromShape(const Shape shape) {
 		switch (shape) {
 		case Shape::CUBE:
 			return ShapeData::getCubeVertices();
@@ -74,7 +74,7 @@ namespace Ruby {
 		return {};
 	}
 
-	Indices Mesh::getIndicesFromShape(const Shape shape) {
+	Indices MeshData::getIndicesFromShape(const Shape shape) {
 		switch (shape) {
 		case Shape::CUBE:
 			return ShapeData::getCubeIndices();
@@ -87,7 +87,7 @@ namespace Ruby {
 		return {};
 	}
 
-	void Mesh::edit(const Vertices& newVertices, const unsigned offset) {
+	void MeshData::edit(const Vertices& newVertices, const unsigned offset) {
 		if (newVertices.size() + offset < m_Vertices.size()) {
 			memcpy(m_Vertices.data() + offset, newVertices.data(), newVertices.size() * sizeof(Vertex));
 		}
@@ -106,7 +106,7 @@ namespace Ruby {
 		}
 	}
 
-	void Mesh::edit(const Indices& newIndices, const unsigned offset) {
+	void MeshData::edit(const Indices& newIndices, const unsigned offset) {
 		if (newIndices.size() + offset < m_Indices.size()) {
 			memcpy(m_Indices.data() + offset, newIndices.data(), newIndices.size() * sizeof(Index));
 		}
@@ -124,15 +124,15 @@ namespace Ruby {
 		}
 	}
 
-	void Mesh::edit(const Vertices& newVertices) {
+	void MeshData::edit(const Vertices& newVertices) {
 		edit(newVertices, 0);
 	}
 
-	void Mesh::edit(const Indices& newIndices) {
+	void MeshData::edit(const Indices& newIndices) {
 		edit(newIndices, 0);
 	}
 
-	void Mesh::edit(const Vertices& newVertices, const Indices& newIndices) {
+	void MeshData::edit(const Vertices& newVertices, const Indices& newIndices) {
 		edit(newVertices);
 		edit(newIndices);
 	}

@@ -2,15 +2,15 @@
 
 #include "Pointer.h"
 #include "Shaders/ShaderProgram.h"
-#include "Materials/Material.h"
-#include "Geometry/Mesh.h"
+#include "Materials/MaterialData.h"
+#include "Geometry/MeshData.h"
 #include "Utility/Transform.h"
 
 namespace Ruby {
 	class Renderable {
 	public:
-		Renderable(Mesh& mesh, Material& material, Malachite::Transform& transfrom);
-		//Renderable(const Celestite::Ptr<Mesh>& mesh, const Celestite::Ptr<Material>& material, const Celestite::Ptr<Malachite::Transform> transform = Celestite::createPtr<Malachite::Transform>());
+		Renderable(MeshData& mesh, MaterialData& material, Malachite::Transform& transfrom);
+		//Renderable(const Celestite::Ptr<MeshData>& mesh, const Celestite::Ptr<MaterialData>& material, const Celestite::Ptr<Malachite::Transform> transform = Celestite::createPtr<Malachite::Transform>());
 
 		/*Renderable(const Renderable& other) = delete;
 		Renderable(Renderable&& other) noexcept = default;
@@ -20,19 +20,19 @@ namespace Ruby {
 
 		//virtual void render(const Malachite::Matrix4f& view, const Malachite::Matrix4f& projection);
 
-		//void setMaterial(const Celestite::Ptr<Material>& material);
+		//void setMaterial(const Celestite::Ptr<MaterialData>& material);
 
-		Mesh& mesh() { return m_Mesh; }
-		Material& material() { return m_Material; }
+		MeshData& mesh() { return m_Mesh; }
+		MaterialData& material() { return m_Material; }
 		Malachite::Transform& transform() { return m_Transform; }
 
 	protected:
-		Mesh& m_Mesh;
-		Material& m_Material;
+		MeshData& m_Mesh;
+		MaterialData& m_Material;
 		Malachite::Transform& m_Transform;
 
-		/*Celestite::Ptr<Mesh> m_Mesh;
-		Celestite::Ptr<Material> m_Material;
+		/*Celestite::Ptr<MeshData> m_Mesh;
+		Celestite::Ptr<MaterialData> m_Material;
 		Celestite::Ptr<Malachite::Transform> m_Transform;*/
 	};
 }
