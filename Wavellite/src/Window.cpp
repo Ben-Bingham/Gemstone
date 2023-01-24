@@ -2,6 +2,7 @@
 
 #include "Input/IOManager.h"
 #include "Log.h"
+#include "Pointer.h"
 
 namespace Wavellite {
 	Window& Window::Get() {

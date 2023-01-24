@@ -17,10 +17,6 @@
 #include "Engine.h"
 
 #include "GameObject.h"
-#include "Components/MaterialComponent.h"
-#include "Components/MeshComponent.h"
-#include "Components/RenderingComponent.h"
-#include "Components/Transform.h"
 
 #include "Scene.h"
 #include "Geometry/Mesh.h"
@@ -50,15 +46,10 @@ int main() {
 
 	Esperite::Scene testScene{};
 	
-	Esperite::GameObject gb = testScene.NewGameObject();
-	
-	testScene.AddComponent<Malachite::Transform>(gb);
+	Esperite::GameObject gb = testScene.NewGameObject<Malachite::Transform, Ruby::Mesh, Ruby::Material>();
 
 	Malachite::Transform* transform = testScene.GetComponent<Malachite::Transform>(gb);
 	transform->position().z -= 5.0f;
-
-	testScene.AddComponent<Ruby::Mesh>(gb);
-	testScene.AddComponent<Ruby::Material>(gb);
 
 	Ruby::Mesh* mesh = testScene.GetComponent<Ruby::Mesh>(gb);
 	mesh->mesh = Ruby::MeshManager::Get().NewMesh(Ruby::SPHERE);

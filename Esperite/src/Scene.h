@@ -3,7 +3,6 @@
 #include "GameObject.h"
 #include "Log.h"
 #include "ComponentPool.h"
-#include "Pointer.h"
 
 namespace Esperite {
 	class Scene {
@@ -27,6 +26,15 @@ namespace Esperite {
 			gameObjects.push_back(m_FurthestGameObject);
 			m_FurthestGameObject++;
 			return gameObjects.back();
+		}
+
+		template<typename ...Ts>
+		[[nodiscard]] GameObject NewGameObject() {
+			const GameObject gb = NewGameObject();
+
+			(AddComponent<Ts>(gb), ...);
+
+			return gb;
 		}
 
 		template<typename T>

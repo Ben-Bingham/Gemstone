@@ -3,10 +3,9 @@
 #include "RenderingContext.h"
 #include "Window.h"
 
-#include "Components/CameraComponent.h"
-#include "Components/RenderingComponent.h"
 #include "Input/Keyboard.h"
 #include "Input/Mouse.h"
+#include "Systems/Input.h"
 
 namespace Emerald {
 	Engine::Engine() {
@@ -18,27 +17,24 @@ namespace Emerald {
 	}
 
 	void Engine::Start() {
-		for (Celestite::Ptr<Esperite::System>& system : m_Systems) {
+		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
 			system->StartUp(activeScene);
 		}
 
 		while (Wavellite::Window::Get().isOpen()) {
-			Wavellite::Window::Get().pollEvents(); //TODO window events should be inside a system
-
-			for (Celestite::Ptr<Esperite::System>& system : m_Systems) {
+			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
 				system->Step(activeScene);
 			}
-
-			// m_Window.swapBuffers();
 		}
 
-		for (Celestite::Ptr<Esperite::System>& system : m_Systems) {
+		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
 			system->ShutDown(activeScene);
 		}
 	}
 
 	Engine& Engine::AddDefaultSystems() {
 		m_Systems.push_back(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
+		m_Systems.push_back(Celestite::CreatePtr<Input>());
 		// TODO more default systems
 
 		return *this;
