@@ -1,21 +1,29 @@
 #pragma once
 
-#include "Mouse.h"
-#include "Keyboard.h"
-
 namespace Wavellite {
-	class Window;
+	class Keyboard;
+	class Mouse;
 
 	class IOManager {
 	public:
-		IOManager(Window* window);
+		IOManager();
 
-		Window* window;
-
-		[[nodiscard]] Keyboard& getKeyboard();
-		[[nodiscard]] Mouse& getMouse();
-	private:
-		Keyboard m_Keyboard;
-		Mouse m_Mouse;
+		Keyboard* keyboard;
+		Mouse* mouse;
 	};
+
+// class Window;
+
+	// class IOManager {
+	// public:
+	// 	IOManager(Window* window);
+	//
+	// 	Window* window;
+	//
+	// 	[[nodiscard]] Keyboard& getKeyboard();
+	// 	[[nodiscard]] Mouse& getMouse();
+	// private:
+	// 	Keyboard m_Keyboard;
+	// 	Mouse m_Mouse;
+	// };
 }

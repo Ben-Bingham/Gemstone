@@ -1,7 +1,23 @@
 #include "Keyboard.h"
-#include "IOManager.h"
+#include "Window.h"
 
 namespace Wavellite {
+	Keyboard& Keyboard::Get() {
+		static Keyboard keyboard;
+
+		return keyboard;
+	}
+
+	void Keyboard::Init() {
+		if (m_Initialized) {
+			return;
+		}
+
+		glfwSetKeyCallback(Window::Get().getWindow(), keyCallback);
+
+		m_Initialized = true;
+	}
+
 	KeyState GLFWToState(int action) {
 		switch (action) {
 		default:
@@ -13,7 +29,7 @@ namespace Wavellite {
 
 	void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
-		Keyboard& keyboard = manager->getKeyboard();
+		Keyboard& keyboard = *manager->keyboard;
 
 		switch (key) {
 		case GLFW_KEY_SPACE:			keyboard.KEY_SPACE = GLFWToState(action); break;

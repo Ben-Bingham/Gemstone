@@ -4,6 +4,14 @@
 #include "Matrix.h"
 
 namespace Ruby {
+	enum RenderingTarget {
+// TODO, add more targets like framebuffer, or texture
+		// TODO also need to add multi window support, this can be done quite easily by making a base class "Rendering Target"
+		// that window could derive from, this wont work now because Wavellite does not depend on Ruby.
+		WINDOW,
+		NONE
+	};
+
 	class Camera {
 	public:
 		Camera(Malachite::Vector3f pos = Malachite::Vector3f(0.0f, 0.0f, 0.0f), float fov = 45.0f)
@@ -31,6 +39,8 @@ namespace Ruby {
 		Malachite::Vector3f right;
 
 		Malachite::Vector3f position;
+
+		RenderingTarget target{ NONE };
 
 	private:
 		float m_FOV;

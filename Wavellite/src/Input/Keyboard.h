@@ -13,12 +13,15 @@ namespace Wavellite {
 
 	class Keyboard {
 	public:
-		Keyboard() = default;
 		Keyboard(const Keyboard&) = delete;
 		const Keyboard& operator=(const Keyboard&) = delete;
-		Keyboard(Keyboard&&) = default;
-		Keyboard& operator=(Keyboard&&) = default;
+		Keyboard(Keyboard&&) = delete;
+		Keyboard& operator=(Keyboard&&) = delete;
 		~Keyboard() = default;
+
+		static Keyboard& Get();
+
+		void Init();
 
 		KeyState KEY_SPACE{ KeyState::KEY_RELEASED };
 		KeyState KEY_APOSTROPHE{ KeyState::KEY_RELEASED };
@@ -123,6 +126,11 @@ namespace Wavellite {
 		KeyState KEY_RIGHT_CONTROL{ KeyState::KEY_RELEASED };
 		KeyState KEY_RIGHT_ALT{ KeyState::KEY_RELEASED };
 		KeyState KEY_UNKNOWN{ KeyState::KEY_RELEASED };
+
+	private:
+		Keyboard() = default;
+
+		bool m_Initialized{ false };
 	};
 
 	KeyState GLFWToState(int action);

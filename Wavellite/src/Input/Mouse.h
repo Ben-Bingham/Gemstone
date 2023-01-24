@@ -16,12 +16,14 @@ namespace Wavellite {
 
 	class Mouse {
 	public:
-		Mouse() = default;
 		Mouse(const Mouse&) = delete;
 		const Mouse& operator=(const Mouse&) = delete;
-		Mouse(Mouse&&) = default;
-		Mouse& operator=(Mouse&&) = default;
+		Mouse(Mouse&&) = delete;
+		Mouse& operator=(Mouse&&) = delete;
 		~Mouse() = default;
+
+		static Mouse& Get();
+		void Init();
 
 		int xPosition{ 0 };
 		int yPosition{ 0 };
@@ -47,6 +49,11 @@ namespace Wavellite {
 
 		std::vector<void (*)(int xpos, int ypos, void* data)> mousePositionCallbacks;
 		std::vector<void*> mousePositionCallbackData;
+
+	private:
+		Mouse() = default;
+
+		bool m_Initialized{ false };
 	};
 
 	MouseButtonState intToMouseState(int state);

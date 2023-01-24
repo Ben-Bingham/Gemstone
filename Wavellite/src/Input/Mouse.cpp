@@ -1,10 +1,29 @@
 #include "Mouse.h"
 #include "IOManager.h"
+#include "Window.h"
 
 namespace Wavellite {
+	Mouse& Mouse::Get() {
+		static Mouse mouse;
+		return mouse;
+	}
+
+	void Mouse::Init() {
+		if (m_Initialized) {
+			return;
+		}
+
+		glfwSetScrollCallback(Window::Get().getWindow(), mouseScrollWheelCallback);
+		glfwSetMouseButtonCallback(Window::Get().getWindow(), mouseButtonCallback);
+		glfwSetCursorEnterCallback(Window::Get().getWindow(), cursorEnterCallback);
+		glfwSetCursorPosCallback(Window::Get().getWindow(), mousePositionCallback);
+
+		m_Initialized = true;
+	}
+
 	void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
-		Mouse& mouse = manager->getMouse();
+		Mouse& mouse = *manager->mouse;
 
 		switch (button) {
 		case GLFW_MOUSE_BUTTON_1: mouse.button1 = intToMouseState(action); break;
@@ -15,7 +34,7 @@ namespace Wavellite {
 
 	void mousePositionCallback(GLFWwindow* window, double xpos, double ypos) {
 		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
-		Mouse& mouse = manager->getMouse();
+		Mouse& mouse = *manager->mouse;
 
 		mouse.yPosition = (int)ypos;
 		mouse.xPosition = (int)xpos;
@@ -29,7 +48,7 @@ namespace Wavellite {
 
 	void mouseScrollWheelCallback(GLFWwindow* window, double xoffset, double yoffset) {
 		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
-		Mouse& mouse = manager->getMouse();
+		Mouse& mouse = *manager->mouse;
 
 		int count{ 0 };
 		for (void (*callback)(int xoffset, int yoffset, void* data) : mouse.scrollCallbacks) {

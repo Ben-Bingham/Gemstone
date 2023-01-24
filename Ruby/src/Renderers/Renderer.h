@@ -27,7 +27,7 @@ namespace Ruby {
         Renderer& operator=(Renderer&) = delete;
         Renderer(Renderer&&) = default;
         Renderer& operator=(Renderer&&) = default;
-        ~Renderer() = default;
+        ~Renderer() override = default;
 
         // Per frame calls
         void beginFrame();

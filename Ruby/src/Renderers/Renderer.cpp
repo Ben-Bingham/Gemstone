@@ -52,22 +52,25 @@ namespace Ruby {
 			if (scene->HasComponent<Camera>(gb)) {
 				Camera* cam = scene->GetComponent<Camera>(gb);
 
-				setCamera(cam);
-				beginFrame();
+				if (cam->target == WINDOW) {
+					setCamera(cam);
+					beginFrame();
 
-				for (const auto& renderable : scene->gameObjects) {
-					if (scene->HasComponent<Mesh>(renderable) &&
-						scene->HasComponent<Material>(renderable) &&
-						scene->HasComponent<Malachite::Transform>(renderable)) {
+					for (const auto& renderable : scene->gameObjects) {
+						if (scene->HasComponent<Mesh>(renderable) &&
+							scene->HasComponent<Material>(renderable) &&
+							scene->HasComponent<Malachite::Transform>(renderable)) {
 
-						const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
-						const Material* material = scene->GetComponent<Material>(renderable);
-						Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
+							const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
+							const Material* material = scene->GetComponent<Material>(renderable);
+							Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
 
-						m_Renderables.push_back(Renderable(*mesh->mesh, *material->material, *transform));
+							m_Renderables.push_back(Renderable(*mesh->mesh, *material->material, *transform));
+						}
 					}
+					endFrame();
+					m_Window->swapBuffers();
 				}
-				endFrame();
 			}
 		}
 	}

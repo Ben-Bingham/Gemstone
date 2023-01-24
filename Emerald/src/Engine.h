@@ -9,7 +9,7 @@
 namespace Emerald {
 	class Engine {
 	public:
-		Engine() = default;
+		Engine();
 
 		void Start();
 
@@ -22,7 +22,7 @@ namespace Emerald {
 	private:
 		std::vector<Celestite::Ptr<Esperite::System>> m_Systems;
 
-		Wavellite::Window m_Window; //TODO at some point make this a member of the camera, could even implement a render output interface that the camera outputs to or smth
+		// Celestite::UPtr<Wavellite::Window> m_Window; //TODO at some point make this a member of the camera, could even implement a render output interface that the camera outputs to or smth
 
 		std::vector<Celestite::Ptr<Esperite::GameObject>> m_GameObjects;
 	};

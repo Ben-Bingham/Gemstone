@@ -28,6 +28,8 @@
 
 #include "Materials/Material.h"
 #include "Materials/MaterialManager.h"
+#include "Input/Keyboard.h"
+#include "Input/Mouse.h"
 
 class GameLogic : public Esperite::System {
 public:
@@ -35,7 +37,10 @@ public:
 	~GameLogic() override = default;
 
 	void Step(Esperite::Scene* scene) override {
-		LOG("Hello World");
+		LOG(Wavellite::Mouse::Get().xPosition);
+		if (Wavellite::Mouse::Get().button1) {
+			LOG("W");
+		}
 	}
 };
 
@@ -64,12 +69,23 @@ int main() {
 	Esperite::GameObject cam = testScene.NewGameObject();
 	testScene.AddComponent<Ruby::Camera>(cam);
 
+	Ruby::Camera* camComponent = testScene.GetComponent<Ruby::Camera>(cam);
+	camComponent->target = Ruby::RenderingTarget::WINDOW;
+
 	engine.activeScene = &testScene;
 
 	const Celestite::Ptr<GameLogic> gameLogic = Celestite::CreatePtr<GameLogic>();
 	engine.AddSystem(gameLogic);
 
 	engine.Start();
+
+
+
+
+
+
+
+
 
 
 
