@@ -10,6 +10,9 @@
 #include "Shaders/ShaderLibrary.h"
 #include "Camera.h"
 #include "DebugRenderer.h"
+#include "Scene.h"
+#include "System.h"
+
 #include "Renderable Objects/Renderable.h"
 #include "Window.h"
 

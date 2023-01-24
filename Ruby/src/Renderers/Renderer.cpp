@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "DebugRenderer.h"
 #include "OpenGLState.h"
+#include "Scene.h"
 
 #include "Geometry/Mesh.h"
 

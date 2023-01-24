@@ -1,4 +1,6 @@
 #include "Keyboard.h"
+
+#include "IOManager.h"
 #include "Window.h"
 
 namespace Wavellite {
