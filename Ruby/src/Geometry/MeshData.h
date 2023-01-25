@@ -1,4 +1,5 @@
 #pragma once
+#include "Pointer.h"
 #include "ShapeData.h"
 
 #include "OpenGL objects/GlBuffer.h"
@@ -13,7 +14,7 @@ namespace Ruby {
 			LINES = GL_LINES
 		};
 
-		MeshData(Shape shape);
+		MeshData(const Celestite::Ptr<Shape>& shape);
 		MeshData();
 
 		void bind() const;
@@ -24,7 +25,8 @@ namespace Ruby {
 		[[nodiscard]] size_t getIndexCount() const;
 		[[nodiscard]] Vertices getVertices() const;
 		[[nodiscard]] Indices getIndices() const;
-	
+		// [[nodiscard]] MeshDescriptor GetDescription() const;
+		[[nodiscard]] Celestite::Ptr<Shape> GetShape();
 
 		void edit(const Vertices& newVertices, unsigned int offset);
 		void edit(const Indices& newIndices, unsigned int offset);
@@ -35,9 +37,6 @@ namespace Ruby {
 		void edit(const Vertices& newVertices, const Indices& newIndices);
 
 	private:
-		static [[nodiscard]] Vertices getVerticesFromShape(Shape shape);
-		static [[nodiscard]] Indices getIndicesFromShape(Shape shape);
-
 		Vertices m_Vertices{ };
 		Indices m_Indices{ };
 
@@ -46,5 +45,7 @@ namespace Ruby {
 		VertexAttributeObject m_VertexAttributes{ };
 		VertexBuffer m_VertexBuffer{ };
 		IndexBuffer m_IndexBuffer{ };
+
+		Celestite::Ptr<Shape> m_Shape;
 	};
 }

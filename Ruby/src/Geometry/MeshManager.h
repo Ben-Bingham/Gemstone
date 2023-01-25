@@ -10,8 +10,8 @@ namespace Ruby {
 		MeshManager& operator=(MeshManager&& other) noexcept = delete;
 		static MeshManager& Get();
 
-		Celestite::Ptr<MeshData> NewMesh(Shape shape);
-		// Celestite::Ptr<Mesh> NewMesh(std::string& filePath); //TODO custom models
+		Celestite::Ptr<MeshData> CreateMesh(const Celestite::Ptr<Shape>& shape);
+		// Celestite::Ptr<Mesh> CreateMesh(std::string& filePath); //TODO custom models
 
 	private:
 		MeshManager() = default;

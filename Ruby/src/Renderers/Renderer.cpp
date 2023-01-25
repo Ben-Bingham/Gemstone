@@ -44,10 +44,6 @@ namespace Ruby {
 		m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
-	/*void Renderer::render(Celestite::Ptr<Renderable> renderable) {
-		m_Renderables.push_back(renderable);
-	}*/
-
 	void Renderer::Step(Esperite::Scene* scene) {
 		for (auto& gb : scene->gameObjects) {
 			if (scene->HasComponent<Camera>(gb)) {
@@ -66,7 +62,7 @@ namespace Ruby {
 							const Material* material = scene->GetComponent<Material>(renderable);
 							Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
 
-							m_Renderables.push_back(Renderable(*mesh->mesh, *material->material, *transform));
+							m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
 						}
 					}
 					endFrame();
@@ -84,15 +80,6 @@ namespace Ruby {
 		}
 
 		m_Renderables.clear();
-
-		/*for (Celestite::Ptr<Renderable> renderable : m_Renderables) {
-			renderable->mesh()->bind();
-		
-			renderable->material()->use(renderable->transform()->getModelMatrix(), m_ViewMatrix, m_Window->getProjectionMatrix());
-			glDrawElements((GLenum)(int)renderable->mesh()->getDrawMode(), (GLsizei)renderable->mesh()->getIndexCount(), GL_UNSIGNED_INT, 0);
-			renderable->material()->end();
-		}
-		*/
 
 		// ========== Debug Renderer ==========
 		// const bool depthTesting = OpenGlState::get().getDepthTesting();

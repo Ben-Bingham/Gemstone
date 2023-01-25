@@ -52,7 +52,7 @@ int main() {
 	transform->position().z -= 5.0f;
 
 	Ruby::Mesh* mesh = testScene.GetComponent<Ruby::Mesh>(gb);
-	mesh->mesh = Ruby::MeshManager::Get().NewMesh(Ruby::SPHERE);
+	mesh->mesh = Ruby::MeshManager::Get().CreateMesh(Celestite::CreatePtr<Ruby::Sphere>(36, 18));
 
 	Ruby::Material* material = testScene.GetComponent<Ruby::Material>(gb);
 	material->material = Ruby::MaterialManager::Get().NewMaterial();

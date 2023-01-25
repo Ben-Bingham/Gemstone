@@ -11,9 +11,10 @@ namespace Ruby {
 
 	}
 
-	MeshData::MeshData(const Shape shape)
-		: m_Vertices(getVerticesFromShape(shape))
-		, m_Indices(getIndicesFromShape(shape)) {
+	MeshData::MeshData(const Celestite::Ptr<Shape>& shape)
+		: m_Vertices(shape->GetVertices())
+		, m_Indices(shape->GetIndices())
+	{
 		m_VertexAttributes.bind();
 
 		m_VertexBuffer.bind();
@@ -61,30 +62,8 @@ namespace Ruby {
 		return m_Indices;
 	}
 
-	Vertices MeshData::getVerticesFromShape(const Shape shape) {
-		switch (shape) {
-		case Shape::CUBE:
-			return ShapeData::getCubeVertices();
-		case Shape::SPHERE:
-			return ShapeData::getSphereVertices(36, 18);
-		case Shape::PLANE:
-			return ShapeData::getPlaneVertices();
-		}
-		LOG("Enum Not Recognized", Lazuli::LogLevel::ERROR);
-		return {};
-	}
-
-	Indices MeshData::getIndicesFromShape(const Shape shape) {
-		switch (shape) {
-		case Shape::CUBE:
-			return ShapeData::getCubeIndices();
-		case Shape::SPHERE:
-			return ShapeData::getSphereIndices(36, 18);
-		case Shape::PLANE:
-			return ShapeData::getPlaneIndices();
-		}
-		LOG("Enum Not Recognized", Lazuli::LogLevel::ERROR);
-		return {};
+	Celestite::Ptr<Shape> MeshData::GetShape() {
+		return m_Shape;
 	}
 
 	void MeshData::edit(const Vertices& newVertices, const unsigned offset) {
