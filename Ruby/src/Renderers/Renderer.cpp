@@ -29,6 +29,7 @@ namespace Ruby {
 		OpenGlState::get().setFrontFaceDirection(OpenGlState::Direction::CLOCKWISE);
 
 		m_Renderables.reserve(100);
+		m_Cameras.reserve(100);
 	}
 
 	void Renderer::beginFrame() {
@@ -41,7 +42,7 @@ namespace Ruby {
 		}
 #endif
 
-		m_ViewMatrix = m_Camera->getViewMatrix();
+		// m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
 	void Renderer::Step(Esperite::Scene* scene) {
@@ -62,7 +63,8 @@ namespace Ruby {
 							const Material* material = scene->GetComponent<Material>(renderable);
 							Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
 
-							m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
+							// m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
+							Render(Renderable(*mesh->mesh, *material->material, *transform), cam);
 						}
 					}
 					endFrame();
@@ -72,14 +74,23 @@ namespace Ruby {
 		}
 	}
 
+	void Renderer::Render(const Renderable& renderable, Camera* camera) {
+		m_Renderables.emplace_back(renderable);
+		m_Cameras.emplace_back(camera);
+	}
+
 	void Renderer::endFrame() {
+		int i = 0;
 		for (Renderable renderable : m_Renderables) {
-			renderable.material().use(renderable.transform().getModelMatrix(), m_ViewMatrix, m_Window->getProjectionMatrix());
+			renderable.material().use(renderable.transform().getModelMatrix(), m_Cameras[i]->viewMatrix, m_Window->getProjectionMatrix());
 			glDrawElements((GLenum)(int)renderable.mesh().getDrawMode(), (GLsizei)renderable.mesh().getIndexCount(), GL_UNSIGNED_INT, 0);
 			renderable.material().end();
+
+			i++;
 		}
 
 		m_Renderables.clear();
+		m_Cameras.clear();
 
 		// ========== Debug Renderer ==========
 		// const bool depthTesting = OpenGlState::get().getDepthTesting();

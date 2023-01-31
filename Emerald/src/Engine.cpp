@@ -6,6 +6,7 @@
 #include "Input/Keyboard.h"
 #include "Input/Mouse.h"
 #include "Systems/Input.h"
+#include "Systems/ViewMatrixCorrection.h"
 
 namespace Emerald {
 	Engine::Engine() {
@@ -33,6 +34,7 @@ namespace Emerald {
 	}
 
 	Engine& Engine::AddDefaultSystems() {
+		m_Systems.push_back(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());
 		m_Systems.push_back(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
 		m_Systems.push_back(Celestite::CreatePtr<Input>());
 		// TODO more default systems
@@ -40,7 +42,7 @@ namespace Emerald {
 		return *this;
 	}
 
-	Engine& Engine::AddSystem(const Celestite::Ptr<Esperite::System> system) {
+	Engine& Engine::AddSystem(const Celestite::Ptr<Esperite::System> system) { //TODO maybe should be part of the scene and not engine?
 		m_Systems.push_back(system);
 		return *this;
 	}

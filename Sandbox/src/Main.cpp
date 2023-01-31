@@ -61,9 +61,14 @@ public:
 
 				Wavellite::Keyboard& keyboard = Wavellite::Keyboard::Get();
 
+				Malachite::Vector3f left = Malachite::cross(controller->forward, Malachite::Vector3f::up);
+
 				if (keyboard.KEY_W) {
-					transform->position() += 
+					transform->position() += controller->forward * controller->speed; //TODO position is not actually changing in the transform component
 				}
+				if (keyboard.KEY_S) { transform->position() -= controller->forward * controller->speed; }
+				if (keyboard.KEY_A) { transform->position() += left * controller->speed; }
+				if (keyboard.KEY_D) { transform->position() -= left * controller->speed; }
 			}
 		}
 	}
@@ -88,9 +93,15 @@ int main() {
 
 	Esperite::GameObject cam = testScene.NewGameObject();
 	testScene.AddComponent<Ruby::Camera>(cam);
+	testScene.AddComponent<MovementController>(cam);
+	testScene.AddComponent<Malachite::Transform>(cam);
 
 	Ruby::Camera* camComponent = testScene.GetComponent<Ruby::Camera>(cam);
 	camComponent->target = Ruby::RenderingTarget::WINDOW;
+
+	engine.AddSystem(Celestite::CreatePtr<Movement>());
+
+	// MovementController* movementController = testScene.GetComponent<MovementController>(cam);
 
 	engine.activeScene = &testScene;
 

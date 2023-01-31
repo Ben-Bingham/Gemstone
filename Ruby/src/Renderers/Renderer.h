@@ -73,32 +73,35 @@ namespace Ruby {
             m_Camera = camera;
         }
 
+        void Render(const Renderable& renderable, Camera* camera);
+
     private:
     	Camera* m_Camera{ nullptr };
         Wavellite::Window* m_Window{ nullptr };
 
         DebugRenderer m_DebugRenderer{ this };
 
-        Malachite::Matrix4f m_ViewMatrix{ 1.0f };
+        // Malachite::Matrix4f m_ViewMatrix{ 1.0f };
 
         std::vector<Renderable> m_Renderables;
-        std::vector<Celestite::Ptr<Renderable>> m_OldRenderables;
+        std::vector<Camera*> m_Cameras;
+        // std::vector<Celestite::Ptr<Renderable>> m_OldRenderables;
 
-        bool m_Changed{ true };
+        // bool m_Changed{ true };
 
-        struct MeshBucket {
-            Celestite::Ptr<MeshData> mesh;
-            std::vector<Celestite::Ptr<Renderable>> renderables;
-        };
+        // struct MeshBucket {
+        //     Celestite::Ptr<MeshData> mesh;
+        //     std::vector<Celestite::Ptr<Renderable>> renderables;
+        // };
+        //
+        // struct MaterialBucket {
+        //     Celestite::Ptr<MaterialData> material;
+        //     std::vector<Celestite::Ptr<Renderable>> renderables;
+        //     std::vector<MeshBucket> meshBuckets;
+        // };
 
-        struct MaterialBucket {
-            Celestite::Ptr<MaterialData> material;
-            std::vector<Celestite::Ptr<Renderable>> renderables;
-            std::vector<MeshBucket> meshBuckets;
-        };
 
-
-        std::vector<MaterialBucket> m_Buckets;
+        // std::vector<MaterialBucket> m_Buckets;
 
 	};
 }
