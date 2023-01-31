@@ -40,6 +40,35 @@ public:
 	}
 };
 
+class MovementController {
+public:
+	float speed;
+	Malachite::Vector3f forward;
+};
+
+class Movement : public Esperite::System {
+public:
+	Movement() = default;
+	~Movement() override = default;
+
+	void Step(Esperite::Scene* scene) override {
+		for (auto& gb : scene->gameObjects) {
+			if (scene->HasComponent<MovementController>(gb)
+				&& scene->HasComponent<Malachite::Transform>(gb)) {
+
+				MovementController* controller = scene->GetComponent<MovementController>(gb);
+				Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(gb);
+
+				Wavellite::Keyboard& keyboard = Wavellite::Keyboard::Get();
+
+				if (keyboard.KEY_W) {
+					transform->position() += 
+				}
+			}
+		}
+	}
+};
+
 int main() {
 	Emerald::Engine engine{};
 	engine.AddDefaultSystems();
@@ -52,10 +81,10 @@ int main() {
 	transform->position().z -= 5.0f;
 
 	Ruby::Mesh* mesh = testScene.GetComponent<Ruby::Mesh>(gb);
-	mesh->mesh = Ruby::MeshManager::Get().CreateMesh(Celestite::CreatePtr<Ruby::Sphere>(36, 18));
+	mesh->mesh = Ruby::MeshManager::Get().CreateMesh(Celestite::CreatePtr<Ruby::Sphere>());
 
 	Ruby::Material* material = testScene.GetComponent<Ruby::Material>(gb);
-	material->material = Ruby::MaterialManager::Get().NewMaterial();
+	material->material = Ruby::MaterialManager::Get().CreateMaterial(); //TODO
 
 	Esperite::GameObject cam = testScene.NewGameObject();
 	testScene.AddComponent<Ruby::Camera>(cam);

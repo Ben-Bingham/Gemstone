@@ -9,7 +9,7 @@ namespace Ruby {
 		return manager;
 	}
 
-	Celestite::Ptr<MaterialData> MaterialManager::NewMaterial() { //TODO literal garbage
+	Celestite::Ptr<MaterialData> MaterialManager::CreateMaterial() { //TODO literal garbage
 		if (m_Materials.empty()) {
 			m_Materials.push_back(Celestite::CreatePtr<SolidMaterial>());
 		}

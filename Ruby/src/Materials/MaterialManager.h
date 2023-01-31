@@ -13,7 +13,7 @@ namespace Ruby {
 
 		static MaterialManager& Get();
 
-		Celestite::Ptr<MaterialData> NewMaterial(); // TODO this needs input
+		Celestite::Ptr<MaterialData> CreateMaterial(); // TODO this needs input
 
 	private:
 		MaterialManager() = default;
