@@ -33,17 +33,13 @@ public:
 	~GameLogic() override = default;
 
 	void Step(Esperite::Scene* scene) override {
-		// LOG(Wavellite::Mouse::Get().xPosition);
-		// if (Wavellite::Mouse::Get().button1) {
-		// 	LOG("W");
-		// }
+
 	}
 };
 
 class MovementController {
 public:
 	float movementSpeed{ 0.1f };
-	// Malachite::Vector3f forward{ Malachite::Vector3f::north };
 
 	int lastXPosition{ 0 };
 	int lastYPosition{ 0 };
@@ -145,8 +141,6 @@ int main() {
 	camComponent->target = Ruby::RenderingTarget::WINDOW;
 
 	engine.AddSystem(Celestite::CreatePtr<Movement>());
-
-	// MovementController* movementController = testScene.GetComponent<MovementController>(cam);
 
 	engine.activeScene = &testScene;
 
