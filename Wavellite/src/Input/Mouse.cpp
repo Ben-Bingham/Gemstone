@@ -36,6 +36,8 @@ namespace Wavellite {
 		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
 		Mouse& mouse = *manager->mouse;
 
+		mouse.hasMoved = true;
+
 		mouse.yPosition = (int)ypos;
 		mouse.xPosition = (int)xpos;
 

@@ -8,5 +8,6 @@ namespace Emerald {
 		~Input() override = default;
 
 		void Step(Esperite::Scene* scene) override;
+		void EndStep(Esperite::Scene* scene) override;
 	};
 }

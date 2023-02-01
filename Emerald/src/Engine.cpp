@@ -26,6 +26,10 @@ namespace Emerald {
 			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
 				system->Step(activeScene);
 			}
+
+			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
+				system->EndStep(activeScene);
+			}
 		}
 
 		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
@@ -34,9 +38,9 @@ namespace Emerald {
 	}
 
 	Engine& Engine::AddDefaultSystems() {
-		m_Systems.push_back(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());
 		m_Systems.push_back(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
 		m_Systems.push_back(Celestite::CreatePtr<Input>());
+		m_Systems.push_back(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());
 		// TODO more default systems
 
 		return *this;

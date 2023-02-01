@@ -33,17 +33,24 @@ public:
 	~GameLogic() override = default;
 
 	void Step(Esperite::Scene* scene) override {
-		LOG(Wavellite::Mouse::Get().xPosition);
-		if (Wavellite::Mouse::Get().button1) {
-			LOG("W");
-		}
+		// LOG(Wavellite::Mouse::Get().xPosition);
+		// if (Wavellite::Mouse::Get().button1) {
+		// 	LOG("W");
+		// }
 	}
 };
 
 class MovementController {
 public:
-	float speed;
-	Malachite::Vector3f forward;
+	float movementSpeed{ 0.1f };
+	// Malachite::Vector3f forward{ Malachite::Vector3f::north };
+
+	int lastXPosition{ 0 };
+	int lastYPosition{ 0 };
+	bool firstMouseMovement{ false };
+	float mouseSensitivity{ 0.1f };
+	Malachite::Degree yaw{ -90.0f };
+	Malachite::Degree pitch{ 0.0f };
 };
 
 class Movement : public Esperite::System {
@@ -51,24 +58,62 @@ public:
 	Movement() = default;
 	~Movement() override = default;
 
+	void StartUp(Esperite::Scene* scene) override {
+		Wavellite::Window::Get().disableCursor();
+	}
+
 	void Step(Esperite::Scene* scene) override {
 		for (auto& gb : scene->gameObjects) {
 			if (scene->HasComponent<MovementController>(gb)
-				&& scene->HasComponent<Malachite::Transform>(gb)) {
+				&& scene->HasComponent<Malachite::Transform>(gb)
+				&& scene->HasComponent<Ruby::Camera>(gb)) {
 
 				MovementController* controller = scene->GetComponent<MovementController>(gb);
 				Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(gb);
+				Ruby::Camera* camera = scene->GetComponent<Ruby::Camera>(gb);
 
-				Wavellite::Keyboard& keyboard = Wavellite::Keyboard::Get();
+				const Wavellite::Keyboard& keyboard = Wavellite::Keyboard::Get();
 
-				Malachite::Vector3f left = Malachite::cross(controller->forward, Malachite::Vector3f::up);
+				Malachite::Vector3f up = Malachite::Vector3f::up;
+				Malachite::Vector3f left = cross(camera->forward, up).normalize();
 
-				if (keyboard.KEY_W) {
-					transform->position() += controller->forward * controller->speed; //TODO position is not actually changing in the transform component
+				if (keyboard.KEY_W) { transform->position() += camera->forward * controller->movementSpeed; }
+				if (keyboard.KEY_S) { transform->position() -= camera->forward * controller->movementSpeed; }
+				if (keyboard.KEY_A) { transform->position() -= left * controller->movementSpeed; }
+				if (keyboard.KEY_D) { transform->position() += left * controller->movementSpeed; }
+				if (keyboard.KEY_SPACE) { transform->position() += up * controller->movementSpeed; }
+				if (keyboard.KEY_LEFT_SHIFT) { transform->position() -= up * controller->movementSpeed; }
+
+				if (Wavellite::Mouse::Get().hasMoved) {
+					if (!controller->firstMouseMovement) {
+						controller->lastXPosition = Wavellite::Mouse::Get().xPosition;
+						controller->lastYPosition = Wavellite::Mouse::Get().yPosition;
+						controller->firstMouseMovement = true;
+					}
+
+					float xOffset = (float)(Wavellite::Mouse::Get().xPosition - controller->lastXPosition);
+					float yOffset = (float)(controller->lastYPosition - Wavellite::Mouse::Get().yPosition);
+					controller->lastXPosition = Wavellite::Mouse::Get().xPosition;
+					controller->lastYPosition = Wavellite::Mouse::Get().yPosition;
+
+					xOffset *= controller->mouseSensitivity;
+					yOffset *= controller->mouseSensitivity;
+
+					controller->yaw += xOffset;
+					controller->pitch += yOffset;
+
+					if (controller->pitch > 89.0f)
+						controller->pitch = 89.0f;
+					if (controller->pitch < -89.0f)
+						controller->pitch = -89.0f;
+
+					Malachite::Vector3f direction;
+					direction.x = cos(Malachite::degreesToRadians(controller->yaw)) * cos(Malachite::degreesToRadians(controller->pitch));
+					direction.y = sin(Malachite::degreesToRadians(controller->pitch));
+					direction.z = sin(Malachite::degreesToRadians(controller->yaw)) * cos(Malachite::degreesToRadians(controller->pitch));
+
+					camera->forward = direction.normalize();
 				}
-				if (keyboard.KEY_S) { transform->position() -= controller->forward * controller->speed; }
-				if (keyboard.KEY_A) { transform->position() += left * controller->speed; }
-				if (keyboard.KEY_D) { transform->position() -= left * controller->speed; }
 			}
 		}
 	}

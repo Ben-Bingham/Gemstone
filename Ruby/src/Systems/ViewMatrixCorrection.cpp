@@ -13,6 +13,7 @@ namespace Ruby {
 				Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(gb);
 
 				cam->viewMatrix = lookAt(transform->position(), transform->position() + cam->forward, Malachite::Vector3f::up);
+				//TODO not working is not factoring in mouse moving without moving person WORKING ON LAST
 			}
 		}
 	}
