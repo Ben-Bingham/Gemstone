@@ -62,8 +62,10 @@ namespace ShaderProgramUploads {
 	void upload(const std::string& variableName, const Ruby::DirectionalLight& directionalLight);
 	void upload(const std::string& variableName, const std::vector<Ruby::PointLight*>& pointLights);
 	void upload(const std::string& variableName, const std::vector<Ruby::PointLight>& pointLights);
+	void upload(const std::string& variableName, const std::vector<Celestite::Ptr<Ruby::PointLight>>& pointLights);
 	void upload(const std::string& variableName, const std::vector<Ruby::DirectionalLight*>& directionalLights);
 	void upload(const std::string& variableName, const std::vector<Ruby::DirectionalLight>& directionalLights);
+	void upload(const std::string& variableName, const std::vector<Celestite::Ptr<Ruby::DirectionalLight>>& directionalLights);
 	void upload(const std::string& variableName, const Ruby::Texture& texture);
 	void upload(const std::string& variableName, const Ruby::Cubemap& cubeMap);
 

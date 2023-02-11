@@ -24,6 +24,8 @@ namespace Ruby {
 		}
 
 		Colour colour;
+
+
 	private:
 		UniformSet<Colour> m_Uniforms{ Uniform{"objectColour", colour} };
 	};

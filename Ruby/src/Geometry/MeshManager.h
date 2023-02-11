@@ -2,7 +2,7 @@
 #include "Mesh.h"
 
 namespace Ruby {
-	class MeshManager {
+	class MeshManager { //TODO remove class
 	public:
 		MeshManager(const MeshManager& other) = delete;
 		MeshManager(MeshManager&& other) noexcept = delete;

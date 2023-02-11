@@ -142,6 +142,24 @@ namespace ShaderProgramUploads {
 		}
 	}
 
+	void upload(const std::string& variableName, const std::vector<Celestite::Ptr<Ruby::PointLight>>& pointLights) {
+		upload("numberOfPointLights", (int)pointLights.size());
+		unsigned int i{ 0 };
+		for (const Celestite::Ptr<Ruby::PointLight>& pointLight : pointLights) {
+			upload(variableName + '[' + std::to_string(i) + ']', *pointLight);
+			i++;
+		}
+	}
+
+	void upload(const std::string& variableName, const std::vector<Celestite::Ptr<Ruby::DirectionalLight>>& directionalLights) {
+		upload("numberOfdirectionalLights", (int)directionalLights.size());
+		unsigned int i{ 0 };
+		for (const Celestite::Ptr<Ruby::DirectionalLight>& directionalLight : directionalLights) {
+			upload(variableName + '[' + std::to_string(i) + ']', *directionalLight);
+			i++;
+		}
+	}
+
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::Texture& texture) {
 		Ruby::Texture::activateUnit(unit);
 		texture.bind();

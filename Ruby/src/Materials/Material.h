@@ -10,10 +10,15 @@ namespace Ruby {
 
 		Ptr<MaterialData> material;
 
-
-
-		Ptr<ColourInput> diffuse; //TODO was working on last
-		Ptr<ColourInput> specular;
-		Ptr<ColourInput> shininess;
+	// 	void Initialize();
+	// 	void Use() const;
+	//
+	// 	Ptr<ColourInput> diffuse;
+	// 	Ptr<ColourInput> specular;
+	// 	Ptr<ColourInput> shininess;
+	//
+	// private:
+	// 	Ptr<ShaderProgram> m_Shader;
+	// 	bool m_Initialized{ false };
 	};
 }

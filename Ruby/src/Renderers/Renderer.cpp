@@ -82,6 +82,8 @@ namespace Ruby {
 	void Renderer::endFrame() {
 		int i = 0;
 		for (Renderable renderable : m_Renderables) {
+			renderable.mesh().bind();
+
 			renderable.material().use(renderable.transform().getModelMatrix(), m_Cameras[i]->viewMatrix, m_Window->getProjectionMatrix());
 			glDrawElements((GLenum)(int)renderable.mesh().getDrawMode(), (GLsizei)renderable.mesh().getIndexCount(), GL_UNSIGNED_INT, 0);
 			renderable.material().end();

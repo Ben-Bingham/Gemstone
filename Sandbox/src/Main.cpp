@@ -1,41 +1,16 @@
-// Wavellite
-
-// Ruby
 #include "Camera.h"
 #include "Renderable Objects/Renderable.h"
-
 #include "Pointer.h"
 #include "Geometry/MeshData.h"
-
-// Pyrite
-#include "Log.h"
 #include "Vector.h"
-
-// Custom
-
-// Base
 #include "Engine.h"
-
 #include "GameObject.h"
-
 #include "Scene.h"
 #include "Geometry/Mesh.h"
-#include "Geometry/MeshManager.h"
-
 #include "Materials/Material.h"
-#include "Materials/MaterialManager.h"
 #include "Input/Keyboard.h"
 #include "Input/Mouse.h"
-
-class GameLogic : public Esperite::System {
-public:
-	GameLogic() = default;
-	~GameLogic() override = default;
-
-	void Step(Esperite::Scene* scene) override {
-
-	}
-};
+#include "Materials/PhongMaterial.h"
 
 class MovementController {
 public:
@@ -115,37 +90,119 @@ public:
 	}
 };
 
+using namespace Celestite;
 int main() {
 	Emerald::Engine engine{};
 	engine.AddDefaultSystems();
 
-	Esperite::Scene testScene{};
-	
-	Esperite::GameObject gb = testScene.NewGameObject<Malachite::Transform, Ruby::Mesh, Ruby::Material>();
+	Esperite::Scene scene{};
 
-	Malachite::Transform* transform = testScene.GetComponent<Malachite::Transform>(gb);
-	transform->position().z -= 5.0f;
+	const Esperite::GameObject player = scene.NewGameObject<Ruby::Camera, MovementController, Malachite::Transform>();
+	Malachite::Transform* playerTransform = scene.GetComponent<Malachite::Transform>(player);
+	playerTransform->position().z = 5.0f;
 
-	Ruby::Mesh* mesh = testScene.GetComponent<Ruby::Mesh>(gb);
-	mesh->mesh = Ruby::MeshManager::Get().CreateMesh(Celestite::CreatePtr<Ruby::Sphere>());
-
-	Ruby::Material* material = testScene.GetComponent<Ruby::Material>(gb);
-	material->material = Ruby::MaterialManager::Get().CreateMaterial(); //TODO
-
-	Esperite::GameObject cam = testScene.NewGameObject();
-	testScene.AddComponent<Ruby::Camera>(cam);
-	testScene.AddComponent<MovementController>(cam);
-	testScene.AddComponent<Malachite::Transform>(cam);
-
-	Ruby::Camera* camComponent = testScene.GetComponent<Ruby::Camera>(cam);
+	Ruby::Camera* camComponent = scene.GetComponent<Ruby::Camera>(player);
 	camComponent->target = Ruby::RenderingTarget::WINDOW;
 
 	engine.AddSystem(Celestite::CreatePtr<Movement>());
 
-	engine.activeScene = &testScene;
+	engine.activeScene = &scene;
 
-	const Celestite::Ptr<GameLogic> gameLogic = Celestite::CreatePtr<GameLogic>();
-	engine.AddSystem(gameLogic);
+	// Meshes
+	Ptr<Ruby::MeshData> cubeMesh = CreatePtr<Ruby::MeshData>(CreatePtr<Ruby::Cube>());
+	Ptr<Ruby::MeshData> planeMesh = CreatePtr<Ruby::MeshData>(CreatePtr<Ruby::Plane>());
+	Ptr<Ruby::MeshData> sphereMesh = CreatePtr<Ruby::MeshData>(CreatePtr<Ruby::Sphere>());
+
+	// Materials
+	Ruby::PhongMaterial::directionalLights.push_back(CreatePtr<Ruby::DirectionalLight>());
+
+	Ptr<Ruby::SolidMaterial> blueMaterial = Celestite::CreatePtr<Ruby::SolidMaterial>(Ruby::Colour::blue);
+
+	// Ptr<Ruby::SkyBoxMaterial> skyBoxMat = Celestite::CreatePtr<Ruby::SkyBoxMaterial>(std::initializer_list<Celestite::Ptr<Ruby::Image>>{
+	// 	Celestite::CreatePtr<Ruby::Image>("assets\\SkyBox\\right.jpg", false),
+	// 		Celestite::CreatePtr<Ruby::Image>("assets\\SkyBox\\left.jpg", false),
+	// 		Celestite::CreatePtr<Ruby::Image>("assets\\SkyBox\\top.jpg", false),
+	// 		Celestite::CreatePtr<Ruby::Image>("assets\\SkyBox\\bottom.jpg", false),
+	// 		Celestite::CreatePtr<Ruby::Image>("assets\\SkyBox\\front.jpg", false),
+	// 		Celestite::CreatePtr<Ruby::Image>("assets\\SkyBox\\back.jpg", false)
+	// });
+
+	Ptr<Ruby::PhongMaterial> containerMaterial = Celestite::CreatePtr<Ruby::PhongMaterial>(
+		CreatePtr<Ruby::Image>("assets\\container2.png"),
+		CreatePtr<Ruby::Image>("assets\\container2_specular.png")
+	);
+	
+	auto doughnutImage = CreatePtr<Ruby::Image>("assets\\Donut4.png");
+	Ptr<Ruby::PhongMaterial> doughnutMat = CreatePtr<Ruby::PhongMaterial>(doughnutImage, doughnutImage);
+	
+	auto earthImage = CreatePtr<Ruby::Image>("assets\\earth.jpg");
+	Ptr<Ruby::PhongMaterial> earthMat = Celestite::CreatePtr<Ruby::PhongMaterial>(earthImage, earthImage);
+	
+	auto pawnImage = CreatePtr<Ruby::Image>("assets\\White Pawn.png");
+	Ptr<Ruby::PhongMaterial> pawnMat = Celestite::CreatePtr<Ruby::PhongMaterial>(pawnImage, pawnImage);
+	
+	auto awesomeFaceImage = CreatePtr<Ruby::Image>("assets\\awesomeface.png");
+	Ptr<Ruby::PhongMaterial> awesomeMat = Celestite::CreatePtr<Ruby::PhongMaterial>(awesomeFaceImage, awesomeFaceImage);
+
+
+	// Game Objects
+	Esperite::GameObject doughnut = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	scene.GetComponent<Ruby::Mesh>(doughnut)->mesh = sphereMesh;
+	scene.GetComponent<Ruby::Material>(doughnut)->material = doughnutMat;
+	Malachite::Transform* doughnutTransform = scene.GetComponent<Malachite::Transform>(doughnut);
+	doughnutTransform->scale().x = 1.0f;
+	doughnutTransform->scale().y = 0.4f;
+	doughnutTransform->scale().z = 1.0f;
+	doughnutTransform->position().x = -6.0f;
+	
+	Esperite::GameObject earth = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	scene.GetComponent<Ruby::Mesh>(earth)->mesh = sphereMesh;
+	scene.GetComponent<Ruby::Material>(earth)->material = earthMat;
+	Malachite::Transform* earthTransform = scene.GetComponent<Malachite::Transform>(earth);
+	earthTransform->position().x = 3.0f;
+
+	Esperite::GameObject pawn = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	scene.GetComponent<Ruby::Mesh>(pawn)->mesh = cubeMesh;
+	scene.GetComponent<Ruby::Material>(pawn)->material = pawnMat;
+	Malachite::Transform* pawnTransform = scene.GetComponent<Malachite::Transform>(pawn);
+	pawnTransform->position() = Malachite::Vector3f{ 6.0f, 0.0f, 0.0f };
+	pawnTransform->scale() = Malachite::Vector3f{ 0.6f, 2.0f, 0.6f };
+
+	Esperite::GameObject awesome = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	scene.GetComponent<Ruby::Mesh>(awesome)->mesh = cubeMesh;
+	scene.GetComponent<Ruby::Material>(awesome)->material = awesomeMat;
+	Malachite::Transform* awesomeTransform = scene.GetComponent<Malachite::Transform>(awesome);
+	awesomeTransform->position().y = 3.0f;
+	
+	Esperite::GameObject awesome2 = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	scene.GetComponent<Ruby::Mesh>(awesome2)->mesh = sphereMesh;
+	scene.GetComponent<Ruby::Material>(awesome2)->material = awesomeMat;
+	Malachite::Transform* awesome2Transform = scene.GetComponent<Malachite::Transform>(awesome2);
+	awesome2Transform->position().y = -3.0f;
+
+	Esperite::GameObject plane = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	scene.GetComponent<Ruby::Mesh>(plane)->mesh = planeMesh;
+	scene.GetComponent<Ruby::Material>(plane)->material = containerMaterial;
+	Malachite::Transform* planeTransform = scene.GetComponent<Malachite::Transform>(plane);
+	planeTransform->position().x = 3.0f;
+	planeTransform->position().y = 3.0f;
+
+	// Celestite::Ptr<Ruby::TextureMaterial> awesomeFaceMaterial = Celestite::CreatePtr<Ruby::TextureMaterial>(awesomeFaceTexture);
+	// auto texturedRenderable = Celestite::CreatePtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial );
+	// texturedRenderable->transform()->position().y = -3.0f;
+	// texturedRenderable->transform()->position().x = 3.0f;
+	//
+	// Celestite::Ptr<Ruby::ScreenMaterial> awesomeFaceMaterial2 = Celestite::CreatePtr<Ruby::ScreenMaterial>(earthTexture);
+	// auto screenQuadRenderable = Celestite::CreatePtr<Ruby::Renderable>(planeMesh, awesomeFaceMaterial2 );
+	// screenQuadRenderable->transform()->position().y = -0.5f;
+	// screenQuadRenderable->transform()->position().x = -0.5f;
+	// screenQuadRenderable->transform()->scale() = Malachite::Vector3f{ 0.5f };
+
+	Esperite::GameObject cube = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	scene.GetComponent<Ruby::Mesh>(cube)->mesh = cubeMesh;
+	scene.GetComponent<Ruby::Material>(cube)->material = blueMaterial;
+
+	// Ruby::CubeRenderable cube{/*position, width, height, depth*/}; //TODO
 
 	engine.Start();
 

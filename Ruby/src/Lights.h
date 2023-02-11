@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Vector.h"
-#include "OpenGL objects/Framebuffer.h"
-#include "Matrix.h"
 
 namespace Ruby {
 	struct PointLight {

@@ -7,7 +7,7 @@
 #include "Utility/Transform.h"
 
 namespace Ruby {
-	class Renderable {
+	class Renderable { //TODO remove and replace with Tuple
 	public:
 		Renderable(MeshData& mesh, MaterialData& material, Malachite::Transform& transfrom);
 		//Renderable(const Celestite::Ptr<MeshData>& mesh, const Celestite::Ptr<MaterialData>& material, const Celestite::Ptr<Malachite::Transform> transform = Celestite::CreatePtr<Malachite::Transform>());

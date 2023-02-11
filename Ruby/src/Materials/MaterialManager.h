@@ -1,10 +1,8 @@
 #pragma once
-#include "Material.h"
 #include "MaterialData.h"
 #include "Pointer.h"
 
 namespace Ruby {
-	using namespace Celestite;
 	class MaterialManager {
 	public:
 		MaterialManager(const MaterialManager& other) = delete;
@@ -15,14 +13,24 @@ namespace Ruby {
 
 		static MaterialManager& Get();
 
-		// Celestite::Ptr<MaterialData> CreateMaterial(); // TODO this needs input
+		template<typename T, typename ...Types>
+		Celestite::Ptr<MaterialData> CreateMaterial(Types&&... args) {
+			for (Celestite::Ptr<MaterialData>& material : m_Materials) {
+				Celestite::Ptr<T> phongMaterial = std::dynamic_pointer_cast<T>(material);
+				if (phongMaterial != nullptr) {
+					if (*phongMaterial == T(std::forward<Types>(args)...)) {
+						return material;
+					}
+				}
+			}
 
-		void RegisterMaterial(const Material& material);
+			m_Materials.push_back(Celestite::CreatePtr<T>(std::forward<Types>(args)...));
+			return m_Materials.back();
+		}
 
 	private:
 		MaterialManager() = default;
 
-		// std::vector<Celestite::Ptr<MaterialData>> m_Materials;
-		std::vector<Material> m_Materials;
+		std::vector<Celestite::Ptr<MaterialData>> m_Materials;
 	};
 }

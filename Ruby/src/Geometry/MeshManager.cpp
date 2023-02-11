@@ -8,7 +8,7 @@ namespace Ruby {
 
 	Celestite::Ptr<MeshData> MeshManager::CreateMesh(const Celestite::Ptr<Shape>& shape) {
 		for (auto& mesh : m_Meshes) {
-			if (Equal(mesh->GetShape(), shape)) {
+			if (Equal(mesh->GetShape(), shape)) { //TODO b broken
 				return mesh;
 			}
 		}

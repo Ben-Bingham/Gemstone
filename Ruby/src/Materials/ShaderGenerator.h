@@ -7,9 +7,9 @@ namespace Ruby {
 
 	class ShaderGenerator {
 	public:
-		static ShaderGenerator& Get();
+		// static ShaderGenerator& Get();
 
-		Ptr<ShaderProgram> GenerateShader(Material material);
+		// Ptr<ShaderProgram> GenerateShader(Material material);
 
 	private:
 		ShaderGenerator() = default;
