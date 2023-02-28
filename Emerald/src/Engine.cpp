@@ -5,6 +5,8 @@
 
 #include "Input/Keyboard.h"
 #include "Input/Mouse.h"
+
+
 #include "Systems/Input.h"
 #include "Systems/ViewMatrixCorrection.h"
 
@@ -37,7 +39,7 @@ namespace Emerald {
 		}
 	}
 
-	Engine& Engine::AddDefaultSystems() {
+	Engine& Engine::AddDefaultSystems() { //TODO make sure that if this is called multiple times it dosent add them multiple times
 		m_Systems.push_back(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
 		m_Systems.push_back(Celestite::CreatePtr<Input>());
 		m_Systems.push_back(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());

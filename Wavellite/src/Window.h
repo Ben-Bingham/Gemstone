@@ -36,7 +36,7 @@ namespace Wavellite {
 
 		void disableCursor() { glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); }
 		void enableCursor() { glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
-		void close() { glfwSetWindowShouldClose(m_Window, true); }
+		void Close() { glfwSetWindowShouldClose(m_Window, true); }
 
 		void setDimensions(unsigned int width, unsigned int height);
 

@@ -9,7 +9,7 @@
 #include "Vector.h"
 
 namespace Ruby {
-	class Image {
+	class Image { //TODO need more clearity between Texture and Image, maybe one should be hidden to user?
 	public:
 		Image(std::string path, bool flipVertically = true);
 		Image(const Malachite::Vector3f& colour, unsigned int width = 1, unsigned int height = 1);

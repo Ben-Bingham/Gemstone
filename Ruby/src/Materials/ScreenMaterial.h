@@ -10,7 +10,7 @@ namespace Ruby {
 	class ScreenMaterial : public MaterialData {
 	public:
 		ScreenMaterial(const Celestite::Ptr<Texture>& texture)
-			: MaterialData(ShaderLibrary::get().screenQuadShader), texture(texture) {
+			: MaterialData(ShaderLibrary::Get().screenQuadShader), texture(texture) {
 
 		}
 

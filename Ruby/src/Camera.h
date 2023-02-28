@@ -18,7 +18,7 @@ namespace Ruby {
 			: m_FOV(fov) { }
 
 		Malachite::Vector3f forward{ Malachite::Vector3f::north };
-		RenderingTarget target{ NONE };
+		RenderingTarget target{ WINDOW };
 		Malachite::Matrix4f viewMatrix{ 1.0f };
 
 	private:

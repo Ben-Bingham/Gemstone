@@ -102,6 +102,10 @@ namespace Malachite {
 			return (T)sqrt(lengthSquared());
 		}
 
+		T Magnitude() const {
+			return length();
+		}
+
 		Vector3<T> normalize() const {
 			Vector3<T> result{ *this };
 			T inverseLength = (T)1 / this->length();

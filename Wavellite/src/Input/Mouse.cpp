@@ -52,6 +52,9 @@ namespace Wavellite {
 		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
 		Mouse& mouse = *manager->mouse;
 
+		mouse.xScrollOffset = (float)xoffset;
+		mouse.yScrollOffset = (float)yoffset;
+
 		int count{ 0 };
 		for (void (*callback)(int xoffset, int yoffset, void* data) : mouse.scrollCallbacks) {
 			callback((int)xoffset, (int)yoffset, mouse.scrollCallbacksData[count]);

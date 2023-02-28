@@ -12,7 +12,7 @@ namespace Ruby {
 	class SkyBoxMaterial : public MaterialData {
 	public:
 		SkyBoxMaterial(const std::initializer_list<Celestite::Ptr<Image>>& faces)
-			: MaterialData(ShaderLibrary::get().skyBoxShader), cubeMap(faces) {
+			: MaterialData(ShaderLibrary::Get().skyBoxShader), cubeMap(faces) {
 			
 		}
 

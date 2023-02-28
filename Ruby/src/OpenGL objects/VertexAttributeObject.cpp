@@ -31,6 +31,11 @@ namespace Ruby {
 		m_BoundObject = this;
 	}
 
+	void VertexAttributeObject::ForceBind() const {
+		glBindVertexArray(m_VAO);
+		m_BoundObject = this;
+	}
+
 	void VertexAttributeObject::unbind() {
 		m_BoundObject = nullptr;
 		glBindVertexArray(0);

@@ -67,6 +67,11 @@ namespace Ruby {
 							Render(Renderable(*mesh->mesh, *material->material, *transform), cam);
 						}
 					}
+
+					for (const auto& function : m_RenderFunctions) {
+						function(scene, cam);
+					}
+
 					endFrame();
 					m_Window->swapBuffers();
 				}
@@ -102,6 +107,10 @@ namespace Ruby {
 		// m_DebugRenderer.render();
 		//
 		// OpenGlState::get().setDepthTesting(depthTesting);
+	}
+
+	void Renderer::AddRenderFunction(void (*renderFunction)(Esperite::Scene* scene, Camera* camera)) {
+		m_RenderFunctions.push_back(renderFunction);
 	}
 
 	void APIENTRY glDebugOutput(

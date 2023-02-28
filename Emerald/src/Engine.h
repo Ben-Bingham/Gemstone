@@ -14,8 +14,19 @@ namespace Emerald {
 		void Start();
 
 		Engine& AddDefaultSystems();
-
 		Engine& AddSystem(Celestite::Ptr<Esperite::System> system);
+
+		template<typename T>
+		Celestite::Ptr<T> GetSystem() {
+			for (auto& system : m_Systems) {
+				auto target = std::dynamic_pointer_cast<T>(system);
+
+				if (target != nullptr) {
+					return target;
+				}
+			}
+			return nullptr;
+		}
 
 		Esperite::Scene* activeScene{ nullptr };
 

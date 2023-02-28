@@ -1,5 +1,8 @@
 #include "ShaderProgram.h"
+
 #include "Log.h"
+#include "ShaderLibrary.h"
+
 #include "Shaders/Uniforms/UniformSet.h"
 
 namespace Ruby {
@@ -19,6 +22,8 @@ namespace Ruby {
 			glGetProgramInfoLog(m_Program, 512, NULL, infoLog);
 			LOG("Shader program failed to link.\n" + std::string(infoLog), Lazuli::LogLevel::ERROR);
 		}
+
+		m_PathHash = std::hash<std::string>{}(vertexShader.getShaderSourceFile().getPath() + fragmentShader.getShaderSourceFile().getPath());
 	}
 
 	ShaderProgram::ShaderProgram(const VertexShader& vertexShader, const GeometryShader& geometryShader, const FragmentShader& fragmentShader) {
@@ -38,6 +43,8 @@ namespace Ruby {
 			glGetProgramInfoLog(m_Program, 512, NULL, infoLog);
 			LOG("Shader program failed to link.\n" + std::string(infoLog), Lazuli::LogLevel::ERROR);
 		}
+
+		m_PathHash = std::hash<std::string>{}(vertexShader.getShaderSourceFile().getPath() + geometryShader.getShaderSourceFile().getPath() + fragmentShader.getShaderSourceFile().getPath());
 	}
 
 	ShaderProgram::ShaderProgram(ShaderProgram&& other) noexcept
@@ -91,6 +98,10 @@ namespace Ruby {
 		const unsigned int unit = m_NextUnit;
 		m_NextUnit++;
 		return unit;
+	}
+
+	size_t ShaderProgram::GetHash() const {
+		return m_PathHash;
 	}
 }
 
@@ -170,12 +181,6 @@ namespace ShaderProgramUploads {
 		const int unit = (int)Ruby::ShaderProgram::getNextUnit();
 		upload(variableName, unit, texture);
 	}
-
-	// void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture& texture) {
-	// 	Ruby::Texture::activateUnit(unit);
-	// 	texture.bind();
-	// 	Ruby::ShaderProgram::upload(variableName, (int)unit);
-	// }
 
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::Cubemap& cubeMap) {
 		Ruby::Cubemap::activateUnit(unit);

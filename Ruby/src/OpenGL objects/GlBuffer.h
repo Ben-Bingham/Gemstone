@@ -71,6 +71,12 @@ namespace Ruby {
 			return m_Size / sizeof(T);
 		}
 
+		[[nodiscard]] unsigned int GetAddress() const { // Returns the address OpenGl uses to manage the buffer
+			return m_BufferAddress;
+		}
+
+		// TODO make a set of functions somewhere else that can convert a vector Malachite vecs of data to a normal vector of data
+		// TODO make an enum for modes (GL_STATIC_DRAW) cause it apears badly in intelisense (just some numbers)
 		void setData(const std::vector<T>& data, const int usage = GL_STATIC_DRAW) {
 			bind();
 
@@ -217,7 +223,7 @@ namespace Ruby {
 			glBufferSubData(BufferType, offset * sizeof(T), dataSize, data.data());
 		}
 
-		void setNoData(const int usage = GL_STATIC_DRAW) {
+		void setNoData(const size_t bufferSize = DEFAULT_BUFFER_SIZE, const int usage = GL_STATIC_DRAW) {
 			bind();
 
 #ifdef RUBY_DEBUG
@@ -225,8 +231,7 @@ namespace Ruby {
 				LOG("Attempting to place data into preinitilized buffer. Please use setSubData() instead.", Lazuli::LogLevel::WARNING);
 			}
 #endif
-
-			m_Size = defaultBufferSize;
+			m_Size = bufferSize;
 			glBufferData(BufferType, m_Size, nullptr, usage);
 #ifdef RUBY_DEBUG
 			m_Initialized = true;
@@ -240,7 +245,7 @@ namespace Ruby {
 
 		static inline const GlBuffer<T, BufferType>* m_BoundBuffer{ nullptr };
 
-		static constexpr int defaultBufferSize = 256; // Number of bytes that will be allocated if setNoData() is used for initialization.
+		static constexpr int DEFAULT_BUFFER_SIZE = 256; // Number of bytes that will be allocated if setNoData() is used for initialization.
 
 #ifdef RUBY_DEBUG
 		bool m_Initialized{ false };
@@ -249,4 +254,7 @@ namespace Ruby {
 
 	using VertexBuffer = GlBuffer<float, GL_ARRAY_BUFFER>;
 	using IndexBuffer = GlBuffer<unsigned int, GL_ELEMENT_ARRAY_BUFFER>;
+	template<typename T>
+	using BlankBuffer = Ruby::GlBuffer<T, GL_TEXTURE_BUFFER>;
+
 }

@@ -10,7 +10,7 @@ namespace Ruby {
 	class TextureMaterial : public MaterialData {
 	public:
 		TextureMaterial(const Celestite::Ptr<Texture>& texture)
-			: MaterialData(ShaderLibrary::get().imageShader), texture(texture) {
+			: MaterialData(ShaderLibrary::Get().imageShader), texture(texture) {
 
 		}
 

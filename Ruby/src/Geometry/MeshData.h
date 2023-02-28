@@ -18,6 +18,7 @@ namespace Ruby {
 		MeshData();
 
 		void bind() const;
+		void ForceBind() const;
 
 		[[nodiscard]] DrawMode getDrawMode() const;
 		void setDrawMode(DrawMode drawMode);

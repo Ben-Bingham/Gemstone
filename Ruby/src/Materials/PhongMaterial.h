@@ -12,12 +12,12 @@ namespace Ruby {
 	class PhongMaterial : public MaterialData {
 	public:
 		PhongMaterial(const Celestite::Ptr<Texture>& diffuseTexture, const Celestite::Ptr<Texture>& specularTexture, const float shininess = 32.0f)
-			: MaterialData(ShaderLibrary::get().phongShader), diffuseTexture(diffuseTexture), specularTexture(specularTexture), shininess(shininess) {
+			: MaterialData(ShaderLibrary::Get().phongShader), diffuseTexture(diffuseTexture), specularTexture(specularTexture), shininess(shininess) {
 			
 		}
 
 		PhongMaterial(const Celestite::Ptr<Image>& diffuseImage, const Celestite::Ptr<Image>& specularImage, const float shininess = 32.0f)
-			: MaterialData(ShaderLibrary::get().phongShader)
+			: MaterialData(ShaderLibrary::Get().phongShader)
 			, diffuseTexture(Celestite::CreatePtr<Texture>(diffuseImage))
 			, specularTexture(Celestite::CreatePtr<Texture>(specularImage))
 			, shininess(shininess) {
@@ -36,7 +36,7 @@ namespace Ruby {
 
 		Malachite::Vector3f cameraPosition{ 0.0f };
 		inline static std::vector<Celestite::Ptr<PointLight>> pointLights{ };
-		inline static std::vector<Celestite::Ptr<DirectionalLight>> directionalLights{ }; // TODO should be a shared pointer not a raw pointer
+		inline static std::vector<Celestite::Ptr<DirectionalLight>> directionalLights{ };
 		Celestite::Ptr<Texture> diffuseTexture;
 		Celestite::Ptr<Texture> specularTexture;
 		float shininess;
@@ -52,8 +52,8 @@ namespace Ruby {
 	private:
 		UniformSet<
 			Malachite::Vector3f,
-			std::vector<Ptr<PointLight>>,
-			std::vector<Ptr<DirectionalLight>>,
+			std::vector<Celestite::Ptr<PointLight>>,
+			std::vector<Celestite::Ptr<DirectionalLight>>,
 			Texture,
 			Texture,
 			float

@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 
 namespace Wavellite {
-	class Time {
+	class Time { //TODO make singleton
 	public:
 		Time() {
 			previousTime = (float)glfwGetTime();

@@ -10,13 +10,17 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "Lights.h"
+
+#include "OpenGL objects/BufferTexture.h"
 #include "OpenGl objects/Texture.h"
 #include "OpenGL objects/Cubemap.h"
-#include "OpenGL objects/BufferTexture.h"
+#include "OpenGL objects/GlBuffer.h"
 
 namespace Ruby {
 	template<typename...T>
 	class UniformSet;
+
+	using ShaderHandle = size_t;
 
 	class ShaderProgram {
 	public:
@@ -40,6 +44,8 @@ namespace Ruby {
 
 		static unsigned int getNextUnit();
 
+		[[nodiscard]] ShaderHandle GetHash() const;
+
 	private:
 		unsigned int m_Program;
 
@@ -47,6 +53,7 @@ namespace Ruby {
 
 		static unsigned int m_NextUnit;
 
+		ShaderHandle m_PathHash{ 0 };
 	};
 }
 
@@ -72,6 +79,28 @@ namespace ShaderProgramUploads {
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::DirectionalLight& directionalLight);
 	void upload(const std::string& variableName, unsigned int unit, const std::vector<Ruby::DirectionalLight*>& directionalLights);
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::Texture& texture);
-	// void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture& texture);
 	void upload(const std::string& variableName, unsigned int unit, const Ruby::Cubemap& cubeMap);
+
+	template<typename T>
+	void upload(const std::string& variableName, unsigned int unit, const Ruby::BufferTexture<T>& buffer) {
+		buffer.Bind();
+		Ruby::Texture::activateUnit(unit);
+		Ruby::ShaderProgram::upload(variableName, (int)unit);
+	}
+
+	template<typename T>
+	void upload(const std::string& variableName, const Ruby::BufferTexture<T>& buffer) {
+		const int unit = (int)Ruby::ShaderProgram::getNextUnit();
+		upload(variableName, unit, buffer);
+	}
+
+	template<typename T>
+	void upload(const std::string& variableName, unsigned int unit, const Celestite::Ptr<Ruby::BufferTexture<T>>& buffer) {
+		upload(variableName, unit, *buffer);
+	}
+
+	template<typename T>
+	void upload(const std::string& variableName, const Celestite::Ptr<Ruby::BufferTexture<T>>& buffer) {
+		upload(variableName, *buffer);
+	}
 }

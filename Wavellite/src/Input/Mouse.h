@@ -28,6 +28,9 @@ namespace Wavellite {
 		int xPosition{ 0 };
 		int yPosition{ 0 };
 
+		float xScrollOffset{ 0.0f };
+		float yScrollOffset{ 0.0f };
+
 		MouseButtonState button1{ MouseButtonState::BUTTON_RELEASED }; // Left
 		MouseButtonState button2{ MouseButtonState::BUTTON_RELEASED }; // Right
 		MouseButtonState button3{ MouseButtonState::BUTTON_RELEASED }; // Middle
@@ -44,7 +47,7 @@ namespace Wavellite {
 			mousePositionCallbackData.push_back(data);
 		}
 
-		std::vector<void (*)(int xoffset, int yoffset, void* data)> scrollCallbacks;
+		std::vector<void (*)(int xoffset, int yoffset, void* data)> scrollCallbacks; //TODO make private
 		std::vector<void*> scrollCallbacksData;
 
 		std::vector<void (*)(int xpos, int ypos, void* data)> mousePositionCallbacks;

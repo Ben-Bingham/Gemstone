@@ -10,7 +10,7 @@ namespace Ruby {
 	class SolidMaterial : public MaterialData {
 	public:
 		explicit SolidMaterial(const Colour& colour = Colour{ 224, 17, 95 })
-			: MaterialData(ShaderLibrary::get().solidShader), colour(colour) {
+			: MaterialData(ShaderLibrary::Get().solidShader), colour(colour) {
 			
 		}
 

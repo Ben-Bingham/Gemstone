@@ -67,11 +67,13 @@ namespace Ruby {
             m_DebugRenderer.queue(args...);
         }
 
-        ShaderLibrary& shaders{ ShaderLibrary::get() };
+        ShaderLibrary& shaders{ ShaderLibrary::Get() };
 
         void setCamera(Camera* camera) {
             m_Camera = camera;
         }
+
+        void AddRenderFunction(void (*renderFunction)(Esperite::Scene* scene, Camera* camera));
 
         void Render(const Renderable& renderable, Camera* camera);
 
@@ -85,6 +87,7 @@ namespace Ruby {
 
         std::vector<Renderable> m_Renderables;
         std::vector<Camera*> m_Cameras;
+        std::vector<void (*)(Esperite::Scene* scene, Camera* camera)> m_RenderFunctions;
         // std::vector<Celestite::Ptr<Renderable>> m_OldRenderables;
 
         // bool m_Changed{ true };

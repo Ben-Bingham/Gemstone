@@ -17,6 +17,7 @@ namespace Ruby {
 		~VertexAttributeObject();
 
 		void bind() const;
+		void ForceBind() const;
 		static void unbind();
 
 		void configure();

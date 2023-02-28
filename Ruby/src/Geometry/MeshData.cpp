@@ -42,6 +42,10 @@ namespace Ruby {
 		m_VertexAttributes.bind();
 	}
 
+	void MeshData::ForceBind() const {
+		m_VertexAttributes.ForceBind();
+	}
+
 	MeshData::DrawMode MeshData::getDrawMode() const {
 		return m_DrawMode;
 	}
