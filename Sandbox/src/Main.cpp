@@ -12,6 +12,9 @@
 #include "Input/Mouse.h"
 #include "Materials/PhongMaterial.h"
 
+#include "Systems/Input.h"
+#include "Systems/ViewMatrixCorrection.h"
+
 class MovementController {
 public:
 	float movementSpeed{ 0.1f };
@@ -90,6 +93,48 @@ public:
 	}
 };
 
+class UISystem : public Esperite::System {
+public:
+	using GUI = Ruby::Renderer::GUI;
+
+	UISystem() = default;
+
+	void StartUp(Esperite::Scene* scene) override {
+		GUI::StartUp();
+	}
+
+	void Step(Esperite::Scene* scene) override {
+		GUI::Begin();
+		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+
+		if (ImGui::Begin("Test")) {
+			// ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+			// ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f));
+			ImGui::Text("Hello World!");
+		}
+		ImGui::End();
+
+		ImGui::ShowDemoWindow();
+		// ImGui::ShowDemoWindow();
+		
+		GUI::End();
+		
+		if (Wavellite::Keyboard::Get().KEY_ESCAPE) {
+			Wavellite::Window::Get().Close();
+		}
+		if (Wavellite::Keyboard::Get().KEY_M) {
+			Wavellite::Window::Get().enableCursor();
+		}
+		else if (Wavellite::Keyboard::Get().KEY_N) {
+			Wavellite::Window::Get().disableCursor();
+		}
+	}
+
+	void ShutDown(Esperite::Scene* scene) override {
+		GUI::ShutDown();
+	}
+};
+
 using namespace Celestite;
 int main() {
 	Emerald::Engine engine{};
@@ -104,7 +149,13 @@ int main() {
 	Ruby::Camera* camComponent = scene.GetComponent<Ruby::Camera>(player);
 	camComponent->target = Ruby::RenderingTarget::WINDOW;
 
+
+	// engine.AddSystem(Celestite::CreatePtr<Emerald::Input>());
+	// engine.AddSystem(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
+	// engine.AddSystem(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());
+
 	engine.AddSystem(Celestite::CreatePtr<Movement>());
+	engine.AddSystem(Celestite::CreatePtr<UISystem>());
 
 	engine.activeScene = &scene;
 

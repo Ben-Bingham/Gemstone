@@ -26,6 +26,10 @@ namespace Emerald {
 
 		while (Wavellite::Window::Get().isOpen()) {
 			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
+				system->PreStep(activeScene);
+			}
+
+			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
 				system->Step(activeScene);
 			}
 
@@ -40,8 +44,8 @@ namespace Emerald {
 	}
 
 	Engine& Engine::AddDefaultSystems() { //TODO make sure that if this is called multiple times it dosent add them multiple times
-		m_Systems.push_back(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
 		m_Systems.push_back(Celestite::CreatePtr<Input>());
+		m_Systems.push_back(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
 		m_Systems.push_back(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());
 		// TODO more default systems
 

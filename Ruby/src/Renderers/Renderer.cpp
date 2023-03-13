@@ -45,39 +45,57 @@ namespace Ruby {
 		// m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
+	void Renderer::PreStep(Esperite::Scene* scene) { //TODO multi camera and window support
+		beginFrame();
+	}
+
 	void Renderer::Step(Esperite::Scene* scene) {
-		for (auto& gb : scene->gameObjects) {
-			if (scene->HasComponent<Camera>(gb)) {
-				Camera* cam = scene->GetComponent<Camera>(gb);
+		// for (auto& gb : scene->gameObjects) {
+		// 	if (scene->HasComponent<Camera>(gb)) {
+		// 		Camera* cam = scene->GetComponent<Camera>(gb);
+		//
+		// 		if (cam->target == WINDOW) {
+		// 			setCamera(cam);
+		// 			beginFrame();
+		//
+		// 			for (const auto& renderable : scene->gameObjects) {
+		// 				if (scene->HasComponent<Mesh>(renderable) &&
+		// 					scene->HasComponent<Material>(renderable) &&
+		// 					scene->HasComponent<Malachite::Transform>(renderable)) {
+		//
+		// 					const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
+		// 					const Material* material = scene->GetComponent<Material>(renderable);
+		// 					Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
+		//
+		// 					// m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
+		// 					Render(Renderable(*mesh->mesh, *material->material, *transform), cam);
+		// 				}
+		// 			}
+		//
+		// 			for (const auto& function : m_RenderFunctions) {
+		// 				function(scene, cam);
+		// 			}
+		//
+		// 			endFrame();
+		// 			m_Window->swapBuffers();
+		// 		}
+		// 	}
+		// }
 
-				if (cam->target == WINDOW) {
-					setCamera(cam);
-					beginFrame();
+		defaultRenderFunction(scene, m_Camera);
 
-					for (const auto& renderable : scene->gameObjects) {
-						if (scene->HasComponent<Mesh>(renderable) &&
-							scene->HasComponent<Material>(renderable) &&
-							scene->HasComponent<Malachite::Transform>(renderable)) {
-
-							const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
-							const Material* material = scene->GetComponent<Material>(renderable);
-							Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
-
-							// m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
-							Render(Renderable(*mesh->mesh, *material->material, *transform), cam);
-						}
-					}
-
-					for (const auto& function : m_RenderFunctions) {
-						function(scene, cam);
-					}
-
-					endFrame();
-					m_Window->swapBuffers();
-				}
-			}
+		for (const auto& function : renderFunctions) {
+			function(scene, m_Camera);
 		}
 	}
+
+	void Renderer::EndStep(Esperite::Scene* scene) {
+		endFrame();
+	}
+
+	// void Renderer::SubmitRenderCall(Esperite::Scene* scene, Esperite::GameObject gb) {
+	// 	
+	// }
 
 	void Renderer::Render(const Renderable& renderable, Camera* camera) {
 		m_Renderables.emplace_back(renderable);
@@ -85,19 +103,20 @@ namespace Ruby {
 	}
 
 	void Renderer::endFrame() {
-		int i = 0;
-		for (Renderable renderable : m_Renderables) {
-			renderable.mesh().bind();
-
-			renderable.material().use(renderable.transform().getModelMatrix(), m_Cameras[i]->viewMatrix, m_Window->getProjectionMatrix());
-			glDrawElements((GLenum)(int)renderable.mesh().getDrawMode(), (GLsizei)renderable.mesh().getIndexCount(), GL_UNSIGNED_INT, 0);
-			renderable.material().end();
-
-			i++;
-		}
-
-		m_Renderables.clear();
-		m_Cameras.clear();
+		m_Window->swapBuffers();
+		// int i = 0;
+		// for (Renderable renderable : m_Renderables) {
+		// 	renderable.mesh().bind();
+		//
+		// 	renderable.material().use(renderable.transform().getModelMatrix(), m_Cameras[i]->viewMatrix, m_Window->getProjectionMatrix());
+		// 	glDrawElements((GLenum)(int)renderable.mesh().getDrawMode(), (GLsizei)renderable.mesh().getIndexCount(), GL_UNSIGNED_INT, 0);
+		// 	renderable.material().end();
+		//
+		// 	i++;
+		// }
+		//
+		// m_Renderables.clear();
+		// m_Cameras.clear();
 
 		// ========== Debug Renderer ==========
 		// const bool depthTesting = OpenGlState::get().getDepthTesting();
@@ -109,8 +128,99 @@ namespace Ruby {
 		// OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
-	void Renderer::AddRenderFunction(void (*renderFunction)(Esperite::Scene* scene, Camera* camera)) {
-		m_RenderFunctions.push_back(renderFunction);
+	// void Renderer::AddRenderFunction(void (*renderFunction)(Esperite::Scene* scene, Camera* camera)) {
+	// 	m_RenderFunctions.push_back(renderFunction);
+	// }
+
+	void Renderer::GUI::StartUp() {
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+		ImGui::StyleColorsDark();
+
+		ImGui_ImplGlfw_InitForOpenGL(Wavellite::Window::Get().getWindow(), true);
+		ImGui_ImplOpenGL3_Init(nullptr);
+	}
+
+	void Renderer::GUI::Begin() {
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+	}
+
+	void Renderer::GUI::End() {
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		GLFWwindow* backup_current_context = glfwGetCurrentContext();
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+		glfwMakeContextCurrent(backup_current_context); //TODO this has got to be expensive
+	}
+
+	void Renderer::GUI::ShutDown() {
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+	}
+
+	void DefaultRenderFunction(Esperite::Scene* scene, Camera* camera) {
+		// int i = 0;
+		// for (Renderable renderable : m_Renderables) {
+		// 	renderable.mesh().bind();
+		//
+		// 	renderable.material().use(renderable.transform().getModelMatrix(), m_Cameras[i]->viewMatrix, m_Window->getProjectionMatrix());
+		// 	glDrawElements((GLenum)(int)renderable.mesh().getDrawMode(), (GLsizei)renderable.mesh().getIndexCount(), GL_UNSIGNED_INT, 0);
+		// 	renderable.material().end();
+		//
+		// 	i++;
+		// }
+		//
+		// m_Renderables.clear();
+		// m_Cameras.clear();
+		Camera* cam{ nullptr };
+		for (auto& gb : scene->gameObjects) {
+			if (scene->HasComponent<Camera>(gb)) {
+				cam = scene->GetComponent<Camera>(gb);
+				break;
+			}
+		}
+		// 	if (scene->HasComponent<Camera>(gb)) {
+				// Camera* cam = scene->GetComponent<Camera>(gb);
+
+				// if (cam->target == WINDOW) {
+					// setCamera(cam);
+					// beginFrame();
+
+		for (const auto& renderable : scene->gameObjects) {
+			if (scene->HasComponent<Mesh>(renderable) &&
+				scene->HasComponent<Material>(renderable) &&
+				scene->HasComponent<Malachite::Transform>(renderable)) {
+
+				const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
+				const Material* material = scene->GetComponent<Material>(renderable);
+				Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
+
+				material->material->use(transform->getModelMatrix(), cam->viewMatrix, Wavellite::Window::Get().getProjectionMatrix());
+				glDrawElements((GLenum)(int)mesh->mesh->getDrawMode(), (GLsizei)mesh->mesh->getIndexCount(), GL_UNSIGNED_INT, 0);
+				material->material->end();
+
+				// // m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
+				// Render(Renderable(*mesh->mesh, *material->material, *transform), cam);
+			}
+		}
+
+					// for (const auto& function : m_RenderFunctions) {
+					// 	function(scene, cam);
+					// }
+					//
+					// endFrame();
+					// m_Window->swapBuffers();
+				// }
+		// 	}
+		// }
 	}
 
 	void APIENTRY glDebugOutput(
