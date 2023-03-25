@@ -21,9 +21,25 @@ project "Sandbox"
 	}
 
 	includedirs {
-		"src"
+		"src",
+		"../Gemstone/src",
+        "../Gemstone/vendor/GLEW/include",
+        "../Gemstone/vendor/GLFW/include",
+        "../Gemstone/vendor/ImGui/src",
+        "../Gemstone/vendor/stb_image"
 	}
 
-	useGemstone("../")
+	links {
+        "glew32s",
+        "opengl32",
+        "glfw3",
+        "ImGui",
+		"Gemstone"
+    }
+
+    libdirs {
+        "../Gemstone/vendor/GLFW/lib-vc2022",
+        "../Gemstone/vendor/GLEW/lib/Release/x64"
+    }
 
 	print "Sandbox Initialized"

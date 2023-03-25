@@ -1,0 +1,52 @@
+﻿  Pointer.cpp
+  Engine.cpp
+  Input.cpp
+  System.cpp
+  Log.cpp
+  Matrix.cpp
+  Transform.cpp
+  Vector.cpp
+  AxisAlignedBoxCollider.cpp
+  Collider.cpp
+  SphereCollider.cpp
+  CollisionDetection.cpp
+  CollisionWorld.cpp
+  ForceGenerator.cpp
+  PhysicsObject.cpp
+  Units.cpp
+  MeshData.cpp
+  MeshManager.cpp
+  Shape.cpp
+  ShapeData.cpp
+  Generating Code...
+  Compiling...
+  Lights.cpp
+  Material.cpp
+  MaterialData.cpp
+  MaterialManager.cpp
+  ShaderGenerator.cpp
+  Texture.cpp
+  VertexAttributeObject.cpp
+  OpenGLState.cpp
+  Renderable.cpp
+  DebugRenderer.cpp
+  RenderingSystem.cpp
+  RenderingContext.cpp
+  Image.cpp
+  TextFile.cpp
+  stb_image.cpp
+  FragmentShader.cpp
+  GeometryShader.cpp
+  ShaderLibrary.cpp
+  ShaderProgram.cpp
+  VertexShader.cpp
+  Generating Code...
+  Compiling...
+  ViewMatrixCorrection.cpp
+  Colour.cpp
+  IOManager.cpp
+  Keyboard.cpp
+  Mouse.cpp
+  Window.cpp
+  Generating Code...
+  Gemstone.vcxproj -> C:\dev\C++\Projects\Gemstone\Gemstone\bin\x64\Debug\Gemstone.lib

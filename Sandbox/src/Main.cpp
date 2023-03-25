@@ -1,19 +1,29 @@
-#include "Camera.h"
-#include "Renderable Objects/Renderable.h"
-#include "Pointer.h"
-#include "Geometry/MeshData.h"
-#include "Vector.h"
-#include "Engine.h"
-#include "GameObject.h"
-#include "Scene.h"
-#include "Geometry/Mesh.h"
-#include "Materials/Material.h"
-#include "Input/Keyboard.h"
-#include "Input/Mouse.h"
-#include "Materials/PhongMaterial.h"
+#include "Celestite/Pointer.h"
 
-#include "Systems/Input.h"
-#include "Systems/ViewMatrixCorrection.h"
+#include "Emerald/Engine.h"
+
+#include "Esperite/System.h"
+
+#include "Malachite/Angles.h"
+#include "Malachite/Vector.h"
+
+#include "Ruby/Camera.h"
+
+#include "Wavellite/Window.h"
+#include "Wavellite/Input/Keyboard.h"
+#include "Wavellite/Input/Mouse.h"
+#include "Malachite/Utility/Transform.h"
+
+#include "Ruby/Lights.h"
+#include "Ruby/Geometry/Mesh.h"
+#include "Ruby/Geometry/MeshData.h"
+#include "Ruby/Materials/Material.h"
+#include "Ruby/Materials/PhongMaterial.h"
+#include "Ruby/Materials/SolidMaterial.h"
+#include "Ruby/Renderers/RenderingSystem.h"
+#include "Ruby/Resources/Image.h"
+#include "Ruby/Utility/Colour.h"
+#include "../../Gemstone/vendor/ImGui/src/imgui.h"
 
 class MovementController {
 public:
@@ -95,7 +105,7 @@ public:
 
 class UISystem : public Esperite::System {
 public:
-	using GUI = Ruby::Renderer::GUI;
+	using GUI = Ruby::RenderingSystem::GUI;
 
 	UISystem() = default;
 
@@ -151,7 +161,7 @@ int main() {
 
 
 	// engine.AddSystem(Celestite::CreatePtr<Emerald::Input>());
-	// engine.AddSystem(Celestite::CreatePtr<Ruby::Renderer>(Wavellite::Window::Get()));
+	// engine.AddSystem(Celestite::CreatePtr<Ruby::RenderingSystem>(Wavellite::Window::Get()));
 	// engine.AddSystem(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());
 
 	engine.AddSystem(Celestite::CreatePtr<Movement>());
@@ -285,7 +295,7 @@ int main() {
 	//
 	// Wavellite::Time time{ }; //TODO add to engine class
 	//
-	// // Ruby::Renderer renderer{ window, &camera };
+	// // Ruby::RenderingSystem renderer{ window, &camera };
 	//
 	// camera.position = Malachite::Vector3f{ 0.0f, 0.0f, 5.0f };
 	//
