@@ -5,7 +5,10 @@ project "Gemstone"
 
     defines { 
         "GLEW_STATIC",
-        "RUBY_ASSETS=\"..\\\\Gemstone\\\\assets\""
+        "RUBY_ASSETS=\"..\\\\Gemstone\\\\assets\"",
+        "GEMSTONE_OPENGL", --TODO remove
+        "GEMSTONE_GLFW",
+        "GLFW_INCLUDE_NONE"
     }
 
     includedirs {
