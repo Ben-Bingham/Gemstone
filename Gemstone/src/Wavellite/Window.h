@@ -9,7 +9,7 @@
 
 #include "Malachite/Matrix.h"
 
-namespace Wavellite {
+namespace Wavellite { //TODO change to gem
 	void windowSizeCallBack(GLFWwindow* window, int width, int height);
 
 	class Window {

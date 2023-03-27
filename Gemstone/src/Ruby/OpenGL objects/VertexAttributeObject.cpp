@@ -1,3 +1,4 @@
+#include "pch.h"
 #include  "VertexAttributeObject.h"
 
 namespace Ruby {

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "DebugRenderer.h"
 #include "RenderingSystem.h"
 #include "Ruby/OpenGlErrors.h"

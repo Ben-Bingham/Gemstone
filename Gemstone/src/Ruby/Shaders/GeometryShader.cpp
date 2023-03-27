@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "GeometryShader.h"
 #include "Lazuli/Log.h"
 

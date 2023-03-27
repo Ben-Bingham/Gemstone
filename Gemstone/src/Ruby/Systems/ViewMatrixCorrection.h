@@ -7,6 +7,6 @@ namespace Ruby {
 		ViewMatrixCorrection() = default;
 		~ViewMatrixCorrection() override = default;
 
-		void Step(Esperite::Scene* scene) override;
+		void Step(Esperite::ECSScene* scene) override;
 	};
 }

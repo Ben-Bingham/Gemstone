@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CollisionDetection.h"
 
 #include "Malachite/Utility.h"

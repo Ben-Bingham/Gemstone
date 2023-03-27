@@ -1,10 +1,11 @@
+#include "pch.h"
 #include "GLFWContext.h"
 
 #include <GLFW/glfw3.h>
 
 #include "Lazuli/Log.h"
 
-namespace Wavellite {
+namespace Gem {
 	void GLFWContext::StartUp() {
 		glfwSetErrorCallback(ErrorCallback);
 
@@ -20,6 +21,9 @@ namespace Wavellite {
 	void ErrorCallback(const int error, const char* description) {
 		LOG("GLFW error: " + std::to_string(error) + std::string(description), Lazuli::LogLevel::ERROR);
 	}
-}
 
+	void GLFWContext::PollEvents() const {
+		glfwPollEvents();
+	}
+}
 

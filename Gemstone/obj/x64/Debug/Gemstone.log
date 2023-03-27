@@ -1,6 +1,0 @@
-﻿  Application.cpp
-  Time.cpp
-C:\dev\C++\Projects\Gemstone\Gemstone\src\Time\Time.cpp(7,21): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  Window.cpp
-  Generating Code...
-  Gemstone.vcxproj -> C:\dev\C++\Projects\Gemstone\Gemstone\bin\x64\Debug\Gemstone.lib

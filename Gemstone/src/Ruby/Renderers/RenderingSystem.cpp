@@ -1,7 +1,8 @@
+#include "pch.h"
 #include "RenderingSystem.h"
 #include "DebugRenderer.h"
 #include "Ruby/OpenGLState.h"
-#include "Esperite/Scene.h"
+#include "Esperite/ECSScene.h"
 
 #include "Ruby/Geometry/Mesh.h"
 
@@ -45,11 +46,11 @@ namespace Ruby {
 		// m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
-	void RenderingSystem::PreStep(Esperite::Scene* scene) { //TODO multi camera and window support
+	void RenderingSystem::PreStep(Esperite::ECSScene* scene) { //TODO multi camera and window support
 		beginFrame();
 	}
 
-	void RenderingSystem::Step(Esperite::Scene* scene) {
+	void RenderingSystem::Step(Esperite::ECSScene* scene) {
 		// for (auto& gb : scene->gameObjects) {
 		// 	if (scene->HasComponent<Camera>(gb)) {
 		// 		Camera* cam = scene->GetComponent<Camera>(gb);
@@ -89,11 +90,11 @@ namespace Ruby {
 		}
 	}
 
-	void RenderingSystem::EndStep(Esperite::Scene* scene) {
+	void RenderingSystem::EndStep(Esperite::ECSScene* scene) {
 		endFrame();
 	}
 
-	// void RenderingSystem::SubmitRenderCall(Esperite::Scene* scene, Esperite::GameObject gb) {
+	// void RenderingSystem::SubmitRenderCall(Esperite::ECSScene* scene, Esperite::InternalGameObject gb) {
 	// 	
 	// }
 
@@ -128,7 +129,7 @@ namespace Ruby {
 		// OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
-	// void RenderingSystem::AddRenderFunction(void (*renderFunction)(Esperite::Scene* scene, Camera* camera)) {
+	// void RenderingSystem::AddRenderFunction(void (*renderFunction)(Esperite::ECSScene* scene, Camera* camera)) {
 	// 	m_RenderFunctions.push_back(renderFunction);
 	// }
 
@@ -166,7 +167,7 @@ namespace Ruby {
 		ImGui::DestroyContext();
 	}
 
-	void DefaultRenderFunction(Esperite::Scene* scene, Camera* camera) {
+	void DefaultRenderFunction(Esperite::ECSScene* scene, Camera* camera) {
 		// int i = 0;
 		// for (Renderable renderable : m_Renderables) {
 		// 	renderable.mesh().bind();

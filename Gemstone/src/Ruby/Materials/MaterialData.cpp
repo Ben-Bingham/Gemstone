@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "MaterialData.h"
 
 namespace Ruby {

@@ -1,21 +1,15 @@
+#include "pch.h"
 #include "Application.h"
 
-#include <GLFW/glfw3.h>
+namespace Gem {
+	Application::Application(Engine& engine)
+		: m_Engine(engine) {
 
-#include "Time/Time.h"
-
-#include "Lazuli/Log.h"
-
-namespace Apatite {
-	void Application::Start() const {
-		while(window.IsOpen()) {
-			glfwPollEvents();
-
-			LOG(std::to_string(Gemstone::Time::GetTime()));
-		}
 	}
 
-	void Application::Interrupt() const {
-		window.Close();
+	void Application::Load(const Celestite::Ptr<Level>& scene) const {
+		while (window.IsOpen() && scene->IsRunning()) {
+			m_Engine.ExecuteFrame(scene);
+		}
 	}
 }

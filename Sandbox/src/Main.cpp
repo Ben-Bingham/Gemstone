@@ -1,49 +1,48 @@
+#include "Settings.h"
+
 #include "Apatite/Application.h"
 
 #include "Emerald/Engine.h"
 
-// using namespace Celestite;
+#include "Esperite/Level.h"
+#include "Celestite/Pointer.h"
+#include "TestLevel.h"
 
-// class HelloWorldSystem : public Esperite::System {
-// public:
-// 	void Step(Esperite::Scene* scene) override {
-// 		LOG(std::to_string(glfwGetTime()));
-// 	}
-// };
+#include "gb/GameObject.h"
 
-using namespace Apatite;
-using namespace Emerald;
+class HelloWorldSystem : public Esperite::System {
+public:
+	void Step(Esperite::ECSScene* scene) override {
+		LOG(std::to_string(glfwGetTime()));
+	}
+};
+
+using namespace Gem;
+using namespace Celestite;
+using namespace Esperite;
+
+struct Vec2 {
+	int x;
+	int y;
+};
 
 int main() {
-	const Engine engine{};
+	Engine engine{};
 
-	const Application app{};
-	app.Start();
+	Application app{ engine };
 
-	// app.window;
-	// app.engine;
-	//
-	//
-	//
-	// if (!glfwInit()) {
-	// 	LOG("Glfw failed to init", Lazuli::LogLevel::TERMINAL);
-	// }
-	//
-	// // GLFWwindow* window = glfwCreateWindow(200, 100, "Window", nullptr, nullptr);
-	// //
-	// // if (!window) {
-	// // 	LOG("Window failed to be created", Lazuli::LogLevel::TERMINAL);
-	// // }
-	//
-	// while (true) {
-	// 	glfwPollEvents();
-	// 	HelloWorldSystem sys{};
-	// 	sys.Step(nullptr);
-	// }
-	//
-	// // Emerald::ECSManager engine{};
-	// //
-	// // engine.AddSystem(CreatePtr<HelloWorldSystem>());
-	// //
-	// // engine.Start();
+	Ptr<TestLevel> scene = CreatePtr<TestLevel>();
+
+	HelloWorldSystem hwSystem{};
+
+	GameObject gb{};
+
+	gb.AddComponent<Vec2>();
+	Vec2* pos = gb.GetComponent<Vec2>();
+
+	pos->x++;
+
+	int a = gb.GetComponent<Vec2>()->x;
+
+	app.Load(scene);
 }

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Malachite/Matrix.h"
 
 namespace Malachite {

@@ -10,7 +10,7 @@
 #include "Ruby/Shaders/ShaderLibrary.h"
 #include "Ruby/Camera.h"
 #include "DebugRenderer.h"
-#include "Esperite/Scene.h"
+#include "Esperite/ECSScene.h"
 #include "Esperite/System.h"
 
 #include "Ruby/Renderable Objects/Renderable.h"
@@ -20,7 +20,7 @@ namespace Ruby {
     void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id,
         GLenum severity, GLsizei length, const char* message, const void* userParam);
 
-    void DefaultRenderFunction(Esperite::Scene* scene, Camera* camera);
+    void DefaultRenderFunction(Esperite::ECSScene* scene, Camera* camera);
 
     class DebugRenderer; //TODO remove
 
@@ -38,9 +38,9 @@ namespace Ruby {
         void beginFrame(); //TODO remove these functions
         void endFrame();
 
-        void PreStep(Esperite::Scene* scene) override;
-        void Step(Esperite::Scene* scene) override;
-        void EndStep(Esperite::Scene* scene) override;
+        void PreStep(Esperite::ECSScene* scene) override;
+        void Step(Esperite::ECSScene* scene) override;
+        void EndStep(Esperite::ECSScene* scene) override;
 
         template<typename... T>
         void debugRender(T...args) {
@@ -53,11 +53,11 @@ namespace Ruby {
             m_Camera = camera;
         }
 
-        // void AddRenderFunction(void (*renderFunction)(Esperite::Scene* scene, Camera* camera));
+        // void AddRenderFunction(void (*renderFunction)(Esperite::ECSScene* scene, Camera* camera));
 
         void Render(const Renderable& renderable, Camera* camera);
 
-        // void SubmitRenderCall(Esperite::Scene* scene, Esperite::GameObject gb);
+        // void SubmitRenderCall(Esperite::ECSScene* scene, Esperite::InternalGameObject gb);
 
         class GUI {
         public:
@@ -70,9 +70,9 @@ namespace Ruby {
             GUI() = default;
         };
 
-        std::vector<void (*)(Esperite::Scene* scene, Camera* camera)> renderFunctions;
+        std::vector<void (*)(Esperite::ECSScene* scene, Camera* camera)> renderFunctions;
 
-        void (*defaultRenderFunction)(Esperite::Scene* scene, Camera* camera){ DefaultRenderFunction };
+        void (*defaultRenderFunction)(Esperite::ECSScene* scene, Camera* camera){ DefaultRenderFunction };
 
     private:
     	Camera* m_Camera{ nullptr };
@@ -84,7 +84,7 @@ namespace Ruby {
 
         std::vector<Renderable> m_Renderables;
         std::vector<Camera*> m_Cameras;
-        // std::vector<void (*)(Esperite::Scene* scene)> m_ImGuiFunctions;
+        // std::vector<void (*)(Esperite::ECSScene* scene)> m_ImGuiFunctions;
         // std::vector<Celestite::Ptr<Renderable>> m_OldRenderables;
 
         // bool m_Changed{ true };

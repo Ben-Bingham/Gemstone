@@ -25,9 +25,9 @@ namespace Esperite {
 		IComponentPool& operator=(IComponentPool&& other) noexcept = default;
 		virtual ~IComponentPool() = default;
 	
-		virtual void AddComponent(GameObject gb) = 0;
-		[[nodiscard]] virtual void* GetComponent(GameObject gb) = 0;
-		[[nodiscard]] virtual bool HasComponent(GameObject gb) const = 0;
+		virtual void AddComponent(InternalGameObject gb) = 0;
+		[[nodiscard]] virtual void* GetComponent(InternalGameObject gb) = 0;
+		[[nodiscard]] virtual bool HasComponent(InternalGameObject gb) const = 0;
 	};
 
 	/*class SparseSetComponentPool final : public IComponentPool {
@@ -42,7 +42,7 @@ namespace Esperite {
 			delete[] m_Components;
 		}
 
-		[[nodiscard]] bool HasComponent(const GameObject gb) const override {
+		[[nodiscard]] bool HasComponent(const InternalGameObject gb) const override {
 			if (gb + 1 > m_Sparse.size()) {
 				return false;
 			}
@@ -56,7 +56,7 @@ namespace Esperite {
 			return m_Dense[denseIndex] == gb;
 		}
 
-		[[nodiscard]] void* GetComponent(const GameObject gb) override { //TODO testing needed, this is almost a carbon copy of the has component function
+		[[nodiscard]] void* GetComponent(const InternalGameObject gb) override { //TODO testing needed, this is almost a carbon copy of the has component function
 			if (gb + 1 > m_Sparse.size()) {									   //TODO can a lot of it be replaced with a call to it or is that slower?
 				m_Sparse.resize(gb + 1);
 			}
@@ -81,7 +81,7 @@ namespace Esperite {
 		}
 
 //		template<typename T>
-		void AddComponent(GameObject gb) override {
+		void AddComponent(InternalGameObject gb) override {
 //// #ifdef ESPERITE_DEBUG
 //// 			if (hasComponent(gb)) {
 //// 				// it is debug tho so maybe its fine
@@ -120,7 +120,7 @@ namespace Esperite {
 //			// return &m_Components[index]; //TODO replace last part with a call the the getComponentFunctin
 		}
 
-// 		void removeComponent(const GameObject gb) { //TODO does not work and shouldent
+// 		void removeComponent(const InternalGameObject gb) { //TODO does not work and shouldent
 // #ifdef ESPERITE_DEBUG
 // 			if (!hasComponent(gb)) { //TODO the checks should only be called once, either in scene class or in component pool,
 // 				// it is debug tho so maybe its fine
@@ -171,7 +171,7 @@ namespace Esperite {
 			delete[] m_Components;
 		}
 
-		[[nodiscard]] bool HasComponent(const GameObject gb) const override {
+		[[nodiscard]] bool HasComponent(const InternalGameObject gb) const override {
 			if ((int)m_Sparse[gb] > m_LastComponent){
 				return false;
 			}
@@ -179,11 +179,11 @@ namespace Esperite {
 			return m_Dense[m_Sparse[gb]] == gb;
 		}
 
-		[[nodiscard]] void* GetComponent(const GameObject gb) override {
+		[[nodiscard]] void* GetComponent(const InternalGameObject gb) override {
 			return m_Components + m_Sparse[gb] * m_ComponentSize;
 		}
 
-		void AddComponent(GameObject gb) override {
+		void AddComponent(InternalGameObject gb) override {
 			m_Dense[m_LastComponent + 1] = gb;
 			m_Sparse[gb] = m_LastComponent + 1;
 
@@ -210,7 +210,7 @@ namespace Esperite {
 			delete[] m_Components;
 		}
 
-		[[nodiscard]] bool HasComponent(const GameObject gb) const override {
+		[[nodiscard]] bool HasComponent(const InternalGameObject gb) const override {
 			if (gb + 1 > m_Sparse.size()) {
 				return false;
 			}
@@ -228,7 +228,7 @@ namespace Esperite {
 			return m_Dense[m_Sparse[gb]] == gb;
 		}
 
-		[[nodiscard]] void* GetComponent(const GameObject gb) override {
+		[[nodiscard]] void* GetComponent(const InternalGameObject gb) override {
 			if (gb + 1 < m_Sparse.size()) {
 				m_Sparse.resize(gb + 1);
 			}
@@ -236,7 +236,7 @@ namespace Esperite {
 			return m_Components + m_Sparse[gb] * m_ComponentSize;
 		}
 
-		void AddComponent(const GameObject gb) override {
+		void AddComponent(const InternalGameObject gb) override {
 			if (gb + 1 < m_Sparse.size()) {
 				m_Sparse.resize(gb + 1);
 			}
@@ -275,15 +275,15 @@ namespace Esperite {
 			delete[] m_Components;
 		}
 
-		void AddComponent(GameObject gb) override {
+		void AddComponent(InternalGameObject gb) override {
 			m_BitSets[gb].set(m_Id);
 		}
 
-		[[nodiscard]] void* GetComponent(GameObject gb) override {
+		[[nodiscard]] void* GetComponent(InternalGameObject gb) override {
 			return m_Components + gb * m_ComponentSize;
 		}
 
-		[[nodiscard]] bool HasComponent(GameObject gb) const {
+		[[nodiscard]] bool HasComponent(InternalGameObject gb) const {
 			return m_BitSets[gb].test(m_Id);
 		}
 

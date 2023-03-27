@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "SphereCollider.h"
 #include "Pyrite/Collision/CollisionDetection.h"
 

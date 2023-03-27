@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "ECSManager.h"
 
 #include "Wavellite/Timing.h"
@@ -17,17 +19,17 @@
 
 namespace Emerald {
 	ECSManager::ECSManager() {
-#ifdef GEMSTONE_OPENGL
-		m_RenderingAPI = Celestite::CreatePtr<Rutile::OpenGlAPI>();
-#elif
-		LOG("No rendering API set.", Lazuli::LogLevel::TERMINAL);
-#endif
-
-#ifdef GEMSTONE_GLFW
-		m_WindowAPI = Celestite::CreatePtr<Rutile::GlfwAPI>();
-#elif
-		LOG("No window API set.", Lazuli::LogLevel::TERMINAL);
-#endif
+// #ifdef GEMSTONE_OPENGL
+// 		m_RenderingAPI = Celestite::CreatePtr<Rutile::OpenGlAPI>();
+// #elif
+// 		LOG("No rendering API set.", Lazuli::LogLevel::TERMINAL);
+// #endif
+//
+// #ifdef GEMSTONE_GLFW
+// 		m_WindowAPI = Celestite::CreatePtr<Rutile::GlfwAPI>();
+// #elif
+// 		LOG("No window API set.", Lazuli::LogLevel::TERMINAL);
+// #endif
 
 
 

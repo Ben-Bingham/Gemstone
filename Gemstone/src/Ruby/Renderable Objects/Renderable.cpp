@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Renderable.h"
 
 namespace Ruby {

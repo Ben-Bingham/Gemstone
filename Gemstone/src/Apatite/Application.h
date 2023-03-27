@@ -1,15 +1,23 @@
 #pragma once
+#include "Celestite/Pointer.h"
+
+#include "Emerald/Engine.h"
+
+#include "Esperite/ECSScene.h"
+#include "Esperite/Level.h"
+
 #include "Wavellite/Window.h"
 
-namespace Apatite {
+namespace Gem {
 	class Application {
 	public:
-		Application() = default;
+		Application(Engine& engine);
 
-		void Start() const;
-		void Interrupt() const;
+		void Load(const Celestite::Ptr<Level>& scene) const;
 
 		Wavellite::Window window{ };
-		// Emerald::ECSManager engine{ }; // TODO if engine is going to be used in this context than its name should be changed, maybe change to ECS
+
+	private:
+		Engine& m_Engine;
 	};
 }

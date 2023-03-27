@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "ViewMatrixCorrection.h"
 
 #include "Ruby/Camera.h"
@@ -5,7 +6,7 @@
 #include "Malachite/Utility/Transform.h"
 
 namespace Ruby {
-	void ViewMatrixCorrection::Step(Esperite::Scene* scene) {
+	void ViewMatrixCorrection::Step(Esperite::ECSScene* scene) {
 		for (auto& gb : scene->gameObjects) {
 			if (scene->HasComponent<Camera>(gb)
 				&& scene->HasComponent<Malachite::Transform>(gb)) {

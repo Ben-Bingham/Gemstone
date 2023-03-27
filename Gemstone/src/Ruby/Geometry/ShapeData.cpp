@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "ShapeData.h"
 
 #include "Malachite/Angles.h"

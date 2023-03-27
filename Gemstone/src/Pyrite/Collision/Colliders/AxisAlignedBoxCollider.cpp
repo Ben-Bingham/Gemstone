@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "AxisAlignedBoxCollider.h"
 #include "Pyrite/Collision/CollisionDetection.h"
 

@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "ForceGenerator.h"
 
 #include "Malachite/Powers.h"

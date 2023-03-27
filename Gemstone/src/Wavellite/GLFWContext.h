@@ -1,7 +1,7 @@
 #pragma once
 #include "Apatite/ISubSystem.h"
 
-namespace Wavellite {
+namespace Gem {
 	void ErrorCallback(int error, const char* description);
 
 	class GLFWContext : public Apatite::ISubSystem{
@@ -15,5 +15,7 @@ namespace Wavellite {
 
 		void StartUp() override;
 		void ShutDown() override;
+
+		void PollEvents() const;
 	};
 }

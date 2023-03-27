@@ -1,18 +1,38 @@
+-- GemstoneRoot should be a relative path from the premake file of the project that
+-- uses it to the root of the Gemstone project that contains the premake file for
+-- its workspace, NOT to the premake file that defines the Gemstone project.
+-- It should end in a slash.
+-- TODO may need testing
 function useGemstone(gemstoneRoot)
     gemstoneRoot = gemstoneRoot or ""
+
     includedirs {
-        gemstoneRoot .. "Celestite/src",
-        gemstoneRoot .. "Emerald/src",
-        gemstoneRoot .. "Esperite/src",
-        gemstoneRoot .. "Lazuli/src",
-        gemstoneRoot .. "Malachite/src",
-        gemstoneRoot .. "Pyrite/src",
-        gemstoneRoot .. "Ruby/src",
-        gemstoneRoot .. "Wavellite/src"
+		gemstoneRoot .. "Gemstone/src",
+        gemstoneRoot .. "vendor/GLEW/include",
+        gemstoneRoot .. "vendor/GLFW/include",
+        gemstoneRoot .. "vendor/ImGui/src",
+        gemstoneRoot .. "vendor/stb_image"
+	}
+    
+	links {
+        "glew32s",
+        "opengl32",
+        "glfw3",
+        "ImGui",
+		"Gemstone"
     }
 
-    files {
-        gemstoneRoot .. "**.cpp",
-        gemstoneRoot .. "**.h"
+    libdirs {
+        gemstoneRoot .. "vendor/GLFW/lib-vc2022",
+        gemstoneRoot .. "vendor/GLEW/lib/Release/x64"
     }
+
+    quadSlashGemstoneRoot = string.gsub(gemstoneRoot, "/", "\\\\")
+
+    defines { 
+        "GLEW_STATIC",
+        "RUBY_ASSETS=\"" .. quadSlashGemstoneRoot .. "Gemstone\\\\assets\"", -- Quad slashes needed because premake and the compiler both remove a set
+        "GLFW_INCLUDE_NONE"
+    }
+
 end

@@ -23,7 +23,8 @@
 #include "Ruby/Renderers/RenderingSystem.h"
 #include "Ruby/Resources/Image.h"
 #include "Ruby/Utility/Colour.h"
-#include "../../Gemstone/vendor/ImGui/src/imgui.h"
+
+#include "imgui.h"
 
 class MovementController {
 public:
@@ -42,11 +43,11 @@ public:
 	Movement() = default;
 	~Movement() override = default;
 
-	void StartUp(Esperite::Scene* scene) override {
+	void StartUp(Esperite::ECSScene* scene) override {
 		Wavellite::Window::Get().disableCursor();
 	}
 
-	void Step(Esperite::Scene* scene) override {
+	void Step(Esperite::ECSScene* scene) override {
 		for (auto& gb : scene->gameObjects) {
 			if (scene->HasComponent<MovementController>(gb)
 				&& scene->HasComponent<Malachite::Transform>(gb)
@@ -109,11 +110,11 @@ public:
 
 	UISystem() = default;
 
-	void StartUp(Esperite::Scene* scene) override {
+	void StartUp(Esperite::ECSScene* scene) override {
 		GUI::StartUp();
 	}
 
-	void Step(Esperite::Scene* scene) override {
+	void Step(Esperite::ECSScene* scene) override {
 		GUI::Begin();
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 
@@ -140,7 +141,7 @@ public:
 		}
 	}
 
-	void ShutDown(Esperite::Scene* scene) override {
+	void ShutDown(Esperite::ECSScene* scene) override {
 		GUI::ShutDown();
 	}
 };
@@ -150,9 +151,9 @@ int main2() {
 	Emerald::ECSManager engine{};
 	engine.AddDefaultSystems();
 
-	Esperite::Scene scene{};
+	Esperite::ECSScene scene{};
 
-	const Esperite::GameObject player = scene.NewGameObject<Ruby::Camera, MovementController, Malachite::Transform>();
+	const Esperite::InternalGameObject player = scene.NewGameObject<Ruby::Camera, MovementController, Malachite::Transform>();
 	Malachite::Transform* playerTransform = scene.GetComponent<Malachite::Transform>(player);
 	playerTransform->position().z = 5.0f;
 
@@ -207,7 +208,7 @@ int main2() {
 
 
 	// Game Objects
-	Esperite::GameObject doughnut = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	Esperite::InternalGameObject doughnut = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
 	scene.GetComponent<Ruby::Mesh>(doughnut)->mesh = sphereMesh;
 	scene.GetComponent<Ruby::Material>(doughnut)->material = doughnutMat;
 	Malachite::Transform* doughnutTransform = scene.GetComponent<Malachite::Transform>(doughnut);
@@ -216,32 +217,32 @@ int main2() {
 	doughnutTransform->scale().z = 1.0f;
 	doughnutTransform->position().x = -6.0f;
 	
-	Esperite::GameObject earth = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	Esperite::InternalGameObject earth = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
 	scene.GetComponent<Ruby::Mesh>(earth)->mesh = sphereMesh;
 	scene.GetComponent<Ruby::Material>(earth)->material = earthMat;
 	Malachite::Transform* earthTransform = scene.GetComponent<Malachite::Transform>(earth);
 	earthTransform->position().x = 3.0f;
 
-	Esperite::GameObject pawn = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	Esperite::InternalGameObject pawn = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
 	scene.GetComponent<Ruby::Mesh>(pawn)->mesh = cubeMesh;
 	scene.GetComponent<Ruby::Material>(pawn)->material = pawnMat;
 	Malachite::Transform* pawnTransform = scene.GetComponent<Malachite::Transform>(pawn);
 	pawnTransform->position() = Malachite::Vector3f{ 6.0f, 0.0f, 0.0f };
 	pawnTransform->scale() = Malachite::Vector3f{ 0.6f, 2.0f, 0.6f };
 
-	Esperite::GameObject awesome = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	Esperite::InternalGameObject awesome = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
 	scene.GetComponent<Ruby::Mesh>(awesome)->mesh = cubeMesh;
 	scene.GetComponent<Ruby::Material>(awesome)->material = awesomeMat;
 	Malachite::Transform* awesomeTransform = scene.GetComponent<Malachite::Transform>(awesome);
 	awesomeTransform->position().y = 3.0f;
 	
-	Esperite::GameObject awesome2 = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	Esperite::InternalGameObject awesome2 = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
 	scene.GetComponent<Ruby::Mesh>(awesome2)->mesh = sphereMesh;
 	scene.GetComponent<Ruby::Material>(awesome2)->material = awesomeMat;
 	Malachite::Transform* awesome2Transform = scene.GetComponent<Malachite::Transform>(awesome2);
 	awesome2Transform->position().y = -3.0f;
 
-	Esperite::GameObject plane = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	Esperite::InternalGameObject plane = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
 	scene.GetComponent<Ruby::Mesh>(plane)->mesh = planeMesh;
 	scene.GetComponent<Ruby::Material>(plane)->material = containerMaterial;
 	Malachite::Transform* planeTransform = scene.GetComponent<Malachite::Transform>(plane);
@@ -259,7 +260,7 @@ int main2() {
 	// screenQuadRenderable->transform()->position().x = -0.5f;
 	// screenQuadRenderable->transform()->scale() = Malachite::Vector3f{ 0.5f };
 
-	Esperite::GameObject cube = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
+	Esperite::InternalGameObject cube = scene.NewGameObject<Ruby::Mesh, Ruby::Material, Malachite::Transform>();
 	scene.GetComponent<Ruby::Mesh>(cube)->mesh = cubeMesh;
 	scene.GetComponent<Ruby::Material>(cube)->material = blueMaterial;
 

@@ -1,7 +1,11 @@
 #pragma once
+#include "Celestite/Pointer.h"
+
+#include "Esperite/Level.h"
+
 #include "Wavellite/GLFWContext.h"
 
-namespace Emerald {
+namespace Gem {
 	class Engine {
 	public:
 		Engine();
@@ -11,8 +15,9 @@ namespace Emerald {
 		Engine& operator=(Engine&& other) noexcept = default;
 		~Engine();
 
-	private:
+		void ExecuteFrame(const Celestite::Ptr<Level>& scene) const; //TODO rename to step
+
 		// Sub Systems
-		Wavellite::GLFWContext m_GlfwContext{};
+		GLFWContext glfwContext{}; //TODO better name, glfw does not need to be included
 	};
 }

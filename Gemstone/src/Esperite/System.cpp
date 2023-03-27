@@ -1,8 +1,13 @@
+#include "pch.h"
 #include "System.h"
 namespace Esperite {
-	void System::StartUp(Scene* scene) {}
-	void System::PreStep(Scene* scene) {}
-	void System::Step(Scene* scene) {}
-	void System::EndStep(Scene* scene) {}
-	void System::ShutDown(Scene* scene) {}
+	System::System() {
+		// m_Owner.AddSystem(this); //TODO was working on last
+	}
+
+	void System::StartUp(ECSScene* scene) {}
+	void System::PreStep(ECSScene* scene) {}
+	void System::Step(ECSScene* scene) {}
+	void System::EndStep(ECSScene* scene) {}
+	void System::ShutDown(ECSScene* scene) {}
 }
