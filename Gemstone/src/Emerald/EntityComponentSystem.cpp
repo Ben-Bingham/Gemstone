@@ -3,28 +3,28 @@
 
 namespace Gem {
 	void EntityComponentSystem::Load() {
-		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-			system->StartUp(&m_Scene);
+		for (const Celestite::Ptr<System>& system : systems) {
+			system->StartUp(*this);
 		}
 	}
 
 	void EntityComponentSystem::Step() {
-		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-			system->PreStep(&m_Scene);
+		for (const Celestite::Ptr<System>& system : systems) {
+			system->PreStep(*this);
 		}
 
-		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-			system->Step(&m_Scene);
+		for (const Celestite::Ptr<System>& system : systems) {
+			system->Step(*this);
 		}
 
-		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-			system->EndStep(&m_Scene);
+		for (const Celestite::Ptr<System>& system : systems) {
+			system->EndStep(*this);
 		}
 	}
 
 	void EntityComponentSystem::Unload() {
-		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-			system->ShutDown(&m_Scene);
+		for (const Celestite::Ptr<System>& system : systems) {
+			system->ShutDown(*this);
 		}
 	}
 }

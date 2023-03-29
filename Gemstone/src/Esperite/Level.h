@@ -1,26 +1,37 @@
 #pragma once
-
+#include "Apatite/Application.h"
 #include "Emerald/EntityComponentSystem.h"
 
 namespace Gem {
+	/*
+	Stores data and instructions for running a single Level
+	 */
 	class Level {
 	public:
-		Level() = default;
+		Level(Application& app);
 		Level(const Level& other) = default;
 		Level(Level&& other) noexcept = default;
-		Level& operator=(const Level& other) = default;
-		Level& operator=(Level&& other) noexcept = default;
+		Level& operator=(const Level& other) = delete;
+		Level& operator=(Level&& other) noexcept = delete;
 		virtual ~Level() = default;
-		
+
+		virtual void Load();
 		void Step();
+		virtual void Unload();
 
 		[[nodiscard]] bool IsRunning() const;
 		void Stop();
+		
+		[[nodiscard]] EntityComponentSystem& ECS();
+
+		void InternalLoad();
+		void InternalUnload();
 
 	private:
 		bool m_Running{ true };
-		unsigned int m_FrameCount{ 0 };
-		// Esperite::ECSScene m_Ecs{ };
-		EntityComponentSystem m_ECS;
+
+	protected:
+		EntityComponentSystem m_EntityComponentSystem{ };
+		Application& m_App;
 	};
 }

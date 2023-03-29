@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Wavellite {
+namespace Gem {
 	class Keyboard;
 	class Mouse;
 

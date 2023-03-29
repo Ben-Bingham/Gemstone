@@ -6,11 +6,11 @@
 #include "Wavellite/Input/Mouse.h"
 
 namespace Emerald {
-	void Input::Step(Esperite::ECSScene* scene) {
-		Wavellite::Window::Get().pollEvents();
+	void Input::Step(Gem::EntityComponentSystem& ecs) {
+		// Gem::Window::Get().pollEvents();
 	}
 
-	void Input::EndStep(Esperite::ECSScene* scene) {
-		Wavellite::Mouse::Get().hasMoved = false;
+	void Input::EndStep(Gem::EntityComponentSystem& ecs) {
+		// Gem::Mouse::Get().hasMoved = false;
 	}
 }

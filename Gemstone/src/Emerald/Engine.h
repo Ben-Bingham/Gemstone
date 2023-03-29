@@ -1,11 +1,12 @@
 #pragma once
 #include "Celestite/Pointer.h"
-
 #include "Esperite/Level.h"
-
-#include "Wavellite/GLFWContext.h"
+#include "Wavellite/HumanInterfaceDeviceContext.h"
 
 namespace Gem {
+	/*
+	Controls execution of Levels, when to render, when to start the next frame, ect.
+	 */
 	class Engine {
 	public:
 		Engine();
@@ -15,9 +16,9 @@ namespace Gem {
 		Engine& operator=(Engine&& other) noexcept = default;
 		~Engine();
 
-		void ExecuteFrame(const Celestite::Ptr<Level>& scene) const; //TODO rename to step
+		void ExecuteFrame(const Celestite::Ptr<Level>& level) const; //TODO rename to step
 
 		// Sub Systems
-		GLFWContext glfwContext{}; //TODO better name, glfw does not need to be included
+		HumanInterfaceDeviceContext humanInterfaceDeviceContext{}; //TODO better name, glfw does not need to be included
 	};
 }

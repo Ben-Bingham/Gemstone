@@ -3,11 +3,11 @@
 #include "Mouse.h"
 #include "Keyboard.h"
 
-namespace Wavellite {
-	IOManager::IOManager()
-		: keyboard(&Keyboard::Get()), mouse(&Mouse::Get()) {
-		
-	}
+namespace Gem {
+	// IOManager::IOManager()
+	// 	: keyboard(&Keyboard::Get()), mouse(&Mouse::Get()) {
+	// 	
+	// }
 
 	// IOManager::IOManager(Window* window)
 	// 	: window(window) {

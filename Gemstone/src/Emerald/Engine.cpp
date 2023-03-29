@@ -4,38 +4,25 @@
 #include "Settings.h"
 
 #include "Time/Time.h"
-#include "Lazuli/Log.h"
 
 namespace Gem {
 	Engine::Engine() {
-		glfwContext.StartUp();
+		humanInterfaceDeviceContext.StartUp();
 	}
 
-	void Engine::ExecuteFrame(const Celestite::Ptr<Level>& scene) const {
-		const float frameStart = Time::GetTime();
+	void Engine::ExecuteFrame(const Celestite::Ptr<Level>& level) const {
+		const float endTime = Time::GetTime() + 1.0f / (float)Settings::maxFPS;
 
-		glfwContext.PollEvents();
+		humanInterfaceDeviceContext.PollEvents();
 
-		scene->Step();
+		level->Step();
 
 		// Ruby::Renderer::Render();
 
-		const float requiredTimeDifference = 1.0f / (float)Settings::maxFPS;
-		float timeDifference;
-		do {
-			timeDifference = Time::GetTime() - frameStart;
-
-#ifdef GEMSTONE_DEBUG
-			if (timeDifference > 5 * requiredTimeDifference) {
-				LOG("Frame took more than five times standard time, Breakpoint assumed.", Lazuli::LogLevel::WARNING);
-				timeDifference = requiredTimeDifference;
-			}
-#endif
-		}
-		while (timeDifference < requiredTimeDifference);
+		Time::Wait(endTime - Time::GetTime());
 	}
 
 	Engine::~Engine() {
-		glfwContext.ShutDown();
+		humanInterfaceDeviceContext.ShutDown();
 	}
 }

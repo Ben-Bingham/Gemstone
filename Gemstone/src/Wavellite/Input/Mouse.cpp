@@ -1,75 +1,89 @@
 #include "pch.h"
+
 #include "Mouse.h"
-#include "IOManager.h"
 #include "Wavellite/Window.h"
 
-namespace Wavellite {
-	Mouse& Mouse::Get() {
-		static Mouse mouse;
-		return mouse;
-	}
-
-	void Mouse::Init() {
-		if (m_Initialized) {
-			return;
-		}
-
-		glfwSetScrollCallback(Window::Get().getWindow(), mouseScrollWheelCallback);
-		glfwSetMouseButtonCallback(Window::Get().getWindow(), mouseButtonCallback);
-		glfwSetCursorEnterCallback(Window::Get().getWindow(), cursorEnterCallback);
-		glfwSetCursorPosCallback(Window::Get().getWindow(), mousePositionCallback);
-
-		m_Initialized = true;
-	}
-
-	void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
-		Mouse& mouse = *manager->mouse;
+namespace Gem {
+	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
 
 		switch (button) {
-		case GLFW_MOUSE_BUTTON_1: mouse.button1 = intToMouseState(action); break;
-		case GLFW_MOUSE_BUTTON_2: mouse.button2 = intToMouseState(action); break;
-		case GLFW_MOUSE_BUTTON_3: mouse.button3 = intToMouseState(action); break;
+		case GLFW_MOUSE_BUTTON_1: mouse.button1 = Mouse::GLFWToState(action); break;
+		case GLFW_MOUSE_BUTTON_2: mouse.button2 = Mouse::GLFWToState(action); break;
+		case GLFW_MOUSE_BUTTON_3: mouse.button3 = Mouse::GLFWToState(action); break;
+		default:
+			LOG("Unknown mouse button inputted", Lazuli::LogLevel::WARNING);
+		}
+
+		for (auto& callback : mouse.buttonCallbacks) {
+			callback(mouse);
 		}
 	}
 
-	void mousePositionCallback(GLFWwindow* window, double xpos, double ypos) {
-		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
-		Mouse& mouse = *manager->mouse;
+	void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
+		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
 
-		mouse.hasMoved = true;
+		mouse.yPosition = (int)xPos;
+		mouse.xPosition = (int)yPos;
 
-		mouse.yPosition = (int)ypos;
-		mouse.xPosition = (int)xpos;
-
-		int count{ 0 };
-		for (void (*callback)(int xpos, int ypos, void* data) : mouse.mousePositionCallbacks) {
-			callback((int)xpos, (int)ypos, mouse.mousePositionCallbackData[count]);
-			count++;
+		for (auto& callback : mouse.positionCallbacks) {
+			callback(mouse);
 		}
 	}
 
-	void mouseScrollWheelCallback(GLFWwindow* window, double xoffset, double yoffset) {
-		IOManager* manager = (IOManager*)glfwGetWindowUserPointer(window);
-		Mouse& mouse = *manager->mouse;
+	void MouseScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset) {
+		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
 
-		mouse.xScrollOffset = (float)xoffset;
-		mouse.yScrollOffset = (float)yoffset;
+		mouse.xScrollOffset = xOffset;
+		mouse.yScrollOffset = yOffset;
 
-		int count{ 0 };
-		for (void (*callback)(int xoffset, int yoffset, void* data) : mouse.scrollCallbacks) {
-			callback((int)xoffset, (int)yoffset, mouse.scrollCallbacksData[count]);
-			count++;
+		for (auto& callback : mouse.scrollCallbacks) {
+			callback(mouse);
 		}
 	}
 
-	void cursorEnterCallback(GLFWwindow* window, int entered) {}
+	void CursorEnterCallback(GLFWwindow* window, int entered) {
+		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
 
-	MouseButtonState intToMouseState(int state) {
+		entered ? mouse.overWindow = true : mouse.overWindow = false;
+
+		for (auto& callback : mouse.enterCallbacks) {
+			callback(mouse);
+		}
+	}
+
+	Mouse::Mouse(Window& window, HumanInterfaceDeviceContext& hidContext)
+		: m_Window(window), m_HidContext(hidContext) {
+
+		m_HidContext.SetMouseButtonCallback(m_Window.Handle(), MouseButtonCallback);
+		m_HidContext.SetMousePositionCallback(m_Window.Handle(), MousePositionCallback);
+		m_HidContext.SetScrollCallback(m_Window.Handle(), MouseScrollWheelCallback);
+		m_HidContext.SetCursorEnterCallback(m_Window.Handle(), CursorEnterCallback);
+
+		m_HidContext.SetPointerToUserData(window.Handle(), "Mouse", *this);
+	}
+
+	MouseButtonState Mouse::GLFWToState(int state) {
 		switch (state) {
 		default:
-		case GLFW_PRESS: return  MouseButtonState::BUTTON_PRESSED;
-		case GLFW_RELEASE: return  MouseButtonState::BUTTON_RELEASED;
+		case GLFW_PRESS: return  BUTTON_PRESSED;
+		case GLFW_RELEASE: return  BUTTON_RELEASED;
 		}
+	}
+
+	void Mouse::SetButtonCallback(void(*callback)(Mouse& mouse)) {
+		buttonCallbacks.push_back(callback);
+	}
+
+	void Mouse::SetPositionCallback(void(*callback)(Mouse& mouse)) {
+		positionCallbacks.push_back(callback);
+	}
+
+	void Mouse::SetScrollCallback(void(*callback)(Mouse& mouse)) {
+		scrollCallbacks.push_back(callback);
+	}
+
+	void Mouse::SetEnterWindowCallback(void(*callback)(Mouse& mouse)) {
+		enterCallbacks.push_back(callback);
 	}
 }

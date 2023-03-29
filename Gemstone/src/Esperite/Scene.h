@@ -1,17 +1,16 @@
 #pragma once
-
+#include "ComponentPool.h"
 #include "GameObject.h"
 #include "Lazuli/Log.h"
-#include "ComponentPool.h"
 
-namespace Esperite {
-	class ECSScene {
-	private:
+namespace Gem {
+	class Scene {
 		using ComponentPool = FixedSizeBitSetComponentPool;
-	public:
-		ECSScene();
 
-		~ECSScene() {
+	public:
+		Scene() = default;
+
+		~Scene() {
 			for (auto* pool : m_Pools) {
 				delete pool;
 			}
@@ -28,7 +27,7 @@ namespace Esperite {
 			return gameObjects.back();
 		}
 
-		template<typename ...Ts>
+		template <typename... Ts>
 		[[nodiscard]] InternalGameObject NewGameObject() {
 			const InternalGameObject gb = NewGameObject();
 
@@ -37,7 +36,7 @@ namespace Esperite {
 			return gb;
 		}
 
-		template<typename T>
+		template <typename T>
 		void AddComponent(const InternalGameObject gb) {
 			IComponentPool* pool = GetAndOrAddPool<T>();
 
@@ -49,10 +48,16 @@ namespace Esperite {
 
 			void* component = pool->GetComponent(gb);
 
-			new (component) T();
+			new(component) T(); // All components MUST have a default constructor.
 		}
 
-		template<typename T>
+		template <typename T>
+		void AddComponent(const InternalGameObject gb, const T component) {
+			AddComponent<T>(gb);
+			*GetComponent<T>(gb) = component;
+		}
+
+		template <typename T>
 		[[nodiscard]] T* GetComponent(const InternalGameObject gb) {
 			if (!GetAndOrAddPool<T>()->HasComponent(gb)) {
 #ifdef ESPERITE_DEBUG
@@ -62,10 +67,10 @@ namespace Esperite {
 				return nullptr;
 			}
 
-			return (T*)GetAndOrAddPool<T>()->GetComponent(gb);
+			return static_cast<T*>(GetAndOrAddPool<T>()->GetComponent(gb));
 		}
 
-		template<typename T>
+		template <typename T>
 		[[nodiscard]] bool HasComponent(const InternalGameObject gb) {
 			return GetAndOrAddPool<T>()->HasComponent(gb);
 		}
@@ -74,12 +79,20 @@ namespace Esperite {
 		// 	// TODO
 		// }
 
-		std::vector<InternalGameObject> gameObjects{ };
+		friend bool operator==(const Scene& lhs, const Scene& rhs) {
+			return lhs.gameObjects == rhs.gameObjects
+				&& lhs.m_Pools == rhs.m_Pools
+				&& lhs.m_FurthestPool == rhs.m_FurthestPool
+				&& lhs.m_FurthestGameObject == rhs.m_FurthestGameObject;
+		}
+
+		friend bool operator!=(const Scene& lhs, const Scene& rhs) { return !(lhs == rhs); }
+
+		std::vector<InternalGameObject> gameObjects{};
 
 	private:
-		template<typename T>
+		template <typename T>
 		[[nodiscard]] IComponentPool* GetAndOrAddPool() {
-
 			const size_t componentId = getId<T>();
 
 			if (componentId + 1 > m_Pools.size()) {
@@ -93,8 +106,8 @@ namespace Esperite {
 			return m_Pools[componentId];
 		}
 
-		std::vector<IComponentPool*> m_Pools{ };
-		int m_FurthestPool{ -1 };
-		GameObjectType m_FurthestGameObject{ 0 };
+		std::vector<IComponentPool*> m_Pools{};
+		int m_FurthestPool{-1};
+		GameObjectType m_FurthestGameObject{0};
 	};
 }

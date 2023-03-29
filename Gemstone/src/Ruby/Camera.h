@@ -7,7 +7,7 @@ namespace Ruby {
 	enum RenderingTarget {
 // TODO, add more targets like framebuffer, or texture
 		// TODO also need to add multi window support, this can be done quite easily by making a base class "Rendering Target"
-		// that window could derive from, this wont work now because Wavellite does not depend on Ruby.
+		// that window could derive from, this wont work now because Gem does not depend on Ruby.
 		WINDOW,
 		NONE
 	};

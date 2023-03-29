@@ -4,7 +4,7 @@
 #include "Ruby/WindowTarget.h"
 
 namespace Rutile {
-	class IWindowAPI : public Esperite::IEngineSystem {
+	class IWindowAPI : public Gem::IEngineSystem {
 	public:
 		IWindowAPI() = default;
 		~IWindowAPI() override  = default;

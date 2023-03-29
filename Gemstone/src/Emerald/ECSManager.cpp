@@ -37,63 +37,63 @@ namespace Emerald {
 		m_WindowAPI->CreateWindow("Gemstone", Malachite::Vector2ui{ 200, 100 }, false);
 		m_RenderingAPI->CreateContext();
 
-		// Wavellite::Window::Get().Init();
+		// Gem::Window::Get().Init();
 		// Ruby::RenderingContext::Get().Init();
 		//
-		// Wavellite::Keyboard::Get().Init();
-		// Wavellite::Mouse::Get().Init();
+		// Gem::Keyboard::Get().Init();
+		// Gem::Mouse::Get().Init();
 	}
 
 	void ECSManager::Frame() { // TODO work on this
-		// m_FrameTime = Wavellite::Time::GetTime();
+		// m_FrameTime = Gem::Time::GetTime();
 		//
-		// Wavellite::Input::Poll();
+		// Gem::Input::Poll();
 		//
 		// ExecuteSystems();
 		//
 		// Ruby::Renderer::Render();
 		//
-		// float timeDifference{ Wavellite::Time::GetTime() - m_FrameTime };
+		// float timeDifference{ Gem::Time::GetTime() - m_FrameTime };
 		// const float requiredTimeDifference = (1.0f / Settings::MaxFPS);
 		// while(timeDifference < requiredTimeDifference) {
-		// 	timeDifference = Wavellite::Time::GetTime() - m_FrameTime;
+		// 	timeDifference = Gem::Time::GetTime() - m_FrameTime;
 		// }
 	}
 
 	void ECSManager::Start() {
-		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-			system->StartUp(activeScene);
-		}
-
-		while (Wavellite::Window::Get().IsOpen()) {
-			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-				system->PreStep(activeScene);
-			}
-
-			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-				system->Step(activeScene);
-			}
-
-			for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-				system->EndStep(activeScene);
-			}
-		}
-
-		for (const Celestite::Ptr<Esperite::System>& system : m_Systems) {
-			system->ShutDown(activeScene);
-		}
+		// for (const Celestite::Ptr<Gem::System>& system : m_Systems) {
+		// 	system->StartUp(activeScene);
+		// }
+		//
+		// while (Gem::Window::Get().IsOpen()) {
+		// 	for (const Celestite::Ptr<Gem::System>& system : m_Systems) {
+		// 		system->PreStep(activeScene);
+		// 	}
+		//
+		// 	for (const Celestite::Ptr<Gem::System>& system : m_Systems) {
+		// 		system->Step(activeScene);
+		// 	}
+		//
+		// 	for (const Celestite::Ptr<Gem::System>& system : m_Systems) {
+		// 		system->EndStep(activeScene);
+		// 	}
+		// }
+		//
+		// for (const Celestite::Ptr<Gem::System>& system : m_Systems) {
+		// 	system->ShutDown(activeScene);
+		// }
 	}
 
 	ECSManager& ECSManager::AddDefaultSystems() { //TODO make sure that if this is called multiple times it dosent add them multiple times
 		m_Systems.push_back(Celestite::CreatePtr<Input>());
-		m_Systems.push_back(Celestite::CreatePtr<Ruby::RenderingSystem>(Wavellite::Window::Get()));
+		// m_Systems.push_back(Celestite::CreatePtr<Ruby::RenderingSystem>(Gem::Window::Get()));
 		m_Systems.push_back(Celestite::CreatePtr<Ruby::ViewMatrixCorrection>());
 		// TODO more default systems
 
 		return *this;
 	}
 
-	ECSManager& ECSManager::AddSystem(const Celestite::Ptr<Esperite::System> system) { //TODO maybe should be part of the scene and not engine?
+	ECSManager& ECSManager::AddSystem(const Celestite::Ptr<Gem::System> system) { //TODO maybe should be part of the scene and not engine?
 		m_Systems.push_back(system);
 		return *this;
 	}

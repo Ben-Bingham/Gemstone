@@ -2,14 +2,14 @@
 #include "RenderingSystem.h"
 #include "DebugRenderer.h"
 #include "Ruby/OpenGLState.h"
-#include "Esperite/ECSScene.h"
+#include "Esperite/Scene.h"
 
 #include "Ruby/Geometry/Mesh.h"
 
 #include "Ruby/Materials/Material.h"
 
 namespace Ruby {
-	RenderingSystem::RenderingSystem(Wavellite::Window& window, Camera* camera)
+	RenderingSystem::RenderingSystem(Gem::Window& window, Camera* camera)
 		: m_Camera(camera), m_Window(&window) {
 
 		int flags;
@@ -46,55 +46,55 @@ namespace Ruby {
 		// m_ViewMatrix = m_Camera->getViewMatrix();
 	}
 
-	void RenderingSystem::PreStep(Esperite::ECSScene* scene) { //TODO multi camera and window support
-		beginFrame();
-	}
+	// void RenderingSystem::PreStep(Gem::Scene* scene) { //TODO multi camera and window support
+	// 	beginFrame();
+	// }
+	//
+	// void RenderingSystem::Step(Gem::Scene* scene) {
+	// 	// for (auto& gb : scene->gameObjects) {
+	// 	// 	if (scene->HasComponent<Camera>(gb)) {
+	// 	// 		Camera* cam = scene->GetComponent<Camera>(gb);
+	// 	//
+	// 	// 		if (cam->target == WINDOW) {
+	// 	// 			setCamera(cam);
+	// 	// 			beginFrame();
+	// 	//
+	// 	// 			for (const auto& renderable : scene->gameObjects) {
+	// 	// 				if (scene->HasComponent<Mesh>(renderable) &&
+	// 	// 					scene->HasComponent<Material>(renderable) &&
+	// 	// 					scene->HasComponent<Malachite::Transform>(renderable)) {
+	// 	//
+	// 	// 					const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
+	// 	// 					const Material* material = scene->GetComponent<Material>(renderable);
+	// 	// 					Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
+	// 	//
+	// 	// 					// m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
+	// 	// 					Render(Renderable(*mesh->mesh, *material->material, *transform), cam);
+	// 	// 				}
+	// 	// 			}
+	// 	//
+	// 	// 			for (const auto& function : m_RenderFunctions) {
+	// 	// 				function(scene, cam);
+	// 	// 			}
+	// 	//
+	// 	// 			endFrame();
+	// 	// 			m_Window->swapBuffers();
+	// 	// 		}
+	// 	// 	}
+	// 	// }
+	//
+	// 	defaultRenderFunction(scene, m_Camera);
+	//
+	// 	for (const auto& function : renderFunctions) {
+	// 		function(scene, m_Camera);
+	// 	}
+	// }
+	//
+	// void RenderingSystem::EndStep(Gem::Scene* scene) {
+	// 	endFrame();
+	// }
 
-	void RenderingSystem::Step(Esperite::ECSScene* scene) {
-		// for (auto& gb : scene->gameObjects) {
-		// 	if (scene->HasComponent<Camera>(gb)) {
-		// 		Camera* cam = scene->GetComponent<Camera>(gb);
-		//
-		// 		if (cam->target == WINDOW) {
-		// 			setCamera(cam);
-		// 			beginFrame();
-		//
-		// 			for (const auto& renderable : scene->gameObjects) {
-		// 				if (scene->HasComponent<Mesh>(renderable) &&
-		// 					scene->HasComponent<Material>(renderable) &&
-		// 					scene->HasComponent<Malachite::Transform>(renderable)) {
-		//
-		// 					const Mesh* mesh = scene->GetComponent<Mesh>(renderable);
-		// 					const Material* material = scene->GetComponent<Material>(renderable);
-		// 					Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
-		//
-		// 					// m_Renderables.emplace_back(Renderable(*mesh->mesh, *material->material, *transform));
-		// 					Render(Renderable(*mesh->mesh, *material->material, *transform), cam);
-		// 				}
-		// 			}
-		//
-		// 			for (const auto& function : m_RenderFunctions) {
-		// 				function(scene, cam);
-		// 			}
-		//
-		// 			endFrame();
-		// 			m_Window->swapBuffers();
-		// 		}
-		// 	}
-		// }
-
-		defaultRenderFunction(scene, m_Camera);
-
-		for (const auto& function : renderFunctions) {
-			function(scene, m_Camera);
-		}
-	}
-
-	void RenderingSystem::EndStep(Esperite::ECSScene* scene) {
-		endFrame();
-	}
-
-	// void RenderingSystem::SubmitRenderCall(Esperite::ECSScene* scene, Esperite::InternalGameObject gb) {
+	// void RenderingSystem::SubmitRenderCall(Gem::Scene* scene, Gem::InternalGameObject gb) {
 	// 	
 	// }
 
@@ -104,7 +104,7 @@ namespace Ruby {
 	}
 
 	void RenderingSystem::endFrame() {
-		m_Window->swapBuffers();
+		// m_Window->swapBuffers();
 		// int i = 0;
 		// for (Renderable renderable : m_Renderables) {
 		// 	renderable.mesh().bind();
@@ -129,7 +129,7 @@ namespace Ruby {
 		// OpenGlState::get().setDepthTesting(depthTesting);
 	}
 
-	// void RenderingSystem::AddRenderFunction(void (*renderFunction)(Esperite::ECSScene* scene, Camera* camera)) {
+	// void RenderingSystem::AddRenderFunction(void (*renderFunction)(Gem::Scene* scene, Camera* camera)) {
 	// 	m_RenderFunctions.push_back(renderFunction);
 	// }
 
@@ -141,7 +141,7 @@ namespace Ruby {
 
 		ImGui::StyleColorsDark();
 
-		ImGui_ImplGlfw_InitForOpenGL(Wavellite::Window::Get().getWindow(), true);
+		// ImGui_ImplGlfw_InitForOpenGL(Gem::Window::Get().getWindow(), true);
 		ImGui_ImplOpenGL3_Init(nullptr);
 	}
 
@@ -167,7 +167,7 @@ namespace Ruby {
 		ImGui::DestroyContext();
 	}
 
-	void DefaultRenderFunction(Esperite::ECSScene* scene, Camera* camera) {
+	void DefaultRenderFunction(Gem::Scene* scene, Camera* camera) {
 		// int i = 0;
 		// for (Renderable renderable : m_Renderables) {
 		// 	renderable.mesh().bind();
@@ -204,7 +204,7 @@ namespace Ruby {
 				const Material* material = scene->GetComponent<Material>(renderable);
 				Malachite::Transform* transform = scene->GetComponent<Malachite::Transform>(renderable);
 
-				material->material->use(transform->getModelMatrix(), cam->viewMatrix, Wavellite::Window::Get().getProjectionMatrix());
+				// material->material->use(transform->getModelMatrix(), cam->viewMatrix, Gem::Window::Get().getProjectionMatrix());
 				glDrawElements((GLenum)(int)mesh->mesh->getDrawMode(), (GLsizei)mesh->mesh->getIndexCount(), GL_UNSIGNED_INT, 0);
 				material->material->end();
 

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Esperite {
+namespace Gem {
 	class IEngineSystem {
 	public:
 		IEngineSystem() = default;

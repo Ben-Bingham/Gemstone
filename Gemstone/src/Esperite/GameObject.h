@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Esperite {
+namespace Gem {
 	using GameObjectType = unsigned int;
 	using InternalGameObject = GameObjectType;
 

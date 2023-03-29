@@ -2,7 +2,7 @@
 #include "Esperite/Engine Systems/EngineSystem.h"
 
 namespace Rutile {
-	class IRenderingAPI : public Esperite::IEngineSystem {
+	class IRenderingAPI : public Gem::IEngineSystem {
 	public:
 		IRenderingAPI() = default;
 		~IRenderingAPI() override = default;

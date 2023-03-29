@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "Lazuli/Log.h"
 
-namespace Esperite {
+namespace Gem {
 	inline unsigned int masterComponentCounter{ 0 };
 
 	template<typename T>

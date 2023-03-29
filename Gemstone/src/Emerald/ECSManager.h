@@ -3,7 +3,7 @@
 #include "Wavellite/Window.h"
 
 #include "Ruby/Renderers/RenderingSystem.h"
-#include "Esperite/ECSScene.h"
+#include "Esperite/Scene.h"
 
 #include "Celestite/Pointer.h"
 
@@ -23,7 +23,7 @@ namespace Emerald {
 		void Frame();
 
 		ECSManager& AddDefaultSystems();
-		ECSManager& AddSystem(Celestite::Ptr<Esperite::System> system);
+		ECSManager& AddSystem(Celestite::Ptr<Gem::System> system);
 
 		template<typename T>
 		Celestite::Ptr<T> GetSystem() {
@@ -37,17 +37,17 @@ namespace Emerald {
 			return nullptr;
 		}
 
-		Esperite::ECSScene* activeScene{ nullptr };
+		Gem::Scene* activeScene{ nullptr };
 
 	private:
-		std::vector<Celestite::Ptr<Esperite::System>> m_Systems;
+		std::vector<Celestite::Ptr<Gem::System>> m_Systems;
 
 
 
 		float m_FrameTime{ 0.0f };
-		// Celestite::UPtr<Wavellite::Window> m_Window; //TODO at some point make this a member of the camera, could even implement a render output interface that the camera outputs to or smth
+		// Celestite::UPtr<Gem::Window> m_Window; //TODO at some point make this a member of the camera, could even implement a render output interface that the camera outputs to or smth
 
-		// std::vector<Celestite::Ptr<Esperite::InternalGameObject>> m_GameObjects;
+		// std::vector<Celestite::Ptr<Gem::InternalGameObject>> m_GameObjects;
 
 
 

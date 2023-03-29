@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-namespace Wavellite {
+namespace Gem {
 	class Time { //TODO make singleton
 	public:
 		// Time() {
