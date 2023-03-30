@@ -7,8 +7,8 @@ public:
 	int lastX{ 0 };
 	int lastY{ 0 };
 	float mouseSensitivity{ 0.1f };
-	Malachite::Degree yaw{ -90.0f };
-	Malachite::Degree pitch{ 0.0f };
+	Degree yaw{ -90.0f };
+	Degree pitch{ 0.0f };
 };
 
 void mousePositionCallback(int xpos, int ypos, void* data) {
@@ -36,10 +36,10 @@ void mousePositionCallback(int xpos, int ypos, void* data) {
 	if (camera->pitch < -89.0f)
 		camera->pitch = -89.0f;
 
-	Malachite::Vector3f direction;
-	direction.x = cos(Malachite::degreesToRadians(camera->yaw)) * cos(Malachite::degreesToRadians(camera->pitch));
-	direction.y = sin(Malachite::degreesToRadians(camera->pitch));
-	direction.z = sin(Malachite::degreesToRadians(camera->yaw)) * cos(Malachite::degreesToRadians(camera->pitch));
+	Vector3f direction;
+	direction.x = cos(degreesToRadians(camera->yaw)) * cos(degreesToRadians(camera->pitch));
+	direction.y = sin(degreesToRadians(camera->pitch));
+	direction.z = sin(degreesToRadians(camera->yaw)) * cos(degreesToRadians(camera->pitch));
 
 	camera->front = direction.normalize();
 	camera->updateCameraVectors();

@@ -1,8 +1,6 @@
 #include "TestLevel.h"
 
-#include "Esperite/ComponentView.h"
-#include "gb/GameObject.h"
-#include "Lazuli/Log.h"
+#include "Entity Component System/ComponentView.h"
 
 using namespace Gem;
 
@@ -53,7 +51,7 @@ void TestLevel::Load() {
 	const GameObject gb4 = GameObject::CreateGameObject<Vec2, StandardInfo>(m_EntityComponentSystem, Vec2{ 0, 3 }, StandardInfo{"Bob", 3354345});
 	const GameObject gb5 = GameObject(m_EntityComponentSystem).AddComponent(Vec2{ 4, 1 }).AddComponent(StandardInfo{ "tim", 214829034 });
 
-	m_EntityComponentSystem.systems.push_back(Celestite::CreatePtr<HelloWorldSystem>());
-	m_EntityComponentSystem.systems.push_back(Celestite::CreatePtr<MovementSystem>());
-	m_EntityComponentSystem.systems.push_back(Celestite::CreatePtr<GameController>(*this));
+	m_EntityComponentSystem.systems.push_back(CreatePtr<HelloWorldSystem>());
+	m_EntityComponentSystem.systems.push_back(CreatePtr<MovementSystem>());
+	m_EntityComponentSystem.systems.push_back(CreatePtr<GameController>());
 }

@@ -6,6 +6,6 @@
 #include <array>
 
 // Gemstone
-#include "Lazuli/Log.h"
-#include "Malachite/Vector.h"
-#include "Malachite/Matrix.h"
+#include "Utility/Log.h"
+#include "Math/Vector.h"
+#include "Math/Matrix.h"

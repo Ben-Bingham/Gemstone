@@ -1,6 +1,5 @@
 #pragma once
-#include "Esperite/Level.h"
-#include "Apatite/Application.h"
+#include "Core/Game Flow/Level.h"
 
 class TestLevel : public Gem::Level {
 public:
