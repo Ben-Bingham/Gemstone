@@ -1,15 +1,12 @@
 #pragma once
-#include "Application.h"
+#include <functional>
 
 #include "Entity Component System//EntityComponentSystem.h"
 
 namespace Gem {
-	/*
-	Stores data and instructions for running a single Level
-	 */
 	class Level {
 	public:
-		Level(Application& app);
+		Level() = default;
 		Level(const Level& other) = default;
 		Level(Level&& other) noexcept = default;
 		Level& operator=(const Level& other) = delete;
@@ -22,17 +19,14 @@ namespace Gem {
 
 		[[nodiscard]] bool IsRunning() const;
 		void Stop();
-		
-		[[nodiscard]] EntityComponentSystem& ECS();
 
 		void InternalLoad();
 		void InternalUnload();
 
 	private:
-		bool m_Running{ true };
+		bool m_Running{ false };
 
 	protected:
 		EntityComponentSystem m_EntityComponentSystem{ };
-		Application& m_App;
 	};
 }

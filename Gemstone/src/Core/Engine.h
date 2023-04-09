@@ -1,12 +1,14 @@
 #pragma once
+#include "Window.h"
+#include "Event System/EventSystem.h"
 #include "Input/HumanInterfaceDeviceContext.h"
-#include "Utility/Pointer.h"
+#include "Input/Keyboard.h"
+#include "Input/Mouse.h"
+#include "Rendering/OpenGlContext.h"
+#include "Rendering/Renderer.h"
+#include "Rendering/User Interface/ImGuiContext.h"
 
 namespace Gem {
-	class Level;
-	/*
-	Controls execution of Levels, when to render, when to start the next frame, ect.
-	 */
 	class Engine {
 	public:
 		Engine();
@@ -16,9 +18,18 @@ namespace Gem {
 		Engine& operator=(Engine&& other) noexcept = default;
 		~Engine();
 
-		void ExecuteFrame(const Ptr<Level>& level) const;
-
 		// Sub Systems
+		EventSystemManager eventManager{};
 		HumanInterfaceDeviceContext humanInterfaceDeviceContext{};
-	};
+		Window window{};
+		OpenGlContext openGlContext{};
+		ImGuiContext imGuiContext{};
+		Renderer renderer{};
+		// TODO add Logging as a subSystem
+
+	private:
+		Keyboard m_Keyboard{};
+		Mouse m_Mouse{};
+
+	} inline g_Engine;
 }

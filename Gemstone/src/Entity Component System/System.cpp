@@ -8,4 +8,6 @@ namespace Gem {
 	void System::Step(EntityComponentSystem& ecs) {}
 	void System::EndStep(EntityComponentSystem& ecs) {}
 	void System::ShutDown(EntityComponentSystem& ecs) {}
+
+	void System::UIRender() {}
 }

@@ -50,6 +50,10 @@ namespace Gem {
 		return glfwWindowShouldClose(handle);
 	}
 
+	void HumanInterfaceDeviceContext::SwapBuffers(WindowHandle handle) {
+		glfwSwapBuffers(handle);
+	}
+
 	// Callbacks
 	void HumanInterfaceDeviceContext::SetKeyCallback(const WindowHandle handle, void(*callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods)) {
 #ifdef GEMSTONE_DEBUG

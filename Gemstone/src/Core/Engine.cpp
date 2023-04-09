@@ -1,27 +1,30 @@
 #include "pch.h"
-#include "Core/Game Flow/Level.h"
 #include "Engine.h"
-#include "Settings.h"
-#include "Utility/Time.h"
 
 namespace Gem {
 	Engine::Engine() {
+		eventManager.StartUp();
 		humanInterfaceDeviceContext.StartUp();
-	}
+		window.StartUp();
 
-	void Engine::ExecuteFrame(const Ptr<Level>& level) const {
-		const float endTime = Time::GetTime() + 1.0f / (float)Settings::maxFPS;
+		m_Keyboard.StartUp();
+		m_Mouse.StartUp();
 
-		humanInterfaceDeviceContext.PollEvents();
-
-		level->Step();
-
-		// Ruby::Renderer::Render();
-
-		Time::Wait(endTime - Time::GetTime());
+		openGlContext.StartUp();
+		imGuiContext.StartUp();
+		renderer.StartUp();
 	}
 
 	Engine::~Engine() {
+		renderer.ShutDown();
+		imGuiContext.ShutDown();
+		openGlContext.ShutDown();
+
+		m_Mouse.ShutDown();
+		m_Keyboard.ShutDown();
+
+		window.ShutDown();
 		humanInterfaceDeviceContext.ShutDown();
+		eventManager.ShutDown();
 	}
 }

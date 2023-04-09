@@ -1,31 +1,30 @@
 #include "pch.h"
-
-#include <GL/glew.h>
-
+#include "Engine.h"
 #include "Window.h"
-#include "Utility/Log.h"
 
 namespace Gem {
-	Window::Window(HumanInterfaceDeviceContext& hidContext)
-		: m_HidContext(hidContext) {
+	void Window::StartUp() {
+		m_Handle = g_Engine.humanInterfaceDeviceContext.CreateWindowHandle(m_Size, "Window");
+		g_Engine.humanInterfaceDeviceContext.MakeGraphicsContextCurrent(m_Handle);
+	}
 
-		m_Handle = m_HidContext.CreateWindowHandle(m_Size, "Window");
-		m_HidContext.MakeGraphicsContextCurrent(m_Handle);
-
-        if (glewInit() != GLEW_OK) { // TODO maybe make this its own class, it could also manage OpengGl state.
-			LOG("GLEW failed to be initialized", Gem::LogLevel::TERMINAL);
-        }
+	void Window::ShutDown() {
+		
 	}
 
 	bool Window::IsOpen() const {
-		return !m_HidContext.ShouldWindowClose(m_Handle);
+		return !g_Engine.humanInterfaceDeviceContext.ShouldWindowClose(m_Handle);
 	}
 
-	void Window::Close() const {
-		m_HidContext.CloseWindow(m_Handle);
+	void Window::Close() {
+		g_Engine.humanInterfaceDeviceContext.CloseWindow(m_Handle);
 	}
 
 	WindowHandle Window::Handle() const {
 		return m_Handle;
+	}
+
+	void Window::SwapBuffers() {
+		g_Engine.humanInterfaceDeviceContext.SwapBuffers(m_Handle);
 	}
 }

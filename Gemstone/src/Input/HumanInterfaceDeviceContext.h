@@ -11,7 +11,7 @@ namespace Gem {
 
 	using WindowHandle = GLFWwindow*;
 
-	class HumanInterfaceDeviceContext final : public ISubSystem {  //TODO better name, glfw does not need to be included
+	class HumanInterfaceDeviceContext final : ISubSystem {
 	public:
 		HumanInterfaceDeviceContext() = default;
 		HumanInterfaceDeviceContext(const HumanInterfaceDeviceContext& other) = default;
@@ -29,6 +29,7 @@ namespace Gem {
 		void MakeGraphicsContextCurrent(WindowHandle handle);
 		void CloseWindow(WindowHandle handle);
 		bool ShouldWindowClose(WindowHandle handle);
+		void SwapBuffers(WindowHandle handle);
 
 		// Callbacks
 		void SetKeyCallback(WindowHandle handle, void (*callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods));

@@ -10,7 +10,7 @@ namespace Gem {
 		ISubSystem& operator=(ISubSystem&& other) noexcept = default;
 		virtual ~ISubSystem() = default;
 
-		virtual void StartUp();
-		virtual void ShutDown();
+		virtual void StartUp() = 0;
+		virtual void ShutDown() = 0;
 	};
 }

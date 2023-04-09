@@ -17,5 +17,7 @@ namespace Gem {
 		virtual void Step(EntityComponentSystem& ecs);
 		virtual void EndStep(EntityComponentSystem& ecs);
 		virtual void ShutDown(EntityComponentSystem& ecs);
+
+		virtual void UIRender();
 	};
 }

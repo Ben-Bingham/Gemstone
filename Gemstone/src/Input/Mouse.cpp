@@ -1,89 +1,61 @@
 #include "pch.h"
 #include "Mouse.h"
+#include "MouseEvents.h"
+#include "Core/Engine.h"
+#include "Core/Event System/EventHandler.h"
 #include "Utility/Log.h"
-
 
 namespace Gem {
 	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
+		auto eventButton{MouseEvents::Button::UNKNOWN};
 
 		switch (button) {
-		case GLFW_MOUSE_BUTTON_1: mouse.button1 = Mouse::GLFWToState(action); break;
-		case GLFW_MOUSE_BUTTON_2: mouse.button2 = Mouse::GLFWToState(action); break;
-		case GLFW_MOUSE_BUTTON_3: mouse.button3 = Mouse::GLFWToState(action); break;
+		case GLFW_MOUSE_BUTTON_1: eventButton = MouseEvents::Button::LEFT;
+			break;
+		case GLFW_MOUSE_BUTTON_2: eventButton = MouseEvents::Button::RIGHT;
+			break;
+		case GLFW_MOUSE_BUTTON_3: eventButton = MouseEvents::Button::MIDDLE;
+			break;
 		default:
 			LOG("Unknown mouse button inputted", LogLevel::WARNING);
 		}
 
-		for (auto& callback : mouse.buttonCallbacks) {
-			callback(mouse);
+		if (action) {
+			g_Engine.eventManager.Post(MouseEvents::ButtonDown{eventButton});
+		}
+		else {
+			g_Engine.eventManager.Post(MouseEvents::ButtonUp{eventButton});
 		}
 	}
 
 	void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
-
-		mouse.yPosition = (int)xPos;
-		mouse.xPosition = (int)yPos;
-
-		for (auto& callback : mouse.positionCallbacks) {
-			callback(mouse);
-		}
+		g_Engine.eventManager.Post(MouseEvents::Position{static_cast<int>(xPos), static_cast<int>(yPos)});
 	}
 
 	void MouseScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset) {
-		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
-
-		mouse.xScrollOffset = xOffset;
-		mouse.yScrollOffset = yOffset;
-
-		for (auto& callback : mouse.scrollCallbacks) {
-			callback(mouse);
-		}
+		g_Engine.eventManager.Post(MouseEvents::Scroll{static_cast<float>(xOffset), static_cast<float>(yOffset)});
 	}
 
 	void CursorEnterCallback(GLFWwindow* window, int entered) {
-		Mouse& mouse = HumanInterfaceDeviceContext::GetPointerToUserData<Mouse>(window, "Mouse");
-
-		entered ? mouse.overWindow = true : mouse.overWindow = false;
-
-		for (auto& callback : mouse.enterCallbacks) {
-			callback(mouse);
+		if (entered) {
+			g_Engine.eventManager.Post(MouseEvents::CursorEnter{});
+		}
+		else {
+			g_Engine.eventManager.Post(MouseEvents::CursorLeave{});
 		}
 	}
 
-	Mouse::Mouse(Window& window, HumanInterfaceDeviceContext& hidContext)
-		: m_Window(window), m_HidContext(hidContext) {
+	void Mouse::StartUp() {
+		const Window& window = g_Engine.window;
+		HumanInterfaceDeviceContext& hidContext = g_Engine.humanInterfaceDeviceContext;
 
-		m_HidContext.SetMouseButtonCallback(m_Window.Handle(), MouseButtonCallback);
-		m_HidContext.SetMousePositionCallback(m_Window.Handle(), MousePositionCallback);
-		m_HidContext.SetScrollCallback(m_Window.Handle(), MouseScrollWheelCallback);
-		m_HidContext.SetCursorEnterCallback(m_Window.Handle(), CursorEnterCallback);
-
-		m_HidContext.SetPointerToUserData(window.Handle(), "Mouse", *this);
+		hidContext.SetMouseButtonCallback(window.Handle(), MouseButtonCallback);
+		hidContext.SetMousePositionCallback(window.Handle(), MousePositionCallback);
+		hidContext.SetScrollCallback(window.Handle(), MouseScrollWheelCallback);
+		hidContext.SetCursorEnterCallback(window.Handle(), CursorEnterCallback);
 	}
 
-	MouseButtonState Mouse::GLFWToState(int state) {
-		switch (state) {
-		default:
-		case GLFW_PRESS: return  BUTTON_PRESSED;
-		case GLFW_RELEASE: return  BUTTON_RELEASED;
-		}
-	}
-
-	void Mouse::SetButtonCallback(void(*callback)(Mouse& mouse)) {
-		buttonCallbacks.push_back(callback);
-	}
-
-	void Mouse::SetPositionCallback(void(*callback)(Mouse& mouse)) {
-		positionCallbacks.push_back(callback);
-	}
-
-	void Mouse::SetScrollCallback(void(*callback)(Mouse& mouse)) {
-		scrollCallbacks.push_back(callback);
-	}
-
-	void Mouse::SetEnterWindowCallback(void(*callback)(Mouse& mouse)) {
-		enterCallbacks.push_back(callback);
+	void Mouse::ShutDown() {
+		
 	}
 }

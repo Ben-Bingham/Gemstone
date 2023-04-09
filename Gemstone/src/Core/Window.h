@@ -3,17 +3,21 @@
 #include "Math/Vector.h"
 
 namespace Gem {
-	class Window {
+	class Window : ISubSystem {
 	public:
-		Window(HumanInterfaceDeviceContext& hidContext);
+		Window() = default;
 
 		[[nodiscard]] bool IsOpen() const;
-		void Close() const;
+		void Close();
 
 		[[nodiscard]] WindowHandle Handle() const;
 
+		void StartUp() override;
+		void ShutDown() override;
+
+		void SwapBuffers();
+
 	private:
-		HumanInterfaceDeviceContext& m_HidContext;
 		Vector2i m_Size{ 640, 480 };
 		WindowHandle m_Handle{ nullptr };
 	};

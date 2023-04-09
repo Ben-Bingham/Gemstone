@@ -5,17 +5,14 @@ using namespace Gem;
 
 /*
  * Ordered TODO list:
- * TODO implement event system for keyboard and mouse inputs, than remove the reference to APP that is passed down to every system.
- * TODO also need to think of way to tell the window to close, resize, change title ect. from system classes
- *
- * TODO UI
  * TODO Rendering
+ * TODO multiple usage of the same level, and other things with switching levels
  * TODO Debug Rendering
  * TODO Physics
  */
 
 int main() {
-	Application app{};
+	constexpr Application app{};
 
-	app.Load(CreatePtr<TestLevel>(app));
+	app.Load(CreatePtr<TestLevel>());
 }

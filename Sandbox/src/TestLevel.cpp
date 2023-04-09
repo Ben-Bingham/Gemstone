@@ -1,57 +1,33 @@
 #include "TestLevel.h"
-
+#include "imgui.h"
+#include "Core/Engine.h"
+#include "Core/Event System/EventHandler.h"
 #include "Entity Component System/ComponentView.h"
+#include "Input/KeyboardEvents.h"
+#include "Rendering/User Interface/UISystem.h"
 
 using namespace Gem;
 
-struct Vec2 {
-	int x;
-	int y;
-};
-
-struct StandardInfo {
-	std::string name;
-	unsigned int age;
-};
-
-class HelloWorldSystem : public System {
+class GameController : public System, EventHandler<KeyboardEvents::KeyDown> {
 public:
 	void Step(EntityComponentSystem& ecs) override {
-		LOG("Hello World");
+		ImGui::ShowDemoWindow();
 	}
-};
 
-class MovementSystem : public System {
-public:
-	void Step(EntityComponentSystem& ecs) override {
-		for (auto gb : ComponentView<Vec2>{ ecs }) {
-			gb.GetComponent<Vec2>()->x += 1;
-			LOG(gb.GetComponent<Vec2>()->x);
+	void HandleEvent(const KeyboardEvents::KeyDown& event) override {
+		if (event.key == KeyboardEvents::Key::ESCAPE) {
+			LOG("Stoping Level");
+			g_Engine.eventManager.Post(StopLevel{});
 		}
 	}
 };
 
-class GameController : public System {
-public:
-	void Step(EntityComponentSystem& ecs) override {
-		// if (m_Level) {
-		// 	level.Stop();
-		// }
-	}
-};
-
-TestLevel::TestLevel(Application& app)
-	: Level(app) {
-	
-}
-
 void TestLevel::Load() {
 	const GameObject gb1{ m_EntityComponentSystem };
-	const GameObject gb2 = GameObject::CreateGameObject<Vec2, StandardInfo>(m_EntityComponentSystem);
-	const GameObject gb4 = GameObject::CreateGameObject<Vec2, StandardInfo>(m_EntityComponentSystem, Vec2{ 0, 3 }, StandardInfo{"Bob", 3354345});
-	const GameObject gb5 = GameObject(m_EntityComponentSystem).AddComponent(Vec2{ 4, 1 }).AddComponent(StandardInfo{ "tim", 214829034 });
 
-	m_EntityComponentSystem.systems.push_back(CreatePtr<HelloWorldSystem>());
-	m_EntityComponentSystem.systems.push_back(CreatePtr<MovementSystem>());
 	m_EntityComponentSystem.systems.push_back(CreatePtr<GameController>());
+}
+
+void TestLevel::HandleEvent(const StopLevel& event) {
+	Stop();
 }

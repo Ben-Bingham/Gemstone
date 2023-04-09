@@ -2,11 +2,6 @@
 #include "Level.h"
 
 namespace Gem {
-	Level::Level(Application& app)
-		: m_App(app) {
-		
-	}
-
 	void Level::Load() {}
 
 	void Level::Step() {
@@ -16,11 +11,15 @@ namespace Gem {
 	void Level::Unload() {}
 
 	void Level::InternalLoad() {
+		// Adding default systems:
+
 		Load();
 		m_EntityComponentSystem.Load();
+		m_Running = true;
 	}
 
 	void Level::InternalUnload() {
+		m_Running = false;
 		m_EntityComponentSystem.Unload();
 		Unload();
 	}
@@ -32,6 +31,4 @@ namespace Gem {
 	bool Level::IsRunning() const {
 		return m_Running;
 	}
-
-	EntityComponentSystem& Level::ECS() { return m_EntityComponentSystem; }
 }
