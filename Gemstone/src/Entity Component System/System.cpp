@@ -1,13 +1,11 @@
 #include "pch.h"
 #include "System.h"
-#include "EntityComponentSystem.h"
+#include "EntityManager.h"
 
 namespace Gem {
-	void System::StartUp(EntityComponentSystem& ecs) {}
-	void System::PreStep(EntityComponentSystem& ecs) {}
-	void System::Step(EntityComponentSystem& ecs) {}
-	void System::EndStep(EntityComponentSystem& ecs) {}
-	void System::ShutDown(EntityComponentSystem& ecs) {}
-
-	void System::UIRender() {}
+	void System::StartUp(EntityManager& entityManager) {}
+	void System::PreStep(EntityManager& entityManager) {}
+	void System::Step(EntityManager& entityManager) {}
+	void System::EndStep(EntityManager& entityManager) {}
+	void System::ShutDown(EntityManager& entityManager) {}
 }

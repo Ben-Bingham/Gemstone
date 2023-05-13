@@ -29,9 +29,11 @@ function useGemstone(gemstoneRoot)
 
     quadSlashGemstoneRoot = string.gsub(gemstoneRoot, "/", "\\\\")
 
+    print (quadSlashGemstoneRoot)
+
     defines { 
         "GLEW_STATIC",
-        "RUBY_ASSETS=\"" .. quadSlashGemstoneRoot .. "Gemstone\\\\assets\"", -- Quad slashes needed because premake and the compiler both remove a set
+        "GEM_ASSETS_STRING=\"" .. gemstoneRoot .. "Gemstone\\assets\\\"", -- Quad slashes needed because premake and the compiler both remove a set
         "GLFW_INCLUDE_NONE"
     }
 

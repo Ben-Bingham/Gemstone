@@ -1,26 +1,30 @@
 #include "pch.h"
 #include "Level.h"
+#include "New Rendering/RenderingSystem.h"
+#include "New Rendering/User Interface/UiSystem.h"
 
 namespace Gem {
 	void Level::Load() {}
 
 	void Level::Step() {
-		m_EntityComponentSystem.Step();
+		m_Ecs.Step();
 	}
 
 	void Level::Unload() {}
 
 	void Level::InternalLoad() {
 		// Adding default systems:
+		m_Ecs.systems.push_back(CreatePtr<RenderingSystem>());
+		m_Ecs.systems.push_back(CreatePtr<UiSystem>());
 
 		Load();
-		m_EntityComponentSystem.Load();
+		m_Ecs.Load();
 		m_Running = true;
 	}
 
 	void Level::InternalUnload() {
 		m_Running = false;
-		m_EntityComponentSystem.Unload();
+		m_Ecs.Unload();
 		Unload();
 	}
 

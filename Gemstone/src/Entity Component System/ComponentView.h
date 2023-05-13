@@ -1,85 +1,147 @@
 #pragma once
-#include "EntityComponentSystem.h"
-#include "InternalGameObject.h"
-#include "GameObject.h"
+#include "EntityManager.h"
+#include <tuple>
 
 namespace Gem {
-    template<typename... Ts>
-	class ComponentView {
+	template<typename ...ComponentTypes>
+	class BaseComponentView { };
+	
+	template<typename ...ComponentTypes>
+	class ComponentView : BaseComponentView<ComponentTypes...> {
 	public:
-		ComponentView(EntityComponentSystem& ecs)
-			: m_EntityComponentSystem(ecs) {
-  
+		ComponentView(EntityManager& manager)
+			: m_Manager(manager) { }
+
+		class Iterator {
+		public:
+			Iterator(Entity entity, EntityManager& manager)
+				: m_Entity(entity), m_Manager(manager) { }
+
+			std::tuple<ComponentTypes&...> operator*() {
+				return std::make_tuple(std::ref(m_Manager.GetComponent<ComponentTypes>(m_Entity))...);
+			}
+
+			Iterator& operator++() {
+				do {
+					m_Entity++;
+				} while ((!m_Manager.HasComponents<ComponentTypes...>(m_Entity) || !m_Manager.IsAlive(m_Entity)) && m_Entity != MAX_ENTITIES);
+				return *this;
+			}
+
+			friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Entity == rhs.m_Entity; }
+			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
+
+		private:
+			Entity m_Entity;
+			EntityManager& m_Manager;
+		};
+
+		[[nodiscard]] Iterator begin() const {
+			Entity entity{ 0 };
+			while ((!m_Manager.HasComponents<ComponentTypes...>(entity) || !m_Manager.IsAlive(entity)) && entity != MAX_ENTITIES) {
+				entity++;
+			}
+
+			return Iterator{ entity, m_Manager };
 		}
 
-        class Iterator {
+		[[nodiscard]] Iterator end() const { return Iterator{ MAX_ENTITIES, m_Manager }; }
+
+	private:
+		EntityManager& m_Manager;
+	};
+
+	// Iterates all components of one type
+	template<typename ComponentType>
+	class ComponentView<ComponentType> : BaseComponentView<ComponentType> {
+	public:
+		ComponentView(EntityManager& manager)
+			: m_Manager(manager), m_Pool(manager.GetPool<ComponentType>()) {}
+
+		class Iterator {
 		public:
-            Iterator(EntityComponentSystem& ecs, const InternalGameObject handle = NULL_GAME_OBJECT, const bool all = false)
-	            : m_EntityComponentSystem(ecs), m_Handle(handle), m_All(all) {
+			Iterator(const Entity entity, EntityManager& manager)
+				: m_Entity(entity), m_Manager(manager), m_Pool(m_Manager.GetPool<ComponentType>()) { }
+		
+			ComponentType& operator*() { return *(ComponentType*)m_Pool->Get(m_Entity); }
+			ComponentType* operator->() { return (ComponentType*)m_Pool->Get(m_Entity); }
 
-            }
+			Iterator& operator++() {
+				do {
+					m_Entity++;
+				} while ((!m_Manager.HasComponent<ComponentType>(m_Entity) || !m_Manager.IsAlive(m_Entity)) && m_Entity != MAX_ENTITIES);
+				return *this;
+			}
 
-            Iterator operator++() { //TODO could probably be optimized
-                if (m_All) {
-                    return Iterator{ m_EntityComponentSystem, m_Handle++, m_All };
-                }
+			friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Entity == rhs.m_Entity; }
+			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
 
-                bool found{ false };
+		private:
+			Entity m_Entity;
+			EntityManager& m_Manager;
+			Ptr<IComponentPool> m_Pool;
+		};
+		
+		[[nodiscard]] Iterator begin() const {
+			Entity entity{ 0 };
+			while (!m_Manager.HasComponent<ComponentType>(entity) && entity != MAX_ENTITIES) {
+				entity++;
+			}
 
-                for (auto& gb : m_EntityComponentSystem.scene.gameObjects) {
-                    if (gb <= m_Handle) {
-                        continue;
-                    }
+			return Iterator{ entity, m_Manager };
+		}
 
-                    if ((m_EntityComponentSystem.scene.HasComponent<Ts>(gb) && ...)) {
-                        m_Handle = gb;
-                        found = true;
-                        break;
-                    }
-                }
+		[[nodiscard]] Iterator end() const { return Iterator{ MAX_ENTITIES, m_Manager }; }
 
-                if (!found) {
-                    m_Handle = (GameObjectType)m_EntityComponentSystem.scene.gameObjects.size();
-                }
+	private:
+		EntityManager& m_Manager;
+		Ptr<IComponentPool> m_Pool;
+	};
 
-                return Iterator{ m_EntityComponentSystem, m_Handle, m_All };
-            }
+	// Iterates all entities
+	template<>
+	class ComponentView<> : BaseComponentView<> {
+	public:
+		ComponentView(EntityManager& manager)
+			: m_Manager(manager) {
+			
+		}
 
-            GameObject operator*() const {
-                return GameObject{ m_EntityComponentSystem, m_Handle };
-            }
+		class Iterator {
+		public:
+			Iterator(const Entity entity, EntityManager& manager)
+				: m_Entity(entity), m_Manager(manager) {
+			}
 
-            friend bool operator==(const Iterator& lhs, const Iterator& rhs) {
-	            return lhs.m_EntityComponentSystem == rhs.m_EntityComponentSystem
-		            && lhs.m_Handle == rhs.m_Handle;
-            }
+			Entity& operator*() { return m_Entity; }
 
-            friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
+			Iterator& operator++() {
+				do {
+					m_Entity++;
+				} while (!m_Manager.IsAlive(m_Entity) && m_Entity != MAX_ENTITIES);
+				return *this;
+			}
 
-        private:
-            EntityComponentSystem& m_EntityComponentSystem;
-            InternalGameObject m_Handle;
-            bool m_All;
-        };
+			friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Entity == rhs.m_Entity; }
+			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
 
-        [[nodiscard]] Iterator begin() const {
-            if constexpr (sizeof...(Ts) == 0) {
-                return Iterator{ m_EntityComponentSystem, 0, true };
-            }
+		private:
+			Entity m_Entity;
+			EntityManager& m_Manager;
+		};
 
-            for (auto& gb : m_EntityComponentSystem.scene.gameObjects) {
-                if ((m_EntityComponentSystem.scene.HasComponent<Ts>(gb) && ...)) {
-                    return Iterator{ m_EntityComponentSystem, gb, false };
-                }
-            }
-            return Iterator{ m_EntityComponentSystem, (GameObjectType)m_EntityComponentSystem.scene.gameObjects.size(), false };
-        }
+		[[nodiscard]] Iterator begin() const {
+			Entity entity{ 0 };
+			while (!m_Manager.IsAlive(entity) && entity != MAX_ENTITIES) {
+				entity++;
+			}
 
-        [[nodiscard]] Iterator end() const {
-            return Iterator{ m_EntityComponentSystem, (GameObjectType)m_EntityComponentSystem.scene.gameObjects.size() };
-        }
+			return Iterator{ entity, m_Manager };
+		}
 
-    private:
-        EntityComponentSystem& m_EntityComponentSystem;
+		[[nodiscard]] Iterator end() const { return Iterator{ MAX_ENTITIES, m_Manager }; }
+
+	private:
+		EntityManager& m_Manager;
 	};
 }

@@ -2,34 +2,41 @@
 #include "Math/Vector.h"
 
 namespace Gem {
-	class Colour {
+	class Colour : Vector4uc {
 	public:
-		Colour();
-		Colour(float value);
-		Colour(Vector4f colour);
-		Colour(Vector3f colour, float alpha = 1.0f);
-		explicit Colour(float r, float g, float b, float a = 1.0f);
-		explicit Colour(int r, int g, int b, int a = 255);
+		Colour() = default;
+		Colour(const Colour& other) = default;
+		Colour(Colour&& other) noexcept = default;
+		Colour& operator=(const Colour& other) = default;
+		Colour& operator=(Colour&& other) noexcept = default;
+		explicit Colour(int colour);
+		explicit Colour(int red, int green, int blue, int alpha = 255);
 
-		Vector4f colour;
+		using Vector4uc::r;
+		using Vector4uc::g;
+		using Vector4uc::b;
+		using Vector4uc::a;
 
-		[[nodiscard]] Vector3f toVec3() const;
-		[[nodiscard]] Vector4uc toVec4() const;
 
-		bool operator==(const Colour& other) const;
-		bool operator!=(const Colour& other) const;
+		[[nodiscard]] Vector4f ToVec4f() const;
 
-		const static Colour red;
-		const static Colour blue;
-		const static Colour green;
-		const static Colour pink;
-		const static Colour orange;
-		const static Colour yellow;
-		const static Colour purple;
-		const static Colour white;
-		const static Colour black;
+		using Vector4uc::operator==;
+		using Vector4uc::operator!=;
 
-	private:
-		static Vector4f initWith0To255(int r, int g, int b, int a);
+
+		const static Colour RED;
+		const static Colour BLUE;
+		const static Colour GREEN;
+		const static Colour MAGENTA;
+		const static Colour YELLOW;
+		const static Colour CYAN;
+		const static Colour WHITE;
+		const static Colour BLACK;
+		const static Colour ORANGE;
+		const static Colour PINK;
+		const static Colour LIME_GREEN;
+		const static Colour LIGHT_GREEN;
+		const static Colour PURPLE;
+		const static Colour LIGHT_BLUE;
 	};
 }

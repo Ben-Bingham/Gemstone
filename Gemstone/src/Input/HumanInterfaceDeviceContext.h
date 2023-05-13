@@ -25,7 +25,7 @@ namespace Gem {
 
 		void PollEvents() const;
 
-		[[nodiscard]] WindowHandle CreateWindowHandle(const Vector2i& size = Vector2i{ 100, 100 }, const std::string& title = "Gemstone") const;
+		[[nodiscard]] WindowHandle CreateWindowHandle(const Vector2ui& size = Vector2ui{ 100, 100 }, const std::string& title = "Gemstone") const;
 		void MakeGraphicsContextCurrent(WindowHandle handle);
 		void CloseWindow(WindowHandle handle);
 		bool ShouldWindowClose(WindowHandle handle);

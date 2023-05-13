@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Gem {
-	class EntityComponentSystem;
+	class EntityManager;
 
 	class System {
 	public:
@@ -12,12 +12,10 @@ namespace Gem {
 		System& operator=(System&& other) noexcept = default;
 		virtual ~System() = default;
 
-		virtual void StartUp(EntityComponentSystem& ecs);
-		virtual void PreStep(EntityComponentSystem& ecs);
-		virtual void Step(EntityComponentSystem& ecs);
-		virtual void EndStep(EntityComponentSystem& ecs);
-		virtual void ShutDown(EntityComponentSystem& ecs);
-
-		virtual void UIRender();
+		virtual void StartUp(EntityManager& entityManager);
+		virtual void PreStep(EntityManager& entityManager);
+		virtual void Step(EntityManager& entityManager);
+		virtual void EndStep(EntityManager& entityManager);
+		virtual void ShutDown(EntityManager& entityManager);
 	};
 }

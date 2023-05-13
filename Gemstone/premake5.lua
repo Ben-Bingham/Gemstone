@@ -13,7 +13,8 @@ project "Gemstone"
 
     defines { 
         "GLEW_STATIC",
-        "RUBY_ASSETS=\"..\\\\Gemstone\\\\assets\"",
+        -- "GEM_ASSETS_STRING=\"assets\\\\\"",
+        "GEM_ASSETS_STRING=\"assets\\\"",
         "GLFW_INCLUDE_NONE"
     }
 

@@ -8,7 +8,7 @@
 
 namespace Gem {
 	void ErrorCallback(const int error, const char* description) {
-		LOG("GLFW error: " + std::to_string(error) + std::string(description), LogLevel::ERROR);
+		LOG("GLFW error: " + std::to_string(error) + " " + std::string(description), LogLevel::ERROR);
 	}
 
 	void HumanInterfaceDeviceContext::StartUp() {
@@ -27,7 +27,11 @@ namespace Gem {
 		glfwPollEvents();
 	}
 
-	WindowHandle HumanInterfaceDeviceContext::CreateWindowHandle(const Vector2i& size, const std::string& title) const {
+	WindowHandle HumanInterfaceDeviceContext::CreateWindowHandle(const Vector2ui& size, const std::string& title) const {
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
 		const WindowHandle handle = glfwCreateWindow(size.x, size.y, title.c_str(), nullptr, nullptr);
 		if (!handle) {
 			LOG("Failed to create Window Handle.", LogLevel::TERMINAL);

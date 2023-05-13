@@ -1,20 +1,9 @@
 #pragma once
 
-#include <array>
-#include <bitset>
-#include <vector>
-
-#include "InternalGameObject.h"
+#include "Component.h"
+#include "Entity.h"
 
 namespace Gem {
-	inline unsigned int masterComponentCounter{ 0 };
-
-	template<typename T>
-	size_t getId() {
-		static unsigned int componentId = masterComponentCounter++;
-		return componentId; 
-	}
-
 	class IComponentPool {
 	public:
 		IComponentPool() = default;
@@ -23,143 +12,212 @@ namespace Gem {
 		IComponentPool& operator=(const IComponentPool& other) = default;
 		IComponentPool& operator=(IComponentPool&& other) noexcept = default;
 		virtual ~IComponentPool() = default;
-	
-		virtual void AddComponent(InternalGameObject gb) = 0;
-		[[nodiscard]] virtual void* GetComponent(InternalGameObject gb) = 0;
-		[[nodiscard]] virtual bool HasComponent(InternalGameObject gb) const = 0;
+
+		virtual void* Get(Entity entity) = 0;
+		virtual void* operator[](Entity entity) = 0;
 	};
 
-	class FixedSizeSparseSetComponentPool : public IComponentPool {
+	template<typename ComponentType>
+	class ComponentPool final : public IComponentPool {
 	public:
-		FixedSizeSparseSetComponentPool(const size_t componentSize)
-			: m_ComponentSize(componentSize) {
+		ComponentPool()
+			: IComponentPool()
+			, m_ComponentMemory(new unsigned char[MAX_ENTITIES * m_ComponentSize]) { }
 
-			m_Components = new char[m_ComponentSize * MAX_COMPONENTS_PER_TYPE];
+		ComponentPool(const ComponentPool& other) = delete;
+		ComponentPool(ComponentPool&& other) noexcept = default;
+		ComponentPool& operator=(const ComponentPool& other) = delete;
+		ComponentPool& operator=(ComponentPool&& other) noexcept = default;
+
+		~ComponentPool() override {
+			delete[] m_ComponentMemory;
 		}
 
-		~FixedSizeSparseSetComponentPool() override {
-			delete[] m_Components;
+		void* Get(const Entity entity) override {
+			return (*this)[entity];
 		}
 
-		[[nodiscard]] bool HasComponent(const InternalGameObject gb) const override {
-			if ((int)m_Sparse[gb] > m_LastComponent){
-				return false;
-			}
-
-			return m_Dense[m_Sparse[gb]] == gb;
-		}
-
-		[[nodiscard]] void* GetComponent(const InternalGameObject gb) override {
-			return m_Components + m_Sparse[gb] * m_ComponentSize;
-		}
-
-		void AddComponent(InternalGameObject gb) override {
-			m_Dense[m_LastComponent + 1] = gb;
-			m_Sparse[gb] = m_LastComponent + 1;
-
-			m_LastComponent++;
+		void* operator[](const Entity entity) override {
+			return m_ComponentMemory + entity * m_ComponentSize;
 		}
 
 	private:
-		std::array<GameObjectType, MAX_GAME_OBJECTS> m_Sparse{ };
-		std::array<GameObjectType, MAX_GAME_OBJECTS> m_Dense{ };
-		int m_LastComponent{ -1 };
-		size_t m_ComponentSize;
-		char* m_Components;
+		static inline const size_t m_ComponentSize{ sizeof(ComponentType) };
+		unsigned char* m_ComponentMemory;
 	};
 
-	class VariableSizeSparseSetComponentPool : public IComponentPool {
-	public:
-		VariableSizeSparseSetComponentPool(const size_t componentSize)
-			: m_ComponentSize(componentSize) {
+// 	class ComponentPool {
+// 	public:
+// 		ComponentPool(size_t componentId, size_t componentSize);
+//
+// 		// Inserts and initializes the component into the given entity.
+// 		template<typename ComponentType, typename ...Args>
+// 		void Insert(Entity& entity, Args&&...args) {
+// #ifdef GEMSTONE_DEBUG
+// 			if (Has(entity)) {
+// 				LOG("Entitys cannot have multiple of the same component. Entity with Id: " + std::to_string(entity.id) + " already has \"" + std::string(typeid(ComponentType).name()) + "\" component.", LogLevel::ERROR);
+// 				return;
+// 			}
+// #endif
+// 			entity.componentField.set(m_ComponentId);
+//
+// 			new (m_Components + m_ComponentSize * entity.id) ComponentType{ std::forward<Args>(args)... };
+// 		}
+//
+// 		// Removes and destroys the component from the given entity.
+// 		template<typename ComponentType>
+// 		void Extract(Entity& entity) {
+// #ifdef GEMSTONE_DEBUG
+// 			if (!Has(entity)) {
+// 				LOG("Cannot delete component from entity that does not have component: \"" + std::string(typeid(ComponentType).name()) + "\".", LogLevel::ERROR);
+// 				return;
+// 			}
+// #endif
+// 			entity.componentField.reset(m_ComponentId);
+//
+// 			reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * entity.id)->~ComponentType();
+// 		}
+//
+// 		// Gets a pointer to the entities component.
+// 		[[nodiscard]] void* Get(const Entity& entity) const;
+//
+// 		// Returns weather or not the entity has the component.
+// 		[[nodiscard]] bool Has(const Entity& entity) const;
+//
+// 		// // Returns the component at the specified index, whether or not it exists.
+// 		// ComponentType* operator[](const size_t index) {
+// 		// 	return reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * index);
+// 		// }
+// 		// const ComponentType* operator[](const size_t index) const {
+// 		// 	return reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * index);
+// 		// }
+//
+// 		// Iterates all components regardless of there validity
+// 		// class Iterator {
+// 		// public:
+// 		// 	using ValueType = ComponentType;
+// 		// 	using Pointer = ValueType*;
+// 		// 	using Reference = ValueType&;
+// 		//
+// 		// 	Iterator(const Pointer ptr)
+// 		// 		: m_Pointer(ptr) {
+// 		// 	}
+// 		//
+// 		// 	Reference operator*() { return *m_Pointer; }
+// 		// 	Pointer operator->() { return m_Pointer; }
+// 		//
+// 		// 	Iterator& operator++() { ++m_Pointer; return *this; }
+// 		//
+// 		// 	friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Pointer == rhs.m_Pointer; }
+// 		// 	friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
+// 		//
+// 		// private:
+// 		// 	Pointer m_Pointer;
+// 		// };
+// 		//
+// 		// Iterator begin() { return Iterator{ reinterpret_cast<ComponentType*>(m_Components) }; }
+// 		// Iterator end() { return Iterator{ reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * MAX_ENTITIES) }; }
+//
+// 	private:
+// 		const size_t m_ComponentId;
+// 		const size_t m_ComponentSize;
+// 		unsigned char* m_Components;
+// 	};
 
-			m_Components = new char[m_ComponentSize * MAX_COMPONENTS_PER_TYPE];
-		}
-
-		~VariableSizeSparseSetComponentPool() override {
-			delete[] m_Components;
-		}
-
-		[[nodiscard]] bool HasComponent(const InternalGameObject gb) const override {
-			if (gb + 1 > m_Sparse.size()) {
-				return false;
-			}
-
-			if ((int)m_Sparse[gb] > m_LastComponent) {
-				return false;
-			}
-
-			const size_t denseIndex = m_Sparse[gb];
-
-			if (denseIndex + 1 > m_Dense.size()) {
-				return false;
-			}
-
-			return m_Dense[m_Sparse[gb]] == gb;
-		}
-
-		[[nodiscard]] void* GetComponent(const InternalGameObject gb) override {
-			if (gb + 1 < m_Sparse.size()) {
-				m_Sparse.resize(gb + 1);
-			}
-
-			return m_Components + m_Sparse[gb] * m_ComponentSize;
-		}
-
-		void AddComponent(const InternalGameObject gb) override {
-			if (gb + 1 < m_Sparse.size()) {
-				m_Sparse.resize(gb + 1);
-			}
-			size_t val = m_LastComponent + 2;
-			bool test = val < m_Dense.size(); //TODO what the hell
-
-			if (m_LastComponent + 2 < (int)m_Dense.size()) {
-				m_Dense.resize(m_LastComponent + 2);
-			}
-
-			m_Dense[m_LastComponent + 1] = gb;
-			m_Sparse[gb] = m_LastComponent + 1;
-
-			m_LastComponent++;
-		}
-
-	private:
-		std::vector<GameObjectType> m_Sparse{ };
-		std::vector<GameObjectType> m_Dense{ };
-		int m_LastComponent{ -1 };
-		size_t m_ComponentSize;
-		char* m_Components;
-	};
-
-	class FixedSizeBitSetComponentPool : public IComponentPool {
-		using BitSet = std::bitset<MAX_COMPONENT_TYPES>;
-	public:
-		FixedSizeBitSetComponentPool(const size_t componentSize, const size_t id)
-			: m_ComponentSize(componentSize), m_Id(id) {
-
-			m_Components = new char[componentSize * MAX_COMPONENTS_PER_TYPE];
-		}
-
-		~FixedSizeBitSetComponentPool() override {
-			delete[] m_Components;
-		}
-
-		void AddComponent(InternalGameObject gb) override {
-			m_BitSets[gb].set(m_Id);
-		}
-
-		[[nodiscard]] void* GetComponent(InternalGameObject gb) override {
-			return m_Components + gb * m_ComponentSize;
-		}
-
-		[[nodiscard]] bool HasComponent(InternalGameObject gb) const {
-			return m_BitSets[gb].test(m_Id);
-		}
-
-	private:
-		inline static std::array<BitSet, MAX_GAME_OBJECTS> m_BitSets{};
-		char* m_Components;
-		size_t m_ComponentSize;
-		size_t m_Id;
-	};
+// 	// Interface for component pools
+// 	class IComponentPool {
+// 	public:
+// 		
+// 	};
+//
+// 	template<typename ComponentType>
+// 	class ComponentPool : public IComponentPool {
+// 	public:
+// 		ComponentPool()
+// 			: m_Components(new unsigned char[sizeof(ComponentType) * MAX_ENTITIES]) { }
+//
+// 		// Inserts and initializes the component into the given entity.
+// 		template<typename ...Args>
+// 		void Insert(Entity& entity, Args&&...args) {
+// #ifdef GEMSTONE_DEBUG
+// 			if (Has(entity)) {
+// 				LOG("Entitys cannot have multiple of the same component. Entity already has component \"" + std::string(typeid(ComponentType).name()) + "\".", LogLevel::ERROR);
+// 				return;
+// 			}
+// #endif
+// 			entity.componentField.set(m_ComponentId);
+//
+// 			new (m_Components + m_ComponentSize * entity.id) ComponentType{ std::forward<Args>(args)... };
+// 		}
+//
+// 		// Returns a reference to the component. Only use if sure the component exists.
+// 		[[nodiscard]] ComponentType& Get(const Entity& entity) {
+// 			return *GetPointer(entity);
+// 		}
+//
+// 		// Returns a pointer to the component, or nullptr if the entity does not have the component.
+// 		[[nodiscard]] ComponentType* GetPointer(const Entity& entity) {
+// 			if (!Has(entity)) {
+// 				return nullptr;
+// 			}
+//
+// 			return reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * entity.id);
+// 		}
+//
+// 		// Returns weather or not the entity has the component.
+// 		[[nodiscard]] static bool Has(const Entity& entity) {
+// 			return entity.componentField[m_ComponentId];
+// 		}
+//
+// 		// Removes and destroys the component from the given entity.
+// 		void Extract(Entity& entity) {
+// #ifdef GEMSTONE_DEBUG
+// 			if (!Has(entity)) {
+// 				LOG("Cannot delete component from entity that does not have component: \"" + std::string(typeid(ComponentType).name()) + "\".", LogLevel::ERROR);
+// 				return;
+// 			}
+// #endif
+// 			entity.componentField.reset(m_ComponentId);
+//
+// 			reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * entity.id)->~ComponentType();
+// 		}
+//
+// 		// Returns the component at the specified index, whether or not it exists.
+// 		ComponentType* operator[](const size_t index) {
+// 			return reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * index);
+// 		}
+// 		const ComponentType* operator[](const size_t index) const {
+// 			return reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * index);
+// 		}
+//
+// 		// Iterates all components regardless of there validity
+// 		class Iterator {
+// 		public:
+// 			using ValueType = ComponentType;
+// 			using Pointer = ValueType*;
+// 			using Reference = ValueType&;
+// 		
+// 			Iterator(const Pointer ptr)
+// 				: m_Pointer(ptr) { }
+// 		
+// 			Reference operator*() { return *m_Pointer; }
+// 			Pointer operator->() { return m_Pointer; }
+// 		
+// 			Iterator& operator++() { ++m_Pointer; return *this; }
+// 		
+// 			friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Pointer == rhs.m_Pointer; }
+// 			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
+// 		
+// 		private:
+// 			Pointer m_Pointer;
+// 		};
+// 		
+// 		Iterator begin() { return Iterator{ reinterpret_cast<ComponentType*>(m_Components) }; }
+// 		Iterator end() { return Iterator{ reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * MAX_ENTITIES) }; }
+//
+// 	private:
+// 		unsigned char* m_Components;
+// 		static inline const size_t m_ComponentId{ ComponentId<ComponentType>() };
+// 		static inline const size_t m_ComponentSize{ sizeof(ComponentType) };
+// 	};
 }

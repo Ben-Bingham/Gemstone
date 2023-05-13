@@ -18,7 +18,7 @@ namespace Gem {
 		void SwapBuffers();
 
 	private:
-		Vector2i m_Size{ 640, 480 };
+		Vector2ui m_Size{ 640, 480 };
 		WindowHandle m_Handle{ nullptr };
 	};
 }

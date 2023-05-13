@@ -12,10 +12,25 @@ namespace Gem {
 		Vector4(T val) : x(val), y(val), z(val), w(val) {}
 		Vector4(Vector3<T> vector3, T W) : x(vector3.x), y(vector3.y), z(vector3.z), w(W) {}
 
-		T x{ };
-		T y{ };
-		T z{ };
-		T w{ };
+		union {
+			T x{ };
+			T r;
+		};
+
+		union {
+			T y{ };
+			T g;
+		};
+
+		union {
+			T z{ };
+			T b;
+		};
+
+		union {
+			T w{ };
+			T a;
+		};
 
 		T operator[](int index) const {
 #ifdef MALACHITE_DEBUG
