@@ -8,13 +8,13 @@ namespace Gem {
 		}
 	}
 
-	void EntityComponentSystem::Step() {
+	void EntityComponentSystem::Step(float dt) {
 		for (const Ptr<System>& system : systems) {
 			system->PreStep(entityManager);
 		}
 
 		for (const Ptr<System>& system : systems) {
-			system->Step(entityManager);
+			system->Step(entityManager, dt);
 		}
 
 		for (const Ptr<System>& system : systems) {

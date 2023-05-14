@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Application.h"
 #include "Level.h"
-#include "New Rendering/Renderer.h"
+#include "Rendering/Renderer.h"
 #include "Utility/Time.h"
 
 namespace Gem {
@@ -18,15 +18,17 @@ namespace Gem {
 	void Application::ExecuteFrame(const Ptr<Level>& level) const {
 		const float endTime = Time::GetTime() + 1.0f / static_cast<float>(Settings::maxFPS);
 
-		// g_Engine.imGuiContext.StartUiFrame();
+		const float deltaTime = endTime - m_LastEndTime;
+
+		g_Engine.imGuiContext.StartUiFrame();
 
 		g_Engine.humanInterfaceDeviceContext.PollEvents();
 		g_Engine.eventManager.Distribute();
 
-		level->Step();
+		level->Step(deltaTime);
 
-		g_Engine.renderer.Render(/*level->renderables TODO*/);
+		g_Engine.renderer.Render();
 
-		Time::Wait(endTime - Time::GetTime());
+		Time::Wait(endTime - Time::GetTime()); // TODO dosent factor in frame taking too long
 	}
 }

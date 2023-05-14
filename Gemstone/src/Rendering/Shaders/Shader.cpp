@@ -22,8 +22,28 @@ namespace Gem {
 		g_Engine.openGlContext.CompileShaderProgram(m_Handle);
 	}
 
-	void Shader::Bind() {
+	void Shader::Bind() const {
 		g_Engine.openGlContext.BindShaderProgram(m_Handle);
+	}
+
+	void Shader::Upload(const std::string& variableName, const int value) {
+		g_Engine.openGlContext.UploadUniform(GetUniformLocation(variableName), value);
+	}
+
+	void Shader::Upload(const std::string& variableName, const float value) {
+		g_Engine.openGlContext.UploadUniform(GetUniformLocation(variableName), value);
+	}
+
+	void Shader::Upload(const std::string& variableName, const Matrix4f& value) {
+		g_Engine.openGlContext.UploadUniform(GetUniformLocation(variableName), value);
+	}
+
+	void Shader::Upload(const std::string& variableName, const Vector3f& value) {
+		g_Engine.openGlContext.UploadUniform(GetUniformLocation(variableName), value);
+	}
+
+	void Shader::Upload(const std::string& variableName, const Vector4f& value) {
+		g_Engine.openGlContext.UploadUniform(GetUniformLocation(variableName), value);
 	}
 
 	std::string Shader::GetShaderSource(const std::string& path) {
@@ -43,5 +63,16 @@ namespace Gem {
 		inputFileStream.close();
 
 		return shaderSource;
+	}
+
+	UniformLocation Shader::GetUniformLocation(const std::string& name) {
+		auto it = m_UniformLocationMap.find(name);
+		if (it != m_UniformLocationMap.end()) {
+			return it->second;
+		}
+
+		m_UniformLocationMap[name] = g_Engine.openGlContext.GetUniformLocation(m_Handle, name);
+
+		return m_UniformLocationMap[name];
 	}
 }

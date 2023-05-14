@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "Core/Engine.h"
-#include "New Rendering/OpenGlContext.h"
+#include "Rendering/OpenGlContext.h"
 
 namespace Gem {
 	template<typename StorageType, typename BufferTypeEnum, BufferTypeEnum BufferType>

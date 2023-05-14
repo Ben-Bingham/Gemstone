@@ -16,7 +16,7 @@ namespace Gem {
 		void Kill(Entity& entity);
 
 		template<typename ComponentType, typename ...Args>
-		void Insert(Entity entity, Args&&... args) {
+		void Insert(Entity& entity, Args&&... args) {
 			ThrowErrorIfDead(entity);
 
 			if (HasComponent<ComponentType>(entity)) {
@@ -28,11 +28,12 @@ namespace Gem {
 
 			ComponentType* componentPool = (ComponentType*)GetPool<ComponentType>()->Get(entity);
 
+			// Either make a default constructor for the component or simply pass the correct arguments to the Insert function in order to construct in place.
 			new (componentPool) ComponentType{ std::forward<Args>(args)... };
 		}
 
 		template<typename ComponentType>
-		void Extract(Entity entity) {
+		void Extract(Entity& entity) {
 			ThrowErrorIfDead(entity);
 
 			if (!HasComponent<ComponentType>(entity)) {

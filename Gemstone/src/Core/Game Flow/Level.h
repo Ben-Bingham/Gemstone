@@ -12,7 +12,7 @@ namespace Gem {
 		virtual ~Level() = default;
 
 		virtual void Load();
-		void Step();
+		void Step(float dt);
 		virtual void Unload();
 
 		[[nodiscard]] bool IsRunning() const;

@@ -26,7 +26,7 @@ namespace Gem {
 
 	void OpenGlContext::ShutDown() { }
 
-	void OpenGlContext::CheckErrors() {
+	void OpenGlContext::CheckErrors() const {
 #ifdef GEMSTONE_CHECK_OPEN_GL_ERRORS
 		const GLenum error = glGetError();
 
@@ -163,6 +163,12 @@ namespace Gem {
 		BindTexture2D(handle);
 
 		glGenerateMipmap(GL_TEXTURE_2D);
+
+		CheckErrors();
+	}
+
+	void OpenGlContext::ActivateTextureUnit(const size_t index) {
+		glActiveTexture(GL_TEXTURE0 + (int)index);
 
 		CheckErrors();
 	}
@@ -378,6 +384,51 @@ namespace Gem {
 	// Rendering
 	void OpenGlContext::DrawElements(const size_t indexCount) {
 		glDrawElements(GL_TRIANGLES, (int)indexCount, GL_UNSIGNED_INT, 0);
+
+		CheckErrors();
+	}
+
+	// Uniform Uploads
+	UniformLocation OpenGlContext::GetUniformLocation(ShaderHandle handle, const std::string& uniformName) const {
+		const UniformLocation location = glGetUniformLocation(handle, uniformName.c_str());
+
+#ifdef GEMSTONE_CHECK_OPEN_GL_ERRORS
+		if (location < 0) {
+			LOG("Failed to fetch unifrom location.", LogLevel::ERROR);
+		}
+#endif
+
+		CheckErrors();
+
+		return location;
+	}
+
+	void OpenGlContext::UploadUniform(UniformLocation location, int value) {
+		glUniform1i(location, value);
+
+		CheckErrors();
+	}
+
+	void OpenGlContext::UploadUniform(UniformLocation location, float value) {
+		glUniform1f(location, value);
+
+		CheckErrors();
+	}
+
+	void OpenGlContext::UploadUniform(UniformLocation location, const Matrix4f& value) {
+		glUniformMatrix4fv(location, 1, GL_FALSE, &value.row1.x);
+
+		CheckErrors();
+	}
+
+	void OpenGlContext::UploadUniform(UniformLocation location, const Vector3f& value) {
+		glUniform3fv(location, 1, &value.x);
+
+		CheckErrors();
+	}
+
+	void OpenGlContext::UploadUniform(UniformLocation location, const Vector4f& value) {
+		glUniform4fv(location, 1, &value.x);
 
 		CheckErrors();
 	}

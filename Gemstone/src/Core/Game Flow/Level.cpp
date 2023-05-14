@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "Level.h"
-#include "New Rendering/RenderingSystem.h"
-#include "New Rendering/User Interface/UiSystem.h"
+#include "Rendering/Systems/RenderingSystem.h"
+#include "Rendering/User Interface/UiSystem.h"
 
 namespace Gem {
 	void Level::Load() {}
 
-	void Level::Step() {
-		m_Ecs.Step();
+	void Level::Step(float dt) {
+		m_Ecs.Step(dt);
 	}
 
 	void Level::Unload() {}

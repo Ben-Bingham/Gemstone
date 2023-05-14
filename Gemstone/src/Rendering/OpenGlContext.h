@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 
 #include "Core/ISubSystem.h"
+#include "Math/Matrix.h"
+#include "Math/Vector.h"
 #include "Utility/Colour.h"
 #include "Utility/Image.h"
 
@@ -20,6 +22,8 @@ namespace Gem {
 	using FragmentShaderHandle = ShaderHandle;
 	using ShaderProgramHandle = OpenGlHandle;
 
+	using UniformLocation = GLint;
+
 	class OpenGlContext : ISubSystem {
 	public:
 		OpenGlContext() = default;
@@ -33,7 +37,7 @@ namespace Gem {
 		void ShutDown() override;
 
 		// ------------------------------ Miscellaneous ------------------------------
-		void CheckErrors();
+		void CheckErrors() const;
 
 		void Clear();
 		Colour clearColour{ 128, 128, 128 };
@@ -82,6 +86,8 @@ namespace Gem {
 		void ConfigureTexture2D(TextureHandle handle, WrapMode wrapMode = WrapMode::REPEAT, FilterMode filterMode = FilterMode::NEAREST);
 		void AssignTextureData2D(TextureHandle handle, const Image& image);
 		void GenerateMipMaps2D(TextureHandle handle);
+
+		void ActivateTextureUnit(size_t index);
 
 	private:
 		TextureHandle m_BoundTexture;
@@ -153,5 +159,15 @@ namespace Gem {
 	public:
 		// ------------------------------ Rendering ------------------------------
 		void DrawElements(size_t indexCount);
+
+	public:
+		// ------------------------------ Uniform Uploads ------------------------------
+		[[nodiscard]] UniformLocation GetUniformLocation(ShaderHandle handle, const std::string& uniformName) const;
+
+		void UploadUniform(UniformLocation location, int value);
+		void UploadUniform(UniformLocation location, float value);
+		void UploadUniform(UniformLocation location, const Matrix4f& value);
+		void UploadUniform(UniformLocation location, const Vector3f& value);
+		void UploadUniform(UniformLocation location, const Vector4f& value);
 	};
 }

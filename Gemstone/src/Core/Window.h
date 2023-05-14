@@ -17,6 +17,8 @@ namespace Gem {
 
 		void SwapBuffers();
 
+		[[nodiscard]] Vector2ui Size() const;
+
 	private:
 		Vector2ui m_Size{ 640, 480 };
 		WindowHandle m_Handle{ nullptr };

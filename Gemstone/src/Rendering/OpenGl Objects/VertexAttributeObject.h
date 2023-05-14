@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "New Rendering/OpenGlContext.h"
+#include "Rendering/OpenGlContext.h"
 
 namespace Gem {
 	class VertexAttributeObject {
@@ -13,7 +13,7 @@ namespace Gem {
 		VertexAttributeObject& operator=(VertexAttributeObject&& other) noexcept = default;
 		~VertexAttributeObject();
 
-		void Bind();
+		void Bind() const;
 
 		struct DataElement {
 			OpenGlContext::GlType type;

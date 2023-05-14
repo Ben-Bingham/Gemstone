@@ -1,6 +1,6 @@
 #pragma once
-#include "New Rendering/OpenGlContext.h"
-#include "New Rendering/Utility/Image.h"
+#include "Rendering/OpenGlContext.h"
+#include "Rendering/Utility/Image.h"
 
 namespace Gem {
 	class Texture;
@@ -21,6 +21,7 @@ namespace Gem {
 		~Texture();
 
 		void Bind() const;
+		static void ActivateUnit(size_t index);
 
 		friend void ImGui::Image(const Gem::Texture& texture);
 

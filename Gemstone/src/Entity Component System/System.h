@@ -14,7 +14,7 @@ namespace Gem {
 
 		virtual void StartUp(EntityManager& entityManager);
 		virtual void PreStep(EntityManager& entityManager);
-		virtual void Step(EntityManager& entityManager);
+		virtual void Step(EntityManager& entityManager, float dt);
 		virtual void EndStep(EntityManager& entityManager);
 		virtual void ShutDown(EntityManager& entityManager);
 	};

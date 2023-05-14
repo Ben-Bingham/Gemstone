@@ -9,10 +9,10 @@ namespace Gem {
 	public:
 		UiSystem() = default;
 
-		void Step(EntityManager& entityManager) override;
+		void Step(EntityManager& entityManager, float dt) override;
 
 	private:
-		void MaterialUi(Material& material) const;
-		void TransformUi(Transform& transform) const;
+		void MaterialUi(Material& material, size_t entityId) const;
+		void TransformUi(Transform& transform, size_t entityId) const;
 	};
 }

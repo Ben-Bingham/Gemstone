@@ -4,9 +4,9 @@
 #include "Input/HumanInterfaceDeviceContext.h"
 #include "Input/Keyboard.h"
 #include "Input/Mouse.h"
-#include "New Rendering/OpenGlContext.h"
-#include "New Rendering/Renderer.h"
-#include "New Rendering/User Interface/ImGuiContext.h"
+#include "Rendering/OpenGlContext.h"
+#include "Rendering/Renderer.h"
+#include "Rendering/User Interface/ImGuiContext.h"
 
 namespace Gem {
 	class Engine {

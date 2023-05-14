@@ -27,4 +27,8 @@ namespace Gem {
 	void Window::SwapBuffers() {
 		g_Engine.humanInterfaceDeviceContext.SwapBuffers(m_Handle);
 	}
+
+	Vector2ui Window::Size() const {
+		return m_Size;
+	}
 }

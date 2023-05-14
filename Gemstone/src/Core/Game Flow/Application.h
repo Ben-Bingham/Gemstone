@@ -14,5 +14,8 @@ namespace Gem {
 		void ExecuteFrame(const Ptr<Level>& level) const; // TODO maybe there should be a runtime class that handles this?
 
 		Settings settings{}; //TODO needs to be dealt with
+
+	private:
+		float m_LastEndTime{ 0.0f };
 	};
 }

@@ -20,6 +20,10 @@ namespace Gem {
 		g_Engine.openGlContext.BindTexture2D(m_Handle);
 	}
 
+	void Texture::ActivateUnit(const size_t index) {
+		g_Engine.openGlContext.ActivateTextureUnit(index);
+	}
+
 	const Texture Texture::MISSING_IMAGE_TEXTURE{};
 }
 

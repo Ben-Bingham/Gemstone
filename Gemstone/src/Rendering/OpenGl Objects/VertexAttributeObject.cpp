@@ -11,7 +11,7 @@ namespace Gem {
 		g_Engine.openGlContext.DeleteVertexAttributeObject(m_Handle);
 	}
 
-	void VertexAttributeObject::Bind() {
+	void VertexAttributeObject::Bind() const {
 		g_Engine.openGlContext.BindVertexAttributeObject(m_Handle);
 	}
 
