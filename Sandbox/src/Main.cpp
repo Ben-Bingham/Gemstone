@@ -1,9 +1,6 @@
 #include "TestLevel.h"
 #include "Core/Game Flow/Application.h"
 
-#include "Rendering/OpenGl Objects/FrameBuffer.h"
-#include "Rendering/OpenGl Objects/RenderBuffer.h"
-
 using namespace Gem;
 
 /*
