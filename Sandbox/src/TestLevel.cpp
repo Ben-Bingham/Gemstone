@@ -32,8 +32,14 @@ void TestLevel::Load() {
 
 	Entity ent2 = m_EntityManager.Create();
 	m_EntityManager.Insert<Transform>(ent2);
-	m_EntityManager.Insert<Camera>(ent2, Camera::CameraType::PERSPECTIVE);
-	m_EntityManager.GetComponent<Transform>(ent2).position.z = 5.0f;
+	m_EntityManager.Insert<Material>(ent2, Image{ "assets\\awesomeface.png" });
+	m_EntityManager.Insert<Mesh>(ent2, Cube{});
+	m_EntityManager.GetComponent<Transform>(ent2).position.x += 3.0f;
+
+	Entity camera = m_EntityManager.Create();
+	m_EntityManager.Insert<Transform>(camera);
+	m_EntityManager.Insert<Camera>(camera, Camera::CameraType::PERSPECTIVE);
+	m_EntityManager.GetComponent<Transform>(camera).position.z = 5.0f;
 
 	m_Ecs.systems.push_back(CreatePtr<GameController>());
 	m_Ecs.systems.push_back(CreatePtr<FpsCameraSystem>());

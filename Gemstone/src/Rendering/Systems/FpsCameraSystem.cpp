@@ -5,6 +5,8 @@
 
 namespace Gem {
 	void FpsCameraSystem::StartUp(EntityManager& entityManager) {
+		g_Engine.window.DisableCursor();
+
 		for (auto [c, transform] : ComponentView<Camera, Transform>{ entityManager }) {
 			if (c.type != Camera::CameraType::PERSPECTIVE) { continue; }
 			const Ptr<FpsCamera> cam = std::dynamic_pointer_cast<FpsCamera>(c.Cam());

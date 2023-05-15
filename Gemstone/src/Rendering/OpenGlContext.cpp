@@ -79,6 +79,119 @@ namespace Gem {
 
 	void OpenGlContext::ShutDown() { }
 
+	// ------------------------------ State ------------------------------
+	void OpenGlContext::EnableDepthTesting() {
+		if (m_DepthTesting) {
+			return;
+		}
+
+		glEnable(GL_DEPTH_TEST);
+		m_DepthTesting = true;
+
+		CHECK_ERRORS();
+	}
+
+	void OpenGlContext::DisableDepthTesting() {
+		if (!m_DepthTesting) {
+			return;
+		}
+
+		glDisable(GL_DEPTH_TEST);
+		m_DepthTesting = false;
+
+		CHECK_ERRORS();
+	}
+
+	bool OpenGlContext::GetDepthTesting() const { return m_DepthTesting; }
+
+	void OpenGlContext::SetDepthTestFunction(const DepthTestFunction function) {
+		if (m_DepthTestFunction == function) {
+			return;
+		}
+
+		glDepthFunc((GLenum)function);
+		m_DepthTestFunction = function;
+
+		CHECK_ERRORS();
+	}
+
+	OpenGlContext::DepthTestFunction OpenGlContext::GetDepthTestFunction() const { return m_DepthTestFunction; }
+
+	void OpenGlContext::EnableDepthMask() {
+		if (m_DepthMask) {
+			return;
+		}
+
+		glDepthMask(GL_TRUE);
+		m_DepthMask = true;
+
+		CHECK_ERRORS();
+	}
+
+	void OpenGlContext::DisableDepthMask() {
+		if (!m_DepthMask) {
+			return;
+		}
+
+		glDepthMask(GL_FALSE);
+		m_DepthMask = false;
+
+		CHECK_ERRORS();
+	}
+
+	bool OpenGlContext::GetDepthMask() const { return m_DepthMask; }
+
+	void OpenGlContext::EnableFaceCulling() {
+		if (m_FaceCulling) {
+			return;
+		}
+
+		glEnable(GL_CULL_FACE);
+		m_FaceCulling = true;
+
+		CHECK_ERRORS();
+	}
+
+	void OpenGlContext::DisableFaceCulling() {
+		if (!m_FaceCulling) {
+			return;
+		}
+
+		glDisable(GL_CULL_FACE);
+		m_FaceCulling = false;
+
+		CHECK_ERRORS();
+	}
+
+	bool OpenGlContext::GetFaceCulling() const { return m_FaceCulling; }
+
+	void OpenGlContext::CullFace(const CullableFaces face) {
+		if (m_CulledFace == face) {
+			return;
+		}
+
+		glCullFace((GLenum)face);
+		m_CulledFace = face;
+
+		CHECK_ERRORS();
+ 	}
+
+	OpenGlContext::CullableFaces OpenGlContext::GetCulledFace() const { return m_CulledFace; }
+
+	void OpenGlContext::SetFrontFaceDirection(const FrontFaceDirection direction) {
+		if (m_FrontFaceDirection == direction) {
+			return;
+		}
+
+		glFrontFace((GLenum)direction);
+		m_FrontFaceDirection = direction;
+
+		CHECK_ERRORS();
+	}
+
+	OpenGlContext::FrontFaceDirection OpenGlContext::GetFrontFaceDirection() const { return m_FrontFaceDirection; }
+
+	// ------------------------------ Miscellaneous ------------------------------
 	void OpenGlContext::Clear() {
 		const Vector4f floatColour{ clearColour.ToVec4f() };
 
@@ -106,7 +219,7 @@ namespace Gem {
 		return -1;
 	}
 
-	// Textures:
+	// ------------------------------ Textures ------------------------------
 	TextureHandle OpenGlContext::GenerateTexture() {
 		TextureHandle handle;
 		glGenTextures(1, &handle);
@@ -191,7 +304,7 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
-	// Buffers:
+	// ------------------------------ Buffers ------------------------------
 	BufferHandle OpenGlContext::GenerateBuffer() {
 		BufferHandle handle;
 	
@@ -209,9 +322,9 @@ namespace Gem {
 	}
 
 	void OpenGlContext::BindBuffer(BufferHandle handle, BufferType type) {
-		// if (m_BoundBuffer == handle) {
-		// 	return;
-		// }
+		if (m_BoundBuffer == handle) {
+			return;
+		}
 
 		glBindBuffer((GLenum)type, handle);
 		m_BoundBuffer = handle;
@@ -275,7 +388,7 @@ namespace Gem {
 		return -1;
 	}
 
-	// Vertex Attribute Object
+	// ------------------------------ Vertex Attribute Objects ------------------------------
 	VertexAttributeObjectHandle OpenGlContext::GenerateVertexAttributeObject() {
 		VertexAttributeObjectHandle handle;
 
@@ -330,7 +443,7 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
-	// Shaders
+	// ------------------------------ Shaders ------------------------------
 	ShaderHandle OpenGlContext::CreateShader(ShaderType type) {
 		const ShaderHandle shader = glCreateShader((GLenum)type);
 
@@ -399,14 +512,14 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
-	// Rendering
+	// ------------------------------ Rendering ------------------------------
 	void OpenGlContext::DrawElements(const size_t indexCount) {
 		glDrawElements(GL_TRIANGLES, (int)indexCount, GL_UNSIGNED_INT, 0);
 
 		CHECK_ERRORS();
 	}
 
-	// Uniform Uploads
+	// ------------------------------ Uniform Uploads ------------------------------
 	UniformLocation OpenGlContext::GetUniformLocation(ShaderHandle handle, const std::string& uniformName) const {
 		const UniformLocation location = glGetUniformLocation(handle, uniformName.c_str());
 
@@ -447,6 +560,63 @@ namespace Gem {
 
 	void OpenGlContext::UploadUniform(UniformLocation location, const Vector4f& value) {
 		glUniform4fv(location, 1, &value.x);
+
+		CHECK_ERRORS();
+	}
+
+	// ------------------------------ Frame Buffers ------------------------------
+	FrameBufferHandle OpenGlContext::GenerateFrameBuffer() {
+		FrameBufferHandle handle;
+
+		glGenFramebuffers(1, &handle);
+
+		CHECK_ERRORS();
+
+		return handle;
+	}
+
+	void OpenGlContext::DeleteFrameBuffer(FrameBufferHandle handle) {
+		glDeleteFramebuffers(1, &handle);
+
+		CHECK_ERRORS();
+	}
+
+	void OpenGlContext::BindFrameBuffer(const FrameBufferHandle handle) {
+		if (m_BoundFrameBuffer == handle) {
+			return;
+		}
+
+		glBindFramebuffer(GL_FRAMEBUFFER, handle);
+		m_BoundFrameBuffer = handle;
+
+		CHECK_ERRORS();
+	}
+
+	// ------------------------------ Render Buffers ------------------------------
+
+	RenderBufferHandle OpenGlContext::GenerateRenderBuffer() {
+		RenderBufferHandle handle;
+
+		glGenRenderbuffers(1, &handle);
+
+		CHECK_ERRORS();
+
+		return handle;
+	}
+
+	void OpenGlContext::DeleteRenderBuffer(RenderBufferHandle handle) {
+		glDeleteRenderbuffers(1, &handle);
+
+		CHECK_ERRORS();
+	}
+
+	void OpenGlContext::BindRenderBuffer(RenderBufferHandle handle) {
+		if (m_BoundRenderBuffer == handle) {
+			return;
+		}
+
+		glBindRenderbuffer(GL_RENDERBUFFER, handle);
+		m_BoundRenderBuffer = handle;
 
 		CHECK_ERRORS();
 	}

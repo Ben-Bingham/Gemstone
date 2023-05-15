@@ -11,24 +11,18 @@ namespace Gem {
 		GlBuffer(
 			const OpenGlContext::BufferAccessFrequency accessFrequency = OpenGlContext::BufferAccessFrequency::STATIC,
 			const OpenGlContext::BufferNatureOfAccess natureOfAccess = OpenGlContext::BufferNatureOfAccess::DRAW
-		)
-			:
-		//m_Handle(g_Engine.openGlContext.GenerateBuffer()),
-		m_Handle(0),
-		m_AccessFrequency(accessFrequency), m_NatureOfAccess(natureOfAccess) {
-			// g_Engine.openGlContext.GenerateBuffer(&m_Handle);
-			glGenBuffers(1, &m_Handle);
+		) : m_Handle(g_Engine.openGlContext.GenerateBuffer()), m_AccessFrequency(accessFrequency), m_NatureOfAccess(natureOfAccess) {
 			Bind();
-		}
-
-		~GlBuffer() {
-			g_Engine.openGlContext.DeleteBuffer(m_Handle);
 		}
 
 		GlBuffer(const GlBuffer& other) = delete;
 		GlBuffer(GlBuffer&& other) noexcept = default;
 		GlBuffer& operator=(const GlBuffer& other) = delete;
 		GlBuffer& operator=(GlBuffer&& other) noexcept = default;
+
+		~GlBuffer() {
+			g_Engine.openGlContext.DeleteBuffer(m_Handle);
+		}
 
 		void Bind() {
 			g_Engine.openGlContext.BindBuffer(m_Handle, BufferType);

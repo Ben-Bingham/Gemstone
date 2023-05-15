@@ -7,7 +7,20 @@
 #include "Rendering/Components/Material.h"
 
 namespace Gem {
-	void Renderer::StartUp() { }
+	void Renderer::StartUp() {
+		OpenGlContext& openGlContext = g_Engine.openGlContext;
+
+		openGlContext.EnableDepthTesting();
+		openGlContext.SetDepthTestFunction(OpenGlContext::DepthTestFunction::LESS_THAN);
+
+		openGlContext.EnableDepthMask();
+
+		openGlContext.EnableFaceCulling();
+		openGlContext.CullFace(OpenGlContext::CullableFaces::BACK);
+
+		openGlContext.SetFrontFaceDirection(OpenGlContext::FrontFaceDirection::CLOCKWISE);
+	}
+
 	void Renderer::ShutDown() { }
 
 	void Renderer::RenderSetup() {

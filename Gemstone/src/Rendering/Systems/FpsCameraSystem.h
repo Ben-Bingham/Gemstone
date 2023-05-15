@@ -20,6 +20,6 @@ namespace Gem {
 		void HandleEvent(const KeyboardEvents::KeyDown& event) override;
 
 	private:
-		bool m_MouseInputActive{ false };
+		bool m_MouseInputActive{ true };
 	};
 }

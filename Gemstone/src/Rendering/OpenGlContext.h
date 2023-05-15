@@ -31,6 +31,8 @@ namespace Gem {
 	using VertexShaderHandle = ShaderHandle;
 	using FragmentShaderHandle = ShaderHandle;
 	using ShaderProgramHandle = OpenGlHandle;
+	using FrameBufferHandle = OpenGlHandle;
+	using RenderBufferHandle = OpenGlHandle;
 
 	using UniformLocation = GLint;
 
@@ -46,7 +48,56 @@ namespace Gem {
 		void StartUp() override;
 		void ShutDown() override;
 
+		// ------------------------------ State ------------------------------
+		void EnableDepthTesting();
+		void DisableDepthTesting();
+		[[nodiscard]] bool GetDepthTesting() const;
+
+		enum class DepthTestFunction {
+			NEVER = GL_NEVER,
+			EQUAL = GL_EQUAL,
+			LESS_THAN = GL_LESS,
+			LESS_THAN_OR_EQUAL = GL_LEQUAL,
+			GREATER_THAN = GL_GREATER,
+			GREATER_THAN_OR_EQUAL = GL_GEQUAL
+		};
+		void SetDepthTestFunction(DepthTestFunction function);
+		[[nodiscard]] DepthTestFunction GetDepthTestFunction() const;
+
+		void EnableDepthMask();
+		void DisableDepthMask();
+		[[nodiscard]] bool GetDepthMask() const;
+
+		void EnableFaceCulling();
+		void DisableFaceCulling();
+		[[nodiscard]] bool GetFaceCulling() const;
+
+		enum class CullableFaces {
+			FRONT = GL_FRONT,
+			BACK = GL_BACK
+		};
+
+		void CullFace(CullableFaces face);
+		[[nodiscard]] CullableFaces GetCulledFace() const;
+
+		enum class FrontFaceDirection {
+			CLOCKWISE = GL_CW,
+			COUNTER_CLOCKWISE = GL_CCW
+		};
+
+		void SetFrontFaceDirection(FrontFaceDirection direction);
+		[[nodiscard]] FrontFaceDirection GetFrontFaceDirection() const;
+
+	private:
+		bool m_DepthTesting{ false };
+		DepthTestFunction m_DepthTestFunction;
+		bool m_DepthMask{ false };
+		bool m_FaceCulling{ false };
+		CullableFaces m_CulledFace;
+		FrontFaceDirection m_FrontFaceDirection;
+
 		// ------------------------------ Miscellaneous ------------------------------
+	public:
 		void Clear();
 		Colour clearColour{ 128, 128, 128 };
 
@@ -168,7 +219,6 @@ namespace Gem {
 		// ------------------------------ Rendering ------------------------------
 		void DrawElements(size_t indexCount);
 
-	public:
 		// ------------------------------ Uniform Uploads ------------------------------
 		[[nodiscard]] UniformLocation GetUniformLocation(ShaderHandle handle, const std::string& uniformName) const;
 
@@ -177,5 +227,22 @@ namespace Gem {
 		void UploadUniform(UniformLocation location, const Matrix4f& value);
 		void UploadUniform(UniformLocation location, const Vector3f& value);
 		void UploadUniform(UniformLocation location, const Vector4f& value);
+
+		// ------------------------------ Frame Buffers ------------------------------
+		[[nodiscard]] FrameBufferHandle GenerateFrameBuffer();
+		void DeleteFrameBuffer(FrameBufferHandle handle);
+		void BindFrameBuffer(FrameBufferHandle handle);
+
+	private:
+		FrameBufferHandle m_BoundFrameBuffer;
+
+	public:
+		// ------------------------------ Render Buffers ------------------------------
+		[[nodiscard]] RenderBufferHandle GenerateRenderBuffer();
+		void DeleteRenderBuffer(RenderBufferHandle handle);
+		void BindRenderBuffer(RenderBufferHandle handle);
+
+	private:
+		RenderBufferHandle m_BoundRenderBuffer;
 	};
 }
