@@ -1,19 +1,13 @@
 #pragma once
+#include "MouseButton.h"
 
 namespace Gem::MouseEvents {
-	enum class Button {
-		LEFT,
-		MIDDLE,
-		RIGHT,
-		UNKNOWN
-	};
-
 	struct ButtonDown {
-		Button button;
+		MouseButton button;
 	};
 
 	struct ButtonUp {
-		Button button;
+		MouseButton button;
 	};
 
 	struct Position {

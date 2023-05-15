@@ -7,8 +7,8 @@ namespace Gem {
 		humanInterfaceDeviceContext.StartUp();
 		window.StartUp();
 
-		m_Keyboard.StartUp();
-		m_Mouse.StartUp();
+		keyboard.StartUp();
+		mouse.StartUp();
 
 		openGlContext.StartUp();
 		imGuiContext.StartUp();
@@ -20,8 +20,8 @@ namespace Gem {
 		imGuiContext.ShutDown();
 		openGlContext.ShutDown();
 
-		m_Mouse.ShutDown();
-		m_Keyboard.ShutDown();
+		mouse.ShutDown();
+		keyboard.ShutDown();
 
 		window.ShutDown();
 		humanInterfaceDeviceContext.ShutDown();

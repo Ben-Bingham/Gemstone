@@ -1,4 +1,6 @@
 #pragma once
+#include "Keys.h"
+
 #include <GLFW/glfw3.h>
 
 #include "Core/Window.h"
@@ -12,5 +14,7 @@ namespace Gem {
 
 		void StartUp() override;
 		void ShutDown() override;
+
+		bool GetKey(Key key);
 	};
 }

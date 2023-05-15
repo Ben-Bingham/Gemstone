@@ -1,4 +1,7 @@
 #pragma once
+#include "Keys.h"
+#include "MouseButton.h"
+
 #include <GLFW/glfw3.h>
 
 #include <unordered_map>
@@ -30,6 +33,14 @@ namespace Gem {
 		void CloseWindow(WindowHandle handle);
 		bool ShouldWindowClose(WindowHandle handle);
 		void SwapBuffers(WindowHandle handle);
+		void SetSwapInterval(size_t interval);
+
+		[[nodiscard]] bool GetKey(WindowHandle handle, Key key) const;
+		[[nodiscard]] bool GetMouseButton(WindowHandle handle, MouseButton button) const;
+		[[nodiscard]] Vector2i GetMousePosition(WindowHandle handle) const;
+
+		void DisableCursor(WindowHandle handle);
+		void EnableCursor(WindowHandle handle);
 
 		// Callbacks
 		void SetKeyCallback(WindowHandle handle, void (*callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods));
@@ -53,6 +64,9 @@ namespace Gem {
 
 			return *(T*)windowData[key];
 		}
+
+		[[nodiscard]] float GetTime() const;
+		void Wait(float seconds) const;
 
 	private:
 		std::unordered_map<std::string, void*> m_UserWindowData{};

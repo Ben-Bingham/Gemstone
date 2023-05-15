@@ -27,9 +27,8 @@ namespace Gem {
 		Renderer renderer{};
 		// TODO add Logging as a subSystem
 
-	private:
-		Keyboard m_Keyboard{};
-		Mouse m_Mouse{};
+		Keyboard keyboard{};
+		Mouse mouse{};
 
 	} inline g_Engine;
 }

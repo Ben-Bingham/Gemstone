@@ -1,5 +1,4 @@
 #include "TestLevel.h"
-#include "imgui.h"
 #include "Core/Engine.h"
 #include "Core/Event System/EventHandler.h"
 #include "Entity Component System/ComponentView.h"
@@ -7,7 +6,7 @@
 #include "Utility/Transform.h"
 #include "Rendering/Components/Material.h"
 #include "Rendering/Components/Mesh.h"
-#include "Rendering/Systems/PerspectiveCameraSystem.h"
+#include "Rendering/Systems/FpsCameraSystem.h"
 
 using namespace Gem;
 
@@ -18,7 +17,7 @@ public:
 	}
 
 	void HandleEvent(const KeyboardEvents::KeyDown& event) override {
-		if (event.key == KeyboardEvents::Key::ESCAPE) {
+		if (event.key == Key::ESCAPE) {
 			LOG("Stoping Level");
 			g_Engine.eventManager.Post(StopLevel{});
 		}
@@ -37,7 +36,7 @@ void TestLevel::Load() {
 	m_EntityManager.GetComponent<Transform>(ent2).position.z = 5.0f;
 
 	m_Ecs.systems.push_back(CreatePtr<GameController>());
-	m_Ecs.systems.push_back(CreatePtr<PerspectiveCameraSystem>());
+	m_Ecs.systems.push_back(CreatePtr<FpsCameraSystem>());
 }
 
 void TestLevel::HandleEvent(const StopLevel& event) {

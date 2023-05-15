@@ -7,14 +7,14 @@
 
 namespace Gem {
 	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-		auto eventButton{MouseEvents::Button::UNKNOWN};
+		auto eventButton{ MouseButton::UNKNOWN };
 
 		switch (button) {
-		case GLFW_MOUSE_BUTTON_1: eventButton = MouseEvents::Button::LEFT;
+		case GLFW_MOUSE_BUTTON_1: eventButton = MouseButton::LEFT;
 			break;
-		case GLFW_MOUSE_BUTTON_2: eventButton = MouseEvents::Button::RIGHT;
+		case GLFW_MOUSE_BUTTON_2: eventButton = MouseButton::RIGHT;
 			break;
-		case GLFW_MOUSE_BUTTON_3: eventButton = MouseEvents::Button::MIDDLE;
+		case GLFW_MOUSE_BUTTON_3: eventButton = MouseButton::MIDDLE;
 			break;
 		default:
 			LOG("Unknown mouse button inputted", LogLevel::WARNING);
@@ -55,7 +55,13 @@ namespace Gem {
 		hidContext.SetCursorEnterCallback(window.Handle(), CursorEnterCallback);
 	}
 
-	void Mouse::ShutDown() {
-		
+	void Mouse::ShutDown() { }
+
+	Vector2i Mouse::GetPosition() const {
+		return g_Engine.humanInterfaceDeviceContext.GetMousePosition(g_Engine.window.Handle());
+	}
+
+	bool Mouse::GetButton(MouseButton button) const {
+		return g_Engine.humanInterfaceDeviceContext.GetMouseButton(g_Engine.window.Handle(), button);
 	}
 }

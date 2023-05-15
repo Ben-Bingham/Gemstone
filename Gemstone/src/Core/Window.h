@@ -17,6 +17,11 @@ namespace Gem {
 
 		void SwapBuffers();
 
+		void SwapInterval(size_t interval);
+
+		void DisableCursor();
+		void EnableCursor();
+
 		[[nodiscard]] Vector2ui Size() const;
 
 	private:

@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Level.h"
 #include "Rendering/Renderer.h"
-#include "Utility/Time.h"
 
 namespace Gem {
 	void Application::Load(const Ptr<Level>& level) const {
@@ -16,7 +15,7 @@ namespace Gem {
 	}
 
 	void Application::ExecuteFrame(const Ptr<Level>& level) const {
-		const float endTime = Time::GetTime() + 1.0f / static_cast<float>(Settings::maxFPS);
+		const float endTime = g_Engine.humanInterfaceDeviceContext.GetTime() + 1.0f / static_cast<float>(Settings::maxFPS);
 
 		const float deltaTime = endTime - m_LastEndTime;
 
@@ -27,8 +26,16 @@ namespace Gem {
 
 		level->Step(deltaTime);
 
-		g_Engine.renderer.Render();
+		{ // Rendering
+			g_Engine.renderer.RenderSetup();
 
-		Time::Wait(endTime - Time::GetTime()); // TODO dosent factor in frame taking too long
+			g_Engine.renderer.Render();
+			g_Engine.imGuiContext.RenderUi();
+
+			g_Engine.renderer.RenderCleanup();
+		}
+
+		g_Engine.humanInterfaceDeviceContext.Wait(endTime - g_Engine.humanInterfaceDeviceContext.GetTime());
+		m_LastEndTime = endTime;
 	}
 }

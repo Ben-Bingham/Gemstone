@@ -28,6 +28,18 @@ namespace Gem {
 		g_Engine.humanInterfaceDeviceContext.SwapBuffers(m_Handle);
 	}
 
+	void Window::SwapInterval(const size_t interval) {
+		g_Engine.humanInterfaceDeviceContext.SetSwapInterval(interval);
+	}
+
+	void Window::DisableCursor() {
+		g_Engine.humanInterfaceDeviceContext.DisableCursor(Handle());
+	}
+
+	void Window::EnableCursor() {
+		g_Engine.humanInterfaceDeviceContext.EnableCursor(Handle());
+	}
+
 	Vector2ui Window::Size() const {
 		return m_Size;
 	}

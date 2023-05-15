@@ -2,7 +2,14 @@
 
 namespace Gem {
 	constexpr size_t ELEMENTS_IN_VERTEX = 8;
-	using Vertex = std::tuple<Vector3f, Vector3f, Vector2f>;
+	struct Vertex {
+		Vertex(Vector3f position, Vector3f normal, Vector2f uv);
+
+		Vector3f position;
+		Vector3f normal;
+		Vector2f uv;
+	};
+
 	using Index = unsigned int;
 
 	class Shape {

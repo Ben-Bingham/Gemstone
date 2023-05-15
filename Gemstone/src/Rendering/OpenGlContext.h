@@ -12,6 +12,16 @@
 #endif
 
 namespace Gem {
+	void CheckErrors(const char* filePath, int lineNumber);
+}
+
+#ifdef GEMSTONE_CHECK_OPEN_GL_ERRORS
+#define CHECK_ERRORS() Gem::CheckErrors(__FILE__, __LINE__)
+#elif
+#define CHECK_ERRORS(...)
+#endif
+
+namespace Gem {
 	using OpenGlHandle = GLuint;
 
 	using TextureHandle = OpenGlHandle;
@@ -37,8 +47,6 @@ namespace Gem {
 		void ShutDown() override;
 
 		// ------------------------------ Miscellaneous ------------------------------
-		void CheckErrors() const;
-
 		void Clear();
 		Colour clearColour{ 128, 128, 128 };
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "New Rendering/Utility/Image.h"
+#include "Rendering/Utility/Image.h"
 
 namespace Gem {
 	class ImageAtlas : public Image {

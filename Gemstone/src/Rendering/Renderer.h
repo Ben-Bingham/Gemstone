@@ -22,15 +22,14 @@ namespace Gem {
 		void StartUp() override;
 		void ShutDown() override;
 
+		void RenderSetup();
 		void Render();
+		void RenderCleanup();
 
 		void Queue(const Ptr<InternalMesh>& mesh, const Ptr<InternalMaterial>& material, Matrix4f modelMatrix);
 		void AddCamera(const Camera& camera);
 
 	private:
-		void RenderSetup();
-		void RenderCleanup();
-
 		std::vector<Renderable> m_Renderables;
 		std::vector<Camera> m_Cameras;
 	};

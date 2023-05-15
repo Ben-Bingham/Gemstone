@@ -8,7 +8,7 @@ namespace Gem {
 	Matrix4f Transform::Matrix() const {
 		Matrix4f model{ 1.0f };
 
-		model.translate(position).scale(scale).rotate(degreesToRadians(rotation.x), Vector3f::east).rotate(degreesToRadians(rotation.y), Vector3f::up).rotate(degreesToRadians(rotation.z), Vector3f::south);
+		model.translate(position).scale(scale).rotate(degreesToRadians(rotation.z), Vector3f::south).rotate(degreesToRadians(rotation.x), Vector3f::east).rotate(degreesToRadians(rotation.y), Vector3f::up);
 
 		return model;
 	}

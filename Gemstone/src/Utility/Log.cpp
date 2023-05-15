@@ -1,96 +1,48 @@
 #include "pch.h"
-#include <Windows.h>
-
-#include <stdlib.h>
+#include "Log.h"
 #include <iostream>
 
-#include "Log.h"
-
 namespace Gem {
-	void Log::log(int lineNumber, const char* file, const std::string& message, LogLevel messageLevel) {
-		if (messageLevel >= m_LogLevel) {
-			std::string fileString{ file };
-			size_t pos = fileString.find("Gemstone");
-			std::string shortendPath = "";
-			if (pos != std::string::npos) {
-				shortendPath = fileString.erase(0, pos + 9);
-			}
+	void Log(const char* filePath, int lineNumber, const std::string& message, LogLevel level) {
+		std::string startOfLog{};
 
-			std::string boilerPlate = "";
-			boilerPlate += ": " + std::to_string(lineNumber) + ' ' + shortendPath + "] ";
-
-			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-#undef ERROR
-
-			switch (messageLevel) {
-			default:
+		if (Logger::g_LogLevel) {
+			switch (level) {
 			case LogLevel::INFO:
-#ifdef ONLY_MESSAGE
-				std::cout << message << std::endl;
-#elif 
-				if (m_PrintFilePath) {
-					std::cout << "[INFO" << boilerPlate << message << std::endl;
-				}
-				else {
-					std::cout << "[INFO] " << message << std::endl;
-				}
-#endif
+				startOfLog += "[INFO] ";
 				break;
 			case LogLevel::WARNING:
-#ifdef ONLY_MESSAGE
-				std::cout << message << std::endl;
-#elif 
-				SetConsoleTextAttribute(hConsole, 14);
-				if (m_PrintFilePath) {
-					std::cout << "[WARNING" << boilerPlate << message << std::endl;
-				}
-				else {
-					std::cout << "[WARNING] " << message << std::endl;
-				}
-
-				SetConsoleTextAttribute(hConsole, 7);
-#endif
+				startOfLog += "[WARNING] ";
 				break;
 			case LogLevel::ERROR:
-#ifdef ONLY_MESSAGE
-				std::cout << message << std::endl;
-#elif 
-				SetConsoleTextAttribute(hConsole, 12);
-				if (m_PrintFilePath) {
-					std::cout << "[ERROR" << boilerPlate << message << std::endl;
-				}
-				else {
-					std::cout << "[ERROR] " << message << std::endl;
-				}
-
-				SetConsoleTextAttribute(hConsole, 7);
-#endif
-
+				startOfLog += "[ERROR] ";
 				break;
 			case LogLevel::TERMINAL:
-#ifdef ONLY_MESSAGE
-				std::cout << message << std::endl;
-#elif 
-				SetConsoleTextAttribute(hConsole, 13);
-				if (m_PrintFilePath) {
-					std::cout << "[TERMINAL" << boilerPlate << message << std::endl;
-				}
-				else {
-					std::cout << "[TERMINAL] " << message << std::endl;
-				}
-
-				SetConsoleTextAttribute(hConsole, 7);
-#endif
-				std::cout << "Press enter to terminate the program." << std::endl;
-				std::cin.get();
-
-				exit(EXIT_FAILURE);
+				startOfLog += "[TERMINAL] ";
 				break;
 			}
 		}
+
+		const auto filePathString = std::string{ filePath };
+
+		const std::string shortenedPath = filePathString.substr(filePathString.find_last_of('\\') + 1);
+		if (Logger::g_FilePath && Logger::g_LineNumber) {
+			startOfLog += "(" + shortenedPath + ':' + std::to_string(lineNumber) + ") ";
+		}
+		else if (!Logger::g_FilePath && Logger::g_LineNumber) {
+			startOfLog += "(" + std::to_string(lineNumber) + ") ";
+		}
+		else if (Logger::g_FilePath && !Logger::g_LineNumber) {
+			startOfLog += "(" + shortenedPath + ") ";
+		}
+
+		std::cout << startOfLog << message << std::endl;
+
+		if (level == LogLevel::TERMINAL) {
+			std::cout << "Press enter to terminate the program." << std::endl;
+			std::cin.get();
+
+			exit(EXIT_FAILURE);
+		}
 	}
-
-	Log LOGGER(LogLevel::INFO, true);
-}
-
+} 

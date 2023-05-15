@@ -58,6 +58,34 @@ namespace Gem {
 		glfwSwapBuffers(handle);
 	}
 
+	void HumanInterfaceDeviceContext::SetSwapInterval(const size_t interval) {
+		glfwSwapInterval((int)interval);
+	}
+
+	bool HumanInterfaceDeviceContext::GetKey(const WindowHandle handle, Key key) const {
+		return glfwGetKey(handle, (int)key) == GLFW_PRESS;
+	}
+
+	bool HumanInterfaceDeviceContext::GetMouseButton(const WindowHandle handle, MouseButton button) const {
+		return glfwGetMouseButton(handle, (int)button) == GLFW_PRESS;
+	}
+
+	Vector2i HumanInterfaceDeviceContext::GetMousePosition(const WindowHandle handle) const {
+		double x, y;
+		
+		glfwGetCursorPos(handle, &x, &y);
+
+		return Vector2i{ (int)std::floor(x), (int)std::floor(y) };
+	}
+
+	void HumanInterfaceDeviceContext::DisableCursor(const WindowHandle handle) {
+		glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+
+	void HumanInterfaceDeviceContext::EnableCursor(WindowHandle handle) {
+		glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
 	// Callbacks
 	void HumanInterfaceDeviceContext::SetKeyCallback(const WindowHandle handle, void(*callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods)) {
 #ifdef GEMSTONE_DEBUG
@@ -123,5 +151,15 @@ namespace Gem {
 #ifdef GEMSTONE_DEBUG
 		m_CursorEnterCallbackInitialized = true;
 #endif
+	}
+
+	float HumanInterfaceDeviceContext::GetTime() const {
+		return (float)glfwGetTime();
+	}
+
+	void HumanInterfaceDeviceContext::Wait(const float seconds) const {
+		const float endTime = GetTime() + seconds;
+
+		while (GetTime() < endTime) { }
 	}
 }

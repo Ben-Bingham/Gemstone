@@ -34,8 +34,10 @@ namespace Gem {
 
 	std::vector<float> Mesh::ReorganizeVertexData(const std::vector<Vertex>& vertices) {
 		std::vector<float> reorganizedVertexData;
+
 		reorganizedVertexData.resize(vertices.size() * ELEMENTS_IN_VERTEX);
-		memcpy(reorganizedVertexData.data(), vertices.data(), reorganizedVertexData.size());
+
+		std::memcpy(reorganizedVertexData.data(), vertices.data(), reorganizedVertexData.size() * sizeof(float));
 	
 		return reorganizedVertexData;
 	}

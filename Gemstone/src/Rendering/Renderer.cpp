@@ -1,24 +1,20 @@
 #include "pch.h"
 
 #include "Renderer.h"
-#include "imgui.h"
 
 #include "Core/Engine.h"
 #include "Rendering/Components/Mesh.h"
 #include "Rendering/Components/Material.h"
 
 namespace Gem {
-	void Renderer::StartUp() {
-		
-	}
+	void Renderer::StartUp() { }
+	void Renderer::ShutDown() { }
 
-	void Renderer::ShutDown() {
-		
+	void Renderer::RenderSetup() {
+		g_Engine.openGlContext.Clear();
 	}
 
 	void Renderer::Render() {
-		RenderSetup();
-
 #ifdef GEMSTONE_DEBUG
 		if (m_Cameras.empty()) {
 			LOG("No cameras provided, dont expect an image.", LogLevel::WARNING);
@@ -39,17 +35,18 @@ namespace Gem {
 				material->specular.Bind();
 				material->shader->Upload("u_Specular", 1);
 
-				// Matrix4f mvp = camera.Cam()->projection * camera.Cam()->view * modelMatrix;
 				Matrix4f mvp = modelMatrix * camera.Cam()->view * camera.Cam()->projection;
 				material->shader->Upload("u_MVP", mvp);
 
 				g_Engine.openGlContext.DrawElements(mesh->indexCount);
 			}
 		}
+	}
 
-		g_Engine.imGuiContext.RenderUi();
-
-		RenderCleanup();
+	void Renderer::RenderCleanup() {
+		g_Engine.window.SwapBuffers();
+		m_Renderables.clear();
+		m_Cameras.clear();
 	}
 
 	void Renderer::Queue(const Ptr<InternalMesh>& mesh, const Ptr<InternalMaterial>& material, Matrix4f modelMatrix) {
@@ -58,15 +55,5 @@ namespace Gem {
 
 	void Renderer::AddCamera(const Camera& camera) {
 		m_Cameras.push_back(camera);
-	}
-
-	void Renderer::RenderSetup() {
-		g_Engine.openGlContext.Clear();
-	}
-
-	void Renderer::RenderCleanup() {
-		g_Engine.window.SwapBuffers();
-		m_Renderables.clear();
-		m_Cameras.clear();
 	}
 }

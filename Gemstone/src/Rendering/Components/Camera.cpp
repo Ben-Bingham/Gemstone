@@ -8,7 +8,7 @@ namespace Gem {
 		: type(camType) {
 		switch (camType) {
 		case CameraType::PERSPECTIVE:
-			m_Camera = CreatePtr<PerspectiveCamera>();
+			m_Camera = CreatePtr<FpsCamera>();
 			break;
 		}
 

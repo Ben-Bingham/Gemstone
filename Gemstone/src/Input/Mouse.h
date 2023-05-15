@@ -1,4 +1,6 @@
 #pragma once
+#include "MouseButton.h"
+
 #include <GLFW/glfw3.h>
 
 #include "Core/Window.h"
@@ -15,5 +17,8 @@ namespace Gem {
 
 		void StartUp() override;
 		void ShutDown() override;
+
+		Vector2i GetPosition() const;
+		bool GetButton(MouseButton button) const;
 	};
 }

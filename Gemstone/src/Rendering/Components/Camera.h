@@ -1,8 +1,6 @@
 #pragma once
 #include "Entity Component System/EntityManager.h"
-
 #include "Rendering/Systems/RenderingSystem.h"
-
 #include "Utility/Pointer.h"
 #include "Utility/Transform.h"
 
@@ -20,21 +18,24 @@ namespace Gem {
 		Matrix4f view{ 1.0f };
 	};
 
-	class PerspectiveCamera final : public ICamera {
+	class FpsCamera final : public ICamera {
 	public:
-		PerspectiveCamera() = default;
-		PerspectiveCamera(const PerspectiveCamera& other) = default;
-		PerspectiveCamera(PerspectiveCamera&& other) noexcept = default;
-		PerspectiveCamera& operator=(const PerspectiveCamera& other) = default;
-		PerspectiveCamera& operator=(PerspectiveCamera&& other) noexcept = default;
-		~PerspectiveCamera() override = default;
+		FpsCamera() = default;
+		FpsCamera(const FpsCamera& other) = default;
+		FpsCamera(FpsCamera&& other) noexcept = default;
+		FpsCamera& operator=(const FpsCamera& other) = default;
+		FpsCamera& operator=(FpsCamera&& other) noexcept = default;
+		~FpsCamera() override = default;
 
 		Vector3f up{ Vector3f::up.normalize() };
 		Vector3f forward{ Vector3f::north.normalize() };
 		Vector3f right{ cross(up, forward).normalize() };
 
 		Degree fov{ 90 };
-		float movementSpeed{ 0.001f };
+		float movementSpeed{ 6.0f };
+		float mouseSensitivity{ 0.07f };
+
+		Vector2i oldMousePosition{};
 	};
 
 	// This class acts as a component

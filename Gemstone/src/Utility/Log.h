@@ -1,8 +1,6 @@
 #pragma once
-#include <string>
 
 namespace Gem {
-#undef ERROR
 	enum class LogLevel {
 		INFO,
 		WARNING,
@@ -10,45 +8,19 @@ namespace Gem {
 		TERMINAL
 	};
 
-	class Log {
-	public:
-		Log(LogLevel logLevel = LogLevel::INFO, bool printFilePath = true) : m_LogLevel(logLevel), m_PrintFilePath(printFilePath) {}
+	void Log(const char* filePath, int lineNumber, const std::string& message, LogLevel level = LogLevel::INFO);
 
-		void log(int lineNumber, const char* file, const std::string& message, LogLevel messageLevel = LogLevel::INFO);
-		void log(int lineNumber, const char* file, const float& message, LogLevel messageLevel = LogLevel::INFO) {
-			log(lineNumber, file, std::to_string(message), messageLevel);
-		}
-		void log(int lineNumber, const char* file, const long double& message, LogLevel messageLevel = LogLevel::INFO) {
-			log(lineNumber, file, std::to_string(message), messageLevel);
-		}
-		void log(int lineNumber, const char* file, unsigned long long int& message, LogLevel messageLevel = LogLevel::INFO) {
-			log(lineNumber, file, std::to_string(message), messageLevel);
-		}
-		void log(int lineNumber, const char* file, int& message, LogLevel messageLevel = LogLevel::INFO) {
-			log(lineNumber, file, std::to_string(message), messageLevel);
-		}
-		void log(int lineNumber, const char* file, const double& message, LogLevel messageLevel = LogLevel::INFO) {
-			log(lineNumber, file, std::to_string(message), messageLevel);
-		}
-
-		void setLogLevel(LogLevel newLevel) { m_LogLevel = newLevel; }
-		LogLevel getLogLevel() { return m_LogLevel; }
-
-	private:
-		LogLevel m_LogLevel;
-		bool m_PrintFilePath;
-	};
-
-	extern Log LOGGER;
+	namespace Logger {
+		inline bool g_LogLevel{ true };
+		inline bool g_FilePath{ true }; // This and shortened path should be mutually exclusive
+		inline bool g_LineNumber{ true };
+	}
 }
 
 #define ENABLE_LOG_ON_RELEASE
-#define ONLY_MESSAGE
 
-#ifdef LAZULI_DEBUG
-#define LOG(...) Gem::LOGGER.log(__LINE__, __FILE__, __VA_ARGS__)
-#elif defined ENABLE_LOG_ON_RELEASE
-#define LOG(...) Gem::LOGGER.log(__LINE__, __FILE__, __VA_ARGS__)
-#else
+#if defined(GEMSTONE_DEBUG)  || defined(ENABLE_LOG_ON_RELEASE)
+#define LOG(...) Gem::Log(__FILE__, __LINE__, __VA_ARGS__)
+#elif
 #define LOG(...)
-#endif // LAZULI_DEBUG
+#endif

@@ -1,10 +1,63 @@
 #include "pch.h"
 
 #include "OpenGlContext.h"
+#include <iostream>
 
 #include "Utility/OpenGlError.h"
 
 namespace Gem {
+	void CheckErrors(const char* filePath, const int lineNumber) {
+		const bool filePathBackup{ Logger::g_FilePath };
+		const bool lineNumberBackup{ Logger::g_LineNumber };
+		const bool logLevelBackup{ Logger::g_LogLevel };
+
+		Logger::g_FilePath = false;
+		Logger::g_LineNumber = false;
+		Logger::g_LogLevel = false;
+
+		std::string errorMessage{};
+
+		switch (const GLenum error = glGetError()) {
+		case GL_NO_ERROR:
+			return;
+		case GL_INVALID_ENUM:
+			errorMessage += "Invalid Enum";
+			break;
+		case GL_INVALID_VALUE:
+			errorMessage += "Invalid Value";
+			break;
+		case GL_INVALID_OPERATION:
+			errorMessage += "Invalid Operation";
+			break;
+		case GL_STACK_OVERFLOW:
+			errorMessage += "Stack Overflow";
+			break;
+		case GL_STACK_UNDERFLOW:
+			errorMessage += "Stack Underflow";
+			break;
+		case GL_OUT_OF_MEMORY:
+			errorMessage += "Out of memory";
+			break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			errorMessage += "Invalid Framebuffer Operation";
+			break;
+		default:
+			errorMessage += "Unknown Error Code: " + std::to_string(error);
+			break;
+		}
+
+		const std::string filePathStr{ filePath };
+		const std::string fileStr = filePathStr.substr(filePathStr.find_last_of('\\') + 1);
+
+		const std::string logMessage = "[OPENGL ERROR] (" + fileStr + ':' + std::to_string(lineNumber) + ") " + errorMessage;
+
+		LOG(logMessage);
+
+		Logger::g_FilePath = filePathBackup;
+		Logger::g_LineNumber = lineNumberBackup;
+		Logger::g_LogLevel = logLevelBackup;
+	}
+
 	void OpenGlContext::StartUp() {
 		if (glewInit() != GLEW_OK) {
 			LOG("GLEW failed to be initialized", Gem::LogLevel::TERMINAL);
@@ -21,45 +74,10 @@ namespace Gem {
 			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
 		}
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::ShutDown() { }
-
-	void OpenGlContext::CheckErrors() const {
-#ifdef GEMSTONE_CHECK_OPEN_GL_ERRORS
-		const GLenum error = glGetError();
-
-		switch (error) {
-		case GL_NO_ERROR:
-			return;
-		case GL_INVALID_ENUM:
-			LOG("Invalid Enum"); //TODO log system needs a rework allowing this to include file and line number
-			break;
-		case GL_INVALID_VALUE:
-			LOG("Invalid Value");
-			break;
-		case GL_INVALID_OPERATION:
-			LOG("Invalid Operation");
-			break;
-		case GL_STACK_OVERFLOW:
-			LOG("Stack Overflow");
-			break;
-		case GL_STACK_UNDERFLOW:
-			LOG("Stack Underflow");
-			break;
-		case GL_OUT_OF_MEMORY:
-			LOG("Out of memory");
-			break;
-		case GL_INVALID_FRAMEBUFFER_OPERATION:
-			LOG("Invalid Frambuffer Operation");
-			break;
-		default:
-			LOG("Unknown Error Code: " + std::to_string(error));
-			break;
-		}
-#endif
-	}
 
 	void OpenGlContext::Clear() {
 		const Vector4f floatColour{ clearColour.ToVec4f() };
@@ -67,7 +85,7 @@ namespace Gem {
 		glClearColor(floatColour.x, floatColour.y, floatColour.z, floatColour.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	OpenGlContext::GlType::GlType(GlTypeName type, size_t elementCount)
@@ -93,7 +111,7 @@ namespace Gem {
 		TextureHandle handle;
 		glGenTextures(1, &handle);
 
-		CheckErrors();
+		CHECK_ERRORS();
 
 		return handle;
 	}
@@ -101,7 +119,7 @@ namespace Gem {
 	void OpenGlContext::DeleteTexture(TextureHandle handle) {
 		glDeleteTextures(1, &handle);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::BindTexture2D(const TextureHandle handle) {
@@ -112,7 +130,7 @@ namespace Gem {
 		glBindTexture(GL_TEXTURE_2D, handle);
 		m_BoundTexture = handle;
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::ConfigureTexture2D(const TextureHandle handle, const WrapMode wrapMode, const FilterMode filterMode) {
@@ -140,7 +158,7 @@ namespace Gem {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilterMode);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilterMode);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::AssignTextureData2D(TextureHandle handle, const Image& image) {
@@ -156,7 +174,7 @@ namespace Gem {
 
 		glTexImage2D(GL_TEXTURE_2D, 0, channelFormat, image.dimensions.x, image.dimensions.y, 0, channelFormat, GL_UNSIGNED_BYTE, image.content.data());
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::GenerateMipMaps2D(TextureHandle handle) {
@@ -164,13 +182,13 @@ namespace Gem {
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::ActivateTextureUnit(const size_t index) {
 		glActiveTexture(GL_TEXTURE0 + (int)index);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	// Buffers:
@@ -179,7 +197,7 @@ namespace Gem {
 	
 		glGenBuffers(1, &handle);
 	
-		CheckErrors();
+		CHECK_ERRORS();
 	
 		return handle;
 	}
@@ -187,7 +205,7 @@ namespace Gem {
 	void OpenGlContext::DeleteBuffer(BufferHandle handle) {
 		glDeleteBuffers(1, &handle);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::BindBuffer(BufferHandle handle, BufferType type) {
@@ -198,7 +216,7 @@ namespace Gem {
 		glBindBuffer((GLenum)type, handle);
 		m_BoundBuffer = handle;
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::SetBufferData(BufferHandle handle, const BufferType type, const void* data, const size_t dataSize, const BufferAccessFrequency accessFrequency, const BufferNatureOfAccess natureOfAccess) {
@@ -208,7 +226,7 @@ namespace Gem {
 
 		glBufferData((GLenum)type, (unsigned int)dataSize, data, usage);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::ModifyBufferData(BufferHandle handle, const BufferType type, const void* data, const size_t dataSize, const size_t byteOffset) {
@@ -216,7 +234,7 @@ namespace Gem {
 
 		glBufferSubData((GLenum)type, (unsigned int)byteOffset, (unsigned int)dataSize, data);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	int OpenGlContext::BufferAccessToInt(const BufferAccessFrequency accessFrequency, const BufferNatureOfAccess natureOfAccess) const {
@@ -263,7 +281,7 @@ namespace Gem {
 
 		glGenVertexArrays(1, &handle);
 
-		CheckErrors();
+		CHECK_ERRORS();
 
 		return handle;
 	}
@@ -271,7 +289,7 @@ namespace Gem {
 	void OpenGlContext::DeleteVertexAttributeObject(VertexAttributeObjectHandle handle) {
 		glDeleteVertexArrays(1, &handle);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::BindVertexAttributeObject(VertexAttributeObjectHandle handle) {
@@ -283,7 +301,7 @@ namespace Gem {
 
 		m_BoundVertexAttributeObject = handle;
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::CreateAttributePointer(VertexAttributeObjectHandle handle, const size_t index, GlType type, const size_t stride, const size_t offset) {
@@ -293,7 +311,7 @@ namespace Gem {
 
 		glVertexAttribPointer((GLuint)index, (GLint)type.componentCount, (GLenum)type.type, GL_FALSE, (GLint)stride, (void*)offset);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::DeleteAttributePointer(VertexAttributeObjectHandle handle, const size_t index) {
@@ -303,20 +321,20 @@ namespace Gem {
 	void OpenGlContext::EnableVertexAttributeIndex(const size_t index) {
 		glEnableVertexAttribArray((unsigned int)index);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::DisableVertexAttributeIndex(const size_t index) {
 		glDisableVertexAttribArray((unsigned int)index);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	// Shaders
 	ShaderHandle OpenGlContext::CreateShader(ShaderType type) {
 		const ShaderHandle shader = glCreateShader((GLenum)type);
 
-		CheckErrors();
+		CHECK_ERRORS();
 
 		return shader;
 	}
@@ -325,7 +343,7 @@ namespace Gem {
 		const char* charShaderSource = shaderSource.c_str();
 		glShaderSource(shader, 1, &charShaderSource, nullptr);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::CompileShader(ShaderHandle shader) {
@@ -339,13 +357,13 @@ namespace Gem {
 			LOG("Shader failed to compile.\n" + std::string(infoLog), LogLevel::ERROR);
 		}
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	ShaderProgramHandle OpenGlContext::CreateShaderProgram() {
 		ShaderProgramHandle shaderProgram = glCreateProgram();
 
-		CheckErrors();
+		CHECK_ERRORS();
 
 		return shaderProgram;
 	}
@@ -353,18 +371,18 @@ namespace Gem {
 	void OpenGlContext::AttachShaderToProgram(ShaderProgramHandle shaderProgram, ShaderHandle shader) {
 		glAttachShader(shaderProgram, shader);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::BindShaderProgram(ShaderProgramHandle shaderProgram) {
-		// if (m_BoundShaderProgram == shaderProgram) {
-		// 	return;
-		// }
+		if (m_BoundShaderProgram == shaderProgram) {
+			return;
+		}
 
 		glUseProgram(shaderProgram);
 		m_BoundShaderProgram = shaderProgram;
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::CompileShaderProgram(ShaderProgramHandle shaderProgram) {
@@ -378,14 +396,14 @@ namespace Gem {
 			LOG("Shader program failed to compile.\n" + std::string(infoLog), LogLevel::ERROR);
 		}
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	// Rendering
 	void OpenGlContext::DrawElements(const size_t indexCount) {
 		glDrawElements(GL_TRIANGLES, (int)indexCount, GL_UNSIGNED_INT, 0);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	// Uniform Uploads
@@ -398,7 +416,7 @@ namespace Gem {
 		}
 #endif
 
-		CheckErrors();
+		CHECK_ERRORS();
 
 		return location;
 	}
@@ -406,30 +424,30 @@ namespace Gem {
 	void OpenGlContext::UploadUniform(UniformLocation location, int value) {
 		glUniform1i(location, value);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::UploadUniform(UniformLocation location, float value) {
 		glUniform1f(location, value);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::UploadUniform(UniformLocation location, const Matrix4f& value) {
 		glUniformMatrix4fv(location, 1, GL_FALSE, &value.row1.x);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::UploadUniform(UniformLocation location, const Vector3f& value) {
 		glUniform3fv(location, 1, &value.x);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 
 	void OpenGlContext::UploadUniform(UniformLocation location, const Vector4f& value) {
 		glUniform4fv(location, 1, &value.x);
 
-		CheckErrors();
+		CHECK_ERRORS();
 	}
 }
