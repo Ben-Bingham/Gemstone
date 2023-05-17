@@ -12,6 +12,7 @@ namespace ImGui {
 
 namespace Gem {
 	class Texture : Image {
+		friend class FrameBuffer;
 	public:
 		Texture(const Image& image = MISSING_IMAGE);
 		Texture(const Texture& other) = delete;

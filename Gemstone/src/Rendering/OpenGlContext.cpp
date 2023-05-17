@@ -592,6 +592,30 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
+	bool OpenGlContext::GetFrameBufferStatus(const FrameBufferHandle frameBuffer) {
+		BindFrameBuffer(frameBuffer);
+
+		const bool result = glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+
+		CHECK_ERRORS();
+
+		return result;
+	}
+
+	void OpenGlContext::AttachTextureToFrameBuffer(const FrameBufferHandle frameBuffer, const TextureHandle texture) {
+		BindFrameBuffer(frameBuffer);
+
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+
+		CHECK_ERRORS();
+	}
+
+	void OpenGlContext::AttachRenderBufferToFrameBuffer(const FrameBufferHandle frameBuffer, const RenderBufferHandle renderBuffer) {
+		BindFrameBuffer(frameBuffer);
+
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderBuffer);
+	}
+
 	// ------------------------------ Render Buffers ------------------------------
 
 	RenderBufferHandle OpenGlContext::GenerateRenderBuffer() {
@@ -604,19 +628,27 @@ namespace Gem {
 		return handle;
 	}
 
-	void OpenGlContext::DeleteRenderBuffer(RenderBufferHandle handle) {
+	void OpenGlContext::DeleteRenderBuffer(const RenderBufferHandle handle) {
 		glDeleteRenderbuffers(1, &handle);
 
 		CHECK_ERRORS();
 	}
 
-	void OpenGlContext::BindRenderBuffer(RenderBufferHandle handle) {
+	void OpenGlContext::BindRenderBuffer(const RenderBufferHandle handle) {
 		if (m_BoundRenderBuffer == handle) {
 			return;
 		}
 
 		glBindRenderbuffer(GL_RENDERBUFFER, handle);
 		m_BoundRenderBuffer = handle;
+
+		CHECK_ERRORS();
+	}
+
+	void OpenGlContext::SetRenderBufferStorageType(const RenderBufferHandle handle, const Vector2ui& size) {
+		BindRenderBuffer(handle);
+
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, (int)size.x, (int)size.y);
 
 		CHECK_ERRORS();
 	}

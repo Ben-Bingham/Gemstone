@@ -19,6 +19,16 @@ namespace Gem {
 		openGlContext.CullFace(OpenGlContext::CullableFaces::BACK);
 
 		openGlContext.SetFrontFaceDirection(OpenGlContext::FrontFaceDirection::CLOCKWISE);
+
+		m_PrimaryFrameBuffer = CreateUPtr<FrameBuffer>();
+		m_PrimaryFrameBufferColourComponent = CreateUPtr<Texture>();
+		m_PrimaryFrameBufferStencilAndDepthComponent = CreateUPtr<RenderBuffer>();
+
+		m_PrimaryFrameBuffer->Bind();
+		m_PrimaryFrameBuffer->AttachTexture(*m_PrimaryFrameBufferColourComponent);
+		m_PrimaryFrameBuffer->AttachRenderBuffer(*m_PrimaryFrameBufferStencilAndDepthComponent);
+		m_PrimaryFrameBuffer->Compile();
+		m_PrimaryFrameBuffer->Unbind();
 	}
 
 	void Renderer::ShutDown() { }

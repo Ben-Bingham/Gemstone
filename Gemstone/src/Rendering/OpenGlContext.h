@@ -233,6 +233,11 @@ namespace Gem {
 		void DeleteFrameBuffer(FrameBufferHandle handle);
 		void BindFrameBuffer(FrameBufferHandle handle);
 
+		bool GetFrameBufferStatus(FrameBufferHandle frameBuffer);
+
+		void AttachTextureToFrameBuffer(FrameBufferHandle frameBuffer, TextureHandle texture);
+		void AttachRenderBufferToFrameBuffer(FrameBufferHandle frameBuffer, RenderBufferHandle renderBuffer);
+
 	private:
 		FrameBufferHandle m_BoundFrameBuffer;
 
@@ -241,6 +246,8 @@ namespace Gem {
 		[[nodiscard]] RenderBufferHandle GenerateRenderBuffer();
 		void DeleteRenderBuffer(RenderBufferHandle handle);
 		void BindRenderBuffer(RenderBufferHandle handle);
+
+		void SetRenderBufferStorageType(RenderBufferHandle handle, const Vector2ui& size);
 
 	private:
 		RenderBufferHandle m_BoundRenderBuffer;

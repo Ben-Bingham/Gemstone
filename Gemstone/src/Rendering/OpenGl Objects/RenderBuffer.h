@@ -3,6 +3,7 @@
 
 namespace Gem {
 	class RenderBuffer {
+		friend class FrameBuffer;
 	public:
 		RenderBuffer();
 		RenderBuffer(const RenderBuffer& other) = default;

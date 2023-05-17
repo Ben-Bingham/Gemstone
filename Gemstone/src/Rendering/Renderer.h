@@ -6,6 +6,8 @@
 
 #include "Core/ISubSystem.h"
 
+#include "OpenGl Objects/FrameBuffer.h"
+
 #include "Utility/Pointer.h"
 #include "Utility/Transform.h"
 
@@ -32,5 +34,9 @@ namespace Gem {
 	private:
 		std::vector<Renderable> m_Renderables;
 		std::vector<Camera> m_Cameras;
+
+		UPtr<FrameBuffer> m_PrimaryFrameBuffer;
+		UPtr<Texture> m_PrimaryFrameBufferColourComponent;
+		UPtr<RenderBuffer> m_PrimaryFrameBufferStencilAndDepthComponent;
 	};
 }
