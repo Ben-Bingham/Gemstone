@@ -4,6 +4,7 @@
 #include "Input/HumanInterfaceDeviceContext.h"
 #include "Input/Keyboard.h"
 #include "Input/Mouse.h"
+#include "Rendering/DebugRenderer.h"
 #include "Rendering/OpenGlContext.h"
 #include "Rendering/Renderer.h"
 #include "Rendering/User Interface/ImGuiContext.h"
@@ -25,7 +26,7 @@ namespace Gem {
 		OpenGlContext openGlContext{};
 		ImGuiContext imGuiContext{};
 		Renderer renderer{};
-		// TODO add Logging as a subSystem
+		DebugRenderer debugRenderer{};
 
 		Keyboard keyboard{};
 		Mouse mouse{};

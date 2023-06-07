@@ -3,6 +3,9 @@
 #include "Core/Event System/EventHandler.h"
 #include "Entity Component System/ComponentView.h"
 #include "Input/KeyboardEvents.h"
+
+#include "Rendering/DebugRenderer.h"
+
 #include "Utility/Transform.h"
 #include "Rendering/Components/Material.h"
 #include "Rendering/Components/Mesh.h"
@@ -21,6 +24,15 @@ public:
 			LOG("Stoping Level");
 			g_Engine.eventManager.Post(StopLevel{});
 		}
+	}
+};
+
+class DebugRenderingTestSystem : public System {
+public:
+	void Step(EntityManager& entityManager, float dt) override {
+		DebugRenderer& debugRenderer = g_Engine.debugRenderer;
+
+		debugRenderer.DrawLine(Vector3f{ 0.0f, 0.0f, 0.0f }, Vector3f{ std::cos(dt), std::sin(dt), 5.0f }, Colour::RED);
 	}
 };
 

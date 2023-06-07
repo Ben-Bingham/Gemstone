@@ -20,6 +20,11 @@ namespace Gem {
 		using Renderable = std::tuple<Ptr<InternalMesh>, Ptr<InternalMaterial>, Matrix4f>;
 
 		Renderer() = default;
+		Renderer(const Renderer& other) = default;
+		Renderer(Renderer&& other) noexcept = default;
+		Renderer& operator=(const Renderer& other) = default;
+		Renderer& operator=(Renderer&& other) noexcept = default;
+		~Renderer() override = default;
 
 		void StartUp() override;
 		void ShutDown() override;
@@ -35,8 +40,8 @@ namespace Gem {
 		std::vector<Renderable> m_Renderables;
 		std::vector<Camera> m_Cameras;
 
-		UPtr<FrameBuffer> m_PrimaryFrameBuffer;
-		UPtr<Texture> m_PrimaryFrameBufferColourComponent;
-		UPtr<RenderBuffer> m_PrimaryFrameBufferStencilAndDepthComponent;
+		// UPtr<FrameBuffer> m_PrimaryFrameBuffer; // TODO advanced rendering
+		// UPtr<Texture> m_PrimaryFrameBufferColourComponent;
+		// UPtr<RenderBuffer> m_PrimaryFrameBufferStencilAndDepthComponent;
 	};
 }

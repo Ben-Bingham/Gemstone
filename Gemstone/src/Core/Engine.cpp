@@ -13,9 +13,11 @@ namespace Gem {
 		openGlContext.StartUp();
 		imGuiContext.StartUp();
 		renderer.StartUp();
+		debugRenderer.StartUp();
 	}
 
 	Engine::~Engine() {
+		debugRenderer.ShutDown();
 		renderer.ShutDown();
 		imGuiContext.ShutDown();
 		openGlContext.ShutDown();
