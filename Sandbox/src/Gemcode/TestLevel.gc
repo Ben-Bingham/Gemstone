@@ -1,0 +1,17 @@
+camera = new GameObject{ Camera, Transform }
+cube = new GameObject{ Transform, Mesh{ CUBE }, Material{ Colour{ 255, 0, 0 } } }
+
+{"voltage":12, "current":4}
+
+"camera" : {
+	"Camera": {},
+	"Transform": {[{
+		"posX": 0,
+		"posY": 0,
+		"posZ": 0
+	}]}
+}
+
+"cube" : {
+    "Transform": {}
+}
