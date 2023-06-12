@@ -11,6 +11,6 @@ namespace Gem {
 	}
 
 	int GemCodeParser::Pop() {
-		
+		return -1; // TODO TEMP
 	}
 }

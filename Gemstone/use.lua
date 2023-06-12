@@ -2,6 +2,10 @@
 -- uses it to the root of the Gemstone project that contains the premake file for
 -- its workspace, NOT to the premake file that defines the Gemstone project.
 -- It should end in a slash.
+
+-- Look how it is used in this file to know where your path should lead to, 
+-- includedirs is a prime example
+
 -- TODO may need testing
 function useGemstone(gemstoneRoot)
     gemstoneRoot = gemstoneRoot or ""

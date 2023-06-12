@@ -4,7 +4,8 @@
 #include "Math/Vector.h"
 
 namespace Gem {
-	struct Transform {
+	class Transform {
+	public:
 		Transform(
 			const Vector3f& position = Vector3f{ 0.0f }, 
 			const Vector3f& scale = Vector3f{ 1.0f }, 

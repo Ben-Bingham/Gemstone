@@ -17,8 +17,8 @@ namespace Gem {
 
 #ifdef GEMSTONE_CHECK_OPEN_GL_ERRORS
 #define CHECK_ERRORS() Gem::CheckErrors(__FILE__, __LINE__)
-#elif
-#define CHECK_ERRORS(...)
+#else
+#define CHECK_ERRORS()
 #endif
 
 namespace Gem {
