@@ -1,11 +1,21 @@
 #include "pch.h"
 #include "Engine.h"
 #include "Window.h"
+#include "WindowEvents.h"
+
+#include "Input/MouseEvents.h"
+#include "Core/Event System/EventHandler.h"
 
 namespace Gem {
+	void WindowSizeCallback(WindowHandle handle, const int width, const int height) {
+		g_Engine.eventManager.Post(WindowEvents::Resize{ Vector2ui{(unsigned int)width, (unsigned int)height }});
+	}
+
 	void Window::StartUp() {
 		m_Handle = g_Engine.humanInterfaceDeviceContext.CreateWindowHandle(m_Size, "Window");
 		g_Engine.humanInterfaceDeviceContext.MakeGraphicsContextCurrent(m_Handle);
+
+		g_Engine.humanInterfaceDeviceContext.SetWindowSizeCallback(m_Handle, WindowSizeCallback);
 	}
 
 	void Window::ShutDown() {

@@ -201,6 +201,12 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
+	void OpenGlContext::SetViewportSize(const Vector2ui& size) {
+		glViewport(0, 0, size.x, size.y);
+
+		CHECK_ERRORS();
+	}
+
 	OpenGlContext::GlType::GlType(GlTypeName type, size_t elementCount)
 		: type(type), componentCount(elementCount), byteCount(BytesPerGlType(type) * elementCount) {
 		

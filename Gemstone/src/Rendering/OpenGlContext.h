@@ -101,6 +101,8 @@ namespace Gem {
 		void Clear();
 		Colour clearColour{ 128, 128, 128 };
 
+		void SetViewportSize(const Vector2ui& size);
+
 	private:
 		enum class GlTypeName {
 			FLOAT = (GLenum)GL_FLOAT,

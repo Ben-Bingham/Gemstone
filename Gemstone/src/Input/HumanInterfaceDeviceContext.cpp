@@ -153,6 +153,19 @@ namespace Gem {
 #endif
 	}
 
+	void HumanInterfaceDeviceContext::SetWindowSizeCallback(const WindowHandle handle, void(* callback)(WindowHandle callbackHandle, int width, int height)) {
+#ifdef GEMSTONE_DEBUG
+		if (m_WindowSizeCallbackInitialized) {
+			LOG("Window size callback already initialized", LogLevel::ERROR);
+			return;
+		}
+#endif
+		glfwSetWindowSizeCallback(handle, callback);
+#ifdef GEMSTONE_DEBUG
+		m_WindowSizeCallbackInitialized = true;
+#endif
+	}
+
 	float HumanInterfaceDeviceContext::GetTime() const {
 		return (float)glfwGetTime();
 	}

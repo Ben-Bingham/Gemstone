@@ -48,6 +48,7 @@ namespace Gem {
 		void SetMousePositionCallback(WindowHandle handle, void (*callback)(WindowHandle callbackHandle, double xPos, double yPos));
 		void SetScrollCallback(WindowHandle handle, void (*callback)(WindowHandle callbackHandle, double xOffset, double yOffset));
 		void SetCursorEnterCallback(WindowHandle handle, void (*callback)(WindowHandle callbackHandle, int entered));
+		void SetWindowSizeCallback(WindowHandle, void (*callback)(WindowHandle callbackHandle, int width, int height));
 
 		template<typename T>
 		void SetPointerToUserData(const WindowHandle handle, const std::string& key, T& data) {
@@ -76,6 +77,7 @@ namespace Gem {
 		bool m_MousePositionCallbackInitialized{ false };
 		bool m_ScrollCallbackInitialized{ false };
 		bool m_CursorEnterCallbackInitialized{ false };
+		bool m_WindowSizeCallbackInitialized{ false };
 #endif
 	};
 }

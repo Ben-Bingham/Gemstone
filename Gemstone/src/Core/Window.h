@@ -3,6 +3,8 @@
 #include "Math/Vector.h"
 
 namespace Gem {
+	void WindowSizeCallback(WindowHandle handle, int width, int height);
+
 	class Window : ISubSystem {
 	public:
 		Window() = default;

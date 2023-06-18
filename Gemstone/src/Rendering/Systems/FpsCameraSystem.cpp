@@ -8,7 +8,7 @@ namespace Gem {
 		g_Engine.window.DisableCursor();
 
 		for (auto [c, transform] : ComponentView<Camera, Transform>{ entityManager }) {
-			if (c.type != Camera::CameraType::PERSPECTIVE) { continue; }
+			if (c.type != Camera::CameraType::FPS) { continue; }
 			const Ptr<FpsCamera> cam = std::dynamic_pointer_cast<FpsCamera>(c.Cam());
 
 			transform.rotation.y = -90.0f;
@@ -19,7 +19,7 @@ namespace Gem {
 
 	void FpsCameraSystem::Step(EntityManager& entityManager, const float dt) {
 		for (auto [c, transform] : ComponentView<Camera, Transform>{ entityManager }) {
-			if (c.type != Camera::CameraType::PERSPECTIVE) { continue; }
+			if (c.type != Camera::CameraType::FPS) { continue; }
 			const Ptr<FpsCamera> cam = std::dynamic_pointer_cast<FpsCamera>(c.Cam());
 
 			const float velocity = cam->movementSpeed * dt;
@@ -70,7 +70,9 @@ namespace Gem {
 			cam->right = cross(cam->forward, Vector3f::up).normalize();
 			cam->up = cross(cam->right, cam->forward).normalize();
 
-			cam->projection = perspective(degreesToRadians(cam->fov), (float)g_Engine.window.Size().x / (float)g_Engine.window.Size().y, 0.1f, 100.0f); // TODO only needs to change when the window is resized
+			if (m_HasResized) {
+				cam->projection = perspective(degreesToRadians(cam->fov), (float)g_Engine.window.Size().x / (float)g_Engine.window.Size().y, 0.1f, 100.0f);
+			}
 			cam->view = lookAt(transform.position, transform.position + cam->forward, cam->up);
 		}
 	}
@@ -86,5 +88,9 @@ namespace Gem {
 				g_Engine.window.DisableCursor();
 			}
 		}
+	}
+
+	void FpsCameraSystem::HandleEvent(const WindowEvents::Resize& event) {
+		m_HasResized = true;
 	}
 }

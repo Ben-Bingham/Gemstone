@@ -1,8 +1,6 @@
 #pragma once
-#include "Entity Component System/EntityManager.h"
-#include "Rendering/Systems/RenderingSystem.h"
+
 #include "Utility/Pointer.h"
-#include "Utility/Transform.h"
 
 namespace Gem {
 	class ICamera {
@@ -41,13 +39,13 @@ namespace Gem {
 	// This class acts as a component
 	class Camera {
 	public:
+		friend class RenderingSystem;
+
 		enum class CameraType {
-			PERSPECTIVE
+			FPS
 		};
 
 		Camera(CameraType camType);
-
-		friend void RenderingSystem::Step(EntityManager& entityManager, float dt);
 
 		Ptr<ICamera> Cam();
 		CameraType type;

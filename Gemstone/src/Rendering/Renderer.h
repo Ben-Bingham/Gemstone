@@ -11,11 +11,12 @@
 #include "Utility/Pointer.h"
 #include "Utility/Transform.h"
 
+
 namespace Gem {
 	class InternalMesh;
 	class InternalMaterial;
 
-	class Renderer final : ISubSystem{
+	class Renderer final : ISubSystem {
 	public:
 		using Renderable = std::tuple<Ptr<InternalMesh>, Ptr<InternalMaterial>, Matrix4f>;
 

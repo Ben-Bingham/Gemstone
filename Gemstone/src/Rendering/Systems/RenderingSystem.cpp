@@ -22,4 +22,8 @@ namespace Gem {
 			g_Engine.renderer.AddCamera(camera);
 		}
 	}
+
+	void RenderingSystem::HandleEvent(const WindowEvents::Resize& event) {
+		g_Engine.openGlContext.SetViewportSize(event.size);
+	}
 }
