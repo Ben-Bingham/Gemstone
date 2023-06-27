@@ -2,9 +2,9 @@
 #include "ECS.h"
 
 namespace Gem {
-	void EntityComponentSystem::Load() {
+	void EntityComponentSystem::Load() const {
 		for (const Ptr<System>& system : systems) {
-			system->StartUp(entityManager);
+			system->StartUp();
 		}
 	}
 
@@ -22,9 +22,9 @@ namespace Gem {
 		}
 	}
 
-	void EntityComponentSystem::Unload() {
+	void EntityComponentSystem::Unload() const {
 		for (const Ptr<System>& system : systems) {
-			system->ShutDown(entityManager);
+			system->ShutDown();
 		}
 	}
 }

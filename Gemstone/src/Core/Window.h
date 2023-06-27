@@ -24,10 +24,9 @@ namespace Gem {
 		void DisableCursor();
 		void EnableCursor();
 
-		[[nodiscard]] Vector2ui Size() const;
+		Vector2ui size{ 640, 480 };
 
 	private:
-		Vector2ui m_Size{ 640, 480 };
 		WindowHandle m_Handle{ nullptr };
 	};
 }

@@ -15,7 +15,7 @@ namespace Gem {
 		FpsCameraSystem& operator=(FpsCameraSystem&& other) noexcept = default;
 		~FpsCameraSystem() override = default;
 
-		void StartUp(EntityManager& entityManager) override;
+		void StartUp() override;
 		void Step(EntityManager& entityManager, float dt) override;
 
 		void HandleEvent(const KeyboardEvents::KeyDown& event) override;

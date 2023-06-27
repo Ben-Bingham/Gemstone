@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Application.h"
+#include "imgui.h"
 #include "Level.h"
 #include "Rendering/Renderer.h"
 
@@ -25,6 +26,11 @@ namespace Gem {
 		g_Engine.eventManager.Distribute();
 
 		level->Step(deltaTime);
+
+		ImGui::Begin("Frame Data");
+		ImGui::Text("Frame Time: %3.5f", (double)deltaTime);
+		ImGui::Text("Frames Per Second: %3.5f", (double)(1.0f / deltaTime));
+		ImGui::End();
 
 		{ // Rendering
 			g_Engine.renderer.RenderSetup();

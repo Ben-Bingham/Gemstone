@@ -36,6 +36,7 @@ namespace Gem {
 		if (m_EntityDescriptions.size() <= entity) {
 			return false;
 		}
+
 		return m_EntityDescriptions[entity].second;
 	}
 

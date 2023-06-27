@@ -4,23 +4,21 @@
 #include "Entity Component System/ComponentView.h"
 
 namespace Gem {
-	void FpsCameraSystem::StartUp(EntityManager& entityManager) {
+	void FpsCameraSystem::StartUp() {
 		g_Engine.window.DisableCursor();
-
-		for (auto [c, transform] : ComponentView<Camera, Transform>{ entityManager }) {
-			if (c.type != Camera::CameraType::FPS) { continue; }
-			const Ptr<FpsCamera> cam = std::dynamic_pointer_cast<FpsCamera>(c.Cam());
-
-			transform.rotation.y = -90.0f;
-
-			cam->oldMousePosition = Vector2i{ (int)g_Engine.window.Size().x / 2, (int)g_Engine.window.Size().x / 2 };
-		}
 	}
 
 	void FpsCameraSystem::Step(EntityManager& entityManager, const float dt) {
 		for (auto [c, transform] : ComponentView<Camera, Transform>{ entityManager }) {
 			if (c.type != Camera::CameraType::FPS) { continue; }
 			const Ptr<FpsCamera> cam = std::dynamic_pointer_cast<FpsCamera>(c.Cam());
+
+			if (!cam->setUp) {
+				transform.rotation.y = -90.0f;
+
+				cam->oldMousePosition = Vector2i{ (int)g_Engine.window.size.x / 2, (int)g_Engine.window.size.x / 2 };
+				cam->setUp = true;
+			}
 
 			const float velocity = cam->movementSpeed * dt;
 			if (g_Engine.keyboard.GetKey(Key::W)) {
@@ -71,7 +69,7 @@ namespace Gem {
 			cam->up = cross(cam->right, cam->forward).normalize();
 
 			if (m_HasResized) {
-				cam->projection = perspective(degreesToRadians(cam->fov), (float)g_Engine.window.Size().x / (float)g_Engine.window.Size().y, 0.1f, 100.0f);
+				cam->projection = perspective(degreesToRadians(cam->fov), (float)g_Engine.window.size.x / (float)g_Engine.window.size.y, 0.1f, 100.0f);
 			}
 			cam->view = lookAt(transform.position, transform.position + cam->forward, cam->up);
 		}

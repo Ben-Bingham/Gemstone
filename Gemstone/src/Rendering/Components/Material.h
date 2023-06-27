@@ -8,20 +8,21 @@ namespace Gem {
 	class InternalMaterial {
 	public:
 		InternalMaterial(const Image& diffuse, const Image& specular);
-
+	
 		Texture diffuse;
 		Texture specular;
-		Ptr<Shader> shader; //TODO make this different per material type
+		const static Ptr<Shader> shader;
 	};
 
 	class Material {
 	public:
+		friend class RenderingSystem;
+
 		Material(const Image& diffuse = Image::MISSING_IMAGE, const Image& specular = Image::MISSING_IMAGE);
+		Material(const Colour& colour);
 
-		friend void RenderingSystem::Step(EntityManager& entityManager, float dt);
-
-		Texture& Diffuse() const;
-		Texture& Specular() const;
+		[[nodiscard]] Texture& Diffuse() const;
+		[[nodiscard]] Texture& Specular() const;
 
 	private:
 		Ptr<InternalMaterial> m_InternalMaterial;

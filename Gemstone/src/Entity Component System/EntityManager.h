@@ -67,9 +67,9 @@ namespace Gem {
 
 			const ComponentMask entityMask = GetMask(entity);
 			const ComponentMask componentMask = ComponentInfo<ComponentType>::mask;
-
+			
 			const ComponentMask result = entityMask & componentMask;
-
+			
 			return result == componentMask;
 		}
 
@@ -79,7 +79,7 @@ namespace Gem {
 		}
 
 		template<typename ComponentType>
-		Ptr<IComponentPool> GetPool() const {
+		Ptr<IComponentPool>& GetPool() const {
 			using Info = ComponentInfo<ComponentType>;
 
 			if (Info::id >= m_Pools.size()) {

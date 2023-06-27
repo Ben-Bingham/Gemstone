@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <tuple>
 
 #include "Components/Camera.h"
@@ -36,6 +37,8 @@ namespace Gem {
 
 		void Queue(const Ptr<InternalMesh>& mesh, const Ptr<InternalMaterial>& material, Matrix4f modelMatrix);
 		void AddCamera(const Camera& camera);
+
+		void AddCustomRenderProcess(std::function<void*> function);
 
 	private:
 		std::vector<Renderable> m_Renderables;

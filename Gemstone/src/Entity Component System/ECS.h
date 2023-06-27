@@ -6,9 +6,9 @@
 namespace Gem {
 	class EntityComponentSystem {
 	public:
-		void Load();
+		void Load() const;
 		void Step(float dt);
-		void Unload();
+		void Unload() const;
 
 		std::vector<Ptr<System>> systems;
 		EntityManager entityManager;

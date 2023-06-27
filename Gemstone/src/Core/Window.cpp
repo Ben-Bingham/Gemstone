@@ -8,19 +8,19 @@
 
 namespace Gem {
 	void WindowSizeCallback(WindowHandle handle, const int width, const int height) {
+		g_Engine.window.size.x = (unsigned)width;
+		g_Engine.window.size.y = (unsigned)height;
 		g_Engine.eventManager.Post(WindowEvents::Resize{ Vector2ui{(unsigned int)width, (unsigned int)height }});
 	}
 
 	void Window::StartUp() {
-		m_Handle = g_Engine.humanInterfaceDeviceContext.CreateWindowHandle(m_Size, "Window");
+		m_Handle = g_Engine.humanInterfaceDeviceContext.CreateWindowHandle(size, "Window");
 		g_Engine.humanInterfaceDeviceContext.MakeGraphicsContextCurrent(m_Handle);
 
 		g_Engine.humanInterfaceDeviceContext.SetWindowSizeCallback(m_Handle, WindowSizeCallback);
 	}
 
-	void Window::ShutDown() {
-		
-	}
+	void Window::ShutDown() { }
 
 	bool Window::IsOpen() const {
 		return !g_Engine.humanInterfaceDeviceContext.ShouldWindowClose(m_Handle);
@@ -48,9 +48,5 @@ namespace Gem {
 
 	void Window::EnableCursor() {
 		g_Engine.humanInterfaceDeviceContext.EnableCursor(Handle());
-	}
-
-	Vector2ui Window::Size() const {
-		return m_Size;
 	}
 }

@@ -12,10 +12,10 @@ namespace Gem {
 		System& operator=(System&& other) noexcept = default;
 		virtual ~System() = default;
 
-		virtual void StartUp(EntityManager& entityManager);
+		virtual void StartUp();
 		virtual void PreStep(EntityManager& entityManager);
 		virtual void Step(EntityManager& entityManager, float dt);
 		virtual void EndStep(EntityManager& entityManager);
-		virtual void ShutDown(EntityManager& entityManager);
+		virtual void ShutDown();
 	};
 }

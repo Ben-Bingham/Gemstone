@@ -34,6 +34,8 @@ namespace Gem {
 		float mouseSensitivity{ 0.07f };
 
 		Vector2i oldMousePosition{};
+
+		bool setUp;
 	};
 
 	// This class acts as a component

@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "Renderer.h"
+#include "imgui.h"
 
 #include "Core/Engine.h"
 #include "Rendering/Components/Mesh.h"
@@ -37,6 +38,16 @@ namespace Gem {
 		g_Engine.openGlContext.Clear();
 	}
 
+	struct MeshRenderBucket {
+		Ptr<InternalMesh> mesh;
+		std::vector<Matrix4f> modelMatrices;
+	};
+
+	struct MaterialRenderBucket {
+		Ptr<InternalMaterial> material;
+		std::vector<MeshRenderBucket> meshRenderBuckets;
+	};
+
 	void Renderer::Render() {
 #ifdef GEMSTONE_DEBUG
 		if (m_Cameras.empty()) {
@@ -44,26 +55,74 @@ namespace Gem {
 		}
 #endif
 
-		for (auto& camera : m_Cameras) {
-			for (auto& [mesh, material, modelMatrix] : m_Renderables) {
-				mesh->vao.Bind();
+		const float startTime = g_Engine.humanInterfaceDeviceContext.GetTime();
 
-				material->shader->Bind();
+		for (auto& camera : m_Cameras) {
+			std::vector<MaterialRenderBucket> materialBuckets;
+
+			for (auto& [mesh, material, modelMatrix] : m_Renderables) {
+				MaterialRenderBucket* materialRenderBucket{ nullptr };
+
+				for (auto& materialBucket : materialBuckets) {
+					if (typeid(*materialBucket.material) == typeid(*material)) {
+						materialRenderBucket = &materialBucket;
+						break;
+					}
+				}
+
+				if (materialRenderBucket == nullptr) {
+					materialBuckets.push_back(MaterialRenderBucket{});
+					materialBuckets.back().material = material;
+					materialRenderBucket = &materialBuckets.back();
+				}
+
+				bool addedToMeshBucket{ false };
+				for (auto& meshBucket : materialRenderBucket->meshRenderBuckets) {
+					if (typeid(*meshBucket.mesh) == typeid(*mesh)) {
+						meshBucket.modelMatrices.push_back(modelMatrix);
+						addedToMeshBucket = true;
+						break;
+					}
+				}
+
+				if (!addedToMeshBucket) {
+					materialRenderBucket->meshRenderBuckets.push_back(MeshRenderBucket{});
+					materialRenderBucket->meshRenderBuckets.back().mesh = mesh;
+					materialRenderBucket->meshRenderBuckets.back().modelMatrices.push_back(modelMatrix);
+				}
+			}
+
+			for (auto& materialBucket : materialBuckets) {
+				materialBucket.material->shader->Bind();
 
 				Texture::ActivateUnit(0);
-				material->diffuse.Bind();
-				material->shader->Upload("u_Diffuse", 0);
+				materialBucket.material->diffuse.Bind();
+				materialBucket.material->shader->Upload("u_Diffuse", 0);
 
 				Texture::ActivateUnit(1);
-				material->specular.Bind();
-				material->shader->Upload("u_Specular", 1);
+				materialBucket.material->specular.Bind();
+				materialBucket.material->shader->Upload("u_Specular", 1);
 
-				Matrix4f mvp = modelMatrix * camera.Cam()->view * camera.Cam()->projection;
-				material->shader->Upload("u_MVP", mvp);
+				for (auto& meshBucket : materialBucket.meshRenderBuckets) {
+					meshBucket.mesh->vao.Bind();
 
-				g_Engine.openGlContext.DrawElements(mesh->indexCount);
+					for (auto& modelMatrix : meshBucket.modelMatrices) {
+						// TODO this can now be more easily optimized with instanced rendering
+						// TODO just need to find the best way to upload a large amount of possibly changing model matrices.
+						Matrix4f mvp = modelMatrix * camera.Cam()->view * camera.Cam()->projection;
+						materialBucket.material->shader->Upload("u_MVP", mvp);
+
+						g_Engine.openGlContext.DrawElements(meshBucket.mesh->indexCount);
+					}
+				}
 			}
 		}
+
+		const float renderTime = g_Engine.humanInterfaceDeviceContext.GetTime() - startTime;
+
+		ImGui::Begin("Render Time");
+		ImGui::Text("%3.5f", (double)renderTime);
+		ImGui::End();
 	}
 
 	void Renderer::RenderCleanup() {
