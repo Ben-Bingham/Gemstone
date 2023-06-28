@@ -12,10 +12,13 @@ namespace Gem {
 		
 	}
 
+	unsigned char* Colour::Data() {
+		return &r;
+	}
+
 	Vector4f Colour::ToVec4f() const {
 		return Vector4f{ (float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, (float)a / 255.0f };
 	}
-
 
 	const Colour Colour::RED		{ 255,   0,   0 };
 	const Colour Colour::BLUE		{   0,   0, 255 };

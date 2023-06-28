@@ -17,12 +17,12 @@ namespace Gem {
 		using Vector4uc::b;
 		using Vector4uc::a;
 
+		unsigned char* Data();
 
 		[[nodiscard]] Vector4f ToVec4f() const;
 
 		using Vector4uc::operator==;
 		using Vector4uc::operator!=;
-
 
 		const static Colour RED;
 		const static Colour BLUE;

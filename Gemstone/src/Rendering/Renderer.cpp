@@ -5,8 +5,7 @@
 
 #include "Core/Engine.h"
 #include "Rendering/Components/Mesh.h"
-#include "Rendering/Components/Material.h"
-
+#include "Rendering/Material/IMaterial.h"
 namespace Gem {
 	void Renderer::StartUp() {
 		OpenGlContext& openGlContext = g_Engine.openGlContext;
@@ -44,7 +43,7 @@ namespace Gem {
 	};
 
 	struct MaterialRenderBucket {
-		Ptr<InternalMaterial> material;
+		Ptr<IMaterial> material;
 		std::vector<MeshRenderBucket> meshRenderBuckets;
 	};
 
@@ -65,6 +64,9 @@ namespace Gem {
 
 				for (auto& materialBucket : materialBuckets) {
 					if (typeid(*materialBucket.material) == typeid(*material)) {
+						if (materialBucket.material != material) {
+							continue;
+						}
 						materialRenderBucket = &materialBucket;
 						break;
 					}
@@ -93,15 +95,7 @@ namespace Gem {
 			}
 
 			for (auto& materialBucket : materialBuckets) {
-				materialBucket.material->shader->Bind();
-
-				Texture::ActivateUnit(0);
-				materialBucket.material->diffuse.Bind();
-				materialBucket.material->shader->Upload("u_Diffuse", 0);
-
-				Texture::ActivateUnit(1);
-				materialBucket.material->specular.Bind();
-				materialBucket.material->shader->Upload("u_Specular", 1);
+				materialBucket.material->Apply();
 
 				for (auto& meshBucket : materialBucket.meshRenderBuckets) {
 					meshBucket.mesh->vao.Bind();
@@ -115,6 +109,8 @@ namespace Gem {
 						g_Engine.openGlContext.DrawElements(meshBucket.mesh->indexCount);
 					}
 				}
+
+				materialBucket.material->Remove();
 			}
 		}
 
@@ -131,7 +127,7 @@ namespace Gem {
 		m_Cameras.clear();
 	}
 
-	void Renderer::Queue(const Ptr<InternalMesh>& mesh, const Ptr<InternalMaterial>& material, Matrix4f modelMatrix) {
+	void Renderer::Queue(const Ptr<InternalMesh>& mesh, const Ptr<IMaterial>& material, Matrix4f modelMatrix) {
 		m_Renderables.emplace_back(Renderable{ mesh, material, modelMatrix });
 	}
 

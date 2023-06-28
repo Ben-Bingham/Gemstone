@@ -32,6 +32,10 @@ namespace Gem {
 			T a;
 		};
 
+		T* Data() {
+			return &x;
+		}
+
 		T operator[](int index) const {
 #ifdef MALACHITE_DEBUG
 			assert(index < 4);

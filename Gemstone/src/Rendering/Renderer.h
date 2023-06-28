@@ -15,11 +15,11 @@
 
 namespace Gem {
 	class InternalMesh;
-	class InternalMaterial;
+	class IMaterial;
 
 	class Renderer final : ISubSystem {
 	public:
-		using Renderable = std::tuple<Ptr<InternalMesh>, Ptr<InternalMaterial>, Matrix4f>;
+		using Renderable = std::tuple<Ptr<InternalMesh>, Ptr<IMaterial>, Matrix4f>;
 
 		Renderer() = default;
 		Renderer(const Renderer& other) = default;
@@ -35,10 +35,10 @@ namespace Gem {
 		void Render();
 		void RenderCleanup();
 
-		void Queue(const Ptr<InternalMesh>& mesh, const Ptr<InternalMaterial>& material, Matrix4f modelMatrix);
+		void Queue(const Ptr<InternalMesh>& mesh, const Ptr<IMaterial>& material, Matrix4f modelMatrix);
 		void AddCamera(const Camera& camera);
 
-		void AddCustomRenderProcess(std::function<void*> function);
+		// void AddCustomRenderProcess(std::function<void*> function);
 
 	private:
 		std::vector<Renderable> m_Renderables;
