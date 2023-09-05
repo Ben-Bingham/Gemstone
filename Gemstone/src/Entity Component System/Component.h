@@ -2,11 +2,12 @@
 
 #include <bitset>
 
-#include "Entity.h"
+#include "ECSConstants.h"
+
 #include "Utility/Log.h"
 
 namespace Gem {
-	inline unsigned int g_ComponentIdCounter{ 0 };
+	inline size_t g_ComponentIdCounter{ 0 };
 
 	using ComponentMask = std::bitset<MAX_COMPONENT_TYPES>;
 
@@ -27,7 +28,21 @@ namespace Gem {
 		}
 
 	public:
-		static inline const unsigned int id{ g_ComponentIdCounter++ };
+		static inline const size_t id{ g_ComponentIdCounter++ };
 		static inline const ComponentMask mask{ GetMaskWithIndexSet(id) };
 	};
+
+	// class ComponentParent {
+	// public:
+	// 	ComponentParent();
+	// 	~ComponentParent();
+	//
+	// 	ComponentParent(const ComponentParent& other) = default;
+	// 	ComponentParent(ComponentParent&& other) noexcept = default;
+	// 	ComponentParent& operator=(const ComponentParent& other) = default;
+	// 	ComponentParent& operator=(ComponentParent&& other) noexcept = default;
+	//
+	// 	ComponentMask validMask;
+	// 	static inline const size_t id{ g_ComponentIdCounter++ };
+	// };
 }

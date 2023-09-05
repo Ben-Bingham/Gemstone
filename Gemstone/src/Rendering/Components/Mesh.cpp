@@ -1,26 +1,9 @@
 #include "pch.h"
 #include "Mesh.h"
-
+#include "Rendering/Components/InternalMesh.h"
 #include "Rendering/OpenGlContext.h"
 
 namespace Gem {
-	InternalMesh::InternalMesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
-		: indexCount(indices.size()) {
-		vao.Bind();
-
-		vb.Bind();
-		vb.SetAllData(vertices);
-
-		ib.Bind();
-		ib.SetAllData(indices);
-
-		vao.SetLayout({
-			{ OpenGlContext::VECTOR3F, "l_Position" },
-			{ OpenGlContext::VECTOR3F, "l_Normal" },
-			{ OpenGlContext::VECTOR2F, "l_Uv" }
-		});
-	}
-
 	Mesh::Mesh(const Shape& shape)
 		: Mesh(shape.Vertices(), shape.Indices()) {
 	}

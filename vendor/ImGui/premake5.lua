@@ -18,12 +18,17 @@ project "ImGui"
 	objdir "%{wks.location}/build/vendor/bin-int/%{prj.name}"
 
     files {
-        "src/**.cpp",
-        "src/**.h"
+        "ImGuiSrc/**.cpp",
+        "ImGuiSrc/**.h",
+        "ImPlotSrc/**.h",
+        "ImPlotSrc/**.cpp"
     }
 
     links "glfw3"
     
     libdirs("../GLFW/lib-vc2022")
 
-    includedirs("../GLFW/include")    
+    includedirs {
+        "../GLFW/include",
+        "ImGuiSrc"
+    }    

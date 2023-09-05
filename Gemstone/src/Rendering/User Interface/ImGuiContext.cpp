@@ -4,11 +4,13 @@
 #include "imgui_impl_opengl3.h"
 #include "Core/Engine.h"
 #include "Core/Window.h"
+#include "implot.h"
 
 namespace Gem {
 	void ImGuiContext::StartUp() {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
+		ImPlot::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
@@ -21,6 +23,7 @@ namespace Gem {
 	void ImGuiContext::ShutDown() {
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
+		ImPlot::DestroyContext(); 
 		ImGui::DestroyContext();
 	}
 

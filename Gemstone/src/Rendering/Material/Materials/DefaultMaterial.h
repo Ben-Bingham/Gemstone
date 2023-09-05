@@ -5,6 +5,7 @@
 namespace Gem {
 	class DefaultMaterial : public IMaterial {
 		static Ptr<Shader> m_DefaultShader;
+		static Ptr<Shader> m_DefaultInstancedShader;
 
 	public:
 		DefaultMaterial(const Image& diffuse = Image::MISSING_IMAGE, const Image& specular = Image::MISSING_IMAGE);
@@ -15,6 +16,7 @@ namespace Gem {
 		~DefaultMaterial() override = default;
 
 		void Apply() override;
+		void InstancedApply() override;
 
 		Texture diffuse;
 		Texture specular;

@@ -1,8 +1,22 @@
 #pragma once
 
-namespace Gem {
-	constexpr size_t MAX_ENTITIES = 4096;
-	constexpr size_t MAX_COMPONENT_TYPES = 128;
+#include "Component.h"
 
-	using Entity = unsigned int;
+namespace Gem {
+	// Should only store data about an Entity, eventually can be all condensed into a single 32 or 64 bit value.
+	// struct Entity {
+	// 	size_t id{ 0 };
+	// 	ComponentMask componentMask{ 0 };
+	// 	bool isAlive{ false };
+	//
+	// 	friend bool operator==(const Entity& lhs, const Entity& rhs) {
+	// 		return lhs.id == rhs.id
+	// 			&& lhs.componentMask == rhs.componentMask
+	// 			&& lhs.isAlive == rhs.isAlive;
+	// 	}
+	//
+	// 	friend bool operator!=(const Entity& lhs, const Entity& rhs) { return !(lhs == rhs); }
+	// };
+
+	using Entity = size_t;
 }

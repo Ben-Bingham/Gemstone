@@ -1,17 +1,7 @@
 #pragma once
-
-#include <functional>
-#include <tuple>
-
+#include "Renderable.h"
 #include "Components/Camera.h"
-
 #include "Core/ISubSystem.h"
-
-#include "OpenGl Objects/FrameBuffer.h"
-
-#include "Utility/Pointer.h"
-#include "Utility/Transform.h"
-
 
 namespace Gem {
 	class InternalMesh;
@@ -19,8 +9,6 @@ namespace Gem {
 
 	class Renderer final : ISubSystem {
 	public:
-		using Renderable = std::tuple<Ptr<InternalMesh>, Ptr<IMaterial>, Matrix4f>;
-
 		Renderer() = default;
 		Renderer(const Renderer& other) = default;
 		Renderer(Renderer&& other) noexcept = default;
@@ -35,7 +23,7 @@ namespace Gem {
 		void Render();
 		void RenderCleanup();
 
-		void Queue(const Ptr<InternalMesh>& mesh, const Ptr<IMaterial>& material, Matrix4f modelMatrix);
+		void Queue(const Renderable& renderable);
 		void AddCamera(const Camera& camera);
 
 		// void AddCustomRenderProcess(std::function<void*> function);

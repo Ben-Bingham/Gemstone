@@ -28,7 +28,8 @@ project "Gemstone"
         "src",
         "../vendor/GLEW/include",
         "../vendor/GLFW/include",
-        "../vendor/ImGui/src",
+        "../vendor/ImGui/ImGuiSrc",
+        "../vendor/ImGui/ImPlotSrc",
         "../vendor/stb_image"
     }
 

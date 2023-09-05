@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "FpsCameraSystem.h"
-
 #include "Entity Component System/ComponentView.h"
+#include "Utility/Transform.h"
 
 namespace Gem {
 	void FpsCameraSystem::StartUp() {

@@ -4,6 +4,25 @@
 #include "Entity.h"
 
 namespace Gem {
+	class NewComponentPool {
+	public:
+		NewComponentPool(const size_t componentSize)
+			: m_ComponentSize(componentSize), m_ComponentMemory(new unsigned char[MAX_ENTITIES * m_ComponentSize]) {
+		}
+
+		unsigned char* operator[](const Entity entity) const {
+			return m_ComponentMemory + entity * m_ComponentSize;
+		}
+
+		~NewComponentPool() {
+			delete[] m_ComponentMemory;
+		}
+
+	private:
+		size_t m_ComponentSize;
+		unsigned char* m_ComponentMemory;
+	};
+
 	class IComponentPool {
 	public:
 		IComponentPool() = default;
@@ -92,7 +111,7 @@ namespace Gem {
 // 		// 	return reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * index);
 // 		// }
 //
-// 		// Iterates all components regardless of there validity
+// 		// Iterates all componentMask regardless of there validity
 // 		// class Iterator {
 // 		// public:
 // 		// 	using ValueType = ComponentType;
@@ -190,7 +209,7 @@ namespace Gem {
 // 			return reinterpret_cast<ComponentType*>(m_Components + m_ComponentSize * index);
 // 		}
 //
-// 		// Iterates all components regardless of there validity
+// 		// Iterates all componentMask regardless of there validity
 // 		class Iterator {
 // 		public:
 // 			using ValueType = ComponentType;

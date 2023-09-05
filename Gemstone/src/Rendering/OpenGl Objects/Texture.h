@@ -27,8 +27,6 @@ namespace Gem {
 
 		friend void ImGui::Image(const Gem::Texture& texture);
 
-		const static Texture MISSING_IMAGE_TEXTURE;
-
 	private:
 		TextureHandle m_Handle{ 0 };
 	};

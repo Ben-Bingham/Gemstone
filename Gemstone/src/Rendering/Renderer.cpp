@@ -1,11 +1,12 @@
 #include "pch.h"
-
 #include "Renderer.h"
 #include "imgui.h"
-
+#include "OpenGlContext.h"
+#include "Material/IMaterial.h"
+#include "Components/InternalMesh.h"
 #include "Core/Engine.h"
-#include "Rendering/Components/Mesh.h"
-#include "Rendering/Material/IMaterial.h"
+#include "Core/Settings.h"
+
 namespace Gem {
 	void Renderer::StartUp() {
 		OpenGlContext& openGlContext = g_Engine.openGlContext;
@@ -19,6 +20,10 @@ namespace Gem {
 		openGlContext.CullFace(OpenGlContext::CullableFaces::BACK);
 
 		openGlContext.SetFrontFaceDirection(OpenGlContext::FrontFaceDirection::CLOCKWISE);
+
+		if (!Settings::vSync) {
+			g_Engine.humanInterfaceDeviceContext.SetSwapInterval(0);
+		}
 
 		// m_PrimaryFrameBuffer = CreateUPtr<FrameBuffer>();
 		// m_PrimaryFrameBufferColourComponent = CreateUPtr<Texture>();
@@ -53,8 +58,6 @@ namespace Gem {
 			LOG("No cameras provided, dont expect an image.", LogLevel::WARNING);
 		}
 #endif
-
-		const float startTime = g_Engine.humanInterfaceDeviceContext.GetTime();
 
 		for (auto& camera : m_Cameras) {
 			std::vector<MaterialRenderBucket> materialBuckets;
@@ -100,6 +103,17 @@ namespace Gem {
 				for (auto& meshBucket : materialBucket.meshRenderBuckets) {
 					meshBucket.mesh->vao.Bind();
 
+					constexpr size_t NUMBER_OF_MESHES_REQUIRED_FOR_INSTANCED_RENDERING = 10;
+					if (meshBucket.modelMatrices.size() >= NUMBER_OF_MESHES_REQUIRED_FOR_INSTANCED_RENDERING) {
+						materialBucket.material->InstancedApply(); // TODO, not the best that we overwrite the first application of the material, maybe try and look forward at first application if it becomes an issue
+
+						// materialBucket.material->shader->InstanceUpload(meshBucket.modelMatrices);
+
+						// g_Engine.openGlContext.DrawInstanced();
+
+						materialBucket.material->InstancedRemove();
+					}
+
 					for (auto& modelMatrix : meshBucket.modelMatrices) {
 						// TODO this can now be more easily optimized with instanced rendering
 						// TODO just need to find the best way to upload a large amount of possibly changing model matrices.
@@ -113,12 +127,6 @@ namespace Gem {
 				materialBucket.material->Remove();
 			}
 		}
-
-		const float renderTime = g_Engine.humanInterfaceDeviceContext.GetTime() - startTime;
-
-		ImGui::Begin("Render Time");
-		ImGui::Text("%3.5f", (double)renderTime);
-		ImGui::End();
 	}
 
 	void Renderer::RenderCleanup() {
@@ -127,8 +135,8 @@ namespace Gem {
 		m_Cameras.clear();
 	}
 
-	void Renderer::Queue(const Ptr<InternalMesh>& mesh, const Ptr<IMaterial>& material, Matrix4f modelMatrix) {
-		m_Renderables.emplace_back(Renderable{ mesh, material, modelMatrix });
+	void Renderer::Queue(const Renderable& renderable) {
+		m_Renderables.emplace_back(renderable);
 	}
 
 	void Renderer::AddCamera(const Camera& camera) {

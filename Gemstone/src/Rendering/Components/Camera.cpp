@@ -5,7 +5,7 @@
 
 namespace Gem {
 	Camera::Camera(const CameraType camType)
-		: type(camType) {
+		: type(camType), m_Camera(nullptr) {
 		switch (camType) {
 		case CameraType::FPS:
 			m_Camera = CreatePtr<FpsCamera>();

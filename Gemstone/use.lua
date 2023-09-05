@@ -14,7 +14,8 @@ function useGemstone(gemstoneRoot)
 		gemstoneRoot .. "Gemstone/src",
         gemstoneRoot .. "vendor/GLEW/include",
         gemstoneRoot .. "vendor/GLFW/include",
-        gemstoneRoot .. "vendor/ImGui/src",
+        gemstoneRoot .. "vendor/ImGui/ImGuiSrc",
+        gemstoneRoot .. "vendor/ImGui/ImPlotSrc",
         gemstoneRoot .. "vendor/stb_image"
 	}
     

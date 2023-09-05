@@ -45,13 +45,13 @@ namespace Gem {
 			return Iterator{ entity, m_Manager };
 		}
 
-		[[nodiscard]] Iterator end() const { return Iterator{ MAX_ENTITIES, m_Manager }; }
+		[[nodiscard]] Iterator end() const { return Iterator{ Entity{ MAX_ENTITIES }, m_Manager }; }
 
 	private:
 		EntityManager& m_Manager;
 	};
 
-	// Iterates all components of one type
+	// Iterates all componentMask of one type
 	template<typename ComponentType>
 	class ComponentView<ComponentType> : BaseComponentView<ComponentType> {
 	public:
@@ -91,7 +91,7 @@ namespace Gem {
 			return Iterator{ entity, m_Manager };
 		}
 
-		[[nodiscard]] Iterator end() const { return Iterator{ MAX_ENTITIES, m_Manager }; }
+		[[nodiscard]] Iterator end() const { return Iterator{ Entity{ MAX_ENTITIES }, m_Manager }; }
 
 	private:
 		EntityManager& m_Manager;
@@ -139,7 +139,7 @@ namespace Gem {
 			return Iterator{ entity, m_Manager };
 		}
 
-		[[nodiscard]] Iterator end() const { return Iterator{ MAX_ENTITIES, m_Manager }; }
+		[[nodiscard]] Iterator end() const { return Iterator{ Entity{ MAX_ENTITIES }, m_Manager }; }
 
 	private:
 		EntityManager& m_Manager;
