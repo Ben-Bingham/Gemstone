@@ -16,7 +16,7 @@ namespace Gem {
 
 		ImGui::StyleColorsDark();
 
-		ImGui_ImplGlfw_InitForOpenGL(g_Engine.window.Handle(), true);
+		//ImGui_ImplGlfw_InitForOpenGL(g_Engine.window.Handle(), true);
 		ImGui_ImplOpenGL3_Init();
 	}
 

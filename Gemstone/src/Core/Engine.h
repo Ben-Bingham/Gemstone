@@ -20,7 +20,7 @@ namespace Gem {
 		~Engine();
 
 		// Sub Systems
-		EventSystemManager eventManager{};
+		EventSystem& eventManager = EventSystem::Get();
 		HumanInterfaceDeviceContext humanInterfaceDeviceContext{};
 		Window window{};
 		OpenGlContext openGlContext{};
@@ -31,5 +31,6 @@ namespace Gem {
 		Keyboard keyboard{};
 		Mouse mouse{};
 
-	} inline g_Engine;
+	};
+	//inline g_Engine;
 }

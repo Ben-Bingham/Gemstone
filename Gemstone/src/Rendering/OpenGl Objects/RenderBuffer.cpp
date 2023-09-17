@@ -5,9 +5,10 @@
 
 namespace Gem {
 	RenderBuffer::RenderBuffer()
-		: m_Handle(g_Engine.openGlContext.GenerateRenderBuffer()) { }
+		//: m_Handle(g_Engine.openGlContext.GenerateRenderBuffer())
+	{ }
 
 	RenderBuffer::~RenderBuffer() {
-		g_Engine.openGlContext.DeleteRenderBuffer(m_Handle);
+		//g_Engine.openGlContext.DeleteRenderBuffer(m_Handle);
 	}
 }

@@ -6,22 +6,24 @@
 
 namespace Gem {
 	Texture::Texture(const Image& image)
-		: Image(image), m_Handle(g_Engine.openGlContext.GenerateTexture()) {
+		: Image(image), m_Handle(0
+			//g_Engine.openGlContext.GenerateTexture()
+		) {
 
-		g_Engine.openGlContext.ConfigureTexture2D(m_Handle);
-		g_Engine.openGlContext.AssignTextureData2D(m_Handle, image);
+		//g_Engine.openGlContext.ConfigureTexture2D(m_Handle);
+		//g_Engine.openGlContext.AssignTextureData2D(m_Handle, image);
 	}
 
 	Texture::~Texture() {
-		g_Engine.openGlContext.DeleteTexture(m_Handle);
+		//g_Engine.openGlContext.DeleteTexture(m_Handle);
 	}
 
 	void Texture::Bind() const {
-		g_Engine.openGlContext.BindTexture2D(m_Handle);
+		//g_Engine.openGlContext.BindTexture2D(m_Handle);
 	}
 
 	void Texture::ActivateUnit(const size_t index) {
-		g_Engine.openGlContext.ActivateTextureUnit(index);
+		//g_Engine.openGlContext.ActivateTextureUnit(index);
 	}
 }
 

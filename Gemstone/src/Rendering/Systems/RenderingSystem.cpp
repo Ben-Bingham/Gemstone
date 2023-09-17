@@ -8,15 +8,15 @@
 namespace Gem {
 	void RenderingSystem::Step(EntityManager& entityManager, float dt) {
 		for (auto [transform, material, mesh] : ComponentView<Transform, Material, Mesh>{entityManager}) {
-			g_Engine.renderer.Queue(Renderable{ mesh.m_InternalMesh, material.iMaterial, transform.Matrix() });
+			//g_Engine.renderer.Queue(Renderable{ mesh.m_InternalMesh, material.iMaterial, transform.Matrix() });
 		}
 
 		for (auto& camera : ComponentView<Camera>{ entityManager }) {
-			g_Engine.renderer.AddCamera(camera);
+			//g_Engine.renderer.AddCamera(camera);
 		}
 	}
 
 	void RenderingSystem::HandleEvent(const WindowEvents::Resize& event) {
-		g_Engine.openGlContext.SetViewportSize(event.size);
+		//g_Engine.openGlContext.SetViewportSize(event.size);
 	}
 }

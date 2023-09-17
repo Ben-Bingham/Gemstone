@@ -10,9 +10,9 @@
 
 namespace Gem {
 	void UiSystem::Step(EntityManager& entityManager, float dt) {
-		if (!g_Engine.imGuiContext.imGuiIsActive) {
+	/*	if (!g_Engine.imGuiContext.imGuiIsActive) {
 			return;
-		}
+		}*/
 
 		if (ImGui::Begin("Entity Component System")) {
 			for (auto gb : ComponentView{ entityManager }) {

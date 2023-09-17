@@ -3,7 +3,7 @@
 
 namespace Gem {
 	Engine::Engine() {
-		eventManager.StartUp();
+		//eventManager.StartUp();
 		humanInterfaceDeviceContext.StartUp();
 		window.StartUp();
 
@@ -27,6 +27,6 @@ namespace Gem {
 
 		window.ShutDown();
 		humanInterfaceDeviceContext.ShutDown();
-		eventManager.ShutDown();
+		//eventManager.ShutDown();
 	}
 }

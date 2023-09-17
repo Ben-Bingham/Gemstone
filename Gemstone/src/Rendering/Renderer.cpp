@@ -9,20 +9,20 @@
 
 namespace Gem {
 	void Renderer::StartUp() {
-		OpenGlContext& openGlContext = g_Engine.openGlContext;
+		//OpenGlContext& openGlContext = g_Engine.openGlContext;
 
-		openGlContext.EnableDepthTesting();
-		openGlContext.SetDepthTestFunction(OpenGlContext::DepthTestFunction::LESS_THAN);
+		//openGlContext.EnableDepthTesting();
+		//openGlContext.SetDepthTestFunction(OpenGlContext::DepthTestFunction::LESS_THAN);
 
-		openGlContext.EnableDepthMask();
+		//openGlContext.EnableDepthMask();
 
-		openGlContext.EnableFaceCulling();
-		openGlContext.CullFace(OpenGlContext::CullableFaces::BACK);
+		//openGlContext.EnableFaceCulling();
+		//openGlContext.CullFace(OpenGlContext::CullableFaces::BACK);
 
-		openGlContext.SetFrontFaceDirection(OpenGlContext::FrontFaceDirection::CLOCKWISE);
+		//openGlContext.SetFrontFaceDirection(OpenGlContext::FrontFaceDirection::CLOCKWISE);
 
 		if (!Settings::vSync) {
-			g_Engine.humanInterfaceDeviceContext.SetSwapInterval(0);
+			//g_Engine.humanInterfaceDeviceContext.SetSwapInterval(0);
 		}
 
 		// m_PrimaryFrameBuffer = CreateUPtr<FrameBuffer>();
@@ -39,7 +39,7 @@ namespace Gem {
 	void Renderer::ShutDown() { }
 
 	void Renderer::RenderSetup() {
-		g_Engine.openGlContext.Clear();
+		//g_Engine.openGlContext.Clear();
 	}
 
 	struct MeshRenderBucket {
@@ -120,7 +120,7 @@ namespace Gem {
 						Matrix4f mvp = modelMatrix * camera.Cam()->view * camera.Cam()->projection;
 						materialBucket.material->shader->Upload("u_MVP", mvp);
 
-						g_Engine.openGlContext.DrawElements(meshBucket.mesh->indexCount);
+						//g_Engine.openGlContext.DrawElements(meshBucket.mesh->indexCount);
 					}
 				}
 
@@ -130,7 +130,7 @@ namespace Gem {
 	}
 
 	void Renderer::RenderCleanup() {
-		g_Engine.window.SwapBuffers();
+		//g_Engine.window.SwapBuffers();
 		m_Renderables.clear();
 		m_Cameras.clear();
 	}

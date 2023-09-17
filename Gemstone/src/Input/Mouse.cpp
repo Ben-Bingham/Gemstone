@@ -21,47 +21,49 @@ namespace Gem {
 		}
 
 		if (action) {
-			g_Engine.eventManager.Post(MouseEvents::ButtonDown{eventButton});
+			//g_Engine.eventManager.Post(MouseEvents::ButtonDown{eventButton});
 		}
 		else {
-			g_Engine.eventManager.Post(MouseEvents::ButtonUp{eventButton});
+			//g_Engine.eventManager.Post(MouseEvents::ButtonUp{eventButton});
 		}
 	}
 
 	void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		g_Engine.eventManager.Post(MouseEvents::Position{static_cast<int>(xPos), static_cast<int>(yPos)});
+		//g_Engine.eventManager.Post(MouseEvents::Position{static_cast<int>(xPos), static_cast<int>(yPos)});
 	}
 
 	void MouseScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset) {
-		g_Engine.eventManager.Post(MouseEvents::Scroll{static_cast<float>(xOffset), static_cast<float>(yOffset)});
+		//g_Engine.eventManager.Post(MouseEvents::Scroll{static_cast<float>(xOffset), static_cast<float>(yOffset)});
 	}
 
 	void CursorEnterCallback(GLFWwindow* window, int entered) {
 		if (entered) {
-			g_Engine.eventManager.Post(MouseEvents::CursorEnter{});
+			//g_Engine.eventManager.Post(MouseEvents::CursorEnter{});
 		}
 		else {
-			g_Engine.eventManager.Post(MouseEvents::CursorLeave{});
+			//g_Engine.eventManager.Post(MouseEvents::CursorLeave{});
 		}
 	}
 
 	void Mouse::StartUp() {
-		const Window& window = g_Engine.window;
-		HumanInterfaceDeviceContext& hidContext = g_Engine.humanInterfaceDeviceContext;
+		//const Window& window = g_Engine.window;
+		//HumanInterfaceDeviceContext& hidContext = g_Engine.humanInterfaceDeviceContext;
 
-		hidContext.SetMouseButtonCallback(window.Handle(), MouseButtonCallback);
-		hidContext.SetMousePositionCallback(window.Handle(), MousePositionCallback);
-		hidContext.SetScrollCallback(window.Handle(), MouseScrollWheelCallback);
-		hidContext.SetCursorEnterCallback(window.Handle(), CursorEnterCallback);
+		//hidContext.SetMouseButtonCallback(window.Handle(), MouseButtonCallback);
+		//hidContext.SetMousePositionCallback(window.Handle(), MousePositionCallback);
+		//hidContext.SetScrollCallback(window.Handle(), MouseScrollWheelCallback);
+		//hidContext.SetCursorEnterCallback(window.Handle(), CursorEnterCallback);
 	}
 
 	void Mouse::ShutDown() { }
 
 	Vector2i Mouse::GetPosition() const {
-		return g_Engine.humanInterfaceDeviceContext.GetMousePosition(g_Engine.window.Handle());
+		//return g_Engine.humanInterfaceDeviceContext.GetMousePosition(g_Engine.window.Handle());
+		return Vector2i{};
 	}
 
 	bool Mouse::GetButton(MouseButton button) const {
-		return g_Engine.humanInterfaceDeviceContext.GetMouseButton(g_Engine.window.Handle(), button);
+		return false;
+		//return g_Engine.humanInterfaceDeviceContext.GetMouseButton(g_Engine.window.Handle(), button);
 	}
 }

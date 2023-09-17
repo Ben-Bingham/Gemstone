@@ -9,9 +9,9 @@ namespace Gem {
 	void Application::Load(const Ptr<Level>& level) const {
 		level->InternalLoad();
 
-		while (g_Engine.window.IsOpen() && level->IsRunning()) {
-			ExecuteFrame(level);
-		}
+		//while (g_Engine.window.IsOpen() && level->IsRunning()) {
+		//	ExecuteFrame(level);
+		//}
 
 		level->InternalUnload();
 	}
@@ -19,65 +19,65 @@ namespace Gem {
 	void Application::ExecuteFrame(const Ptr<Level>& level) const {
 		static DebugTimings timings{};
 
-		const HumanInterfaceDeviceContext& hid = g_Engine.humanInterfaceDeviceContext;
+		//const HumanInterfaceDeviceContext& hid = g_Engine.humanInterfaceDeviceContext;
 
 		const float deltaTime = timings.frameEnd - timings.frameStart;
 
-		timings.frameStart = hid.GetTime();
+		//timings.frameStart = hid.GetTime();
 
 		// const float endTime = g_Engine.humanInterfaceDeviceContext.GetTime() + 1.0f / static_cast<float>(Settings::maxFPS);
 
-		{ // GPU
-			timings.uiPrepStart = hid.GetTime();
-			g_Engine.imGuiContext.StartUiFrame();
-			timings.uiPrepEnd = hid.GetTime();
-		}
+		//{ // GPU
+		//	timings.uiPrepStart = hid.GetTime();
+		//	//g_Engine.imGuiContext.StartUiFrame();
+		//	timings.uiPrepEnd = hid.GetTime();
+		//}
 
-		{ // CPU
-			timings.totalCpuStart = hid.GetTime();
+		//{ // CPU
+		//	timings.totalCpuStart = hid.GetTime();
 
-			timings.eventPollStart = hid.GetTime();
-			g_Engine.humanInterfaceDeviceContext.PollEvents();
-			timings.eventPollEnd = hid.GetTime();
+		//	timings.eventPollStart = hid.GetTime();
+		//	//g_Engine.humanInterfaceDeviceContext.PollEvents();
+		//	timings.eventPollEnd = hid.GetTime();
 
-			timings.eventDistributionStart = hid.GetTime();
-			g_Engine.eventManager.Distribute();
-			timings.eventDistributionEnd = hid.GetTime();
+		//	timings.eventDistributionStart = hid.GetTime();
+		//	//g_Engine.eventManager.Distribute();
+		//	timings.eventDistributionEnd = hid.GetTime();
 
-			timings.ecsStart = hid.GetTime();
-			level->Step(deltaTime);
-			timings.ecsEnd = hid.GetTime();
+		//	timings.ecsStart = hid.GetTime();
+		//	level->Step(deltaTime);
+		//	timings.ecsEnd = hid.GetTime();
 
-			timings.totalCpuEnd = hid.GetTime();
-		}
+		//	timings.totalCpuEnd = hid.GetTime();
+		//}
 
-		if (m_DebugWindow) {
-			DrawDebugWindow(timings);
-		}
+		//if (m_DebugWindow) {
+		//	DrawDebugWindow(timings);
+		//}
 
-		{ // GPU
-			timings.totalGpuStart = hid.GetTime();
+		//{ // GPU
+		//	timings.totalGpuStart = hid.GetTime();
 
-			timings.renderSetupStart = hid.GetTime();
-			g_Engine.renderer.RenderSetup();
-			timings.renderSetupEnd = hid.GetTime();
+		//	timings.renderSetupStart = hid.GetTime();
+		//	g_Engine.renderer.RenderSetup();
+		//	timings.renderSetupEnd = hid.GetTime();
 
-			timings.renderStart = hid.GetTime();
-			g_Engine.renderer.Render();
-			timings.renderEnd = hid.GetTime();
+		//	timings.renderStart = hid.GetTime();
+		//	g_Engine.renderer.Render();
+		//	timings.renderEnd = hid.GetTime();
 
-			timings.uiStart = hid.GetTime();
-			g_Engine.imGuiContext.RenderUi();
-			timings.uiEnd = hid.GetTime();
+		//	timings.uiStart = hid.GetTime();
+		//	g_Engine.imGuiContext.RenderUi();
+		//	timings.uiEnd = hid.GetTime();
 
-			timings.renderCleanupStart = hid.GetTime();
-			g_Engine.renderer.RenderCleanup();
-			timings.renderCleanupEnd = hid.GetTime();
+		//	timings.renderCleanupStart = hid.GetTime();
+		//	g_Engine.renderer.RenderCleanup();
+		//	timings.renderCleanupEnd = hid.GetTime();
 
-			timings.totalGpuEnd = hid.GetTime();
-		}
+		//	timings.totalGpuEnd = hid.GetTime();
+		//}
 
-		timings.frameEnd = hid.GetTime();
+		//timings.frameEnd = hid.GetTime();
 		// if (Settings::vSync) {
 		// 	g_Engine.humanInterfaceDeviceContext.Wait(endTime - g_Engine.humanInterfaceDeviceContext.GetTime());
 		// }

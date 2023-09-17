@@ -70,13 +70,13 @@ namespace Gem {
 		return glfwGetMouseButton(handle, (int)button) == GLFW_PRESS;
 	}
 
-	Vector2i HumanInterfaceDeviceContext::GetMousePosition(const WindowHandle handle) const {
-		double x, y;
-		
-		glfwGetCursorPos(handle, &x, &y);
+	//Vector2i HumanInterfaceDeviceContext::GetMousePosition(const WindowHandle handle) const {
+	//	double x, y;
+	//	
+	//	glfwGetCursorPos(handle, &x, &y);
 
-		return Vector2i{ (int)std::floor(x), (int)std::floor(y) };
-	}
+	//	return Vector2i{ (int)std::floor(x), (int)std::floor(y) };
+	//}
 
 	void HumanInterfaceDeviceContext::DisableCursor(const WindowHandle handle) {
 		glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

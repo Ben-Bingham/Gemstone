@@ -1,4 +1,5 @@
 #pragma once
+#include "Keys.h"
 
 namespace Gem::KeyboardEvents {
 	struct KeyDown {

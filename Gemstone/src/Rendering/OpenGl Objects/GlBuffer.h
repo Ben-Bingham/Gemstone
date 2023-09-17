@@ -11,7 +11,9 @@ namespace Gem {
 		GlBuffer(
 			const OpenGlContext::BufferAccessFrequency accessFrequency = OpenGlContext::BufferAccessFrequency::STATIC,
 			const OpenGlContext::BufferNatureOfAccess natureOfAccess = OpenGlContext::BufferNatureOfAccess::DRAW
-		) : m_Handle(g_Engine.openGlContext.GenerateBuffer()), m_AccessFrequency(accessFrequency), m_NatureOfAccess(natureOfAccess) {
+		) : m_Handle(0
+			//g_Engine.openGlContext.GenerateBuffer()
+		), m_AccessFrequency(accessFrequency), m_NatureOfAccess(natureOfAccess) {
 			Bind();
 		}
 
@@ -21,11 +23,11 @@ namespace Gem {
 		GlBuffer& operator=(GlBuffer&& other) noexcept = default;
 
 		~GlBuffer() {
-			g_Engine.openGlContext.DeleteBuffer(m_Handle);
+			//g_Engine.openGlContext.DeleteBuffer(m_Handle);
 		}
 
 		void Bind() {
-			g_Engine.openGlContext.BindBuffer(m_Handle, BufferType);
+			//g_Engine.openGlContext.BindBuffer(m_Handle, BufferType);
 		}
 
 		void SetAllData(const std::vector<StorageType>& data) {
@@ -34,7 +36,7 @@ namespace Gem {
 				return;
 			}
 
-			g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), m_AccessFrequency, m_NatureOfAccess);
+			//g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), m_AccessFrequency, m_NatureOfAccess);
 		}
 
 		// ElementOffset should be number of StorageTypes you want as offset ex:
@@ -46,7 +48,7 @@ namespace Gem {
 				return;
 			}
 
-			g_Engine.openGlContext.ModifyBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), elementOffset * sizeof(StorageType));
+			//g_Engine.openGlContext.ModifyBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), elementOffset * sizeof(StorageType));
 		}
 
 		void ReserveSpace(const size_t size) {
@@ -55,7 +57,7 @@ namespace Gem {
 				return;
 			}
 
-			g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, nullptr, size, m_AccessFrequency, m_NatureOfAccess);
+			//g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, nullptr, size, m_AccessFrequency, m_NatureOfAccess);
 		}
 
 	private:

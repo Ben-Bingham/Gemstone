@@ -1,4 +1,5 @@
 #pragma once
+#include "InternalMesh.h"
 #include <vector>
 #include "Rendering/Systems/RenderingSystem.h"
 #include "Rendering/Geometry/Shapes.h"

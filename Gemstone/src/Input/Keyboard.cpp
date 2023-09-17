@@ -118,27 +118,28 @@ namespace Gem {
 		}
 
 		if (action == GLFW_PRESS) {
-			g_Engine.eventManager.Post(KeyboardEvents::KeyDown{ eventKey });
+			//g_Engine.eventManager.Post(KeyboardEvents::KeyDown{ eventKey });
 		}
 		else if (action == GLFW_REPEAT) {
-			g_Engine.eventManager.Post(KeyboardEvents::KeyHeld{ eventKey });
+			//g_Engine.eventManager.Post(KeyboardEvents::KeyHeld{ eventKey });
 		}
 		else if (action == GLFW_RELEASE) {
-			g_Engine.eventManager.Post(KeyboardEvents::KeyUp{ eventKey });
+			//g_Engine.eventManager.Post(KeyboardEvents::KeyUp{ eventKey });
 		}
 	}
 
 	void Keyboard::StartUp() {
-		const Window& window = g_Engine.window;
-		HumanInterfaceDeviceContext& hidContext = g_Engine.humanInterfaceDeviceContext;
+		//const Window& window = g_Engine.window;
+		//HumanInterfaceDeviceContext& hidContext = g_Engine.humanInterfaceDeviceContext;
 
-		hidContext.SetKeyCallback(window.Handle(), KeyCallback);
-		hidContext.SetPointerToUserData(window.Handle(), "Keyboard", *this);
+		//hidContext.SetKeyCallback(window.Handle(), KeyCallback);
+		//hidContext.SetPointerToUserData(window.Handle(), "Keyboard", *this);
 	}
 
 	void Keyboard::ShutDown() { }
 
 	bool Keyboard::GetKey(Key key) {
-		return g_Engine.humanInterfaceDeviceContext.GetKey(g_Engine.window.Handle(), key);
+		return false;
+		//return g_Engine.humanInterfaceDeviceContext.GetKey(g_Engine.window.Handle(), key);
 	}
 }

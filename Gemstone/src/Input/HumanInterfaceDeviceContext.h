@@ -37,7 +37,7 @@ namespace Gem {
 
 		[[nodiscard]] bool GetKey(WindowHandle handle, Key key) const;
 		[[nodiscard]] bool GetMouseButton(WindowHandle handle, MouseButton button) const;
-		[[nodiscard]] Vector2i GetMousePosition(WindowHandle handle) const;
+		//[[nodiscard]] Vector2i GetMousePosition(WindowHandle handle) const;
 
 		void DisableCursor(WindowHandle handle);
 		void EnableCursor(WindowHandle handle);
