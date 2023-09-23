@@ -8,7 +8,7 @@
 namespace Gem {
 	class FpsCameraSystem : public System, EventHandler<KeyboardEvents::KeyDown>, EventHandler<WindowEvents::Resize> {
 	public:
-		FpsCameraSystem() = default;
+		FpsCameraSystem() = delete;
 		FpsCameraSystem(const FpsCameraSystem& other) = default;
 		FpsCameraSystem(FpsCameraSystem&& other) noexcept = default;
 		FpsCameraSystem& operator=(const FpsCameraSystem& other) = default;

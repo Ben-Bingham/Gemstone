@@ -16,6 +16,13 @@ namespace Gem {
 		void StartUp() override;
 		void ShutDown() override;
 
+		class Time {
+		public:
+			[[nodiscard]] double GetElapsedTime() const;
+			void Wait(double seconds) const;
+
+		} time;
+
 		void PollEvents() const;
 		void SwapBuffers(WindowHandle window) const;
 

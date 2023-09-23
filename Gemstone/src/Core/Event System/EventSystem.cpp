@@ -2,9 +2,11 @@
 #include "EventSystem.h"
 
 namespace Gem {
-	EventSystem& EventSystem::Get() {
-		static EventSystem eventSystem{};
+	void EventSystem::StartUp() {
+		
+	}
 
-		return eventSystem;
+	void EventSystem::ShutDown() {
+		
 	}
 }

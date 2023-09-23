@@ -1,8 +1,5 @@
 #pragma once
 #include "Event System/EventSystem.h"
-
-#include "Game Flow/Time.h"
-
 #include "Input/GLFWContext.h"
 
 namespace Gem {
@@ -21,11 +18,8 @@ namespace Gem {
 		Engine_New& operator=(const Engine_New& other) = default;
 		Engine_New& operator=(Engine_New&& other) noexcept = default;
 
-		EventSystem& eventSystem = EventSystem::Get();
-
-		Time time{ };
+		EventSystem eventSystem{ };
 		GLFWContext glfwContext{ };
-		//Window window{};
 		//OpenGlContext openGlContext{};
 		//ImGuiContext imGuiContext{};
 		//Renderer renderer{};

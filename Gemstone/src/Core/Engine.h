@@ -20,7 +20,7 @@ namespace Gem {
 		~Engine();
 
 		// Sub Systems
-		EventSystem& eventManager = EventSystem::Get();
+		EventSystem eventManager{};
 		HumanInterfaceDeviceContext humanInterfaceDeviceContext{};
 		Window window{};
 		OpenGlContext openGlContext{};

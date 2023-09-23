@@ -6,7 +6,7 @@
 namespace Gem {
 	class RenderingSystem final : public System, EventHandler<WindowEvents::Resize> {
 	public:
-		RenderingSystem() = default;
+		RenderingSystem() = delete;
 
 		void Step(EntityManager& entityManager, float dt) override;
 

@@ -16,9 +16,23 @@ namespace Gem {
 		}
 	}
 
+
+
 	void GLFWContext::ShutDown() {
 		glfwTerminate();
 	}
+
+	double GLFWContext::Time::GetElapsedTime() const {
+		return glfwGetTime();
+	}
+
+	void GLFWContext::Time::Wait(const double seconds) const {
+		const double endPoint = GetElapsedTime() + seconds;
+
+		while (GetElapsedTime() < endPoint) {}
+	}
+
+
 
 	void GLFWContext::PollEvents() const {
 		glfwPollEvents();

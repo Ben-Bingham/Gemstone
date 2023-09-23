@@ -3,12 +3,12 @@
 
 namespace Gem {
 	Engine_New::Engine_New() {
-		time.StartUp();
+		eventSystem.StartUp();
 		glfwContext.StartUp();
 	}
 
 	Engine_New::~Engine_New() {
 		glfwContext.ShutDown();
-		time.ShutDown();
+		eventSystem.ShutDown();
 	}
 }

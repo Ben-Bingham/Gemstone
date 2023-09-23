@@ -14,8 +14,8 @@ namespace Gem {
 
 	void Level::InternalLoad() {
 		// Adding default systems:
-		m_Ecs.systems.push_back(CreatePtr<RenderingSystem>());
-		m_Ecs.systems.push_back(CreatePtr<UiSystem>());
+		//m_Ecs.systems.push_back(CreatePtr<RenderingSystem>());
+		//m_Ecs.systems.push_back(CreatePtr<UiSystem>());
 
 		Load();
 		m_Ecs.Load();
