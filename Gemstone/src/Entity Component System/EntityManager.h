@@ -1,14 +1,11 @@
 #pragma once
-#include <vector>
+#include <queue>
 #include <array>
-
+#include "Entity.h"
 #include "Component.h"
 
 namespace Gem {
 	class EntityComponentSystem;
-
-	using Entity = size_t; // TODO move to seperate file IF POSSIBLE
-	static constexpr Entity DeadEntity{ std::numeric_limits<size_t>::max() };
 
 	class EntityManager {
 	public:
@@ -20,7 +17,7 @@ namespace Gem {
 		std::array<ComponentMask, MAX_ENTITIES> entityMasks{};
 
 	private:
-		std::vector<Entity> m_UnusedEntities;
+		std::queue<Entity> m_UnusedEntities;
 		EntityComponentSystem* m_Ecs;
 	};
 }

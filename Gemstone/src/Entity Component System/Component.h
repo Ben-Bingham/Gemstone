@@ -4,7 +4,7 @@
 #include <cassert>
 
 namespace Gem {
-	constexpr size_t MAX_ENTITIES = 16;
+	constexpr size_t MAX_ENTITIES = 16; // TODO Maybe place these in a differnt file
 	constexpr size_t MAX_COMPONENT_TYPES = 32;
 
 	inline size_t g_ComponentIdCounter{ 0 };

@@ -5,27 +5,26 @@
 namespace Gem {
 	EntityManager::EntityManager(EntityComponentSystem* ecs)
 		: m_Ecs(ecs) {
-		m_UnusedEntities.reserve(MAX_ENTITIES);
 
 		for (size_t i{ 0 }; i < MAX_ENTITIES; i++) {
-			m_UnusedEntities.push_back(i);
+			m_UnusedEntities.push(i);
 		}
 	}
 
-	Entity EntityManager::Create() { // TODO make this return lower index first
+	Entity EntityManager::Create() {
 		assert(!m_UnusedEntities.empty() && "Max amount of entities reached");
 
-		const Entity entity = m_UnusedEntities.back();
+		const Entity entity = m_UnusedEntities.front();
 
-		m_UnusedEntities.pop_back();
+		m_UnusedEntities.pop();
 
 		return entity;
 	}
 
 	void EntityManager::Delete(Entity& entity) {
-		assert(!m_Ecs->componentManager.HasAnyComponent(entity) && "Cannot delete entity that still has components."); // TODO consider removing the HasAnyComponent function and just check if the mask is empty here
+		assert(!m_Ecs->componentManager.HasAnyComponent(entity) && "Cannot delete entity that still has components.");
 
-		m_UnusedEntities.push_back(entity);
+		m_UnusedEntities.push(entity);
 
 		entity = DeadEntity;
 	}

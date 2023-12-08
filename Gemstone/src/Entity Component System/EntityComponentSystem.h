@@ -3,12 +3,11 @@
 #include "EntityManager.h"
 
 namespace Gem {
-	class EntityComponentSystem {
+	class EntityComponentSystem { // TODO give each ECS an index, and use that to compare them in the View iterators.
 	public:
 		EntityComponentSystem();
 
 		EntityManager entityManager;
 		ComponentManager componentManager;
-		//SystemManager systemManager;
 	};
 }

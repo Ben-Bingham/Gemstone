@@ -3,12 +3,11 @@
 
 namespace Gem {
 	template<typename ...ComponentTypes>
-	class BaseView { }; // TODO maybe move the inputted ECS into this class, than all other views will be forced to pass it in IF POSSIBLE
-	// TODO split sperate Views into different files IF POSSIBLE
+	class BaseView { };
 
 	// Iterates all entities with specified components
 	template<typename ...ComponentTypes>
-	class View : BaseView<ComponentTypes...> {
+	class View : public BaseView<ComponentTypes...> {
 	public:
 		View(EntityComponentSystem& ecs) 
 			: m_ECS(ecs) { }
@@ -34,8 +33,6 @@ namespace Gem {
 				return *this;
 			}
 
-			// TODO we only compare the entity id, we do not compare the ECS, if two entitys with the same ID from different ECS's
-			// are compared they will be equal, this only becomes a problem if we introduce multiple ECS's
 			friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Entity == rhs.m_Entity; }
 			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
 
@@ -64,7 +61,7 @@ namespace Gem {
 
 	// Iterates all components of a singal type
 	template<typename ComponentType>
-	class View<ComponentType> : BaseView<ComponentType> {
+	class View<ComponentType> : protected BaseView<ComponentType> {
 	public:
 		View(EntityComponentSystem& ecs)
 			: m_ECS(ecs) { }
@@ -90,8 +87,6 @@ namespace Gem {
 				return *this;
 			}
 
-			// TODO we only compare the entity id, we do not compare the ECS, if two entitys with the same ID from different ECS's
-			// are compared they will be equal, this only becomes a problem if we introduce multiple ECS's
 			friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Entity == rhs.m_Entity; } 
 			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
 
@@ -120,7 +115,7 @@ namespace Gem {
 
 	// Iterates all entities with at least one component
 	template<>
-	class View<> : BaseView<> {
+	class View<> : protected BaseView<> {
 	public:
 		View(EntityComponentSystem& ecs)
 			: m_ECS(ecs) { }
@@ -146,8 +141,6 @@ namespace Gem {
 				return *this;
 			}
 
-			// TODO we only compare the entity id, we do not compare the ECS, if two entitys with the same ID from different ECS's
-			// are compared they will be equal, this only becomes a problem if we introduce multiple ECS's
 			friend bool operator==(const Iterator& lhs, const Iterator& rhs) { return lhs.m_Entity == rhs.m_Entity; }
 			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
 
