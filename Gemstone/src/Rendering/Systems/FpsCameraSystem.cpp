@@ -3,7 +3,7 @@
 
 #include "Core/Engine.h"
 
-#include "Entity Component System/ComponentView.h"
+//#include "Entity Component System/ComponentView.h"
 
 #include "Rendering/Components/Camera.h"
 

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "RenderingSystem.h"
-#include "Entity Component System/ComponentView.h"
+//#include "Entity Component System/ComponentView.h"
 #include "Rendering/Components/Mesh.h"
 #include "Rendering/Material/Material.h"
 #include "Utility/Transform.h"

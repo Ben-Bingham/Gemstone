@@ -26,11 +26,11 @@ namespace Gem {
 
 		Engine_New& m_Engine;
 		bool m_LockFrameRate{ true };
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 		Window_New* m_Window;
-=======
->>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
+//=======
+//>>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
 
 		int m_DoubleFrameRateCounter{ 0 }; // Is incremented twice per frame, so it keeps track of twice the frame count.
 		int m_HalfSecondCounter{ 0 };

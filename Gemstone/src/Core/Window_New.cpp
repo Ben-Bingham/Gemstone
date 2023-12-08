@@ -4,11 +4,11 @@
 #include <GLFW/glfw3.h>
 
 namespace Gem {
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	Window_New::Window_New() {
-=======
-	Window::Window() {
->>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
+//=======
+	//Window::Window() {
+//>>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
 
 		m_Handle = glfwCreateWindow(size.x, size.y, "Gemstone", nullptr, nullptr);
@@ -18,19 +18,19 @@ namespace Gem {
 		}
 	}
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	Window_New::~Window_New() {
 		glfwDestroyWindow(m_Handle);
 	}
 
 	void Window_New::SwapBuffers() {
-=======
-	Window::~Window() {
-		glfwDestroyWindow(m_Handle);
-	}
-
-	void Window::SwapBuffers() {
->>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
+//=======
+//	Window::~Window() {
+//		glfwDestroyWindow(m_Handle);
+//	}
+//
+//	void Window::SwapBuffers() {
+//>>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
 		glfwSwapBuffers(m_Handle);
 	}
 
