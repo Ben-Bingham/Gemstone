@@ -66,10 +66,17 @@ namespace Gem {
 	}
 
 	void GameLoop::DoubleFrameRateUpdate(Ptr<Level_New>& level) {
+		static float begin{ (float)m_Engine.glfwContext.time.GetElapsedTime() };
+		static float end{ (float)m_Engine.glfwContext.time.GetElapsedTime() };
+		end = (float)m_Engine.glfwContext.time.GetElapsedTime();
 
+		LOG("Double Frame rate: " + std::to_string(end - begin));
+
+		begin = (float)m_Engine.glfwContext.time.GetElapsedTime();
 	}
 
 	void GameLoop::FrameRateUpdate(Ptr<Level_New>& level) {
+<<<<<<< HEAD
 		GLFWContext::Time::ScopeProfiler scope{ m_Engine.glfwContext.time };
 //#ifdef GEMSTONE_DEBUG
 //		if (!m_Window) {
@@ -82,6 +89,9 @@ namespace Gem {
 //		m_Window->SwapBuffers();
 //
 //		m_Engine.glfwContext.PollEvents();
+=======
+
+>>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
 	}
 
 	void GameLoop::HalfFrameRateUpdate(Ptr<Level_New>& level) {
@@ -89,7 +99,16 @@ namespace Gem {
 	}
 
 	void GameLoop::SecondUpdate(Ptr<Level_New>& level) {
+<<<<<<< HEAD
+=======
+		static float begin{ (float)m_Engine.glfwContext.time.GetElapsedTime() };
+		static float end{ (float)m_Engine.glfwContext.time.GetElapsedTime() };
+		end = (float)m_Engine.glfwContext.time.GetElapsedTime();
 
+		LOG("Second: " + std::to_string(end - begin));
+>>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
+
+		begin = (float)m_Engine.glfwContext.time.GetElapsedTime();
 	}
 
 	void GameLoop::HalfSecondUpdate(Ptr<Level_New>& level) {

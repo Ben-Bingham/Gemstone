@@ -1,6 +1,5 @@
 #pragma once
 #include "ComponentManager.h"
-#include <functional>
 #include "EntityManager.h"
 
 namespace Gem {

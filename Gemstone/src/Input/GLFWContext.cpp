@@ -16,6 +16,8 @@ namespace Gem {
 		}
 	}
 
+
+
 	void GLFWContext::ShutDown() {
 		glfwTerminate();
 	}
@@ -30,6 +32,7 @@ namespace Gem {
 		while (GetElapsedTime() < endPoint) {}
 	}
 
+<<<<<<< HEAD
 	GLFWContext::Time::ScopeProfiler::ScopeProfiler(Time& time, bool log)
 		: m_Time(time), m_Log(log) {
 		m_StartTime = time.GetElapsedTime();
@@ -40,6 +43,9 @@ namespace Gem {
 			LOG(std::to_string(m_Time.GetElapsedTime() - m_StartTime));
 		}
 	}
+=======
+
+>>>>>>> c45902e481ceeaa56edb35b99852a647fa53ac3e
 
 	void GLFWContext::PollEvents() const {
 		glfwPollEvents();
