@@ -3,6 +3,7 @@
 
 #include "Core/Engine.h"
 #include "Rendering/OpenGlContext.h"
+#include "Utility/Log.h"
 
 namespace Gem {
 	template<typename StorageType, typename BufferTypeEnum, BufferTypeEnum BufferType>

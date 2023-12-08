@@ -16,6 +16,29 @@ namespace Gem {
 		void StartUp() override;
 		void ShutDown() override;
 
+		class Time {
+		public:
+			[[nodiscard]] double GetElapsedTime() const;
+			void Wait(double seconds) const;
+
+			class ScopeProfiler {
+			public:
+				ScopeProfiler(Time& time, bool log = true);
+				~ScopeProfiler();
+
+				ScopeProfiler(const ScopeProfiler& other) = default;
+				ScopeProfiler(ScopeProfiler&& other) noexcept = default;
+				ScopeProfiler& operator=(const ScopeProfiler& other) = default;
+				ScopeProfiler& operator=(ScopeProfiler&& other) noexcept = default;
+
+			private:
+				double m_StartTime;
+				Time& m_Time;
+				bool m_Log;
+			};
+
+		} time;
+
 		void PollEvents() const;
 		void SwapBuffers(WindowHandle window) const;
 

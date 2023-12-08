@@ -20,6 +20,27 @@ namespace Gem {
 		glfwTerminate();
 	}
 
+	double GLFWContext::Time::GetElapsedTime() const {
+		return glfwGetTime();
+	}
+
+	void GLFWContext::Time::Wait(const double seconds) const {
+		const double endPoint = GetElapsedTime() + seconds;
+
+		while (GetElapsedTime() < endPoint) {}
+	}
+
+	GLFWContext::Time::ScopeProfiler::ScopeProfiler(Time& time, bool log)
+		: m_Time(time), m_Log(log) {
+		m_StartTime = time.GetElapsedTime();
+	}
+
+	GLFWContext::Time::ScopeProfiler::~ScopeProfiler() {
+		if (m_Log) {
+			LOG(std::to_string(m_Time.GetElapsedTime() - m_StartTime));
+		}
+	}
+
 	void GLFWContext::PollEvents() const {
 		glfwPollEvents();
 	}

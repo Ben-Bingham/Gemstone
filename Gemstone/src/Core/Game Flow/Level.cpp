@@ -7,24 +7,24 @@ namespace Gem {
 	void Level::Load() {}
 
 	void Level::Step(float dt) {
-		m_Ecs.Step(dt);
+		//m_Ecs.Step(dt);
 	}
 
 	void Level::Unload() {}
 
 	void Level::InternalLoad() {
 		// Adding default systems:
-		m_Ecs.systems.push_back(CreatePtr<RenderingSystem>());
-		m_Ecs.systems.push_back(CreatePtr<UiSystem>());
+		//m_Ecs.systems.push_back(CreatePtr<RenderingSystem>());
+		//m_Ecs.systems.push_back(CreatePtr<UiSystem>());
 
 		Load();
-		m_Ecs.Load();
+		//m_Ecs.Load();
 		m_Running = true;
 	}
 
 	void Level::InternalUnload() {
 		m_Running = false;
-		m_Ecs.Unload();
+		//m_Ecs.Unload();
 		Unload();
 	}
 

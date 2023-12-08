@@ -1,5 +1,4 @@
 #pragma once
-#include "Entity Component System/ECS.h"
 
 namespace Gem {
 	class Level {
@@ -25,7 +24,7 @@ namespace Gem {
 		bool m_Running{ false };
 
 	protected:
-		EntityComponentSystem m_Ecs{ };
-		EntityManager& m_EntityManager{ m_Ecs.entityManager };
+		/*EntityComponentSystem m_Ecs{ };
+		EntityManager& m_EntityManager{ m_Ecs.entityManager };*/
 	};
 }

@@ -15,7 +15,10 @@ namespace Gem {
 		LevelManager(Engine_New& engine);
 
 		void AddLevel(Ptr<Level_New> level);
-		void RunLevels();
+
+		[[nodiscard]] bool HasLevels() const;
+
+		Ptr<Level_New> GetLevel();
 
 	private:
 		std::vector<Ptr<Level_New>> m_Levels;

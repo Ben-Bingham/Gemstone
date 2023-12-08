@@ -12,7 +12,7 @@ namespace Gem {
 		Mesh(const std::vector<Vertex>& vertices, const std::vector<Index>& indices);
 		Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
 
-		friend void RenderingSystem::Step(EntityManager& entityManager, float dt);
+		//friend void RenderingSystem::Step(EntityManager& entityManager, float dt);
 
 	private:
 		Ptr<InternalMesh> m_InternalMesh;

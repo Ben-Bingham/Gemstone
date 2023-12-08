@@ -1,212 +1,26 @@
 #pragma once
-
-#include "ComponentPool.h"
 #include <vector>
+#include <array>
 
-#include "Utility/Pointer.h"
+#include "Component.h"
 
 namespace Gem {
-	// class NewEntityManager {
-	// public:
-	// 	NewEntityManager() {
-	// 		m_DeadEntities.resize(MAX_ENTITIES);
-	//
-	// 		for (size_t i = 0; i < MAX_ENTITIES; i++) {
-	// 			m_DeadEntities.push_back(i);
-	// 		}
-	// 	}
-	//
-	// 	Entity CreateEntity() {
-	// 		if (m_DeadEntities.empty()) {
-	// 			LOG("No more Entities can be created.", LogLevel::ERROR);
-	// 		}
-	//
-	// 		Entity gb = m_DeadEntities.back();
-	// 		m_DeadEntities.pop_back();
-	//
-	// 		return gb;
-	// 	}
-	//
-	// 	void KillEntity(Entity entity) {
-	// 		if (HasAnyComponents(entity)) {
-	// 			// TODO delete all components
-	// 		}
-	//
-	// 		m_ComponentMasks[entity].reset();
-	// 		m_DeadEntities.push_back(entity);
-	// 	}
-	//
-	//
-	// 	template<typename ComponentType>
-	// 	void AttachComponent(Entity entity) {
-	// 		if (HasComponent<ComponentType>()) {
-	// 			LOG("Component cannot have multiples of the same component, second component will not be added.", LogLevel::WARNING);
-	// 			return;
-	// 		}
-	//
-	// 		m_ComponentMasks[entity] |= ComponentInfo<ComponentType>::mask;
-	//
-	// 		new (GetPool<ComponentType>()[entity]) ComponentType{};
-	//
-	// 	}
-	//
-	// 	template<typename ComponentType>
-	// 	ComponentType& GetComponent(Entity entity) {
-	// 		if (!HasComponent<ComponentType>()) {
-	// 			LOG("Trying to get component from entity that dosent have specified component", LogLevel::WARNING);
-	// 		}
-	//
-	// 		return *(ComponentType*)GetPool<ComponentType>[entity];
-	// 	}
-	//
-	// 	template<typename ComponentType>
-	// 	void RemoveComponent(Entity entity) {
-	// 		if (!HasComponent<ComponentType>()) {
-	// 			LOG("Trying to remove component that entity does not have", LogLevel::WARNING);
-	// 			return;
-	// 		}
-	//
-	// 		m_ComponentMasks[entity] ^= ComponentInfo<ComponentType>::mask;
-	//
-	// 		GetPool<ComponentType>[entity]->~ComponentType();
-	// 	}
-	//
-	// 	void DeleteAllComponents(Entity entity) {
-	// 		if (!HasAnyComponents(entity)) {
-	// 			return;
-	// 		}
-	//
-	//
-	// 	}
-	//
-	// 	bool HasAnyComponents(Entity entity) const {
-	// 		return m_ComponentMasks[entity].any();
-	// 	}
-	//
-	// 	template<typename ComponentType>
-	// 	bool HasComponent(Entity entity) {
-	// 		using Info = ComponentInfo<ComponentType>;
-	//
-	// 		const ComponentMask entityMask = m_ComponentMasks[entity];
-	// 		const ComponentMask componentMask = Info::mask;
-	//
-	// 		const ComponentMask result = entityMask & componentMask;
-	//
-	// 		return result == componentMask;
-	// 	}
-	//
-	//
-	// 	template<typename ComponentType>
-	// 	NewComponentPool GetPool() {
-	// 		using Info = ComponentInfo<ComponentType>;
-	//
-	// 		if (m_ComponentPools[Info::id] == nullptr) {
-	// 			m_ComponentPools[Info::id] = CreatePtr<NewComponentPool>(sizeof(ComponentType));
-	// 		}
-	//
-	// 		return *m_ComponentPools[Info::id];
-	// 	}
-	//
-	// private:
-	// 	std::array<Ptr<NewComponentPool>, MAX_COMPONENT_TYPES> m_ComponentPools;
-	// 	std::vector<Entity> m_DeadEntities;
-	// 	std::array<ComponentMask, MAX_ENTITIES> m_ComponentMasks;
-	// };
+	class EntityComponentSystem;
+
+	using Entity = size_t; // TODO move to seperate file IF POSSIBLE
+	static constexpr Entity DeadEntity{ std::numeric_limits<size_t>::max() };
 
 	class EntityManager {
 	public:
-		EntityManager() = default;
-	
-		// Creates an entity.
-		Entity Create();
-		// Invalidates an entity that doesn't have any componentMask
-		void Kill(Entity& entity);
-	
-		template<typename ComponentType, typename ...Args>
-		void Insert(Entity& entity, Args&&... args) {
-			ThrowErrorIfDead(entity);
-	
-			if (HasComponent<ComponentType>(entity)) {
-				LOG("Entity already has a component of type: " + std::string{ typeid(ComponentType).name() }, LogLevel::ERROR);
-				return;
-			}
-	
-			GetMask(entity) |= ComponentInfo<ComponentType>::mask;
-	
-			ComponentType* componentPool = (ComponentType*)GetPool<ComponentType>()->Get(entity);
-	
-			// Either make a default constructor for the component or simply pass the correct arguments to the Insert function in order to construct in place.
-			new (componentPool) ComponentType{ std::forward<Args>(args)... };
-		}
-	
-		template<typename ComponentType>
-		void Extract(Entity& entity) {
-			ThrowErrorIfDead(entity);
-	
-			if (!HasComponent<ComponentType>(entity)) {
-				LOG("Cannot remove component from entity that dosent have component: " + std::string{ typeid(ComponentType).name() }, LogLevel::ERROR);
-				return;
-			}
-	
-			GetMask(entity) ^= ComponentInfo<ComponentType>::mask;
-	
-			ComponentType* componentPool = (ComponentType*)GetPool<ComponentType>()->Get(entity);
-	
-			componentPool->~ComponentType();
-		}
-	
-		template<typename ComponentType>
-		ComponentType& GetComponent(Entity entity) {
-			ThrowErrorIfDead(entity);
-	
-			if (!HasComponent<ComponentType>(entity)) {
-				LOG("Cannot get component from entity that dosent have component: " + std::string{ typeid(ComponentType).name() } + " Null refrence will be returned.", LogLevel::ERROR);
-			}
-	
-			return *(ComponentType*)GetPool<ComponentType>()->Get(entity);
-		}
-	
-		template<typename ComponentType>
-		bool HasComponent(const Entity entity) const {
-			if (!IsAlive(entity)) {
-				return false;
-			}
-	
-			const ComponentMask entityMask = GetMask(entity);
-			const ComponentMask componentMask = ComponentInfo<ComponentType>::mask;
-			
-			const ComponentMask result = entityMask & componentMask;
-			
-			return result == componentMask;
-		}
-	
-		template<typename ...ComponentTypes>
-		bool HasComponents(const Entity entity) const {
-			return (HasComponent<ComponentTypes>(entity) && ...);
-		}
-	
-		template<typename ComponentType>
-		Ptr<IComponentPool>& GetPool() const {
-			using Info = ComponentInfo<ComponentType>;
-	
-			if (Info::id >= m_Pools.size()) {
-				m_Pools.resize(Info::id + 1);
-			}
-	
-			if (m_Pools[Info::id] == nullptr) {
-				m_Pools[Info::id] = CreatePtr<ComponentPool<ComponentType>>();
-			}
-	
-			return m_Pools[Info::id];
-		}
-	
-		ComponentMask& GetMask(Entity entity) const;
-		bool IsAlive(Entity entity) const;
-	
-	// private:
-		void ThrowErrorIfDead(Entity entity) const;
-	
-		mutable std::vector<Ptr<IComponentPool>> m_Pools;
-		mutable std::vector<std::pair<ComponentMask, bool>> m_EntityDescriptions;
+		EntityManager(EntityComponentSystem* ecs);
+
+		[[nodiscard]] Entity Create();
+		void Delete(Entity& entity);
+
+		std::array<ComponentMask, MAX_ENTITIES> entityMasks{};
+
+	private:
+		std::vector<Entity> m_UnusedEntities;
+		EntityComponentSystem* m_Ecs;
 	};
 }

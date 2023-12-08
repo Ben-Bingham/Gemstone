@@ -1,6 +1,8 @@
 #pragma once
 
 namespace Gem {
+	class Engine_New;
+
 	class ISubSystem {
 	public:
 		ISubSystem() = default;

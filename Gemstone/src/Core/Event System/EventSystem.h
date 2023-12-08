@@ -6,15 +6,21 @@
 #include "EventTypeManager.h"
 #include "Event.h"
 
+#include "Core/ISubSystem.h"
+
 namespace Gem {
-	class EventSystem {
+	class EventSystem : ISubSystem {
 	public:
+		EventSystem() = default;
+		~EventSystem() override = default;
+
 		EventSystem(const EventSystem& other) = delete;
 		EventSystem(EventSystem&& other) noexcept = default;
 		EventSystem& operator=(const EventSystem& other) = delete;
 		EventSystem& operator=(EventSystem&& other) noexcept = default;
 
-		static EventSystem& Get();
+		void StartUp() override;
+		void ShutDown() override;
 
 		template <typename T>
 		Ptr<EventTypeManager<T>> GetEventTypeManager() {
@@ -43,9 +49,6 @@ namespace Gem {
 		}
 
 	private:
-		EventSystem() = default;
-		~EventSystem() = default;
-
 		std::vector<Ptr<IEventTypeManager>> m_EventTypeManagers{};
 	};
 }

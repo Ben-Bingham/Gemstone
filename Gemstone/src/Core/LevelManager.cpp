@@ -11,9 +11,11 @@ namespace Gem {
 		m_Levels.push_back(std::move(level));
 	}
 
-	void LevelManager::RunLevels() {
-		for (auto& level : m_Levels) {
-			m_GameLoop.Loop(level);
-		}
+	bool LevelManager::HasLevels() const {
+		return !m_Levels.empty();
+	}
+
+	Ptr<Level_New> LevelManager::GetLevel() {
+		return m_Levels.back();
 	}
 }

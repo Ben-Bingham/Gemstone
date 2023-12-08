@@ -1,12 +1,12 @@
 #pragma once
 
 #include <bitset>
-
-#include "ECSConstants.h"
-
-#include "Utility/Log.h"
+#include <cassert>
 
 namespace Gem {
+	constexpr size_t MAX_ENTITIES = 16;
+	constexpr size_t MAX_COMPONENT_TYPES = 32;
+
 	inline size_t g_ComponentIdCounter{ 0 };
 
 	using ComponentMask = std::bitset<MAX_COMPONENT_TYPES>;
@@ -14,35 +14,14 @@ namespace Gem {
 	template<typename ComponentType>
 	struct ComponentInfo {
 	private:
-		static ComponentMask GetMaskWithIndexSet(const size_t index) {
-#ifdef GEMSTONE_DEBUG
-			if (index >= MAX_COMPONENT_TYPES) {
-				LOG("Index out of range, too many components exist.", LogLevel::ERROR);
-			}
-#endif
-			ComponentMask mask{};
+		static ComponentMask GetMaskWithIndexSet() {
+			assert(id < MAX_COMPONENT_TYPES && "Index out of range, too many components exist.");
 
-			mask.set(index);
-
-			return mask;
+			return ComponentMask{}.set(id);
 		}
 
 	public:
 		static inline const size_t id{ g_ComponentIdCounter++ };
-		static inline const ComponentMask mask{ GetMaskWithIndexSet(id) };
+		static inline const ComponentMask mask{ GetMaskWithIndexSet() };
 	};
-
-	// class ComponentParent {
-	// public:
-	// 	ComponentParent();
-	// 	~ComponentParent();
-	//
-	// 	ComponentParent(const ComponentParent& other) = default;
-	// 	ComponentParent(ComponentParent&& other) noexcept = default;
-	// 	ComponentParent& operator=(const ComponentParent& other) = default;
-	// 	ComponentParent& operator=(ComponentParent&& other) noexcept = default;
-	//
-	// 	ComponentMask validMask;
-	// 	static inline const size_t id{ g_ComponentIdCounter++ };
-	// };
 }

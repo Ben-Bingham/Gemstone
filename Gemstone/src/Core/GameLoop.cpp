@@ -10,16 +10,13 @@ namespace Gem {
 
 	void GameLoop::Loop(Ptr<Level_New>& level) {
 		constexpr int fps = 60;
-		using namespace std::chrono_literals;
-		using namespace std::chrono;
 
-		constexpr milliseconds frameTime = (milliseconds)(int)(1.0f / (float)fps);
-		constexpr milliseconds halfFrameTime = frameTime / 2;
+		constexpr float frameTime = 1.0f / (float)fps;
+		constexpr float halfFrameTime = frameTime / 2;
 
 
 		while (level->running) {
-			//const float loopStartTime = g_Engine.humanInterfaceDeviceContext.GetTime();
-			const milliseconds loopStartTime = std::chrono::duration_cast<milliseconds>(m_Engine.time.GetElapsedTime());
+			const float loopStartTime = (float)m_Engine.glfwContext.time.GetElapsedTime();
 
 			DoubleFrameRateUpdate(level);
 			m_DoubleFrameRateCounter++;
@@ -43,38 +40,29 @@ namespace Gem {
 				}
 
 				// Wait until half a frame time has passed.
-				//float frameTimeSoFar = g_Engine.humanInterfaceDeviceContext.GetTime() - loopStartTime;
-				milliseconds frameTimeSoFar = std::chrono::duration_cast<milliseconds>(m_Engine.time.GetElapsedTime()) - loopStartTime;
+				float frameTimeSoFar = (float)m_Engine.glfwContext.time.GetElapsedTime() - loopStartTime;
 
-				/*if (frameTimeSoFar > halfFrameTime) {
-					frameTimeSoFar -= std::floor(frameTimeSoFar / halfFrameTime);
-				}*/
 				if (frameTimeSoFar > halfFrameTime) {
-					frameTimeSoFar -= (milliseconds)(frameTimeSoFar / halfFrameTime);
+					frameTimeSoFar -= std::floor(frameTimeSoFar / halfFrameTime);
 				}
 
-				//g_Engine.humanInterfaceDeviceContext.Wait(halfFrameTime - frameTimeSoFar);
-				m_Engine.time.Wait(halfFrameTime - frameTimeSoFar);
+				m_Engine.glfwContext.time.Wait(halfFrameTime - frameTimeSoFar);
 			}
 			else {
-				/*if (EqualEnough(g_Engine.humanInterfaceDeviceContext.GetTime() / 0.5f, (float)m_HalfSecondCounter, 0.6f)) {
+				if (EqualEnough((float)m_Engine.glfwContext.time.GetElapsedTime() / 0.5f, (float)m_HalfSecondCounter, 0.6f)) {
 					m_HalfSecondCounter++;
 					HalfSecondUpdate(level);
 
 					if (m_HalfSecondCounter % 2 == 0) {
 						SecondUpdate(level);
 					}
-				}*/
-				if (EqualEnough((milliseconds)(m_Engine.time.GetElapsedTime() / 500ms), (milliseconds)m_HalfSecondCounter, 600ms)) {
-					m_HalfSecondCounter++;
-					HalfSecondUpdate(level);
-
-					if (m_HalfSecondCounter % 2 == 0) {
-						SecondUpdate(level);
-					}
-				}
+				} 
 			}
 		}
+	}
+
+	void GameLoop::SetWindow(Window_New* window) {
+		m_Window = window;
 	}
 
 	void GameLoop::DoubleFrameRateUpdate(Ptr<Level_New>& level) {
@@ -82,7 +70,18 @@ namespace Gem {
 	}
 
 	void GameLoop::FrameRateUpdate(Ptr<Level_New>& level) {
-		
+		GLFWContext::Time::ScopeProfiler scope{ m_Engine.glfwContext.time };
+//#ifdef GEMSTONE_DEBUG
+//		if (!m_Window) {
+//			LOG("Window became null.", LogLevel::TERMINAL);
+//		}
+//#endif
+//
+//		m_Engine.eventSystem.Distribute();
+//		LOG("Runnings");
+//		m_Window->SwapBuffers();
+//
+//		m_Engine.glfwContext.PollEvents();
 	}
 
 	void GameLoop::HalfFrameRateUpdate(Ptr<Level_New>& level) {
@@ -90,13 +89,6 @@ namespace Gem {
 	}
 
 	void GameLoop::SecondUpdate(Ptr<Level_New>& level) {
-		static std::chrono::time_point begin{ std::chrono::high_resolution_clock::now() };
-		static std::chrono::time_point end{ std::chrono::high_resolution_clock::now() };
-		begin = std::chrono::high_resolution_clock::now();
-
-		LOG("Second: " + (long long)std::chrono::duration_cast<std::chrono::seconds>(end - begin));
-
-		end = std::chrono::high_resolution_clock::now();
 
 	}
 
