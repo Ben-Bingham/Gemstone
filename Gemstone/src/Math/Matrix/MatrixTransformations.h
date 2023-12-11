@@ -1,9 +1,10 @@
 #pragma once
 #include "Matrix4x4.h"
+#include "Gem.h"
 
 namespace Gem {
 	template<typename T>
-	Matrix4x4<T> lookAt(const Vector3<T>& eye, const Vector3<T>& target, const Vector3<T>& up) {
+	GEM_API Matrix4x4<T> lookAt(const Vector3<T>& eye, const Vector3<T>& target, const Vector3<T>& up) {
 		Vector3<T> direction((target - eye).normalize());
 		Vector3<T> s((cross(direction, up)).normalize());
 		Vector3<T> relativeUp(cross(s, direction));
@@ -25,7 +26,7 @@ namespace Gem {
 	}
 
 	template<typename T>
-	Matrix4x4<T> perspective(T fov, T aspectRatio, T zNear, T zFar) {
+	GEM_API Matrix4x4<T> perspective(T fov, T aspectRatio, T zNear, T zFar) {
 		T tanHalfFov = (T)tan(fov / 2);
 
 		Matrix4x4<T> result{ };
@@ -38,7 +39,7 @@ namespace Gem {
 	}
 
 	template<typename T>
-	Matrix4x4<T> ortho(T left, T right, T bottom, T top, T zNear, T zFar) {
+	GEM_API Matrix4x4<T> ortho(T left, T right, T bottom, T top, T zNear, T zFar) {
 		Matrix4x4<T> result{ 1.0f };
 		result.row1.x = 2 / (right - left);
 		result.row2.y = 2 / (top - bottom);

@@ -1,5 +1,5 @@
 project "Gemstone"
-    kind "StaticLib"
+    kind "SharedLib"
     language "C++"
     cppdialect "C++20"
 
@@ -8,20 +8,21 @@ project "Gemstone"
     pchheader "pch.h"
     pchsource "src/pch.cpp"
 
-	targetdir "%{wks.location}/build/bin/%{prj.name}"
-	objdir "%{wks.location}/build/bin-int/%{prj.name}"
+	targetdir "build/bin/%{cfg.name}"
+	objdir "build/obj/%{cfg.name}"
 
     defines { 
         "GLEW_STATIC",
-        -- "GEM_ASSETS_STRING=\"assets\\\\\"",
         "GEM_ASSETS_STRING=\"assets\\\"",
         "GLFW_INCLUDE_NONE"
     }
 
     filter "configurations:Debug"
-		defines "GEMSTONE_DEBUG"
+		defines "GEM_DEBUG"
+        symbols "On"
 	filter "configurations:Release"
-		defines "GEMSTONE_RELEASE"
+		defines "GEM_RELEASE"
+        optimize "On"
 	filter {}
 
     includedirs {
@@ -32,6 +33,8 @@ project "Gemstone"
         "../vendor/ImGui/ImPlotSrc",
         "../vendor/stb_image"
     }
+
+    include "../vendor/ImGui"
 
     files {
         "src/**.cpp",

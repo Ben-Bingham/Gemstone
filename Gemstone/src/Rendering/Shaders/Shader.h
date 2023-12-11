@@ -2,9 +2,10 @@
 #include <unordered_map>
 
 #include "Rendering/OpenGlContext.h"
+#include "Gem.h"
 
 namespace Gem {
-	class Shader {
+	class GEM_API Shader {
 	public:
 		Shader(const std::string& vertexPath, const std::string& fragmentPath);
 

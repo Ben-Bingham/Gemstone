@@ -3,11 +3,12 @@
 #include <array>
 #include "Entity.h"
 #include "Component.h"
+#include "Gem.h"
 
 namespace Gem {
 	class EntityComponentSystem;
 
-	class EntityManager {
+	GEM_API class EntityManager {
 	public:
 		EntityManager(EntityComponentSystem* ecs);
 

@@ -1,9 +1,10 @@
 #pragma once
 #include "Rendering/Material/IMaterial.h"
 #include "Rendering/OpenGl Objects/Texture.h"
+#include "Gem.h"
 
 namespace Gem {
-	class DefaultMaterial : public IMaterial {
+	class GEM_API DefaultMaterial : public IMaterial {
 		static Ptr<Shader> m_DefaultShader;
 		static Ptr<Shader> m_DefaultInstancedShader;
 

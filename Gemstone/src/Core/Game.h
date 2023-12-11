@@ -3,12 +3,13 @@
 #include "Window_New.h"
 #include <functional>
 #include "Entity Component System/EntityComponentSystem.h"
+#include "Gem.h"
 
 namespace Gem {
 	/*
 	 * The Game class is the actual runtime of the game itself, it needs to be manually Run by the user in order for the game to start.
 	 */
-	class Game {
+	GEM_API class Game {
 	public:
 		Game(Engine_New& engine);
 

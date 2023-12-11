@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Utility/Pointer.h"
+#include "Gem.h"
 
 namespace Gem {
-	class ICamera {
+	class GEM_API ICamera {
 	public:
 		ICamera() = default;
 		ICamera(const ICamera& other) = default;
@@ -16,7 +17,7 @@ namespace Gem {
 		Matrix4f view{ 1.0f };
 	};
 
-	class FpsCamera final : public ICamera {
+	class GEM_API FpsCamera final : public ICamera {
 	public:
 		FpsCamera() = default;
 		FpsCamera(const FpsCamera& other) = default;
@@ -39,7 +40,7 @@ namespace Gem {
 	};
 
 	// This class acts as a component
-	class Camera {
+	class GEM_API Camera {
 	public:
 		friend class RenderingSystem;
 

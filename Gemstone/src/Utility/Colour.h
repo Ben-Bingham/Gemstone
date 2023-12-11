@@ -1,8 +1,9 @@
 #pragma once
 #include "Math/Vector.h"
+#include "Gem.h"
 
 namespace Gem {
-	class Colour : Vector4uc {
+	class GEM_API Colour : Vector4uc {
 	public:
 		Colour() = default;
 		Colour(const Colour& other) = default;

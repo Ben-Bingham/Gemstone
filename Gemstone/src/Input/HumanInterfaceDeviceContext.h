@@ -8,13 +8,14 @@
 
 #include "Core/ISubSystem.h"
 #include "Math/Vector.h"
+#include "Gem.h"
 
 namespace Gem {
 	void ErrorCallback(int error, const char* description);
 
 	using WindowHandle = GLFWwindow*;
 
-	class HumanInterfaceDeviceContext final : ISubSystem {
+	class GEM_API HumanInterfaceDeviceContext final : ISubSystem {
 	public:
 		HumanInterfaceDeviceContext() = default;
 		HumanInterfaceDeviceContext(const HumanInterfaceDeviceContext& other) = default;

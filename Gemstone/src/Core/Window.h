@@ -1,11 +1,12 @@
 #pragma once
 #include "Input/HumanInterfaceDeviceContext.h"
 #include "Math/Vector.h"
+#include "Gem.h"
 
 namespace Gem {
 	void WindowSizeCallback(WindowHandle handle, int width, int height);
 
-	class Window : ISubSystem {
+	class GEM_API Window : ISubSystem {
 	public:
 		Window() = default;
 

@@ -4,10 +4,11 @@
 #include "Core/Engine.h"
 #include "Rendering/OpenGlContext.h"
 #include "Utility/Log.h"
+#include "Gem.h"
 
 namespace Gem {
 	template<typename StorageType, typename BufferTypeEnum, BufferTypeEnum BufferType>
-	class GlBuffer {
+	class GEM_API GlBuffer {
 	public:
 		GlBuffer(
 			const OpenGlContext::BufferAccessFrequency accessFrequency = OpenGlContext::BufferAccessFrequency::STATIC,

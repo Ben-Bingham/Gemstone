@@ -2,10 +2,11 @@
 
 #include <ostream>
 #include <string>
+#include "Gem.h"
 
 namespace Gem {
 	template<typename T>
-	class Vector2 {
+	class GEM_API Vector2 {
 	public:
 		Vector2() {}
 		Vector2(T X, T Y) : x(X), y(Y) {}

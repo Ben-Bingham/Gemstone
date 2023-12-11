@@ -1,6 +1,7 @@
 #pragma once
 #include "Rendering/Material/Materials/DefaultMaterial.h"
 #include "Rendering/Material/Materials/SimpleMaterial.h"
+#include "Gem.h"
 
 namespace Gem {
 	//class Transform;

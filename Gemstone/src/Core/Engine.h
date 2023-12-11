@@ -8,9 +8,10 @@
 #include "Rendering/OpenGlContext.h"
 #include "Rendering/Renderer.h"
 #include "Rendering/User Interface/ImGuiContext.h"
+#include "Gem.h"
 
 namespace Gem {
-	class Engine {
+	class GEM_API Engine {
 	public:
 		Engine();
 		Engine(const Engine& other) = default;

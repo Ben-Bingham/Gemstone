@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Event System/EventHandler.h"
 #include "Core/WindowEvents.h"
+#include "Gem.h"
 
 namespace Gem {
 	/*class RenderingSystem final : public System, EventHandler<WindowEvents::Resize> {

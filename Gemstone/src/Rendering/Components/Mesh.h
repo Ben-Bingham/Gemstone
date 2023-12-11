@@ -3,9 +3,10 @@
 #include <vector>
 #include "Rendering/Systems/RenderingSystem.h"
 #include "Rendering/Geometry/Shapes.h"
+#include "Gem.h"
 
 namespace Gem {
-	class Mesh {
+	class GEM_API Mesh {
 	public:
 		Mesh(const Shape& shape);
 

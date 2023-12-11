@@ -2,9 +2,10 @@
 #include "Level.h"
 #include "Core/Engine.h"
 #include "Core/Settings.h"
+#include "Gem.h"
 
 namespace Gem {
-	class Application {
+	GEM_API class Application {
 		struct DebugTimings {
 			float frameTime;
 			float frameStart;

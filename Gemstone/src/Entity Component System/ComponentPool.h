@@ -2,9 +2,10 @@
 
 #include "Component.h"
 #include "EntityManager.h"
+#include "Gem.h"
 
 namespace Gem {
-	class IComponentPool {
+	class GEM_API IComponentPool {
 	public:
 		IComponentPool() = default;
 		IComponentPool(const IComponentPool& other) = default;
@@ -17,7 +18,7 @@ namespace Gem {
 	};
 
 	template<typename ComponentType>
-	class ComponentPool final : public IComponentPool {
+	class GEM_API ComponentPool final : public IComponentPool {
 	public:
 		ComponentPool()
 			: IComponentPool()

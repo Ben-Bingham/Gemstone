@@ -1,9 +1,10 @@
 #pragma once
 #include "Utility/Pointer.h"
 #include "Rendering/Shaders/Shader.h"
+#include "Gem.h"
 
 namespace Gem {
-	class IMaterial {
+	class GEM_API IMaterial {
 	public:
 		IMaterial(const Ptr<Shader>& shader, const Ptr<Shader>& instancedShader);
 		IMaterial(const IMaterial& other) = default;

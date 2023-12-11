@@ -2,9 +2,10 @@
 #include <vector>
 
 #include "Rendering/OpenGlContext.h"
+#include "Gem.h"
 
 namespace Gem {
-	class VertexAttributeObject {
+	class GEM_API VertexAttributeObject {
 	public:
 		VertexAttributeObject();
 		VertexAttributeObject(const VertexAttributeObject& other) = delete;

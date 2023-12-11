@@ -1,9 +1,10 @@
 #pragma once
+#include "Gem.h"
 
 namespace Gem {
 	class Engine_New;
 
-	class ISubSystem {
+	class GEM_API ISubSystem {
 	public:
 		ISubSystem() = default;
 		ISubSystem(const ISubSystem& other) = default;

@@ -1,7 +1,8 @@
 #pragma once
+#include "Gem.h"
 
 namespace Gem {
-	class Level {
+	GEM_API class Level {
 	public:
 		Level() = default;
 		Level(const Level& other) = default;

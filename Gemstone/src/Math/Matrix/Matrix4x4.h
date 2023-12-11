@@ -1,10 +1,11 @@
 #pragma once
 #include "Math/Angles.h"
 #include "Math/Vector.h"
+#include "Gem.h"
 
 namespace Gem {
 	template<typename T>
-	class Matrix4x4 {
+	class GEM_API Matrix4x4 {
 	public:
 		Matrix4x4() {}
 		Matrix4x4(T val) : row1(val, 0, 0, 0), row2(0, val, 0, 0), row3(0, 0, val, 0), row4(0, 0, 0, val) {}

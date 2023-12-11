@@ -5,11 +5,12 @@
 #include "EntityManager.h"
 
 #include "Utility/Pointer.h"
+#include "Gem.h"
 
 namespace Gem {
 	class EntityManager;
 
-	class ComponentManager {
+	GEM_API class ComponentManager {
 	public:
 		ComponentManager(EntityManager* entityManager);
 

@@ -2,6 +2,7 @@
 
 #include <bitset>
 #include <cassert>
+#include "Gem.h"
 
 namespace Gem {
 	constexpr size_t MAX_ENTITIES = 16; // TODO Maybe place these in a differnt file
@@ -12,7 +13,7 @@ namespace Gem {
 	using ComponentMask = std::bitset<MAX_COMPONENT_TYPES>;
 
 	template<typename ComponentType>
-	struct ComponentInfo {
+	struct GEM_API ComponentInfo {
 	private:
 		static ComponentMask GetMaskWithIndexSet() {
 			assert(id < MAX_COMPONENT_TYPES && "Index out of range, too many components exist.");

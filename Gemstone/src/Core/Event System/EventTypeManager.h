@@ -1,12 +1,13 @@
 #pragma once
 #include "IEventTypeManager.h"
+#include "Gem.h"
 
 namespace Gem {
 	template<typename EventType>
 	class EventHandler;
 
 	template<typename EventType>
-	class EventTypeManager final : public IEventTypeManager {
+	class GEM_API EventTypeManager final : public IEventTypeManager {
 	public:
 		EventTypeManager() = default;
 		EventTypeManager(const EventTypeManager& other) = default;

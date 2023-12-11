@@ -1,9 +1,10 @@
 #pragma once
 #include "Input/GLFWContext.h"
+#include "Gem.h"
 
 namespace Gem {
 //<<<<<<< HEAD
-	class Window_New {
+	GEM_API class Window_New {
 	public:
 		Window_New();
 		~Window_New();

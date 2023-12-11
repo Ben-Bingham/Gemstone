@@ -1,7 +1,8 @@
 #pragma once
+#include "Gem.h"
 
 namespace Gem {
-	class IEventTypeManager {
+	GEM_API class IEventTypeManager {
 	public:
 		IEventTypeManager() = default;
 		IEventTypeManager(const IEventTypeManager& other) = default;

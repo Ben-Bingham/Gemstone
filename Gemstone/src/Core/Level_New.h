@@ -1,7 +1,8 @@
 #pragma once
+#include "Gem.h"
 
 namespace Gem {
-	class Level_New {
+	GEM_API class Level_New {
 	public:
 		bool running{ true };
 	};

@@ -1,13 +1,14 @@
 #pragma once
 #include "EntityComponentSystem.h"
+#include "Gem.h"
 
 namespace Gem {
 	template<typename ...ComponentTypes>
-	class BaseView { };
+	GEM_API class BaseView { };
 
 	// Iterates all entities with specified components
 	template<typename ...ComponentTypes>
-	class View : public BaseView<ComponentTypes...> {
+	GEM_API class View : public BaseView<ComponentTypes...> {
 	public:
 		View(EntityComponentSystem& ecs) 
 			: m_ECS(ecs) { }
@@ -61,7 +62,7 @@ namespace Gem {
 
 	// Iterates all components of a singal type
 	template<typename ComponentType>
-	class View<ComponentType> : protected BaseView<ComponentType> {
+	GEM_API class View<ComponentType> : protected BaseView<ComponentType> {
 	public:
 		View(EntityComponentSystem& ecs)
 			: m_ECS(ecs) { }
@@ -115,7 +116,7 @@ namespace Gem {
 
 	// Iterates all entities with at least one component
 	template<>
-	class View<> : protected BaseView<> {
+	GEM_API class View<> : protected BaseView<> {
 	public:
 		View(EntityComponentSystem& ecs)
 			: m_ECS(ecs) { }

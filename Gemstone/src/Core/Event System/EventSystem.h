@@ -7,9 +7,10 @@
 #include "Event.h"
 
 #include "Core/ISubSystem.h"
+#include "Gem.h"
 
 namespace Gem {
-	class EventSystem : ISubSystem {
+	class GEM_API EventSystem : ISubSystem {
 	public:
 		EventSystem() = default;
 		~EventSystem() override = default;

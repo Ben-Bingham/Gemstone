@@ -1,8 +1,9 @@
 #pragma once
 #include "Rendering/Utility/Image.h"
+#include "Gem.h"
 
 namespace Gem {
-	class ImageAtlas : public Image {
+	class GEM_API ImageAtlas : public Image {
 	public:
 		ImageAtlas();
 

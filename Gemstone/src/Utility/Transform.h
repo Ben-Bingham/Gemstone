@@ -2,9 +2,10 @@
 
 #include "Math/Matrix.h"
 #include "Math/Vector.h"
+#include "Gem.h"
 
 namespace Gem {
-	class Transform {
+	GEM_API class Transform {
 	public:
 		Transform(
 			const Vector3f& position = Vector3f{ 0.0f }, 

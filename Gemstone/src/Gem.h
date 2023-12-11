@@ -10,4 +10,6 @@ namespace Gem {
 #else
 #define GEM_ASSERT 
 #endif
+
+#define GEM_API __declspec(dllexport)
 }

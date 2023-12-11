@@ -2,9 +2,10 @@
 #include "RenderBuffer.h"
 #include "Texture.h"
 #include "Rendering/OpenGlContext.h"
+#include "Gem.h"
 
 namespace Gem {
-	class FrameBuffer {
+	class GEM_API FrameBuffer {
 	public:
 		FrameBuffer();
 		FrameBuffer(const FrameBuffer& other) = default;

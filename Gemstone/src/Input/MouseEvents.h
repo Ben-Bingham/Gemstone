@@ -1,25 +1,26 @@
 #pragma once
 #include "MouseButton.h"
+#include "Gem.h"
 
 namespace Gem::MouseEvents {
-	struct ButtonDown {
+	GEM_API struct ButtonDown {
 		MouseButton button;
 	};
 
-	struct ButtonUp {
+	GEM_API struct ButtonUp {
 		MouseButton button;
 	};
 
-	struct Position {
+	GEM_API struct Position {
 		int x;
 		int y;
 	};
 
-	struct Scroll {
+	GEM_API struct Scroll {
 		float x;
 		float y;
 	};
 
-	struct CursorEnter { };
-	struct CursorLeave { };
+	GEM_API struct CursorEnter { };
+	GEM_API struct CursorLeave { };
 }

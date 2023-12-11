@@ -1,9 +1,10 @@
 #pragma once
 #include "Core/Event System/EventSystem.h"
+#include "Gem.h"
 
 namespace Gem {
 	template<typename EventType>
-	class EventHandler {
+	class GEM_API EventHandler {
 	public:
 		EventHandler(EventSystem& eventSystem)
 			: m_EventSystem(eventSystem) {

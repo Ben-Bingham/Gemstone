@@ -6,6 +6,7 @@
 #include "Math/Vector.h"
 #include "Utility/Colour.h"
 #include "Utility/Image.h"
+#include "Gem.h"
 
 #ifdef GEMSTONE_DEBUG
 #define GEMSTONE_CHECK_OPEN_GL_ERRORS
@@ -36,7 +37,7 @@ namespace Gem {
 
 	using UniformLocation = GLint;
 
-	class OpenGlContext : ISubSystem {
+	class GEM_API OpenGlContext : ISubSystem {
 	public:
 		OpenGlContext() = default;
 		OpenGlContext(const OpenGlContext& other) = default;

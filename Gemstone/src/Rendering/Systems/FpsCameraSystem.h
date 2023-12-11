@@ -3,6 +3,7 @@
 #include "Core/Event System/EventHandler.h"
 #include "Input/KeyboardEvents.h"
 #include "Input/MouseEvents.h"
+#include "Gem.h"
 
 namespace Gem {
 //<<<<<<< HEAD

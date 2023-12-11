@@ -2,12 +2,13 @@
 #include "Renderable.h"
 #include "Components/Camera.h"
 #include "Core/ISubSystem.h"
+#include "Gem.h"
 
 namespace Gem {
 	class InternalMesh;
 	class IMaterial;
 
-	class Renderer final : ISubSystem {
+	class GEM_API Renderer final : ISubSystem {
 	public:
 		Renderer() = default;
 		Renderer(const Renderer& other) = default;

@@ -1,6 +1,7 @@
 #pragma once
 #include "Rendering/OpenGlContext.h"
 #include "Rendering/Utility/Image.h"
+#include "Gem.h"
 
 namespace Gem {
 	class Texture;
@@ -11,7 +12,7 @@ namespace ImGui {
 }
 
 namespace Gem {
-	class Texture : Image {
+	class GEM_API Texture : Image {
 	public:
 		friend class FrameBuffer;
 

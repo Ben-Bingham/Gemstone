@@ -4,12 +4,13 @@
 #include "Window_New.h"
 
 #include "Utility/Pointer.h"
+#include "Gem.h"
 
 namespace Gem {
 	/*
 	 * Controls the game loop for any level
 	 */
-	class GameLoop {
+	GEM_API class GameLoop {
 	public:
 		GameLoop(Engine_New& engine);
 

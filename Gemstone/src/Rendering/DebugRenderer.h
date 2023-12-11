@@ -2,6 +2,7 @@
 #include "Core/ISubSystem.h"
 
 #include "Utility/Colour.h"
+#include "Gem.h"
 
 #define DEBUG_RENDERER_ON_RELEASE
 
@@ -10,7 +11,7 @@
 #endif
 
 namespace Gem {
-	class DebugRenderer : ISubSystem {
+	class GEM_API DebugRenderer : ISubSystem {
 	public:
 		DebugRenderer() = default;
 		DebugRenderer(const DebugRenderer& other) = default;

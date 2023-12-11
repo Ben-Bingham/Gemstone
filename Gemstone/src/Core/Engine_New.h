@@ -1,6 +1,7 @@
 #pragma once
 #include "Event System/EventSystem.h"
 #include "Input/GLFWContext.h"
+#include "Gem.h"
 
 namespace Gem {
 	/*
@@ -8,7 +9,7 @@ namespace Gem {
 	 *
 	 * The Engine class should manage the creation and deletion of all subsystems, but it should not control when they are run.
 	 */
-	class Engine_New {
+	GEM_API class Engine_New {
 	public:
 		Engine_New();
 		~Engine_New();

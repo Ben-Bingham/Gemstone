@@ -3,13 +3,14 @@
 #include "MouseButton.h"
 #include "Core/ISubSystem.h"
 #include "Math/Vector.h"
+#include "Gem.h"
 
 namespace Gem {
 	void GLFWErrorCallback(int error, const char* description);
 
 	using WindowHandle = GLFWwindow*;
 
-	class GLFWContext : ISubSystem {
+	GEM_API class GLFWContext : ISubSystem {
 	public:
 		GLFWContext() = default;
 

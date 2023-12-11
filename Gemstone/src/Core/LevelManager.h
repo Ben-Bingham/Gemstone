@@ -3,6 +3,7 @@
 #include "Level_New.h"
 
 #include "Utility/Pointer.h"
+#include "Gem.h"
 
 namespace Gem {
 	/*
@@ -10,7 +11,7 @@ namespace Gem {
 	 *
 	 * TODO currently levels can only be loaded linearly, this should be changed.
 	 */
-	class LevelManager {
+	GEM_API class LevelManager {
 	public:
 		LevelManager(Engine_New& engine);
 

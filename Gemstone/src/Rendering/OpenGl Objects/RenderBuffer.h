@@ -1,8 +1,9 @@
 #pragma once
 #include "Rendering/OpenGlContext.h"
+#include "Gem.h"
 
 namespace Gem {
-	class RenderBuffer {
+	class GEM_API RenderBuffer {
 		friend class FrameBuffer;
 	public:
 		RenderBuffer();

@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "Rendering/Components/InternalMesh.h"
 #include "Rendering/OpenGlContext.h"
+#include "Rendering/Geometry/Shapes.h"
 
 namespace Gem {
 	Mesh::Mesh(const Shape& shape)

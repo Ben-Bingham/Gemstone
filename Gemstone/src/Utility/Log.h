@@ -1,4 +1,5 @@
 #pragma once
+#include "Gem.h"
 
 namespace Gem {
 	enum class LogLevel {
@@ -8,7 +9,7 @@ namespace Gem {
 		TERMINAL
 	};
 
-	void Log(const char* filePath, int lineNumber, const std::string& message, LogLevel level = LogLevel::INFO);
+	GEM_API void Log(const char* filePath, int lineNumber, const std::string& message, LogLevel level = LogLevel::INFO);
 
 	namespace Logger {
 		inline bool g_LogLevel{ true };
