@@ -1,4 +1,5 @@
 project "Gemstone"
+    print "Gemstone"
     kind "SharedLib"
     language "C++"
     cppdialect "C++20"
@@ -8,8 +9,8 @@ project "Gemstone"
     pchheader "include/pch.h"
     pchsource "src/pch.cpp"
 
-	targetdir "&{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
-	objdir "&{wks.location}/build/obj/%{cfg.name}/%{prj.name}"
+	targetdir "%{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
+	objdir "%{wks.location}/build/obj/%{cfg.name}/%{prj.name}"
 
     defines { 
         "GLEW_STATIC",
@@ -29,14 +30,14 @@ project "Gemstone"
 
     includedirs {
         "include",
-        "../dependencies/GLEW/include",
-        "../dependencies/GLFW/include",
-        "../dependencies/ImGui/ImGuiSrc",
-        "../dependencies/ImGui/ImPlotSrc",
-        "../dependencies/stb_image"
+        "dependencies/GLEW/include",
+        "dependencies/GLFW/include",
+        "dependencies/ImGui/ImGuiSrc",
+        "dependencies/ImGui/ImPlotSrc",
+        "dependencies/stb_image"
     }
 
-    include "../dependencies/ImGui"
+    include "dependencies/ImGui"
 
     files {
         "src/**.cpp",
@@ -51,6 +52,6 @@ project "Gemstone"
     }
 
     libdirs {
-        "../dependencies/GLFW/lib-vc2022",
-        "../dependencies/GLEW/lib/Release/x64"
+        "dependencies/GLFW/lib-vc2022",
+        "dependencies/GLEW/lib/Release/x64"
     }

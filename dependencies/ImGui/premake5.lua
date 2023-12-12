@@ -14,14 +14,12 @@ project "ImGui"
         optimize "on"
     filter {}
 
-	targetdir "%{wks.location}/build/vendor/bin/%{prj.name}"
-	objdir "%{wks.location}/build/vendor/bin-int/%{prj.name}"
+    targetdir "%{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
+	objdir "%{wks.location}/build/obj/%{cfg.name}/%{prj.name}"
 
     files {
-        "ImGuiSrc/**.cpp",
-        "ImGuiSrc/**.h",
-        "ImPlotSrc/**.h",
-        "ImPlotSrc/**.cpp"
+        "include/**.h",
+        "src/**.cpp"
     }
 
     links "glfw3"
@@ -30,5 +28,6 @@ project "ImGui"
 
     includedirs {
         "../GLFW/include",
-        "ImGuiSrc"
+        "include/ImGui",
+        "include/ImPlot"
     }    
