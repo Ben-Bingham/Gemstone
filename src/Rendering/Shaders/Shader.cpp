@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Shader.h"
+#include "Rendering/Shaders/Shader.h"
 
 #include <fstream>
 

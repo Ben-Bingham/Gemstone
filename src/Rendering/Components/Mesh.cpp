@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Mesh.h"
+#include "Rendering/Components/Mesh.h"
 #include "Rendering/Components/InternalMesh.h"
 #include "Rendering/OpenGlContext.h"
 #include "Rendering/Geometry/Shapes.h"

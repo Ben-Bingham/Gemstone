@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ImageAtlas.h"
+#include "Rendering/Atlases/ImageAtlas.h"
 
 namespace Gem {
 	ImageAtlas::ImageAtlas()

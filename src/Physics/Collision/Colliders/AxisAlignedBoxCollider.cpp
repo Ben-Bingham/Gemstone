@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "AxisAlignedBoxCollider.h"
+#include "Physics/Collision/Colliders/AxisAlignedBoxCollider.h"
 #include "Physics/Collision/CollisionDetection.h"
 
 namespace Gem {

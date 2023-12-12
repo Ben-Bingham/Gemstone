@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "Keyboard.h"
-#include "KeyboardEvents.h"
-#include "Keys.h"
+#include "Input/Keyboard.h"
+#include "Input/KeyboardEvents.h"
+#include "Input/Keys.h"
 
 #include "Core/Engine.h"
 #include "Core/Event System/EventHandler.h"

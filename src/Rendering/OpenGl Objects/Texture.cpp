@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Texture.h"
+#include "Rendering/OpenGl Objects/Texture.h"
 #include "imgui.h"
 
 #include "Core/Engine.h"

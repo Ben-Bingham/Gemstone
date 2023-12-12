@@ -1,5 +1,6 @@
 #pragma once
-#include <GL/glew.h>
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
 
 #include "Core/ISubSystem.h"
 #include "Math/Matrix.h"
@@ -105,7 +106,7 @@ namespace Gem {
 		void SetViewportSize(const Vector2ui& size);
 
 	private:
-		enum class GlTypeName {
+		enum class GEM_API GlTypeName {
 			FLOAT = (GLenum)GL_FLOAT,
 			UNSIGNED_INT = (GLenum)GL_UNSIGNED_INT,
 			INT = (GLenum)GL_INT,
@@ -116,7 +117,7 @@ namespace Gem {
 		static size_t BytesPerGlType(GlTypeName type);
 
 	public:
-		struct GlType {
+		struct GEM_API GlType {
 			GlType(GlTypeName type, size_t elementCount);
 
 			GlTypeName type;

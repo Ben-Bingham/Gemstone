@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Collider.h"
+#include "Physics/Collision/Colliders/Collider.h"
 
 namespace Gem {
 	Collider::Collider(Point3D Position)

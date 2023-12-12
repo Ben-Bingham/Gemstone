@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "Engine.h"
-#include "Window.h"
-#include "WindowEvents.h"
+#include "Core/Engine.h"
+#include "Core/Window.h"
+#include "Core/WindowEvents.h"
 
 #include "Input/MouseEvents.h"
 #include "Core/Event System/EventHandler.h"

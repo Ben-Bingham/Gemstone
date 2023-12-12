@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "EntityComponentSystem.h"
+#include "Entity Component System/EntityComponentSystem.h"
 
 namespace Gem {
 	EntityComponentSystem::EntityComponentSystem()

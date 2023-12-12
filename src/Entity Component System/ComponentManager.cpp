@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "ComponentManager.h"
-#include "EntityManager.h"
+#include "Entity Component System/ComponentManager.h"
+#include "Entity Component System/EntityManager.h"
 
 namespace Gem {
 	ComponentManager::ComponentManager(EntityManager* entityManager)

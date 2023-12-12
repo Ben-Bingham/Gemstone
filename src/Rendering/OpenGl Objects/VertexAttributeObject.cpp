@@ -1,5 +1,5 @@
 #include "pch.h"
-#include  "VertexAttributeObject.h"
+#include  "Rendering/OpenGl Objects/VertexAttributeObject.h"
 
 #include "Core/Engine.h"
 

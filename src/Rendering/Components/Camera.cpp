@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Camera.h"
+#include "Rendering/Components/Camera.h"
 
 #include "Core/Engine.h"
 

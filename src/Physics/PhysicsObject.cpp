@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "PhysicsObject.h"
+#include "Physics/PhysicsObject.h"
 
 namespace Gem {
 	using namespace Literals;

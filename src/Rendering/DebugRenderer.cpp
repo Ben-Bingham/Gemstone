@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "DebugRenderer.h"
+#include "Rendering/DebugRenderer.h"
 
 namespace Gem {
 	void DebugRenderer::StartUp() {

@@ -2,6 +2,7 @@ project "ImGui"
     kind "StaticLib"
     language "C++"
     cppdialect "C++17"
+    architecture "x86_64"
 
 	flags "MultiProcessorCompile"
 

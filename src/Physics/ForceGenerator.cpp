@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "ForceGenerator.h"
+#include "Physics/ForceGenerator.h"
 #include "Math/Powers.h"
 
 namespace Gem {

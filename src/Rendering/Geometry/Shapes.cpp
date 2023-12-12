@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Shapes.h"
+#include "Rendering/Geometry/Shapes.h"
 
 namespace Gem {
 	Vertex::Vertex(const Vector3f position, const Vector3f normal, const Vector2f uv)

@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "Mouse.h"
-#include "MouseEvents.h"
+#include "Input/Mouse.h"
+#include "Input/MouseEvents.h"
 #include "Core/Engine.h"
 #include "Core/Event System/EventHandler.h"
 #include "Utility/Log.h"

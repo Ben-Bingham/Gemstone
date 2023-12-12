@@ -13,7 +13,7 @@ namespace Gem {
 	using ComponentMask = std::bitset<MAX_COMPONENT_TYPES>;
 
 	template<typename ComponentType>
-	struct GEM_API ComponentInfo {
+	struct ComponentInfo {
 	private:
 		static ComponentMask GetMaskWithIndexSet() {
 			assert(id < MAX_COMPONENT_TYPES && "Index out of range, too many components exist.");

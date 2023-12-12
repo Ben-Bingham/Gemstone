@@ -1,7 +1,7 @@
 #include "pch.h"
 #include <GLFW/glfw3.h>
 
-#include "GLFWContext.h"
+#include "Input/GLFWContext.h"
 
 namespace Gem {
 	void GLFWErrorCallback(int error, const char* description) {

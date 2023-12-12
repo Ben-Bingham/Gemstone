@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "SphereCollider.h"
+#include "Physics/Collision/Colliders/SphereCollider.h"
 #include "Physics/Collision/CollisionDetection.h"
 
 namespace Gem {

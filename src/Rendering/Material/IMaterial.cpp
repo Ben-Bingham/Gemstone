@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "IMaterial.h"
+#include "Rendering/Material/IMaterial.h"
 
 namespace Gem {
 	IMaterial::IMaterial(const Ptr<Shader>& shader, const Ptr<Shader>& instancedShader)

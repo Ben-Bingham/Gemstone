@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "Renderer.h"
+#include "Rendering/Renderer.h"
 #include "imgui.h"
-#include "OpenGlContext.h"
-#include "Material/IMaterial.h"
-#include "Components/InternalMesh.h"
+#include "Rendering/OpenGlContext.h"
+#include "Rendering/Components/InternalMesh.h"
 #include "Core/Engine.h"
+#include "Rendering/Material/IMaterial.h"
 #include "Core/Settings.h"
 
 namespace Gem {

@@ -1,9 +1,9 @@
 #include "pch.h"
 
-#include "OpenGlContext.h"
+#include "Rendering/OpenGlContext.h"
 #include <iostream>
 
-#include "Utility/OpenGlError.h"
+#include "Rendering/Utility/OpenGlError.h"
 
 namespace Gem {
 	void CheckErrors(const char* filePath, const int lineNumber) {

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "OpenGlError.h"
+#include "Rendering/Utility/OpenGlError.h"
 
 namespace Gem {
 	void APIENTRY GlErrorCallback(GLenum source, GLenum type, unsigned int id, GLenum severity, GLsizei length, const char* message, const void* userParam) {

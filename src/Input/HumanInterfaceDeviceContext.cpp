@@ -2,7 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "HumanInterfaceDeviceContext.h"
+#include "Input/HumanInterfaceDeviceContext.h"
 #include "Math/Vector.h"
 #include "Utility/Log.h"
 

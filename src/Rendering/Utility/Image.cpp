@@ -2,7 +2,7 @@
 
 #include <stb_image.h>
 
-#include "Image.h"
+#include "Rendering/Utility/Image.h"
 
 namespace Gem {
 	Image::Image(const std::string& path)

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "InternalMesh.h"
+#include "Rendering/Components/InternalMesh.h"
 
 namespace Gem {
 	InternalMesh::InternalMesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)

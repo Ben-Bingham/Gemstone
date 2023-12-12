@@ -1,15 +1,12 @@
 project "Gemstone"
-    print "Gemstone"
     kind "SharedLib"
     language "C++"
     cppdialect "C++20"
+    architecture "x86_64"
 
 	flags "MultiProcessorCompile"
 
-    pchheader "include/pch.h"
-    pchsource "src/pch.cpp"
-
-	targetdir "%{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
+    targetdir "%{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
 	objdir "%{wks.location}/build/obj/%{cfg.name}/%{prj.name}"
 
     defines { 
@@ -32,12 +29,10 @@ project "Gemstone"
         "include",
         "dependencies/GLEW/include",
         "dependencies/GLFW/include",
-        "dependencies/ImGui/ImGuiSrc",
-        "dependencies/ImGui/ImPlotSrc",
+        "dependencies/ImGui/include/ImGui",
+        "dependencies/ImGui/include/ImPlot",
         "dependencies/stb_image"
     }
-
-    include "dependencies/ImGui"
 
     files {
         "src/**.cpp",
@@ -55,3 +50,5 @@ project "Gemstone"
         "dependencies/GLFW/lib-vc2022",
         "dependencies/GLEW/lib/Release/x64"
     }
+
+    include "dependencies/ImGui"

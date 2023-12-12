@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Colour.h"
+#include "Utility/Colour.h"
 
 namespace Gem {
 	Colour::Colour(const int colour)

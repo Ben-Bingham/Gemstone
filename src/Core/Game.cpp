@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Game.h"
+#include "Core/Game.h"
 
 namespace Gem {
 	Game::Game(Engine_New& engine)

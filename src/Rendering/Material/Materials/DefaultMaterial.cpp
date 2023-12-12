@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "DefaultMaterial.h"
+#include "Rendering/Material/Materials/DefaultMaterial.h"
 #include "Gem.h"
 
 namespace Gem {

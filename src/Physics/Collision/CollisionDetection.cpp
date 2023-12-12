@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "CollisionDetection.h"
-#include "Colliders/AxisAlignedBoxCollider.h"
+#include "Physics/Collision/CollisionDetection.h"
+#include "Physics/Collision/Colliders/AxisAlignedBoxCollider.h"
 
 #include "Math/Utility.h"
 

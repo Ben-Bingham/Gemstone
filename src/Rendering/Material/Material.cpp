@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "Material.h"
+#include "Rendering/Material/Material.h"
 
-#include "Materials/DefaultMaterial.h"
-#include "Materials/SimpleMaterial.h"
+#include "Rendering/Material/Materials/DefaultMaterial.h"
+#include "Rendering/Material/Materials/SimpleMaterial.h"
 
 namespace Gem {
 	Material::Material(const Ptr<IMaterial>& material)

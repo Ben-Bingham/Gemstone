@@ -1,4 +1,7 @@
 #pragma once
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+
 #include "Window.h"
 #include "Event System/EventSystem.h"
 #include "Input/HumanInterfaceDeviceContext.h"

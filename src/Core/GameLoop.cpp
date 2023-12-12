@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "GameLoop.h"
-#include "Engine.h"
+#include "Core/GameLoop.h"
+#include "Core/Engine.h"
 #include "Math/FloatingPointMath.h"
 
 namespace Gem {
