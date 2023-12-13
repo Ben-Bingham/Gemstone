@@ -1,9 +1,9 @@
 #pragma once
-#include "LevelManager.h"
-#include "Window_New.h"
+#include "Window.h"
 #include <functional>
 #include "Entity Component System/EntityComponentSystem.h"
 #include "Gem.h"
+#include "Level.h"
 
 namespace Gem {
 	/*
@@ -11,15 +11,12 @@ namespace Gem {
 	 */
 	class GEM_API Game {
 	public:
-		Game(Engine_New& engine);
+		Game(Engine& engine);
 
-		using ConditionFunction = std::function<bool(Ptr<Level_New> level)>;
-		void Run(Ptr<Level_New> level, ConditionFunction conditionFunction = [](Ptr<Level_New> level)->bool { return true; });
+		using ConditionFunction = std::function<bool(Ptr<Level> level)>;
+		void Run(Ptr<Level> level, ConditionFunction conditionFunction = [](Ptr<Level> level)->bool { return true; });
 
-		LevelManager levelManager;
-		Window_New window;
-		GameLoop gameLoop;
-		Engine_New& engine;
+		Engine& engine;
 
 		EntityComponentSystem ecs;
 

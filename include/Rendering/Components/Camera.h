@@ -2,6 +2,8 @@
 
 #include "Utility/Pointer.h"
 #include "Gem.h"
+#include "Math/Matrix.h"
+#include "Math/Vector.h"
 
 namespace Gem {
 	class GEM_API ICamera {

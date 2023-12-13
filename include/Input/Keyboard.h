@@ -3,8 +3,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Core/Window.h"
 #include "Gem.h"
+#include "Core/ISubSystem.h"
 
 namespace Gem {
 	void KeyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods);

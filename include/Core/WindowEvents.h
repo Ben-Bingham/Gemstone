@@ -3,7 +3,7 @@
 #include "Gem.h"
 
 namespace Gem::WindowEvents {
-	GEM_API struct Resize {
+	struct GEM_API Resize {
 		Vector2ui size{ 0 };
 	};
 }

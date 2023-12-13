@@ -3,7 +3,6 @@
 #include "imgui.h"
 #include "Rendering/OpenGlContext.h"
 #include "Rendering/Components/InternalMesh.h"
-#include "Core/Engine.h"
 #include "Rendering/Material/IMaterial.h"
 #include "Core/Settings.h"
 

@@ -1,29 +1,22 @@
 #pragma once
-#include "Input/HumanInterfaceDeviceContext.h"
-#include "Math/Vector.h"
+#include "Input/GLFWContext.h"
 #include "Gem.h"
 
 namespace Gem {
-	void WindowSizeCallback(WindowHandle handle, int width, int height);
-
 	class GEM_API Window : ISubSystem {
 	public:
 		Window() = default;
+		~Window() = default;
 
-		[[nodiscard]] bool IsOpen() const;
-		void Close();
-
-		[[nodiscard]] WindowHandle Handle() const;
+		Window(const Window& other) = delete;
+		Window(Window&& other) noexcept = default;
+		Window& operator=(const Window& other) = delete;
+		Window& operator=(Window&& other) noexcept = default;
 
 		void StartUp() override;
 		void ShutDown() override;
 
 		void SwapBuffers();
-
-		void SwapInterval(size_t interval);
-
-		void DisableCursor();
-		void EnableCursor();
 
 		Vector2ui size{ 640, 480 };
 

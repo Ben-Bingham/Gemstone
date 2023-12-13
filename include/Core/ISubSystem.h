@@ -2,7 +2,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class Engine_New;
+	class Engine;
 
 	class GEM_API ISubSystem {
 	public:

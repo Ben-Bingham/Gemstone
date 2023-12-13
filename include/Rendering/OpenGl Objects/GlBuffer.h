@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 
-#include "Core/Engine.h"
 #include "Rendering/OpenGlContext.h"
 #include "Utility/Log.h"
 #include "Gem.h"

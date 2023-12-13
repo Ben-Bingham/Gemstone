@@ -1,13 +1,12 @@
-#include "pch.h"
 #include "Core/Game.h"
+#include "Core/Engine.h"
+#include "Utility/Log.h"
 
 namespace Gem {
-	Game::Game(Engine_New& engine)
-		: levelManager(engine), gameLoop(engine), engine(engine) {
-		
-	}
+	Game::Game(Engine& engine) 
+		: engine(engine) { }
 
-	void Game::Run(Ptr<Level_New> level, ConditionFunction conditionFunction) {
+	void Game::Run(Ptr<Level> level, ConditionFunction conditionFunction) {
 		//ecs.LoadLevel(level);
 
 		//double dt = 1 / settings.fps; // TODO also incorperate vsync toggle
@@ -22,7 +21,7 @@ namespace Gem {
 
 			LOG(std::to_string(dt));
 
-			window.SwapBuffers();
+			//window.SwapBuffers();
 
 			dt = DelayFrame(frameStartTime);
 		}

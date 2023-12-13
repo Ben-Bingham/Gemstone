@@ -3,8 +3,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Core/Window.h"
 #include "Gem.h"
+#include "Core/ISubSystem.h"
 
 namespace Gem {
 	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
