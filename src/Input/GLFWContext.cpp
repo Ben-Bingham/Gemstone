@@ -16,8 +16,6 @@ namespace Gem {
 		}
 	}
 
-
-
 	void GLFWContext::ShutDown() {
 		glfwTerminate();
 	}

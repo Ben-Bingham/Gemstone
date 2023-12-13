@@ -1,7 +1,6 @@
 #pragma once
 #include "Event System/EventSystem.h"
 #include "Input/GLFWContext.h"
-#include "Gem.h"
 #include "Core/Window.h"
 
 namespace Gem {
