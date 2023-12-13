@@ -10,7 +10,7 @@
 namespace Gem {
 	class EntityManager;
 
-	class GEM_API ComponentManager {
+	class ComponentManager {
 	public:
 		ComponentManager(EntityManager* entityManager);
 

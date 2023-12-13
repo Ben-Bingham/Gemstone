@@ -4,7 +4,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API EntityComponentSystem { // TODO give each ECS an index, and use that to compare them in the View iterators.
+	class EntityComponentSystem { // TODO give each ECS an index, and use that to compare them in the View iterators.
 	public:
 		EntityComponentSystem();
 

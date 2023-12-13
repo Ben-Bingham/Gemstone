@@ -3,7 +3,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API RenderBuffer {
+	class RenderBuffer {
 		friend class FrameBuffer;
 	public:
 		RenderBuffer();

@@ -3,7 +3,7 @@
 
 namespace Gem {
 	template<typename T, size_t Size>
-	GEM_API T RollingAverage(std::array<T, Size> list) {
+	T RollingAverage(std::array<T, Size> list) {
 		T total{ (T)0 };
 
 		for (auto val : list) {
@@ -14,7 +14,7 @@ namespace Gem {
 	}
 
 	template<typename T>
-	GEM_API T RollingAverage(std::vector<T> list) {
+	T RollingAverage(std::vector<T> list) {
 		T total{ (T)0 };
 
 		for (auto val : list) {

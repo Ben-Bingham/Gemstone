@@ -4,7 +4,7 @@
 namespace Gem {
 	class Engine;
 
-	class GEM_API ISubSystem {
+	class ISubSystem {
 	public:
 		ISubSystem() = default;
 		ISubSystem(const ISubSystem& other) = default;

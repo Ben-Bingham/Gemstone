@@ -5,7 +5,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API VertexAttributeObject {
+	class VertexAttributeObject {
 	public:
 		VertexAttributeObject();
 		VertexAttributeObject(const VertexAttributeObject& other) = delete;

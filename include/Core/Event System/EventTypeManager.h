@@ -7,7 +7,7 @@ namespace Gem {
 	class EventHandler;
 
 	template<typename EventType>
-	class GEM_API EventTypeManager final : public IEventTypeManager {
+	class EventTypeManager final : public IEventTypeManager {
 	public:
 		EventTypeManager() = default;
 		EventTypeManager(const EventTypeManager& other) = default;

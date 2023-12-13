@@ -5,7 +5,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API Shader {
+	class Shader {
 	public:
 		Shader(const std::string& vertexPath, const std::string& fragmentPath);
 

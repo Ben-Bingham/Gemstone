@@ -9,7 +9,7 @@ namespace Gem {
 	class Vector4;
 
 	template<typename T>
-	class GEM_API Vector3 {
+	class Vector3 {
 	public:
 		Vector3() {}
 		Vector3(T X, T Y, T Z) : x(X), y(Y), z(Z) {}

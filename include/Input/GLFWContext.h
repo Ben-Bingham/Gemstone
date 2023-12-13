@@ -10,7 +10,7 @@ namespace Gem {
 
 	using WindowHandle = GLFWwindow*;
 
-	class GEM_API GLFWContext : ISubSystem {
+	class GLFWContext : ISubSystem {
 	public:
 		GLFWContext() = default;
 

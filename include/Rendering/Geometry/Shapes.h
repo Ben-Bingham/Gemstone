@@ -3,7 +3,7 @@
 
 namespace Gem {
 	constexpr size_t ELEMENTS_IN_VERTEX = 8;
-	struct GEM_API Vertex {
+	struct Vertex {
 		Vertex(Vector3f position, Vector3f normal, Vector2f uv);
 
 		Vector3f position;
@@ -13,7 +13,7 @@ namespace Gem {
 
 	using Index = unsigned int;
 
-	class GEM_API Shape {
+	class Shape {
 	public:
 		Shape() = default;
 		Shape(const Shape& other) = default;
@@ -26,7 +26,7 @@ namespace Gem {
 		[[nodiscard]] virtual std::vector<Index> Indices() const = 0;
 	};
 
-	class GEM_API Cube final : public Shape {
+	class Cube final : public Shape {
 	public:
 		// TODO Dimensions do not currently work
 		Cube(const Vector3f& dimensions = Vector3f{ 1.0f, 1.0f, 1.0f });

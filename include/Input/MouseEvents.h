@@ -3,24 +3,24 @@
 #include "Gem.h"
 
 namespace Gem::MouseEvents {
-	struct GEM_API ButtonDown {
+	struct ButtonDown {
 		MouseButton button;
 	};
 
-	struct GEM_API ButtonUp {
+	struct ButtonUp {
 		MouseButton button;
 	};
 
-	struct GEM_API Position {
+	struct Position {
 		int x;
 		int y;
 	};
 
-	struct GEM_API Scroll {
+	struct Scroll {
 		float x;
 		float y;
 	};
 
-	struct GEM_API CursorEnter { };
-	struct GEM_API CursorLeave { };
+	struct CursorEnter { };
+	struct CursorLeave { };
 }

@@ -15,7 +15,7 @@ namespace Gem {
 
 	using WindowHandle = GLFWwindow*;
 
-	class GEM_API HumanInterfaceDeviceContext final : ISubSystem {
+	class HumanInterfaceDeviceContext final : ISubSystem {
 	public:
 		HumanInterfaceDeviceContext() = default;
 		HumanInterfaceDeviceContext(const HumanInterfaceDeviceContext& other) = default;

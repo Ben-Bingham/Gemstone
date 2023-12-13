@@ -3,7 +3,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API SimpleMaterial : public IMaterial {
+	class SimpleMaterial : public IMaterial {
 		static Ptr<Shader> m_SimpleShader;
 		static Ptr<Shader> m_SimpleInstancedShader;
 

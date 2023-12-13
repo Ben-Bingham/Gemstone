@@ -6,7 +6,7 @@ namespace Gem {
 	inline EventId g_MasterId{ 0 };
 
 	template<typename T>
-	GEM_API EventId GetEventId() {
+	EventId GetEventId() {
 		static EventId id = g_MasterId++;
 		return id;
 	}

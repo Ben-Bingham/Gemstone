@@ -9,7 +9,7 @@
 namespace Gem {
 	void KeyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods);
 
-	class GEM_API Keyboard final : ISubSystem {
+	class Keyboard final : ISubSystem {
 	public:
 		Keyboard() = default;
 

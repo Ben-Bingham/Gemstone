@@ -3,7 +3,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API ImageAtlas : public Image {
+	class ImageAtlas : public Image {
 	public:
 		ImageAtlas();
 

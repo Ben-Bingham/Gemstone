@@ -5,7 +5,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API FrameBuffer {
+	class FrameBuffer {
 	public:
 		FrameBuffer();
 		FrameBuffer(const FrameBuffer& other) = default;

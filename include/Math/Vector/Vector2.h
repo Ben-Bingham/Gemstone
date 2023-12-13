@@ -6,7 +6,7 @@
 
 namespace Gem {
 	template<typename T>
-	class GEM_API Vector2 {
+	class Vector2 {
 	public:
 		Vector2() {}
 		Vector2(T X, T Y) : x(X), y(Y) {}

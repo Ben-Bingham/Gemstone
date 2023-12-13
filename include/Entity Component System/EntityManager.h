@@ -8,7 +8,7 @@
 namespace Gem {
 	class EntityComponentSystem;
 
-	class GEM_API EntityManager {
+	class EntityManager {
 	public:
 		EntityManager(EntityComponentSystem* ecs);
 

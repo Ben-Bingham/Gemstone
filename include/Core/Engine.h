@@ -10,7 +10,7 @@ namespace Gem {
 	 *
 	 * The Engine class should manage the creation and deletion of all subsystems, but it should not control when they are run.
 	 */
-	class GEM_API Engine {
+	class Engine {
 	public:
 		Engine();
 		~Engine();

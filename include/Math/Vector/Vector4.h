@@ -6,7 +6,7 @@
 
 namespace Gem {
 	template<typename T>
-	class GEM_API Vector4 {
+	class Vector4 {
 	public:
 		Vector4() {}
 		Vector4(T X, T Y, T Z, T W) : x(X), y(Y), z(Z), w(W) {}

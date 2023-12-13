@@ -3,7 +3,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API Colour : Vector4uc {
+	class Colour : Vector4uc {
 	public:
 		Colour() = default;
 		Colour(const Colour& other) = default;

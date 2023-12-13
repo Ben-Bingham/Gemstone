@@ -8,7 +8,7 @@ namespace Gem {
 	class InternalMesh;
 	class IMaterial;
 
-	class GEM_API Renderer final : ISubSystem {
+	class Renderer final : ISubSystem {
 	public:
 		Renderer() = default;
 		Renderer(const Renderer& other) = default;

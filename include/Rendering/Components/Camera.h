@@ -6,7 +6,7 @@
 #include "Math/Vector.h"
 
 namespace Gem {
-	class GEM_API ICamera {
+	class ICamera {
 	public:
 		ICamera() = default;
 		ICamera(const ICamera& other) = default;
@@ -19,7 +19,7 @@ namespace Gem {
 		Matrix4f view{ 1.0f };
 	};
 
-	class GEM_API FpsCamera final : public ICamera {
+	class FpsCamera final : public ICamera {
 	public:
 		FpsCamera() = default;
 		FpsCamera(const FpsCamera& other) = default;
@@ -42,7 +42,7 @@ namespace Gem {
 	};
 
 	// This class acts as a component
-	class GEM_API Camera {
+	class Camera {
 	public:
 		friend class RenderingSystem;
 

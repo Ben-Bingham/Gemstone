@@ -6,7 +6,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API Mesh {
+	class Mesh {
 	public:
 		Mesh(const Shape& shape);
 

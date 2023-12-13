@@ -4,7 +4,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API InternalMesh {
+	class InternalMesh {
 	public:
 		InternalMesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
 

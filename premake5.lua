@@ -1,5 +1,5 @@
 project "Gemstone"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
     cppdialect "C++20"
     architecture "x86_64"

@@ -2,7 +2,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API IEventTypeManager {
+	class IEventTypeManager {
 	public:
 		IEventTypeManager() = default;
 		IEventTypeManager(const IEventTypeManager& other) = default;
