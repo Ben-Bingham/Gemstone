@@ -11,7 +11,7 @@ namespace Gem {
 	 *
 	 * TODO currently levels can only be loaded linearly, this should be changed.
 	 */
-	GEM_API class LevelManager {
+	class GEM_API LevelManager {
 	public:
 		LevelManager(Engine_New& engine);
 

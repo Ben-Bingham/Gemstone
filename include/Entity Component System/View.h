@@ -4,11 +4,11 @@
 
 namespace Gem {
 	template<typename ...ComponentTypes>
-	GEM_API class BaseView { };
+	class GEM_API BaseView { };
 
 	// Iterates all entities with specified components
 	template<typename ...ComponentTypes>
-	GEM_API class View : public BaseView<ComponentTypes...> {
+	class GEM_API View : public BaseView<ComponentTypes...> {
 	public:
 		View(EntityComponentSystem& ecs) 
 			: m_ECS(ecs) { }
@@ -62,7 +62,7 @@ namespace Gem {
 
 	// Iterates all components of a singal type
 	template<typename ComponentType>
-	GEM_API class View<ComponentType> : protected BaseView<ComponentType> {
+	class GEM_API View<ComponentType> : protected BaseView<ComponentType> {
 	public:
 		View(EntityComponentSystem& ecs)
 			: m_ECS(ecs) { }
@@ -116,7 +116,7 @@ namespace Gem {
 
 	// Iterates all entities with at least one component
 	template<>
-	GEM_API class View<> : protected BaseView<> {
+	class GEM_API View<> : protected BaseView<> {
 	public:
 		View(EntityComponentSystem& ecs)
 			: m_ECS(ecs) { }

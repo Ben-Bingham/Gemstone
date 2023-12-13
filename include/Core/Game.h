@@ -9,7 +9,7 @@ namespace Gem {
 	/*
 	 * The Game class is the actual runtime of the game itself, it needs to be manually Run by the user in order for the game to start.
 	 */
-	GEM_API class Game {
+	class GEM_API Game {
 	public:
 		Game(Engine_New& engine);
 

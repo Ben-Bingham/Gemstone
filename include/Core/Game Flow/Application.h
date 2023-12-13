@@ -5,7 +5,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	GEM_API class Application {
+	class GEM_API Application {
 		struct DebugTimings {
 			float frameTime;
 			float frameStart;

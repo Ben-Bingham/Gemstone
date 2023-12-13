@@ -2,7 +2,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	GEM_API class Level {
+	class GEM_API Level {
 	public:
 		Level() = default;
 		Level(const Level& other) = default;

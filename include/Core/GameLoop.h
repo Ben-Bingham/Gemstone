@@ -10,7 +10,7 @@ namespace Gem {
 	/*
 	 * Controls the game loop for any level
 	 */
-	GEM_API class GameLoop {
+	class GEM_API GameLoop {
 	public:
 		GameLoop(Engine_New& engine);
 

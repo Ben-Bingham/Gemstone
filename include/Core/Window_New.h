@@ -4,7 +4,7 @@
 
 namespace Gem {
 //<<<<<<< HEAD
-	GEM_API class Window_New {
+	class GEM_API Window_New {
 	public:
 		Window_New();
 		~Window_New();

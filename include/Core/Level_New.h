@@ -2,7 +2,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	GEM_API class Level_New {
+	class GEM_API Level_New {
 	public:
 		bool running{ true };
 	};
