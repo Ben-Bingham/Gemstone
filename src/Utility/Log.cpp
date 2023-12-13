@@ -1,6 +1,6 @@
-#include "pch.h"
-#include "Utility/Log.h"
 #include <iostream>
+#include "Utility/Log.h"
+#include "Utility/Utility.h"
 
 namespace Gem {
 	void Log(const char* filePath, int lineNumber, const std::string& message, LogLevel level) {
@@ -36,10 +36,10 @@ namespace Gem {
 			startOfLog += "(" + shortenedPath + ") ";
 		}
 
-		std::cout << startOfLog << message << std::endl;
+		Print(startOfLog + message);
 
 		if (level == LogLevel::TERMINAL) {
-			std::cout << "Press enter to terminate the program." << std::endl;
+			Print("Press enter to terminate the program.");
 			std::cin.get();
 
 			exit(EXIT_FAILURE);
