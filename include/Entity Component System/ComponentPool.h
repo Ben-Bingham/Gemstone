@@ -5,7 +5,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API IComponentPool {
+	class IComponentPool {
 	public:
 		IComponentPool() = default;
 		IComponentPool(const IComponentPool& other) = default;
@@ -18,7 +18,7 @@ namespace Gem {
 	};
 
 	template<typename ComponentType>
-	class GEM_API ComponentPool final : public IComponentPool {
+	class ComponentPool final : public IComponentPool {
 	public:
 		ComponentPool()
 			: IComponentPool()

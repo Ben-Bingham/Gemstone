@@ -38,7 +38,7 @@ namespace Gem {
 
 	using UniformLocation = GLint;
 
-	class GEM_API OpenGlContext : ISubSystem {
+	class OpenGlContext : ISubSystem {
 	public:
 		OpenGlContext() = default;
 		OpenGlContext(const OpenGlContext& other) = default;
@@ -106,7 +106,7 @@ namespace Gem {
 		void SetViewportSize(const Vector2ui& size);
 
 	private:
-		enum class GEM_API GlTypeName {
+		enum class GlTypeName {
 			FLOAT = (GLenum)GL_FLOAT,
 			UNSIGNED_INT = (GLenum)GL_UNSIGNED_INT,
 			INT = (GLenum)GL_INT,
@@ -117,7 +117,7 @@ namespace Gem {
 		static size_t BytesPerGlType(GlTypeName type);
 
 	public:
-		struct GEM_API GlType {
+		struct GlType {
 			GlType(GlTypeName type, size_t elementCount);
 
 			GlTypeName type;

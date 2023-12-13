@@ -12,7 +12,7 @@ namespace ImGui {
 }
 
 namespace Gem {
-	class GEM_API Texture : Image {
+	class Texture : Image {
 	public:
 		friend class FrameBuffer;
 

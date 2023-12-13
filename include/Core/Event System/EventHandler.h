@@ -4,7 +4,7 @@
 
 namespace Gem {
 	template<typename EventType>
-	class GEM_API EventHandler {
+	class EventHandler {
 	public:
 		EventHandler(EventSystem& eventSystem)
 			: m_EventSystem(eventSystem) {

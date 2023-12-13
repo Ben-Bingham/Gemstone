@@ -12,7 +12,7 @@ namespace Gem {
 	void MouseScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset);
 	void CursorEnterCallback(GLFWwindow* window, int entered);
 
-	class GEM_API Mouse : ISubSystem {
+	class Mouse : ISubSystem {
 	public:
 		Mouse() = default;
 

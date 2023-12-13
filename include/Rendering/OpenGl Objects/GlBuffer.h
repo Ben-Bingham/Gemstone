@@ -7,7 +7,7 @@
 
 namespace Gem {
 	template<typename StorageType, typename BufferTypeEnum, BufferTypeEnum BufferType>
-	class GEM_API GlBuffer {
+	class GlBuffer {
 	public:
 		GlBuffer(
 			const OpenGlContext::BufferAccessFrequency accessFrequency = OpenGlContext::BufferAccessFrequency::STATIC,

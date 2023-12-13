@@ -5,7 +5,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API Transform {
+	class Transform {
 	public:
 		Transform(
 			const Vector3f& position = Vector3f{ 0.0f }, 

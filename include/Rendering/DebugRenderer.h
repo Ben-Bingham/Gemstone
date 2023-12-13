@@ -11,7 +11,7 @@
 #endif
 
 namespace Gem {
-	class GEM_API DebugRenderer : ISubSystem {
+	class DebugRenderer : ISubSystem {
 	public:
 		DebugRenderer() = default;
 		DebugRenderer(const DebugRenderer& other) = default;

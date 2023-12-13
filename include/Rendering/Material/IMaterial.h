@@ -4,7 +4,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API IMaterial {
+	class IMaterial {
 	public:
 		IMaterial(const Ptr<Shader>& shader, const Ptr<Shader>& instancedShader);
 		IMaterial(const IMaterial& other) = default;

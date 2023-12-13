@@ -3,7 +3,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class GEM_API ImGuiContext : ISubSystem {
+	class ImGuiContext : ISubSystem {
 	public:
 		ImGuiContext() = default;
 		ImGuiContext(const ImGuiContext& other) = default;
