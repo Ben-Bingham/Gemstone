@@ -1,54 +1,39 @@
-project "Gemstone"
-    kind "SharedLib"
-    language "C++"
-    cppdialect "C++20"
-    architecture "x86_64"
+workspace "Gemstone"
+	print "---------------------------------------------"
+	print "Initializing Workspace"
 
-	flags "MultiProcessorCompile"
+	configurations { "Debug", "Release" }
+	platforms "x64"
 
-    targetdir "%{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
-	objdir "%{wks.location}/build/obj/%{cfg.name}/%{prj.name}"
+	filter "platforms:x64"
+		architecture "x64"
 
-    defines { 
-        "GLEW_STATIC",
-        "GEM_ASSETS_STRING=\"assets\\\"",
-        "GLFW_INCLUDE_NONE"
-    }
-
-    filter "configurations:Debug"
-		defines "GEM_DEBUG"
-        runtime "Debug"
-        symbols "On"
+	filter "configurations:Debug"
+		symbols "On"
+	
 	filter "configurations:Release"
-		defines "GEM_RELEASE"
-        runtime "Release"
-        optimize "On"
-	filter {}
+		optimize "On"
+	filter ""
 
-    includedirs {
-        "include",
-        "dependencies/GLEW/include",
-        "dependencies/GLFW/include",
-        "dependencies/ImGui/include/ImGui",
-        "dependencies/ImGui/include/ImPlot",
-        "dependencies/stb_image"
-    }
+	startproject "Sandbox"
 
-    files {
-        "src/**.cpp",
-        "include/**.h"
-    }
+	group "Gems"
+		include "Celestite"
+		include "Lazuli"
+		include "Malachite"
+		include "Wavellite"
+		include "Ruby"
+		include "Pyrite"
+		include "Emerald"
+	group ""
 
-    links {
-        "glew32s",
-        "opengl32",
-        "glfw3",
-        "ImGui"
-    }
+	group "Misc"
+		include "Sandbox"
+	group ""
 
-    libdirs {
-        "dependencies/GLFW/lib-vc2022",
-        "dependencies/GLEW/lib/Release/x64"
-    }
+	group "Dependencies"
+		include "vendor/ImGui"
+	group ""
 
-    include "dependencies/ImGui"
+	print "Workspace Initialized"
+	print "---------------------------------------------"
