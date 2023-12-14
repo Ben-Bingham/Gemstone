@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/ISubSystem.h"
+#include "Core/SubSystem.h"
 #include "Math/Vector.h"
 #include "Input/Keys.h"
 #include "Input/MouseButton.h"
@@ -9,7 +9,7 @@ namespace Gem {
 
 	using WindowHandle = GLFWwindow*; //TODO replace all uses with Handle
 
-	class GLFWContext : ISubSystem {
+	class GLFWContext : SubSystem {
 	public:
 		GLFWContext() = default;
 

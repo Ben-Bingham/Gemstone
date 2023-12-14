@@ -1,10 +1,10 @@
 #pragma once
 #include "Gem.h"
 #include "GLFWContext.h"
-#include "ISubSystem.h"
+#include "SubSystem.h"
 
 namespace Gem {
-	class Window : ISubSystem {
+	class Window : SubSystem {
 	public:
 		Window(GLFWContext& glfwContext);
 		~Window() override = default;

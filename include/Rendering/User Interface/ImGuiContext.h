@@ -1,9 +1,9 @@
 #pragma once
-#include "Core/ISubSystem.h"
+#include "Core/SubSystem.h"
 #include "Gem.h"
 
 namespace Gem {
-	class ImGuiContext : ISubSystem {
+	class ImGuiContext : SubSystem {
 	public:
 		ImGuiContext() = default;
 		ImGuiContext(const ImGuiContext& other) = default;

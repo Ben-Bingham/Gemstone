@@ -1,14 +1,14 @@
 #pragma once
 #include "Renderable.h"
 #include "Components/Camera.h"
-#include "Core/ISubSystem.h"
+#include "Core/SubSystem.h"
 #include "Gem.h"
 
 namespace Gem {
 	class InternalMesh;
 	class IMaterial;
 
-	class Renderer final : ISubSystem {
+	class Renderer final : SubSystem {
 	public:
 		Renderer() = default;
 		Renderer(const Renderer& other) = default;

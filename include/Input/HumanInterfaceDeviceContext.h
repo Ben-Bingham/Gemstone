@@ -6,7 +6,7 @@
 
 #include <unordered_map>
 
-#include "Core/ISubSystem.h"
+#include "Core/SubSystem.h"
 #include "Math/Vector.h"
 #include "Gem.h"
 
@@ -15,7 +15,7 @@ namespace Gem {
 
 	using WindowHandle = GLFWwindow*;
 
-	class HumanInterfaceDeviceContext final : ISubSystem {
+	class HumanInterfaceDeviceContext final : SubSystem {
 	public:
 		HumanInterfaceDeviceContext() = default;
 		HumanInterfaceDeviceContext(const HumanInterfaceDeviceContext& other) = default;

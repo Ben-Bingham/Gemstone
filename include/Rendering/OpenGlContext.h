@@ -2,7 +2,7 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-#include "Core/ISubSystem.h"
+#include "Core/SubSystem.h"
 #include "Math/Matrix.h"
 #include "Math/Vector.h"
 #include "Utility/Colour.h"
@@ -38,7 +38,7 @@ namespace Gem {
 
 	using UniformLocation = GLint;
 
-	class OpenGlContext : ISubSystem {
+	class OpenGlContext : SubSystem {
 	public:
 		OpenGlContext() = default;
 		OpenGlContext(const OpenGlContext& other) = default;

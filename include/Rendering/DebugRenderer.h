@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/ISubSystem.h"
+#include "Core/SubSystem.h"
 
 #include "Utility/Colour.h"
 #include "Gem.h"
@@ -11,7 +11,7 @@
 #endif
 
 namespace Gem {
-	class DebugRenderer : ISubSystem {
+	class DebugRenderer : SubSystem {
 	public:
 		DebugRenderer() = default;
 		DebugRenderer(const DebugRenderer& other) = default;

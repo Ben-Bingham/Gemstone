@@ -6,11 +6,11 @@
 #include "EventTypeManager.h"
 #include "Event.h"
 
-#include "Core/ISubSystem.h"
+#include "Core/SubSystem.h"
 #include "Gem.h"
 
 namespace Gem {
-	class EventSystem : ISubSystem {
+	class EventSystem : SubSystem {
 	public:
 		EventSystem() = default;
 		~EventSystem() override = default;
