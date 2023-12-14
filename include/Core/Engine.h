@@ -1,6 +1,7 @@
 #pragma once
+#include "GLFWContext.h"
+#include "Settings.h"
 #include "Event System/EventSystem.h"
-#include "Input/GLFWContext.h"
 #include "Core/Window.h"
 
 namespace Gem {
@@ -21,7 +22,7 @@ namespace Gem {
 
 		EventSystem eventSystem{ };
 		GLFWContext glfwContext{ };
-		Window window{ };
+		Window window{ glfwContext };
 		//OpenGlContext openGlContext{};
 		//ImGuiContext imGuiContext{};
 		//Renderer renderer{};
@@ -29,5 +30,7 @@ namespace Gem {
 
 		//Keyboard keyboard{};
 		//Mouse mouse{};
+
+		Settings settings{ *this };
 	};
 }

@@ -3,10 +3,13 @@
 #include "Core/Window.h"
 
 namespace Gem {
-	void Window::StartUp() {
-		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+	Window::Window(GLFWContext& glfwContext)
+		: m_Context(glfwContext) {}
 
-		m_Handle = glfwCreateWindow(size.x, size.y, "Gemstone", nullptr, nullptr);
+	void Window::StartUp() {
+		m_Context.SetWindowHint(GLFWContext::WindowHint::OPENGL_DEBUG_CONTEXT, true);
+
+		m_Handle = m_Context.CreateWindow(size, "Gemstone");
 
 		if (!m_Handle) {
 			LOG("Failed to create Window.", LogLevel::TERMINAL);
@@ -14,10 +17,18 @@ namespace Gem {
 	}
 
 	void Window::ShutDown() {
-		glfwDestroyWindow(m_Handle);
+		m_Context.DestroyWindow(m_Handle);
 	}
 
 	void Window::SwapBuffers() {
-		glfwSwapBuffers(m_Handle);
+		m_Context.SwapBuffers(m_Handle);
+	}
+
+	void Window::SwapInterval(int interval) {
+		m_Context.SwapInterval(interval);
+	}
+
+	bool Window::ShouldClose() {
+		return m_Context.WindowShouldClose(m_Handle);
 	}
 }

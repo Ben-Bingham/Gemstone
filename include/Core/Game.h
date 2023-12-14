@@ -1,9 +1,9 @@
 #pragma once
-#include "Window.h"
 #include <functional>
+#include "Engine.h"
 #include "Entity Component System/EntityComponentSystem.h"
-#include "Gem.h"
 #include "Level.h"
+#include "Utility/Time.h"
 
 namespace Gem {
 	/*
@@ -14,13 +14,14 @@ namespace Gem {
 		Game(Engine& engine);
 
 		using ConditionFunction = std::function<bool(Ptr<Level> level)>;
+		// Level will run, as long as the condition function returns true.
 		void Run(Ptr<Level> level, ConditionFunction conditionFunction = [](Ptr<Level> level)->bool { return true; });
 
 		Engine& engine;
 
-		EntityComponentSystem ecs;
-
 	private:
-		double DelayFrame(double frameStartTime);
+		float DelayFrame(float frameStartTime) const;
+
+		Time m_TimeManager;
 	};
 }

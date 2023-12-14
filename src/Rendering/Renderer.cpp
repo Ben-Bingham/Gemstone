@@ -20,9 +20,9 @@ namespace Gem {
 
 		//openGlContext.SetFrontFaceDirection(OpenGlContext::FrontFaceDirection::CLOCKWISE);
 
-		if (!Settings::vSync) {
-			//g_Engine.humanInterfaceDeviceContext.SetSwapInterval(0);
-		}
+		//if (!Settings::vSync) {
+		//	//g_Engine.humanInterfaceDeviceContext.SetSwapInterval(0);
+		//}
 
 		// m_PrimaryFrameBuffer = CreateUPtr<FrameBuffer>();
 		// m_PrimaryFrameBufferColourComponent = CreateUPtr<Texture>();

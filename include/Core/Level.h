@@ -1,9 +1,9 @@
 #pragma once
-#include "Gem.h"
+#include "Entity Component System/EntityComponentSystem.h"
 
 namespace Gem {
 	class Level {
 	public:
-		bool running{ true };
+		EntityComponentSystem ecs;
 	};
 }

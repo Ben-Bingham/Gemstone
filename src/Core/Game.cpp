@@ -1,40 +1,36 @@
 #include "Core/Game.h"
 #include "Core/Engine.h"
-#include "Utility/Log.h"
+#include "Utility/Utility.h"
 
 namespace Gem {
 	Game::Game(Engine& engine) 
-		: engine(engine) { }
+		: engine(engine), m_TimeManager(engine.glfwContext) { }
 
 	void Game::Run(Ptr<Level> level, ConditionFunction conditionFunction) {
-		//ecs.LoadLevel(level);
-
-		//double dt = 1 / settings.fps; // TODO also incorperate vsync toggle
-		double dt = 1.0f / 16.0f;
-		while (conditionFunction(level) == true) {
-			const double frameStartTime = engine.glfwContext.time.GetElapsedTime();
+		float dt = 1.0f / (float)engine.settings.GetMaxFramerate();
+		while (conditionFunction(level) == true && !engine.window.ShouldClose()) {
+			const float frameStartTime = m_TimeManager.GetTime();
 
 			engine.glfwContext.PollEvents();
 			engine.eventSystem.Distribute();
 
-			//ecs.Step(dt);
+			Print(dt * 1000.0f);
 
-			LOG(std::to_string(dt));
-
-			//window.SwapBuffers();
+			engine.window.SwapBuffers();
 
 			dt = DelayFrame(frameStartTime);
 		}
 	}
 
-	double Game::DelayFrame(double frameStartTime) {
-		// TODO need a condition about weather or not we are running in vsync or not
-		//double dt = 1 / settings.fps; // TODO
-		double dt = 1.0f / 16.0f;
+	float Game::DelayFrame(float frameStartTime) const {
+		if (!engine.settings.GetVSync()) {
+			const float dt = 1.0f / (float)engine.settings.GetMaxFramerate();
 
-		const double waitTime = std::ceil((engine.glfwContext.time.GetElapsedTime() - frameStartTime) / dt) * dt;
+			const float waitTime = std::ceil((m_TimeManager.GetTime() - frameStartTime) / dt) * dt;
 
-		engine.glfwContext.time.Wait(waitTime);
-		return engine.glfwContext.time.GetElapsedTime() - frameStartTime;
+			m_TimeManager.Wait(waitTime);
+		}
+
+		return m_TimeManager.GetTime() - frameStartTime;
 	}
 }
