@@ -42,7 +42,7 @@ namespace Gem {
 			Entity m_Entity{};
 		};
 
-		Iterator begin() {
+		Iterator begin() const {
 			for (Entity ent = 0; ent != MAX_ENTITIES; ent++) {
 				if (m_ECS.componentManager.HasComponents<ComponentTypes...>(ent)) {
 					return Iterator{ m_ECS, ent };
@@ -52,7 +52,7 @@ namespace Gem {
 			return end();
 		}
 
-		Iterator end() {
+		Iterator end() const {
 			return Iterator{ m_ECS, DeadEntity };
 		}
 
@@ -96,7 +96,7 @@ namespace Gem {
 			Entity m_Entity{};
 		};
 
-		Iterator begin() { 
+		Iterator begin() const { 
 			for (Entity ent = 0; ent != MAX_ENTITIES; ent++) {
 				if (m_ECS.componentManager.HasComponent<ComponentType>(ent)) {
 					return Iterator{ m_ECS, ent };
@@ -106,7 +106,7 @@ namespace Gem {
 			return end();
 		}
 
-		Iterator end() { 
+		Iterator end() const { 
 			return Iterator{ m_ECS, DeadEntity };
 		}
 
@@ -150,7 +150,7 @@ namespace Gem {
 			Entity m_Entity{};
 		};
 
-		Iterator begin() {
+		Iterator begin() const {
 			for (Entity ent = 0; ent != MAX_ENTITIES; ent++) {
 				if (m_ECS.componentManager.HasAnyComponent(ent)) {
 					return Iterator{ m_ECS, ent };
@@ -160,7 +160,7 @@ namespace Gem {
 			return end();
 		}
 
-		Iterator end() {
+		Iterator end() const {
 			return Iterator{ m_ECS, DeadEntity };
 		}
 

@@ -6,7 +6,9 @@
 namespace Gem {
 	class EntityComponentSystem { // TODO give each ECS an index, and use that to compare them in the View iterators.
 	public:
-		EntityComponentSystem();
+		EntityComponentSystem(bool addDefaultSystems = true);
+
+		void AddDefaultSystems();
 
 		EntityManager entityManager;
 		ComponentManager componentManager;

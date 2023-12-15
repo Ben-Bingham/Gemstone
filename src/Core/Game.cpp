@@ -17,7 +17,7 @@ namespace Gem {
 			// ==================== Game Loop ====================
 			Print(dt * 1000.0f);
 
-			// level.ecs.systemManager.Step();
+			 level->ecs.systemManager.Step();
 
 
 			// Physicist.Step();

@@ -5,13 +5,15 @@
 namespace Gem {
 	class SystemManager {
 	public:
-		SystemManager() = default;
+		SystemManager(EntityComponentSystem* ecs);
 
-		void AddSystem(System system);
+		void AddSystem(const System& system);
 
-		void Systems();
+		void Step() const;
 
 	private:
 		std::vector<System> m_Systems;
+
+		EntityComponentSystem* m_Ecs;
 	};
 }

@@ -2,5 +2,7 @@
 #include <functional>
 
 namespace Gem {
-	using System = std::function<void()>;
+	class EntityComponentSystem;
+
+	using System = std::function<void(EntityComponentSystem& ecs)>;
 }
