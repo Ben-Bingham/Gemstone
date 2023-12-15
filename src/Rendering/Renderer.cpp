@@ -2,7 +2,7 @@
 #include "Rendering/Renderer.h"
 #include "imgui.h"
 #include "Rendering/OpenGlContext.h"
-#include "Rendering/Material/IMaterial.h"
+//#include "Rendering/Material/IMaterial.h"
 #include "Core/Settings.h"
 
 namespace Gem {

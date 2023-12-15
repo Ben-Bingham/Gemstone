@@ -1,13 +1,13 @@
 #pragma once
 #include <list>
 #include <vector>
-#include "Material/IMaterial.h"
+//#include "Material/IMaterial.h"
 #include "Utility/Transform.h"
 
 namespace Gem {
 	struct Renderable {
 		//InternalMesh mesh;
-		IMaterial material;
+		//IMaterial material;
 		Transform transform;
 	};
 

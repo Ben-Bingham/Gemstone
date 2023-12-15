@@ -4,7 +4,7 @@
 #include "Core/Engine.h"
 //#include "Entity Component System/ComponentView.h"
 
-#include "Rendering/Material/Material.h"
+//#include "Rendering/Material/Material.h"
 
 #include "Utility/Transform.h"
 
