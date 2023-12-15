@@ -1,12 +1,11 @@
-#include "pch.h"
-
 #include <stb_image.h>
 
 #include "Rendering/Utility/Image.h"
+#include "Utility/Log.h"
 
 namespace Gem {
-	Image::Image(const std::string& path)
-		: path(CreatePtr<std::string>(path)) {
+	Image::Image(const Path& imgPath)
+		: path(imgPath.path) {
 		stbi_set_flip_vertically_on_load(true);
 
 		int channelsInFile{ 0 };

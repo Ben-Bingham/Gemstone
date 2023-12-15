@@ -4,17 +4,17 @@
 #include <vector>
 
 #include "Utility/Colour.h"
-#include "Utility/Pointer.h"
+#include "Utility/Path.h"
 
 namespace Gem {
 	class Image {
 	public:
-		Image(const std::string& path);
+		Image(const Path& imgPath);
 
 		static Image CreateImage(const std::vector<Colour>& content, const Vector2i& dimensions, int channels);
 		static Image CreateImage(const Colour& colour, const Vector2i& dimensions = { 1, 1 }, int channels = 4);
 
-		Ptr<std::string> path{ nullptr };
+		std::string path;
 		std::vector<Colour> content{ };
 		Vector2i dimensions{ };
 		int channels{ 4 };
