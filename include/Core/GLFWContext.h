@@ -1,4 +1,7 @@
 #pragma once
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+
 #include "Core/SubSystem.h"
 #include "Math/Vector.h"
 #include "Input/Keys.h"
@@ -43,6 +46,8 @@ namespace Gem {
 
 		// ==================== Miscellaneous ====================
 		double GetElapsedTime();
+
+		void MakeOpenGlContextCurrent(WindowHandle handle);
 
 		// ==================== Buffers ====================
 		void SwapBuffers(WindowHandle handle) const;

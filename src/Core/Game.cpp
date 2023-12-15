@@ -14,7 +14,19 @@ namespace Gem {
 			engine.glfwContext.PollEvents();
 			engine.eventSystem.Distribute();
 
+			// ==================== Game Loop ====================
 			Print(dt * 1000.0f);
+
+			// level.ecs.systemManager.Step();
+
+
+			// Physicist.Step();
+
+			// Renderer.Render();
+			// DebugRenderer.Render();
+			// Ui.Render();
+
+			// ==================== Game Loop ====================
 
 			engine.window.SwapBuffers();
 

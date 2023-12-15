@@ -2,7 +2,6 @@
 #include "Rendering/Renderer.h"
 #include "imgui.h"
 #include "Rendering/OpenGlContext.h"
-#include "Rendering/Components/InternalMesh.h"
 #include "Rendering/Material/IMaterial.h"
 #include "Core/Settings.h"
 
@@ -42,7 +41,7 @@ namespace Gem {
 	}
 
 	struct MeshRenderBucket {
-		Ptr<InternalMesh> mesh;
+		Ptr<MeshData> mesh;
 		std::vector<Matrix4f> modelMatrices;
 	};
 
@@ -58,74 +57,74 @@ namespace Gem {
 		}
 #endif
 
-		for (auto& camera : m_Cameras) {
-			std::vector<MaterialRenderBucket> materialBuckets;
+		//for (auto& camera : m_Cameras) {
+		//	std::vector<MaterialRenderBucket> materialBuckets;
 
-			for (auto& [mesh, material, modelMatrix] : m_Renderables) {
-				MaterialRenderBucket* materialRenderBucket{ nullptr };
+		//	for (auto& [mesh, material, modelMatrix] : m_Renderables) {
+		//		MaterialRenderBucket* materialRenderBucket{ nullptr };
 
-				for (auto& materialBucket : materialBuckets) {
-					if (typeid(*materialBucket.material) == typeid(*material)) {
-						if (materialBucket.material != material) {
-							continue;
-						}
-						materialRenderBucket = &materialBucket;
-						break;
-					}
-				}
+		//		for (auto& materialBucket : materialBuckets) {
+		//			if (typeid(*materialBucket.material) == typeid(*material)) {
+		//				if (materialBucket.material != material) {
+		//					continue;
+		//				}
+		//				materialRenderBucket = &materialBucket;
+		//				break;
+		//			}
+		//		}
 
-				if (materialRenderBucket == nullptr) {
-					materialBuckets.push_back(MaterialRenderBucket{});
-					materialBuckets.back().material = material;
-					materialRenderBucket = &materialBuckets.back();
-				}
+		//		if (materialRenderBucket == nullptr) {
+		//			materialBuckets.push_back(MaterialRenderBucket{});
+		//			materialBuckets.back().material = material;
+		//			materialRenderBucket = &materialBuckets.back();
+		//		}
 
-				bool addedToMeshBucket{ false };
-				for (auto& meshBucket : materialRenderBucket->meshRenderBuckets) {
-					if (typeid(*meshBucket.mesh) == typeid(*mesh)) {
-						meshBucket.modelMatrices.push_back(modelMatrix);
-						addedToMeshBucket = true;
-						break;
-					}
-				}
+		//		bool addedToMeshBucket{ false };
+		//		for (auto& meshBucket : materialRenderBucket->meshRenderBuckets) {
+		//			if (typeid(*meshBucket.mesh) == typeid(*mesh)) {
+		//				meshBucket.modelMatrices.push_back(modelMatrix);
+		//				addedToMeshBucket = true;
+		//				break;
+		//			}
+		//		}
 
-				if (!addedToMeshBucket) {
-					materialRenderBucket->meshRenderBuckets.push_back(MeshRenderBucket{});
-					materialRenderBucket->meshRenderBuckets.back().mesh = mesh;
-					materialRenderBucket->meshRenderBuckets.back().modelMatrices.push_back(modelMatrix);
-				}
-			}
+		//		if (!addedToMeshBucket) {
+		//			materialRenderBucket->meshRenderBuckets.push_back(MeshRenderBucket{});
+		//			materialRenderBucket->meshRenderBuckets.back().mesh = mesh;
+		//			materialRenderBucket->meshRenderBuckets.back().modelMatrices.push_back(modelMatrix);
+		//		}
+		//	}
 
-			for (auto& materialBucket : materialBuckets) {
-				materialBucket.material->Apply();
+		//	for (auto& materialBucket : materialBuckets) {
+		//		materialBucket.material->Apply();
 
-				for (auto& meshBucket : materialBucket.meshRenderBuckets) {
-					meshBucket.mesh->vao.Bind();
+		//		for (auto& meshBucket : materialBucket.meshRenderBuckets) {
+		//			//meshBucket.mesh->vao.Bind();
 
-					constexpr size_t NUMBER_OF_MESHES_REQUIRED_FOR_INSTANCED_RENDERING = 10;
-					if (meshBucket.modelMatrices.size() >= NUMBER_OF_MESHES_REQUIRED_FOR_INSTANCED_RENDERING) {
-						materialBucket.material->InstancedApply(); // TODO, not the best that we overwrite the first application of the material, maybe try and look forward at first application if it becomes an issue
+		//			constexpr size_t NUMBER_OF_MESHES_REQUIRED_FOR_INSTANCED_RENDERING = 10;
+		//			if (meshBucket.modelMatrices.size() >= NUMBER_OF_MESHES_REQUIRED_FOR_INSTANCED_RENDERING) {
+		//				materialBucket.material->InstancedApply(); // TODO, not the best that we overwrite the first application of the material, maybe try and look forward at first application if it becomes an issue
 
-						// materialBucket.material->shader->InstanceUpload(meshBucket.modelMatrices);
+		//				// materialBucket.material->shader->InstanceUpload(meshBucket.modelMatrices);
 
-						// g_Engine.openGlContext.DrawInstanced();
+		//				// g_Engine.openGlContext.DrawInstanced();
 
-						materialBucket.material->InstancedRemove();
-					}
+		//				materialBucket.material->InstancedRemove();
+		//			}
 
-					for (auto& modelMatrix : meshBucket.modelMatrices) {
-						// TODO this can now be more easily optimized with instanced rendering
-						// TODO just need to find the best way to upload a large amount of possibly changing model matrices.
-						Matrix4f mvp = modelMatrix * camera.Cam()->view * camera.Cam()->projection;
-						materialBucket.material->shader->Upload("u_MVP", mvp);
+		//			for (auto& modelMatrix : meshBucket.modelMatrices) {
+		//				// TODO this can now be more easily optimized with instanced rendering
+		//				// TODO just need to find the best way to upload a large amount of possibly changing model matrices.
+		//				Matrix4f mvp = modelMatrix * camera.Cam()->view * camera.Cam()->projection;
+		//				materialBucket.material->shader->Upload("u_MVP", mvp);
 
-						//g_Engine.openGlContext.DrawElements(meshBucket.mesh->indexCount);
-					}
-				}
+		//				//g_Engine.openGlContext.DrawElements(meshBucket.mesh->indexCount);
+		//			}
+		//		}
 
-				materialBucket.material->Remove();
-			}
-		}
+		//		materialBucket.material->Remove();
+		//	}
+		//}
 	}
 
 	void Renderer::RenderCleanup() {

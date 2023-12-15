@@ -4,10 +4,10 @@
 
 namespace Gem {
 	class IMaterial;
-	class InternalMesh;
+	class MeshData;
 
 	struct Renderable {
-		Ptr<InternalMesh> mesh;
+		Ptr<MeshData> mesh;
 		Ptr<IMaterial> material;
 		Matrix4f modelMatrix;
 		// Ptr<IRenderCommand> renderCommand;

@@ -7,7 +7,7 @@
 
 namespace Gem {
 	//void RenderingSystem::Step(EntityManager& entityManager, float dt) {
-	//	//for (auto [transform, material, mesh] : ComponentView<Transform, Material, Mesh>{entityManager}) {
+	//	//for (auto [transform, material, mesh] : ComponentView<Transform, Material, GetRawMesh>{entityManager}) {
 	//	//	//g_Engine.renderer.Queue(Renderable{ mesh.m_InternalMesh, material.iMaterial, transform.Matrix() });
 	//	//}
 

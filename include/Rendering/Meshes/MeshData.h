@@ -1,12 +1,13 @@
 #pragma once
+#include "RawMesh.h"
+
 #include "Rendering/OpenGl Objects/GlBuffer.h"
 #include "Rendering/OpenGl Objects/VertexAttributeObject.h"
-#include "Gem.h"
 
 namespace Gem {
-	class InternalMesh {
+	class MeshData {
 	public:
-		InternalMesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
+		MeshData(const RawMesh& rawMesh);
 
 		VertexAttributeObject vao;
 		VertexBuffer vb;

@@ -5,7 +5,7 @@
 #include "Gem.h"
 
 namespace Gem {
-	class InternalMesh;
+	class MeshData;
 	class IMaterial;
 
 	class Renderer final : SubSystem {

@@ -1,6 +1,5 @@
 #pragma once
 #include "IMaterial.h"
-#include "Gem.h"
 
 namespace Gem {
 	class Material {

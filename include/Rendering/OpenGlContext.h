@@ -7,7 +7,6 @@
 #include "Math/Vector.h"
 #include "Utility/Colour.h"
 #include "Utility/Image.h"
-#include "Gem.h"
 
 #ifdef GEMSTONE_DEBUG
 #define GEMSTONE_CHECK_OPEN_GL_ERRORS
@@ -49,6 +48,38 @@ namespace Gem {
 
 		void StartUp() override;
 		void ShutDown() override;
+
+		// ------------------------------ Miscellaneous ------------------------------
+	public:
+		void Clear();
+		Colour clearColour{ 128, 128, 128 };
+
+		void SetViewportSize(const Vector2ui& size);
+
+	private:
+		enum class GlTypeName {
+			FLOAT = (GLenum)GL_FLOAT,
+			UNSIGNED_INT = (GLenum)GL_UNSIGNED_INT,
+			INT = (GLenum)GL_INT,
+			BYTE = (GLenum)GL_BYTE,
+			UNSIGNED_BYTE = (GLenum)GL_UNSIGNED_BYTE
+		};
+
+		static size_t BytesPerGlType(GlTypeName type);
+
+	public:
+		struct GlType {
+			GlType(GlTypeName type, size_t elementCount);
+
+			GlTypeName type;
+			size_t componentCount;
+			size_t byteCount;
+		};
+
+		static inline const GlType FLOAT{ GlTypeName::FLOAT, 1 };
+		static inline const GlType VECTOR2F{ GlTypeName::FLOAT, 2 };
+		static inline const GlType VECTOR3F{ GlTypeName::FLOAT, 3 };
+		static inline const GlType VECTOR4F{ GlTypeName::FLOAT, 4 };
 
 		// ------------------------------ State ------------------------------
 		void EnableDepthTesting();
@@ -97,38 +128,6 @@ namespace Gem {
 		bool m_FaceCulling{ false };
 		CullableFaces m_CulledFace;
 		FrontFaceDirection m_FrontFaceDirection;
-
-		// ------------------------------ Miscellaneous ------------------------------
-	public:
-		void Clear();
-		Colour clearColour{ 128, 128, 128 };
-
-		void SetViewportSize(const Vector2ui& size);
-
-	private:
-		enum class GlTypeName {
-			FLOAT = (GLenum)GL_FLOAT,
-			UNSIGNED_INT = (GLenum)GL_UNSIGNED_INT,
-			INT = (GLenum)GL_INT,
-			BYTE = (GLenum)GL_BYTE,
-			UNSIGNED_BYTE = (GLenum)GL_UNSIGNED_BYTE
-		};
-
-		static size_t BytesPerGlType(GlTypeName type);
-
-	public:
-		struct GlType {
-			GlType(GlTypeName type, size_t elementCount);
-
-			GlTypeName type;
-			size_t componentCount;
-			size_t byteCount;
-		};
-
-		static inline const GlType FLOAT		{ GlTypeName::FLOAT, 1 };
-		static inline const GlType VECTOR2F		{ GlTypeName::FLOAT, 2 };
-		static inline const GlType VECTOR3F		{ GlTypeName::FLOAT, 3 };
-		static inline const GlType VECTOR4F		{ GlTypeName::FLOAT, 4 };
 
 		// ------------------------------ Textures ------------------------------ //TODO remove 2ds from functions, find a way to auto detect
 		enum class WrapMode {

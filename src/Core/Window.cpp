@@ -14,6 +14,8 @@ namespace Gem {
 		if (!m_Handle) {
 			LOG("Failed to create Window.", LogLevel::TERMINAL);
 		}
+
+		m_Context.MakeOpenGlContextCurrent(m_Handle);
 	}
 
 	void Window::ShutDown() {

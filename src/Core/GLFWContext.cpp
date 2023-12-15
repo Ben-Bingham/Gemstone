@@ -48,6 +48,10 @@ namespace Gem {
 	}
 
 	// ==================== Input ====================
+	void GLFWContext::PollEvents() const {
+		glfwPollEvents();
+	}
+
 	bool GLFWContext::GetKeyDown(const WindowHandle handle, const Key key) const {
 		return glfwGetKey(handle, (int)key) == GLFW_PRESS;
 	}
@@ -77,8 +81,8 @@ namespace Gem {
 		return glfwGetTime();
 	}
 
-	void GLFWContext::PollEvents() const {
-		glfwPollEvents();
+	void GLFWContext::MakeOpenGlContextCurrent(WindowHandle handle) {
+		glfwMakeContextCurrent(handle);
 	}
 
 	// ==================== Buffers ====================

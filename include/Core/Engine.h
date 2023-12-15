@@ -4,6 +4,9 @@
 #include "Event System/EventSystem.h"
 #include "Core/Window.h"
 
+#include "Rendering/OpenGlContext.h"
+#include "Rendering/Renderer_New.h"
+
 namespace Gem {
 	/*
 	 * The Engine class represents the engine itself, it has the longest lifetime of any part of the application.
@@ -23,6 +26,8 @@ namespace Gem {
 		EventSystem eventSystem{ };
 		GLFWContext glfwContext{ };
 		Window window{ glfwContext };
+		OpenGlContext openglContext{ };
+		Renderer_New renderer{ openglContext };
 		//OpenGlContext openGlContext{};
 		//ImGuiContext imGuiContext{};
 		//Renderer renderer{};
