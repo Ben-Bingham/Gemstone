@@ -1,13 +1,11 @@
 #pragma once
 #include <unordered_map>
-
 #include "Rendering/OpenGlContext.h"
-#include "Gem.h"
 
 namespace Gem {
 	class Shader {
 	public:
-		Shader(const std::string& vertexPath, const std::string& fragmentPath);
+		Shader(const Path& vertexPath, const Path& fragmentPath);
 
 		void Bind() const;
 
@@ -22,7 +20,8 @@ namespace Gem {
 
 		std::unordered_map<std::string, UniformLocation> m_UniformLocationMap{};
 
-		static std::string GetShaderSource(const std::string& path);
+		static std::string GetShaderSource(const Path& path);
+
 		UniformLocation GetUniformLocation(const std::string& name);
 	};
 }

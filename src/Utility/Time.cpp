@@ -1,11 +1,9 @@
 #include "Utility/Time.h"
+#include "Core/GLFWContext.h"
 
 namespace Gem {
-	Time::Time(GLFWContext& context)
-		: m_Context(context) { }
-
 	float Time::GetTime() const {
-		return (float)m_Context.GetElapsedTime();
+		return (float)GLFWContext::Get().GetElapsedTime();
 	}
 
 	void Time::Wait(const float seconds) const {

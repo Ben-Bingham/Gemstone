@@ -2,7 +2,6 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-#include "Core/SubSystem.h"
 #include "Math/Matrix.h"
 #include "Math/Vector.h"
 #include "Utility/Colour.h"
@@ -37,17 +36,24 @@ namespace Gem {
 
 	using UniformLocation = GLint;
 
-	class OpenGlContext : SubSystem {
-	public:
-		OpenGlContext() = default;
-		OpenGlContext(const OpenGlContext& other) = default;
-		OpenGlContext(OpenGlContext&& other) noexcept = default;
-		OpenGlContext& operator=(const OpenGlContext& other) = default;
-		OpenGlContext& operator=(OpenGlContext&& other) noexcept = default;
-		~OpenGlContext() override = default;
+	class OpenGlContext {
+		friend class Engine;
 
-		void StartUp() override;
-		void ShutDown() override;
+		static void StartUp();
+		static void ShutDown();
+
+		OpenGlContext() = default;
+		~OpenGlContext() = default;
+
+		static inline bool m_Started{ false };
+
+	public:
+		static OpenGlContext& Get();
+
+		OpenGlContext(const OpenGlContext& other) = delete;
+		OpenGlContext(OpenGlContext&& other) noexcept = default;
+		OpenGlContext& operator=(const OpenGlContext& other) = delete;
+		OpenGlContext& operator=(OpenGlContext&& other) noexcept = default;
 
 		// ------------------------------ Miscellaneous ------------------------------
 	public:
@@ -157,16 +163,16 @@ namespace Gem {
 	public:
 		// ------------------------------ Buffers ------------------------------
 		enum class BufferAccessFrequency {
-			STREAM, // The data store contents will be modified once and used at most a few times.
-			STATIC, // The data store contents will be modified once and used many times.
-			DYNAMIC // The data store contents will be modified repeatedly and used many times.
+			STREAM, // The mesh store contents will be modified once and used at most a few times.
+			STATIC, // The mesh store contents will be modified once and used many times.
+			DYNAMIC // The mesh store contents will be modified repeatedly and used many times.
 
 		}; // Descriptions from https://registry.khronos.org/OpenGL-Refpages/gl4/html/glBufferData.xhtml
 
 		enum class BufferNatureOfAccess {
-			DRAW, // The data store contents are modified by the application, and used as the source for GL drawing and image specification commands.
-			READ, // The data store contents are modified by reading data from the GL, and used to return that data when queried by the application.
-			COPY // The data store contents are modified by reading data from the GL, and used as the source for GL drawing and image specification commands.
+			DRAW, // The mesh store contents are modified by the application, and used as the source for GL drawing and image specification commands.
+			READ, // The mesh store contents are modified by reading mesh from the GL, and used to return that mesh when queried by the application.
+			COPY // The mesh store contents are modified by reading mesh from the GL, and used as the source for GL drawing and image specification commands.
 		}; // Descriptions from https://registry.khronos.org/OpenGL-Refpages/gl4/html/glBufferData.xhtml
 
 		enum class BufferType {

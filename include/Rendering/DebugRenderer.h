@@ -1,6 +1,4 @@
 #pragma once
-#include "Core/SubSystem.h"
-
 #include "Utility/Colour.h"
 #include "Gem.h"
 
@@ -11,17 +9,17 @@
 #endif
 
 namespace Gem {
-	class DebugRenderer : SubSystem {
+	class DebugRenderer {
 	public:
 		DebugRenderer() = default;
 		DebugRenderer(const DebugRenderer& other) = default;
 		DebugRenderer(DebugRenderer&& other) noexcept = default;
 		DebugRenderer& operator=(const DebugRenderer& other) = default;
 		DebugRenderer& operator=(DebugRenderer&& other) noexcept = default;
-		~DebugRenderer() override = default;
+		~DebugRenderer() = default;
 
-		void StartUp() override;
-		void ShutDown() override;
+		void StartUp();
+		void ShutDown();
 
 		void DrawLine(const Vector3f& start, const Vector3f& end, const Colour& colour);
 

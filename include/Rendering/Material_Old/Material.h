@@ -6,7 +6,7 @@ namespace Gem {
 	public:
 		Material(const Ptr<IMaterial>& material);
 		/*Material(const Image& diffuse = Image::MISSING_IMAGE, const Image& specular = Image::MISSING_IMAGE);
-		Material(const Colour& colour = Colour::PINK);*/
+		Material(const Colour& colour = Colour::Pink);*/
 
 		Ptr<IMaterial> iMaterial;
 	};

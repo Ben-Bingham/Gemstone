@@ -2,7 +2,6 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-#include "Core/SubSystem.h"
 #include "Math/Vector.h"
 #include "Input/Keys.h"
 #include "Input/MouseButton.h"
@@ -12,12 +11,23 @@ namespace Gem {
 
 	using WindowHandle = GLFWwindow*; //TODO replace all uses with Handle
 
-	class GLFWContext : SubSystem {
-	public:
-		GLFWContext() = default;
+	class GLFWContext {
+		friend class Engine;
 
-		void StartUp() override;
-		void ShutDown() override;
+		static void StartUp();
+		static void ShutDown();
+		GLFWContext() = default;
+		~GLFWContext() = default;
+
+		static inline bool m_Started{ false };
+
+	public:
+		static GLFWContext& Get();
+
+		GLFWContext(const GLFWContext& other) = delete;
+		GLFWContext(GLFWContext&& other) noexcept = default;
+		GLFWContext& operator=(const GLFWContext& other) = delete;
+		GLFWContext& operator=(GLFWContext&& other) noexcept = default;
 
 		// ==================== Windows ====================
 		WindowHandle CreateWindow(Vector2ui size, std::string&& name);

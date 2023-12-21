@@ -14,6 +14,8 @@ namespace Gem {
 		MeshData& operator=(MeshData&& other) noexcept = default;
 		~MeshData() = default;
 
+		void Bind() const;
+
 		VertexAttributeObject vao;
 		VertexBuffer vb;
 		IndexBuffer ib;

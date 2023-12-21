@@ -1,6 +1,5 @@
 #pragma once
 #include <functional>
-#include "Engine.h"
 #include "Entity Component System/EntityComponentSystem.h"
 #include "Level.h"
 #include "Utility/Time.h"
@@ -11,13 +10,11 @@ namespace Gem {
 	 */
 	class Game {
 	public:
-		Game(Engine& engine);
+		Game() = default;
 
 		using ConditionFunction = std::function<bool(Ptr<Level> level)>;
-		// Level will run, as long as the condition function returns true.
+		// Level will run, as long as the condition function returns true. //TODO flip this
 		void Run(Ptr<Level> level, ConditionFunction conditionFunction = [](Ptr<Level> level)->bool { return true; });
-
-		Engine& engine;
 
 	private:
 		float DelayFrame(float frameStartTime) const;

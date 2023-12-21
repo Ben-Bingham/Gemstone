@@ -4,7 +4,7 @@
 #include "Rendering/Utility/Vertex.h"
 
 namespace Gem {
-	// Contains raw vertex and index data for a mesh
+	// Contains raw vertex and index mesh for a mesh
 	struct RawMesh {
 		RawMesh(const std::vector<Vertex>& vertices, const std::vector<Index>& indices);
 

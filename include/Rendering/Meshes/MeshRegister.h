@@ -14,7 +14,7 @@ namespace Gem {
 		[[nodiscard]] bool HasMesh(MeshHash hash);
 
 		MeshHash AddMesh(const RawMesh& rawMesh);
-		Ptr<MeshObject> GetMesh(MeshHash hash);
+		Ptr<MeshObject> GetMesh(const MeshHash hash);
 
 	private:
 		std::map<MeshHash, Ptr<MeshObject>> m_Meshes;

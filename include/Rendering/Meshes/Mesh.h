@@ -13,10 +13,6 @@ namespace Gem {
 
 		MeshHash hash;
 
-		friend bool operator==(const Mesh& lhs, const Mesh& rhs) { return lhs.hash == rhs.hash; }
-		friend bool operator!=(const Mesh& lhs, const Mesh& rhs) { return !(lhs == rhs); }
-
-	private:
-		static MeshRegister m_Register;
+		static MeshRegister meshRegister;
 	};
 }

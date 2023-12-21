@@ -1,11 +1,24 @@
 #pragma once
 
 namespace Gem {
-	class Engine;
-
 	class Settings {
+		friend class Engine;
+
+		static void StartUp();
+		static void ShutDown();
+
+		Settings() = default;
+		~Settings() = default;
+
+		static inline bool m_Started{ false };
+
 	public:
-		Settings(Engine& engine);
+		static Settings& Get();
+
+		Settings(const Settings& other) = delete;
+		Settings(Settings&& other) noexcept = default;
+		Settings& operator=(const Settings& other) = delete;
+		Settings& operator=(Settings&& other) noexcept = default;
 
 		[[nodiscard]] int GetMaxFramerate() const;
 		void SetMaxFramerate(int framerate); // TODO need some way of making unlimited
@@ -16,7 +29,5 @@ namespace Gem {
 	private:
 		unsigned int m_MaxFps{ 60 };
 		bool m_VSync{ false };
-
-		Engine& m_Engine;
 	};
 }

@@ -1,21 +1,25 @@
 #pragma once
-#include "Gem.h"
 #include "GLFWContext.h"
-#include "SubSystem.h"
 
 namespace Gem {
-	class Window : SubSystem {
+	class Window {
+		friend class Engine;
+
+		static void StartUp();
+		static void ShutDown();
+
+		Window() = default;
+		~Window() = default;
+
+		static inline bool m_Started{ false };
+
 	public:
-		Window(GLFWContext& glfwContext);
-		~Window() override = default;
+		static Window& Get();
 
 		Window(const Window& other) = delete;
 		Window(Window&& other) noexcept = default;
 		Window& operator=(const Window& other) = delete;
 		Window& operator=(Window&& other) noexcept = default;
-
-		void StartUp() override;
-		void ShutDown() override;
 
 		void SwapBuffers();
 		void SwapInterval(int interval);
@@ -26,6 +30,5 @@ namespace Gem {
 
 	private:
 		WindowHandle m_Handle{ nullptr };
-		GLFWContext& m_Context;
 	};
 }

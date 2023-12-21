@@ -1,36 +1,46 @@
 #include <GLFW/glfw3.h>
+
 #include "Utility/Log.h"
 #include "Core/Window.h"
 
 namespace Gem {
-	Window::Window(GLFWContext& glfwContext)
-		: m_Context(glfwContext) {}
-
 	void Window::StartUp() {
-		m_Context.SetWindowHint(GLFWContext::WindowHint::OPENGL_DEBUG_CONTEXT, true);
+		m_Started = true;
 
-		m_Handle = m_Context.CreateWindow(size, "Gemstone");
+		GLFWContext::Get().SetWindowHint(GLFWContext::WindowHint::OPENGL_DEBUG_CONTEXT, true);
 
-		if (!m_Handle) {
+		Get().m_Handle = GLFWContext::Get().CreateWindow(Get().size, "Gemstone");
+
+		if (!Get().m_Handle) {
 			LOG("Failed to create Window.", LogLevel::TERMINAL);
 		}
 
-		m_Context.MakeOpenGlContextCurrent(m_Handle);
+		GLFWContext::Get().MakeOpenGlContextCurrent(Get().m_Handle);
 	}
 
 	void Window::ShutDown() {
-		m_Context.DestroyWindow(m_Handle);
+		m_Started = false;
+		GLFWContext::Get().DestroyWindow(Get().m_Handle);
+	}
+
+	Window& Window::Get() {
+		if (!m_Started) {
+			LOG("Failed to StartUp Window, before using it.", LogLevel::TERMINAL);
+		}
+
+		static Window window;
+		return window;
 	}
 
 	void Window::SwapBuffers() {
-		m_Context.SwapBuffers(m_Handle);
+		GLFWContext::Get().SwapBuffers(m_Handle);
 	}
 
 	void Window::SwapInterval(int interval) {
-		m_Context.SwapInterval(interval);
+		GLFWContext::Get().SwapInterval(interval);
 	}
 
 	bool Window::ShouldClose() {
-		return m_Context.WindowShouldClose(m_Handle);
+		return GLFWContext::Get().WindowShouldClose(m_Handle);
 	}
 }

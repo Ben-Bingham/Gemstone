@@ -1,23 +1,22 @@
 #include "Core/Game.h"
-#include "Core/Engine.h"
+#include "Core/Window.h"
+#include "Core/Event System/EventSystem.h"
+
 #include "Utility/Utility.h"
 
 namespace Gem {
-	Game::Game(Engine& engine) 
-		: engine(engine), m_TimeManager(engine.glfwContext) { }
-
 	void Game::Run(Ptr<Level> level, ConditionFunction conditionFunction) {
-		float dt = 1.0f / (float)engine.settings.GetMaxFramerate();
-		while (conditionFunction(level) == true && !engine.window.ShouldClose()) {
+		float dt = 1.0f / (float)Settings::Get().GetMaxFramerate();
+		while (conditionFunction(level) == true && !Window::Get().ShouldClose()) {
 			const float frameStartTime = m_TimeManager.GetTime();
 
-			engine.glfwContext.PollEvents();
-			engine.eventSystem.Distribute();
+			GLFWContext::Get().PollEvents();
+			EventSystem::Get().Distribute();
 
 			// ==================== Game Loop ====================
 			Print(dt * 1000.0f);
 
-			 level->ecs.systemManager.Step();
+			level->ecs.systemManager.Step();
 
 
 			// Physicist.Step();
@@ -28,15 +27,15 @@ namespace Gem {
 
 			// ==================== Game Loop ====================
 
-			engine.window.SwapBuffers();
+			 Window::Get().SwapBuffers();
 
 			dt = DelayFrame(frameStartTime);
 		}
 	}
 
 	float Game::DelayFrame(float frameStartTime) const {
-		if (!engine.settings.GetVSync()) {
-			const float dt = 1.0f / (float)engine.settings.GetMaxFramerate();
+		if (!Settings::Get().GetVSync()) {
+			const float dt = 1.0f / (float)Settings::Get().GetMaxFramerate();
 
 			const float waitTime = std::ceil((m_TimeManager.GetTime() - frameStartTime) / dt) * dt;
 

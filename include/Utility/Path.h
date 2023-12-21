@@ -8,5 +8,10 @@ namespace Gem {
 		Path(const char* localPath);
 
 		std::string path;
+
+		static void SetGemAssets(const std::string& gemAssetsString);
+
+	private:
+		static std::string m_GemAssets;
 	};
 }

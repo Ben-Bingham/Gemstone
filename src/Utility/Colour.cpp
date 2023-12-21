@@ -20,18 +20,18 @@ namespace Gem {
 		return Vector4f{ (float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, (float)a / 255.0f };
 	}
 
-	const Colour Colour::RED		{ 255,   0,   0 };
-	const Colour Colour::BLUE		{   0,   0, 255 };
-	const Colour Colour::GREEN		{   0, 255,   0 };
-	const Colour Colour::MAGENTA	{ 255,   0, 255 };
-	const Colour Colour::YELLOW		{ 255, 255,   0 };
-	const Colour Colour::CYAN		{   0, 255, 255 };
-	const Colour Colour::WHITE		{ 255, 255, 255 };
-	const Colour Colour::BLACK		{   0,   0,   0 };
-	const Colour Colour::ORANGE		{ 255, 128,   0 };
-	const Colour Colour::PINK		{ 255,   0, 128 };
-	const Colour Colour::LIME_GREEN { 128, 255,   0 };
-	const Colour Colour::LIGHT_GREEN{   0, 255,      128 };
-	const Colour Colour::PURPLE		{ 128,   0, 255 };
-	const Colour Colour::LIGHT_BLUE {   0, 128, 255 };
+	const Colour Colour::Red		{ 255,   0,   0 };
+	const Colour Colour::Blue		{   0,   0, 255 };
+	const Colour Colour::Green		{   0, 255,   0 };
+	const Colour Colour::Magenta	{ 255,   0, 255 };
+	const Colour Colour::Yellow		{ 255, 255,   0 };
+	const Colour Colour::Cyan		{   0, 255, 255 };
+	const Colour Colour::White		{ 255, 255, 255 };
+	const Colour Colour::Black		{   0,   0,   0 };
+	const Colour Colour::Orange		{ 255, 128,   0 };
+	const Colour Colour::Pink		{ 255,   0, 128 };
+	const Colour Colour::LimeGreen { 128, 255,   0 };
+	const Colour Colour::LightGreen{   0, 255,      128 };
+	const Colour Colour::Purple		{ 128,   0, 255 };
+	const Colour Colour::LightBlue {   0, 128, 255 };
 }

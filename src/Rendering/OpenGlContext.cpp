@@ -59,6 +59,8 @@ namespace Gem {
 	}
 
 	void OpenGlContext::StartUp() {
+		m_Started = true;
+
 		if (glewInit() != GLEW_OK) {
 			LOG("GLEW failed to be initialized", Gem::LogLevel::TERMINAL);
 		}
@@ -77,7 +79,18 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
-	void OpenGlContext::ShutDown() { }
+	void OpenGlContext::ShutDown() {
+		m_Started = false;
+	}
+
+	OpenGlContext& OpenGlContext::Get() {
+		if (!m_Started) {
+			LOG("Failed to StartUp OpenGlContext, before using it.", LogLevel::TERMINAL);
+		}
+
+		static OpenGlContext openGlContext;
+		return openGlContext;
+	}
 
 	// ------------------------------ State ------------------------------
 	void OpenGlContext::EnableDepthTesting() {

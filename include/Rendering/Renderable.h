@@ -3,13 +3,20 @@
 #include "Utility/Pointer.h"
 
 namespace Gem {
-	class IMaterial;
-	class MeshData;
+	class BaseMaterial;
+	class MeshObject;
 
 	struct Renderable {
-		Ptr<MeshData> mesh;
-		Ptr<IMaterial> material;
+		Ptr<MeshObject> mesh;
+		Ptr<BaseMaterial> material;
 		Matrix4f modelMatrix;
-		// Ptr<IRenderCommand> renderCommand;
+
+		friend bool operator==(const Renderable& lhs, const Renderable& rhs) {
+			return lhs.mesh == rhs.mesh
+				&& lhs.material == rhs.material
+				&& lhs.modelMatrix == rhs.modelMatrix;
+		}
+
+		friend bool operator!=(const Renderable& lhs, const Renderable& rhs) { return !(lhs == rhs); }
 	};
 }

@@ -25,19 +25,19 @@ namespace Gem {
 		using Vector4uc::operator==;
 		using Vector4uc::operator!=;
 
-		const static Colour RED;
-		const static Colour BLUE;
-		const static Colour GREEN;
-		const static Colour MAGENTA;
-		const static Colour YELLOW;
-		const static Colour CYAN;
-		const static Colour WHITE;
-		const static Colour BLACK;
-		const static Colour ORANGE;
-		const static Colour PINK;
-		const static Colour LIME_GREEN;
-		const static Colour LIGHT_GREEN;
-		const static Colour PURPLE;
-		const static Colour LIGHT_BLUE;
+		const static Colour Red;
+		const static Colour Blue;
+		const static Colour Green;
+		const static Colour Magenta;
+		const static Colour Yellow;
+		const static Colour Cyan;
+		const static Colour White;
+		const static Colour Black;
+		const static Colour Orange;
+		const static Colour Pink;
+		const static Colour LimeGreen;
+		const static Colour LightGreen;
+		const static Colour Purple;
+		const static Colour LightBlue;
 	};
 }

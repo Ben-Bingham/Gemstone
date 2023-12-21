@@ -37,7 +37,7 @@ namespace Gem {
 				return;
 			}
 
-			//g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), m_AccessFrequency, m_NatureOfAccess);
+			//g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, mesh.mesh(), mesh.size() * sizeof(StorageType), m_AccessFrequency, m_NatureOfAccess);
 		}
 
 		// ElementOffset should be number of StorageTypes you want as offset ex:
@@ -49,7 +49,7 @@ namespace Gem {
 				return;
 			}
 
-			//g_Engine.openGlContext.ModifyBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), elementOffset * sizeof(StorageType));
+			//g_Engine.openGlContext.ModifyBufferData(m_Handle, BufferType, mesh.mesh(), mesh.size() * sizeof(StorageType), elementOffset * sizeof(StorageType));
 		}
 
 		void ReserveSpace(const size_t size) {

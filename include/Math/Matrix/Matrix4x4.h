@@ -103,6 +103,15 @@ namespace Gem {
 		std::string toString() const {
 			return std::string{ "Row1: " + row1.toString() + "\nRow2: " + row2.toString() + "\nRow3: " + row3.toString() + "\nRow4: " + row4.toString()};
 		}
+
+		friend bool operator==(const Matrix4x4& lhs, const Matrix4x4& rhs) {
+			return lhs.row1 == rhs.row1
+				&& lhs.row2 == rhs.row2
+				&& lhs.row3 == rhs.row3
+				&& lhs.row4 == rhs.row4;
+		}
+
+		friend bool operator!=(const Matrix4x4& lhs, const Matrix4x4& rhs) { return !(lhs == rhs); }
 	};
 
 	// <<

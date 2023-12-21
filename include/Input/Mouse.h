@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 
 #include "Gem.h"
-#include "Core/SubSystem.h"
 
 namespace Gem {
 	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
@@ -12,12 +11,12 @@ namespace Gem {
 	void MouseScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset);
 	void CursorEnterCallback(GLFWwindow* window, int entered);
 
-	class Mouse : SubSystem {
+	class Mouse {
 	public:
 		Mouse() = default;
 
-		void StartUp() override;
-		void ShutDown() override;
+		void StartUp();
+		void ShutDown();
 
 		Vector2i GetPosition() const;
 		bool GetButton(MouseButton button) const;

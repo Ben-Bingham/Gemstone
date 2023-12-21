@@ -1,11 +1,26 @@
 #include "Core/Settings.h"
-#include "Core/Engine.h"
+#include "Core/Window.h"
+
+#include "Utility/Log.h"
 
 namespace Gem {
-	Settings::Settings(Engine& engine)
-		: m_Engine(engine) {
+	void Settings::StartUp() {
+		m_Started = true;
 
-		SetVSync(false);
+		Get().SetVSync(false);
+	}
+
+	void Settings::ShutDown() {
+		m_Started = false;
+	}
+
+	Settings& Settings::Get() {
+		if (!m_Started) {
+			LOG("Failed to StartUp Settings, before using it.", LogLevel::TERMINAL);
+		}
+
+		static Settings settings;
+		return settings;
 	}
 
 	int Settings::GetMaxFramerate() const {
@@ -23,10 +38,10 @@ namespace Gem {
 	void Settings::SetVSync(const bool vSync) {
 		m_VSync = vSync;
 		if (m_VSync) {
-			m_Engine.window.SwapInterval(1);
+			Window::Get().SwapInterval(1);
 		}
 		else {
-			m_Engine.window.SwapInterval(0);
+			Window::Get().SwapInterval(0);
 		}
 	}
 }

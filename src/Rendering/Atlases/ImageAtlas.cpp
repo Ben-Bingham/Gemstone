@@ -3,7 +3,7 @@
 
 namespace Gem {
 	ImageAtlas::ImageAtlas()
-		: Image(CreateImage(std::vector{Colour::BLACK}, Vector2i(1, 1), 4)){
+		: Image(CreateImage(std::vector{Colour::Black}, Vector2i(1, 1), 4)){
 		
 	}
 

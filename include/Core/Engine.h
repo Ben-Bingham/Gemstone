@@ -1,11 +1,5 @@
 #pragma once
-#include "GLFWContext.h"
 #include "Settings.h"
-#include "Event System/EventSystem.h"
-#include "Core/Window.h"
-
-#include "Rendering/OpenGlContext.h"
-#include "Rendering/Renderer_New.h"
 
 namespace Gem {
 	/*
@@ -23,19 +17,17 @@ namespace Gem {
 		Engine& operator=(const Engine& other) = default;
 		Engine& operator=(Engine&& other) noexcept = default;
 
-		EventSystem eventSystem{ };
-		GLFWContext glfwContext{ };
-		Window window{ glfwContext };
-		OpenGlContext openglContext{ };
-		Renderer_New renderer{ openglContext };
-		//OpenGlContext openGlContext{};
+		//EventSystem eventSystem{ };
+		//GLFWContext glfwContext{ };
+		//Window window{ glfwContext };
+		//OpenGlContext openglContext{ };
+		//Renderer_New renderer{ openglContext };
+
+
 		//ImGuiContext imGuiContext{};
-		//Renderer renderer{};
 		//DebugRenderer debugRenderer{};
 
 		//Keyboard keyboard{};
 		//Mouse mouse{};
-
-		Settings settings{ *this };
 	};
 }

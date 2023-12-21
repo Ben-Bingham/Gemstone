@@ -3,8 +3,8 @@
 #include "Utility/Log.h"
 
 namespace Gem {
-	SystemManager::SystemManager(EntityComponentSystem* ecs)
-		: m_Ecs(ecs) { }
+	SystemManager::SystemManager(Engine& engine, EntityComponentSystem* ecs)
+		: m_Engine(engine), m_Ecs(ecs) { }
 
 	void SystemManager::AddSystem(const System& system) {
 		m_Systems.push_back(system);
@@ -19,7 +19,7 @@ namespace Gem {
 #endif
 
 		for (const auto& system : m_Systems) {
-			system(*m_Ecs);
+			system(m_Engine, *m_Ecs);
 		}
 	}
 }

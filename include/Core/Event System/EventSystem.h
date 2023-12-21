@@ -1,27 +1,30 @@
 #pragma once
-#include <algorithm>
 #include <vector>
 
 #include "Utility/Pointer.h"
 #include "EventTypeManager.h"
 #include "Event.h"
 
-#include "Core/SubSystem.h"
-#include "Gem.h"
-
 namespace Gem {
-	class EventSystem : SubSystem {
-	public:
+	class EventSystem {
+		friend class Engine;
+
+		static void StartUp();
+		static void ShutDown();
+
 		EventSystem() = default;
-		~EventSystem() override = default;
+		~EventSystem() = default;
+
+		static inline bool m_Started{ false };
+
+	public:
+		static EventSystem& Get();
 
 		EventSystem(const EventSystem& other) = delete;
 		EventSystem(EventSystem&& other) noexcept = default;
 		EventSystem& operator=(const EventSystem& other) = delete;
 		EventSystem& operator=(EventSystem&& other) noexcept = default;
 
-		void StartUp() override;
-		void ShutDown() override;
 
 		template <typename T>
 		Ptr<EventTypeManager<T>> GetEventTypeManager() {

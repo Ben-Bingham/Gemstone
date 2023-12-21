@@ -1,26 +1,29 @@
 #pragma once
 #include "OpenGlContext.h"
-
-#include "Core/SubSystem.h"
+#include "Renderable.h"
 
 namespace Gem {
-	class Renderer_New : SubSystem {
+	class Renderer_New {
+		friend class Engine;
+
+		static void StartUp();
+		static void ShutDown();
+
+		Renderer_New() = default;
+		~Renderer_New() = default;
+
+		static inline bool m_Started{ false };
+
 	public:
-		Renderer_New(OpenGlContext& openGlContext);
-		~Renderer_New() override = default;
+		static Renderer_New& Get();
 
-		Renderer_New(const Renderer_New& other) = default;
+		Renderer_New(const Renderer_New& other) = delete;
 		Renderer_New(Renderer_New&& other) noexcept = default;
-		Renderer_New& operator=(const Renderer_New& other) = default;
+		Renderer_New& operator=(const Renderer_New& other) = delete;
 		Renderer_New& operator=(Renderer_New&& other) noexcept = default;
-
-		void StartUp() override;
-		void ShutDown() override;
 
 		void Render();
 
-	private:
-		OpenGlContext& m_Context;
-		//SceneGraph m_SceneGraph; // TODO
+		std::vector<Renderable> renderables; // TODO this can be optimized, but it might not be nesacary
 	};
 }

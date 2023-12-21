@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include "Gem.h"
 
 namespace Gem {
 	template<typename T>

@@ -1,19 +1,27 @@
 #include "Core/Engine.h"
 
+#include "Core/Event System/EventSystem.h"
+#include "Core/GLFWContext.h"
+#include "Core/Window.h"
+#include "Rendering/OpenGlContext.h"
+#include "Rendering/Renderer_New.h"
+
 namespace Gem {
 	Engine::Engine() {
-		eventSystem.StartUp();
-		glfwContext.StartUp();
-		window.StartUp();
-		openglContext.StartUp();
-		renderer.StartUp();
+		EventSystem::StartUp();
+		GLFWContext::StartUp();
+		Window::StartUp();
+		OpenGlContext::StartUp();
+		Renderer_New::StartUp();
+		Settings::StartUp();
 	}
 
 	Engine::~Engine() {
-		renderer.ShutDown();
-		openglContext.ShutDown();
-		window.ShutDown();
-		glfwContext.ShutDown();
-		eventSystem.ShutDown();
+		Settings::ShutDown();
+		Renderer_New::ShutDown();
+		OpenGlContext::ShutDown();
+		Window::ShutDown();
+		GLFWContext::ShutDown();
+		EventSystem::ShutDown();
 	}
 }

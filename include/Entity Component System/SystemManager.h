@@ -5,7 +5,7 @@
 namespace Gem {
 	class SystemManager {
 	public:
-		SystemManager(EntityComponentSystem* ecs);
+		SystemManager(Engine& engine, EntityComponentSystem* ecs);
 
 		void AddSystem(const System& system);
 
@@ -15,5 +15,6 @@ namespace Gem {
 		std::vector<System> m_Systems;
 
 		EntityComponentSystem* m_Ecs;
+		Engine& m_Engine;
 	};
 }

@@ -10,6 +10,8 @@ namespace Gem {
 	}
 
 	void GLFWContext::StartUp() {
+		m_Started = true;
+
 		glfwSetErrorCallback(GLFWErrorCallback);
 
 		if (!glfwInit()) {
@@ -18,7 +20,18 @@ namespace Gem {
 	}
 
 	void GLFWContext::ShutDown() {
+		m_Started = false;
+
 		glfwTerminate();
+	}
+
+	GLFWContext& GLFWContext::Get() {
+		if (!m_Started) {
+			LOG("Failed to StartUp GLFWContext, before using it.", LogLevel::TERMINAL);
+		}
+
+		static GLFWContext glfwContext;
+		return glfwContext;
 	}
 
 	// ==================== Windows ====================

@@ -6,7 +6,6 @@
 
 #include <unordered_map>
 
-#include "Core/SubSystem.h"
 #include "Math/Vector.h"
 #include "Gem.h"
 
@@ -15,17 +14,17 @@ namespace Gem {
 
 	using WindowHandle = GLFWwindow*;
 
-	class HumanInterfaceDeviceContext final : SubSystem {
+	class HumanInterfaceDeviceContext final {
 	public:
 		HumanInterfaceDeviceContext() = default;
 		HumanInterfaceDeviceContext(const HumanInterfaceDeviceContext& other) = default;
 		HumanInterfaceDeviceContext(HumanInterfaceDeviceContext&& other) noexcept = default;
 		HumanInterfaceDeviceContext& operator=(const HumanInterfaceDeviceContext& other) = default;
 		HumanInterfaceDeviceContext& operator=(HumanInterfaceDeviceContext&& other) noexcept = default;
-		~HumanInterfaceDeviceContext() override = default;
+		~HumanInterfaceDeviceContext() = default;
 
-		void StartUp() override;
-		void ShutDown() override;
+		void StartUp();
+		void ShutDown();
 
 		void PollEvents() const;
 

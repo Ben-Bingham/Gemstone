@@ -17,4 +17,8 @@ namespace Gem {
 			{ OpenGlContext::VECTOR2F, "l_Uv" }
 		});
 	}
+
+	void MeshData::Bind() const {
+		vao.Bind();
+	}
 }
