@@ -200,7 +200,7 @@ namespace Gem {
 		return incident - (T)2 * dot(incident, normal) * normal;
 	}
 
-	template<typename T>
+	template<typename T> //TODO capitalize the first letter in these names.
 	const Vector3<T> Vector3<T>::up{ static_cast<T>(0), static_cast<T>(1), static_cast<T>(0) };
 	template<typename T>
 	const Vector3<T> Vector3<T>::down{ static_cast<T>(0), static_cast<T>(-1), static_cast<T>(0) };

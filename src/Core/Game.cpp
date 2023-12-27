@@ -1,6 +1,9 @@
 #include "Core/Game.h"
+#include "Core/Settings.h"
 #include "Core/Window.h"
 #include "Core/Event System/EventSystem.h"
+
+#include "Rendering/Renderer_New.h"
 
 #include "Utility/Utility.h"
 
@@ -21,7 +24,7 @@ namespace Gem {
 
 			// Physicist.Step();
 
-			// Renderer.Render();
+			Renderer_New::Get().Render();
 			// DebugRenderer.Render();
 			// Ui.Render();
 

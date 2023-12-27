@@ -3,7 +3,6 @@
 
 #include "Rendering/OpenGlContext.h"
 #include "Utility/Log.h"
-#include "Gem.h"
 
 namespace Gem {
 	template<typename StorageType, typename BufferTypeEnum, BufferTypeEnum BufferType>
@@ -12,9 +11,7 @@ namespace Gem {
 		GlBuffer(
 			const OpenGlContext::BufferAccessFrequency accessFrequency = OpenGlContext::BufferAccessFrequency::STATIC,
 			const OpenGlContext::BufferNatureOfAccess natureOfAccess = OpenGlContext::BufferNatureOfAccess::DRAW
-		) : m_Handle(0
-			//g_Engine.openGlContext.GenerateBuffer()
-		), m_AccessFrequency(accessFrequency), m_NatureOfAccess(natureOfAccess) {
+		) : m_Handle(OpenGlContext::Get().GenerateBuffer()), m_AccessFrequency(accessFrequency), m_NatureOfAccess(natureOfAccess) {
 			Bind();
 		}
 
@@ -24,11 +21,11 @@ namespace Gem {
 		GlBuffer& operator=(GlBuffer&& other) noexcept = default;
 
 		~GlBuffer() {
-			//g_Engine.openGlContext.DeleteBuffer(m_Handle);
+			OpenGlContext::Get().DeleteBuffer(m_Handle);
 		}
 
 		void Bind() {
-			//g_Engine.openGlContext.BindBuffer(m_Handle, BufferType);
+			OpenGlContext::Get().BindBuffer(m_Handle, BufferType);
 		}
 
 		void SetAllData(const std::vector<StorageType>& data) {
@@ -37,7 +34,9 @@ namespace Gem {
 				return;
 			}
 
-			//g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, mesh.mesh(), mesh.size() * sizeof(StorageType), m_AccessFrequency, m_NatureOfAccess);
+			OpenGlContext::Get().SetBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), m_AccessFrequency, m_NatureOfAccess);
+
+			m_Initialized = true;
 		}
 
 		// ElementOffset should be number of StorageTypes you want as offset ex:
@@ -49,7 +48,7 @@ namespace Gem {
 				return;
 			}
 
-			//g_Engine.openGlContext.ModifyBufferData(m_Handle, BufferType, mesh.mesh(), mesh.size() * sizeof(StorageType), elementOffset * sizeof(StorageType));
+			OpenGlContext::Get().ModifyBufferData(m_Handle, BufferType, data.data(), data.size() * sizeof(StorageType), elementOffset * sizeof(StorageType));
 		}
 
 		void ReserveSpace(const size_t size) {
@@ -58,7 +57,7 @@ namespace Gem {
 				return;
 			}
 
-			//g_Engine.openGlContext.SetBufferData(m_Handle, BufferType, nullptr, size, m_AccessFrequency, m_NatureOfAccess);
+			OpenGlContext::Get().SetBufferData(m_Handle, BufferType, nullptr, size, m_AccessFrequency, m_NatureOfAccess);
 		}
 
 	private:

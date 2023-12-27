@@ -3,8 +3,8 @@
 #include "Rendering/RenderingSystem_New.h"
 
 namespace Gem {
-	EntityComponentSystem::EntityComponentSystem(Engine& engine, const bool addDefaultSystems)
-		: entityManager(this), componentManager(&entityManager), systemManager(engine, this) {
+	EntityComponentSystem::EntityComponentSystem(const bool addDefaultSystems)
+		: entityManager(this), componentManager(&entityManager), systemManager(this) {
 
 		if (addDefaultSystems) {
 			AddDefaultSystems();

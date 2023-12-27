@@ -1,3 +1,5 @@
+#include "Core/Window.h"
+
 #include "Rendering/Renderer_New.h"
 #include "Rendering/Materials/BaseMaterial.h"
 #include "Rendering/Meshes/MeshObject.h"
@@ -24,22 +26,22 @@ namespace Gem {
 	void Renderer_New::Render() {
 		OpenGlContext::Get().Clear();
 
-		// TODO all this info needs to be non hardcoded
-		Vector2ui windowSize{ 640, 480 };
+		const Vector2ui windowSize = Window::Get().size;
 
-		auto camPos = Vector3f::south * 3.0f;
+		Matrix4f projection = perspective(degreesToRadians(camera.camera.fov), (float)windowSize.x / (float)windowSize.y, 0.1f, 100.0f);
+		Matrix4f view = lookAt(camera.transform.position, camera.transform.position + camera.camera.forward, Vector3f::up);
 
-		Matrix4f projection = perspective(degreesToRadians(90.0f), (float)windowSize.x / (float)windowSize.y, 0.1f, 100.0f);
-		Matrix4f view = lookAt(camPos, camPos + Vector3f::north, Vector3f::up);
-
-		// TODO make the renderable store the mesh and material in the same way, the matrix can be differnt tho.
 		for (auto [mesh, material, model] : renderables) {
 			material->Apply();
 			mesh->mesh.Bind();
 
+			UPtr<Shader>& shader = material->GetShader();
+
 			Matrix4f mvp = model * view * projection;
 
-			//Shader::Upload("u_MVP", mvp);
+			shader->Upload("u_MVP", mvp);
+
+			OpenGlContext::Get().DrawElements(mesh->mesh.indexCount);
 		}
 	}
 }

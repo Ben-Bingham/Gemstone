@@ -18,6 +18,9 @@ namespace Gem {
 		OpenGlContext::Get().AttachShaderToProgram(m_Handle, fsHandle);
 
 		OpenGlContext::Get().CompileShaderProgram(m_Handle);
+
+		OpenGlContext::Get().DeleteShader(vsHandle);
+		OpenGlContext::Get().DeleteShader(fsHandle);
 	}
 
 	void Shader::Bind() const {

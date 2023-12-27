@@ -1,4 +1,6 @@
 #pragma once
+#include "Rendering/Shaders/Shader.h"
+#include "Utility/Pointer.h"
 
 namespace Gem {
 	class BaseMaterial {
@@ -11,5 +13,6 @@ namespace Gem {
 		virtual ~BaseMaterial() = default;
 
 		virtual void Apply() = 0;
+		virtual UPtr<Shader>& GetShader() = 0;
 	};
 }

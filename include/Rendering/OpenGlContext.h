@@ -7,7 +7,7 @@
 #include "Utility/Colour.h"
 #include "Utility/Image.h"
 
-#ifdef GEMSTONE_DEBUG
+#ifdef GEM_DEBUG
 #define GEMSTONE_CHECK_OPEN_GL_ERRORS
 #endif
 
@@ -220,6 +220,7 @@ namespace Gem {
 		void AttachShaderToProgram(ShaderProgramHandle shaderProgram, ShaderHandle shader);
 		void BindShaderProgram(ShaderProgramHandle shaderProgram);
 		void CompileShaderProgram(ShaderProgramHandle shaderProgram);
+		void DeleteShader(ShaderHandle shader);
 
 	private:
 		ShaderProgramHandle m_BoundShaderProgram;

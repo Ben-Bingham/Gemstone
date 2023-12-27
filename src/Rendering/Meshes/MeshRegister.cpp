@@ -1,4 +1,7 @@
 #include "Rendering/Meshes/MeshRegister.h"
+#include "Rendering/Meshes/MeshData.h"
+#include "Rendering/Meshes/MeshObject.h"
+#include "Utility/Log.h"
 
 namespace Gem {
 	bool MeshRegister::HasMesh(const MeshHash hash) {
@@ -16,13 +19,13 @@ namespace Gem {
 		MeshHash hash = HashMesh(VertexToFloat(rawMesh.vertices), rawMesh.indices);
 
 		if (!HasMesh(hash)) {
-			m_Meshes[hash] = CreatePtr<MeshObject>(MeshData{ rawMesh }, hash);
+			m_Meshes[hash] = CreatePtr<MeshObject>(rawMesh, hash);
 		}
 
 		return hash;
 	}
 
-	Ptr<MeshObject> MeshRegister::GetMesh(const MeshHash hash) {
+	Ptr<MeshObject> MeshRegister::GetMesh(MeshHash hash) {
 #ifdef GEM_DEBUG
 		if (!HasMesh(hash)) {
 			LOG("Attempting to retreive mesh, that has not been registerd.", LogLevel::ERROR);

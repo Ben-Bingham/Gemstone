@@ -2,11 +2,12 @@
 #include <map>
 
 #include "MeshHash.h"
-#include "MeshObject.h"
 #include "RawMesh.h"
 #include "Utility/Pointer.h"
 
 namespace Gem {
+	struct MeshObject;
+
 	class MeshRegister {
 	public:
 		MeshRegister() = default;
@@ -14,7 +15,7 @@ namespace Gem {
 		[[nodiscard]] bool HasMesh(MeshHash hash);
 
 		MeshHash AddMesh(const RawMesh& rawMesh);
-		Ptr<MeshObject> GetMesh(const MeshHash hash);
+		Ptr<MeshObject> GetMesh(MeshHash hash);
 
 	private:
 		std::map<MeshHash, Ptr<MeshObject>> m_Meshes;

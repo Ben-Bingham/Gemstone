@@ -4,7 +4,7 @@
 
 namespace Gem {
 	class BaseMaterial;
-	class MeshObject;
+	struct MeshObject;
 
 	struct Renderable {
 		Ptr<MeshObject> mesh;

@@ -13,7 +13,7 @@ namespace Gem {
 		Shape& operator=(Shape&& other) noexcept = default;
 		virtual ~Shape() = default;
 
-		[[nodiscard]] virtual RawMesh GetRawMesh() const = 0;
+		[[nodiscard]] virtual RawMesh GetRawMesh() const = 0; // TODO This can be implemented by this class, its always the same
 
 	private:
 		[[nodiscard]] virtual std::vector<Vertex> Vertices() const = 0;

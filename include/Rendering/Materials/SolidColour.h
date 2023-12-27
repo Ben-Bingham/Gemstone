@@ -15,6 +15,7 @@ namespace Gem {
 		~SolidColour_() override = default;
 
 		void Apply() override;
+		UPtr<Shader>& GetShader() override;
 
 		Colour colour;
 	private:

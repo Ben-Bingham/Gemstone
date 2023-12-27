@@ -1,24 +1,20 @@
-#include "pch.h"
 #include  "Rendering/OpenGl Objects/VertexAttributeObject.h"
-
-#include "Core/Engine.h"
 
 namespace Gem {
 	VertexAttributeObject::VertexAttributeObject()
-		//: m_Handle(g_Engine.openGlContext.GenerateVertexAttributeObject())
-		{ }
+		: m_Handle(OpenGlContext::Get().GenerateVertexAttributeObject()) { }
 
 	VertexAttributeObject::~VertexAttributeObject() {
-		//g_Engine.openGlContext.DeleteVertexAttributeObject(m_Handle);
+		OpenGlContext::Get().DeleteVertexAttributeObject(m_Handle);
 	}
 
 	void VertexAttributeObject::Bind() const {
-		//g_Engine.openGlContext.BindVertexAttributeObject(m_Handle);
+		OpenGlContext::Get().BindVertexAttributeObject(m_Handle);
 	}
 
 	void VertexAttributeObject::SetLayout(const Layout& layout) {
 		for (size_t index{ 0 }; index < m_MaxAttribute; index++) {
-			//g_Engine.openGlContext.DeleteAttributePointer(m_Handle, index);
+			OpenGlContext::Get().DeleteAttributePointer(m_Handle, index);
 		}
 
 		size_t stride{ 0 };
@@ -29,7 +25,7 @@ namespace Gem {
 		size_t index{ 0 };
 		size_t offset{ 0 };
 		for (auto& [type, name] : layout) {
-			//g_Engine.openGlContext.CreateAttributePointer(m_Handle, index, type, stride, offset);
+			OpenGlContext::Get().CreateAttributePointer(m_Handle, index, type, stride, offset);
 			offset += type.byteCount;
 			index++;
 		}

@@ -20,9 +20,9 @@ namespace Gem {
 	}
 
 	void GLFWContext::ShutDown() {
-		m_Started = false;
-
 		glfwTerminate();
+
+		m_Started = false;
 	}
 
 	GLFWContext& GLFWContext::Get() {

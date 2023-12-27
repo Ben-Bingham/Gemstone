@@ -531,6 +531,12 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
+	void OpenGlContext::DeleteShader(ShaderHandle shader) {
+		glDeleteShader(shader);
+
+		CHECK_ERRORS();
+	}
+
 	// ------------------------------ Rendering ------------------------------
 	void OpenGlContext::DrawElements(const size_t indexCount) {
 		glDrawElements(GL_TRIANGLES, (int)indexCount, GL_UNSIGNED_INT, 0);

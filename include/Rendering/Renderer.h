@@ -1,24 +1,23 @@
 #pragma once
 #include "Renderable.h"
 #include "Components/Camera.h"
-#include "Core/SubSystem.h"
 #include "Gem.h"
 
 namespace Gem {
 	class MeshData;
 	class IMaterial;
 
-	class Renderer final : SubSystem {
+	class Renderer final {
 	public:
 		Renderer() = default;
 		Renderer(const Renderer& other) = default;
 		Renderer(Renderer&& other) noexcept = default;
 		Renderer& operator=(const Renderer& other) = default;
 		Renderer& operator=(Renderer&& other) noexcept = default;
-		~Renderer() override = default;
+		~Renderer() = default;
 
-		void StartUp() override;
-		void ShutDown() override;
+		void StartUp();
+		void ShutDown();
 
 		void RenderSetup();
 		void Render();

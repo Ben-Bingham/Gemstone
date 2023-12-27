@@ -8,7 +8,7 @@ namespace Gem {
 	public:
 		Material(const Ptr<BaseMaterial>& material);
 
-		//Material(const Colour& colour); // TODO need to include OPENGLcontext
+		//Material(const Colour& colour);
 		//Material(const Image& diffuse, const Image& specular); // TODO
 
 		Ptr<BaseMaterial> material;

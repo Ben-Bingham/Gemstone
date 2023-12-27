@@ -3,7 +3,7 @@
 namespace Gem {
 	SolidColour_::SolidColour_(const Colour& colour)
 		: colour(colour) {
-		if (!m_SolidColourShader) {
+		if (m_SolidColourShader == nullptr) {
 			m_SolidColourShader = CreateUPtr<Shader>("engineAssets/shaders/SolidColour.vert", "engineAssets/shaders/SolidColour.frag");
 		}
 	}
@@ -12,6 +12,10 @@ namespace Gem {
 		m_SolidColourShader->Bind();
 
 		m_SolidColourShader->Upload("u_Colour", colour.ToVec4f());
+	}
+
+	UPtr<Shader>& SolidColour_::GetShader() {
+		return m_SolidColourShader;
 	}
 
 	UPtr<Shader> SolidColour_::m_SolidColourShader;

@@ -1,4 +1,5 @@
 #pragma once
+#include "CameraObject.h"
 #include "OpenGlContext.h"
 #include "Renderable.h"
 
@@ -24,6 +25,7 @@ namespace Gem {
 
 		void Render();
 
-		std::vector<Renderable> renderables; // TODO this can be optimized, but it might not be nesacary
+		std::vector<Renderable> renderables; // TODO this can be optimized, but it might not be necessary
+		CameraObject camera;
 	};
 }

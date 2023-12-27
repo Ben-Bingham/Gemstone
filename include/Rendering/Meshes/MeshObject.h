@@ -5,6 +5,11 @@
 namespace Gem {
 	// Contains openGl specific information for meshes, and a hash for that mesh
 	struct MeshObject {
+		MeshObject(const RawMesh& meshData, MeshHash hash)
+			: mesh(meshData), hash(hash) {
+			
+		}
+
 		MeshData mesh;
 		MeshHash hash;
 	};

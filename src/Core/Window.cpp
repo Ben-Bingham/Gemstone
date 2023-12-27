@@ -19,8 +19,9 @@ namespace Gem {
 	}
 
 	void Window::ShutDown() {
-		m_Started = false;
 		GLFWContext::Get().DestroyWindow(Get().m_Handle);
+
+		m_Started = false;
 	}
 
 	Window& Window::Get() {

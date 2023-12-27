@@ -6,9 +6,8 @@ namespace Gem {
 
 	class Level {
 	public:
-		Level(Engine& engine); //TODO does this need to be mandatory?
+		Level() = default;
 
-		Engine& engine;
 		EntityComponentSystem ecs;
 	};
 }
