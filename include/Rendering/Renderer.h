@@ -1,39 +1,31 @@
 #pragma once
+#include "CameraObject.h"
+#include "OpenGlContext.h"
 #include "Renderable.h"
-#include "Components/Camera.h"
-#include "Gem.h"
 
 namespace Gem {
-	class MeshData;
-	class IMaterial;
+	class Renderer {
+		friend class Engine;
 
-	class Renderer final {
-	public:
+		static void StartUp();
+		static void ShutDown();
+
 		Renderer() = default;
-		Renderer(const Renderer& other) = default;
-		Renderer(Renderer&& other) noexcept = default;
-		Renderer& operator=(const Renderer& other) = default;
-		Renderer& operator=(Renderer&& other) noexcept = default;
 		~Renderer() = default;
 
-		void StartUp();
-		void ShutDown();
+		static inline bool m_Started{ false };
 
-		void RenderSetup();
+	public:
+		static Renderer& Get();
+
+		Renderer(const Renderer& other) = delete;
+		Renderer(Renderer&& other) noexcept = default;
+		Renderer& operator=(const Renderer& other) = delete;
+		Renderer& operator=(Renderer&& other) noexcept = default;
+
 		void Render();
-		void RenderCleanup();
 
-		void Queue(const Renderable& renderable);
-		void AddCamera(const Camera& camera);
-
-		// void AddCustomRenderProcess(std::function<void*> function);
-
-	private:
-		std::vector<Renderable> m_Renderables;
-		std::vector<Camera> m_Cameras;
-
-		// UPtr<FrameBuffer> m_PrimaryFrameBuffer; // TODO advanced rendering
-		// UPtr<Texture> m_PrimaryFrameBufferColourComponent;
-		// UPtr<RenderBuffer> m_PrimaryFrameBufferStencilAndDepthComponent;
+		std::vector<Renderable> renderables; // TODO this can be optimized, but it might not be necessary
+		CameraObject camera;
 	};
 }

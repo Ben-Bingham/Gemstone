@@ -21,7 +21,7 @@ namespace Gem {
 		//GLFWContext glfwContext{ };
 		//Window window{ glfwContext };
 		//OpenGlContext openglContext{ };
-		//Renderer_New renderer{ openglContext };
+		//Renderer renderer{ openglContext };
 
 
 		//ImGuiContext imGuiContext{};

@@ -1,29 +1,28 @@
 #include "Core/Window.h"
-
-#include "Rendering/Renderer_New.h"
+#include "..\..\include\Rendering\Renderer.h"
 #include "Rendering/Materials/BaseMaterial.h"
 #include "Rendering/Meshes/MeshObject.h"
 #include "Rendering/Shaders/Shader.h"
 
 namespace Gem {
-	void Renderer_New::StartUp() {
+	void Renderer::StartUp() {
 		m_Started = true;
 	}
 
-	void Renderer_New::ShutDown() {
+	void Renderer::ShutDown() {
 		m_Started = false;
 	}
 
-	Renderer_New& Renderer_New::Get() {
+	Renderer& Renderer::Get() {
 		if (!m_Started) {
 			LOG("Failed to StartUp Renderer, before using it.", LogLevel::TERMINAL);
 		}
 
-		static Renderer_New renderer;
+		static Renderer renderer;
 		return renderer;
 	}
 
-	void Renderer_New::Render() {
+	void Renderer::Render() {
 		OpenGlContext::Get().Clear();
 
 		const Vector2ui windowSize = Window::Get().size;

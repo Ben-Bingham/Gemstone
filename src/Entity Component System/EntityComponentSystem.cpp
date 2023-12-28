@@ -1,6 +1,6 @@
 #include "Entity Component System/EntityComponentSystem.h"
 
-#include "Rendering/RenderingSystem_New.h"
+#include "Rendering/RenderingSystem.h"
 
 namespace Gem {
 	EntityComponentSystem::EntityComponentSystem(const bool addDefaultSystems)
@@ -12,6 +12,6 @@ namespace Gem {
 	}
 
 	void EntityComponentSystem::AddDefaultSystems() {
-		systemManager.AddSystem(RenderingSystem_New);
+		systemManager.AddSystem(RenderingSystem);
 	}
 }

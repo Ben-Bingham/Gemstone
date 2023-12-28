@@ -3,7 +3,7 @@
 #include "Core/Window.h"
 #include "Core/Event System/EventSystem.h"
 
-#include "Rendering/Renderer_New.h"
+#include "..\..\include\Rendering\Renderer.h"
 
 #include "Utility/Utility.h"
 
@@ -17,14 +17,14 @@ namespace Gem {
 			EventSystem::Get().Distribute();
 
 			// ==================== Game Loop ====================
-			Print(dt * 1000.0f);
+			//Print(dt * 1000.0f);
 
 			level->ecs.systemManager.Step();
 
 
 			// Physicist.Step();
 
-			Renderer_New::Get().Render();
+			Renderer::Get().Render();
 			// DebugRenderer.Render();
 			// Ui.Render();
 

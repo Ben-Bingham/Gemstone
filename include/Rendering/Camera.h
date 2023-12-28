@@ -3,9 +3,9 @@
 
 namespace Gem {
 	// Component;
-	class Camera_New {
+	class Camera {
 	public:
-		Camera_New() = default;
+		Camera() = default;
 
 		float fov{ 60 };
 		Vector3f forward{ Vector3f::north };

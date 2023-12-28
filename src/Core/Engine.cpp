@@ -4,7 +4,7 @@
 #include "Core/GLFWContext.h"
 #include "Core/Window.h"
 #include "Rendering/OpenGlContext.h"
-#include "Rendering/Renderer_New.h"
+#include "..\..\include\Rendering\Renderer.h"
 
 namespace Gem {
 	Engine::Engine() {
@@ -12,13 +12,13 @@ namespace Gem {
 		GLFWContext::StartUp();
 		Window::StartUp();
 		OpenGlContext::StartUp();
-		Renderer_New::StartUp();
+		Renderer::StartUp();
 		Settings::StartUp();
 	}
 
 	Engine::~Engine() {
 		Settings::ShutDown();
-		Renderer_New::ShutDown();
+		Renderer::ShutDown();
 		OpenGlContext::ShutDown();
 		Window::ShutDown();
 		GLFWContext::ShutDown();
