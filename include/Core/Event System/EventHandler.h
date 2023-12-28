@@ -6,14 +6,13 @@ namespace Gem {
 	template<typename EventType>
 	class EventHandler {
 	public:
-		EventHandler(EventSystem& eventSystem)
-			: m_EventSystem(eventSystem) {
+		EventHandler() {
 			GetEventId<EventType>();
-			m_EventSystem.GetEventTypeManager<EventType>()->AddHandler(this);
+			EventSystem::Get().GetEventTypeManager<EventType>()->AddHandler(this);
 		}
 
 		virtual ~EventHandler() {
-			m_EventSystem.GetEventTypeManager<EventType>()->RemoveHandler(this);
+			EventSystem::Get().GetEventTypeManager<EventType>()->RemoveHandler(this);
 		}
 
 		EventHandler(const EventHandler& other) = default;
@@ -22,8 +21,5 @@ namespace Gem {
 		EventHandler& operator=(EventHandler&& other) noexcept = default;
 	
 		virtual void HandleEvent(const EventType& event) = 0;
-
-	private:
-		EventSystem& m_EventSystem;
 	};
 }

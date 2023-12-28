@@ -1,6 +1,5 @@
 #pragma once
 #include "MouseButton.h"
-#include "Gem.h"
 
 namespace Gem::MouseEvents {
 	struct ButtonDown {

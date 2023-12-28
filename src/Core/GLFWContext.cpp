@@ -89,6 +89,61 @@ namespace Gem {
 		return Vector2i{ (int)std::floor(x), (int)std::floor(y) };
 	}
 
+	// ==================== Call backs ====================
+	void GLFWContext::SetKeyboardKeyCallback(const WindowHandle handle, void(* callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods)) {
+		if (m_KeyCallback) {
+			LOG("Overwritting the value of keyboard key callback", LogLevel::ERROR);
+		}
+
+		glfwSetKeyCallback(handle, callback);
+		m_KeyCallback = true;
+	}
+
+	void GLFWContext::SetMouseButtonCallback(const WindowHandle handle, void(* callback)(WindowHandle callbackHandle, int button, int action, int mods)) {
+		if (m_MouseButtonCallback) {
+			LOG("Overwritting the value of mouse button callback", LogLevel::ERROR);
+		}
+
+		glfwSetMouseButtonCallback(handle, callback);
+		m_MouseButtonCallback = true;
+	}
+
+	void GLFWContext::SetMousePositionCallback(const WindowHandle handle, void(* callback)(WindowHandle callbackHandle, double xPos, double yPos)) {
+		if (m_MousePositionCallback) {
+			LOG("Overwritting the value of mouse position callback", LogLevel::ERROR);
+		}
+
+		glfwSetCursorPosCallback(handle, callback);
+		m_MousePositionCallback = true;
+	}
+
+	void GLFWContext::SetScrollWheelCallback(const WindowHandle handle, void(* callback)(WindowHandle callbackHandle, double xOffset, double yOffset)) {
+		if (m_ScrollWheelCallback) {
+			LOG("Overwritting the value of mouse scroll wheel callback", LogLevel::ERROR);
+		}
+
+		glfwSetScrollCallback(handle, callback);
+		m_ScrollWheelCallback = true;
+	}
+
+	void GLFWContext::SetCursorEnterCallback(const WindowHandle handle, void(* callback)(WindowHandle callbackHandle, int entered)) {
+		if (m_CursorEnterCallback) {
+			LOG("Overwritting the value of cursor enter callback", LogLevel::ERROR);
+		}
+
+		glfwSetCursorEnterCallback(handle, callback);
+		m_CursorEnterCallback = true;
+	}
+
+	void GLFWContext::SetWindowResizeCallback(const WindowHandle handle, void(* callback)(WindowHandle callbackHandle, int width, int height)) {
+		if (m_WindowResizeCallback) {
+			LOG("Overwritting the value of kwindow resize callback", LogLevel::ERROR);
+		}
+
+		glfwSetWindowSizeCallback(handle, callback);
+		m_WindowResizeCallback = true;
+	}
+
 	// ==================== Miscellaneous ====================
 	double GLFWContext::GetElapsedTime() {
 		return glfwGetTime();

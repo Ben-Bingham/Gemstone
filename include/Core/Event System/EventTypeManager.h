@@ -1,6 +1,5 @@
 #pragma once
 #include "IEventTypeManager.h"
-#include "Gem.h"
 
 namespace Gem {
 	template<typename EventType>

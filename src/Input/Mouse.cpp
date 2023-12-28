@@ -1,7 +1,6 @@
-#include "pch.h"
 #include "Input/Mouse.h"
 #include "Input/MouseEvents.h"
-#include "Core/Engine.h"
+#include "Core/Window.h"
 #include "Core/Event System/EventHandler.h"
 #include "Utility/Log.h"
 
@@ -21,49 +20,58 @@ namespace Gem {
 		}
 
 		if (action) {
-			//g_Engine.eventManager.Post(MouseEvents::ButtonDown{eventButton});
+			EventSystem::Get().Post(MouseEvents::ButtonDown{ eventButton });
 		}
 		else {
-			//g_Engine.eventManager.Post(MouseEvents::ButtonUp{eventButton});
+			EventSystem::Get().Post(MouseEvents::ButtonUp{ eventButton });
 		}
 	}
 
 	void MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-		//g_Engine.eventManager.Post(MouseEvents::Position{static_cast<int>(xPos), static_cast<int>(yPos)});
+		EventSystem::Get().Post(MouseEvents::Position{ static_cast<int>(xPos), static_cast<int>(yPos) });
 	}
 
 	void MouseScrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset) {
-		//g_Engine.eventManager.Post(MouseEvents::Scroll{static_cast<float>(xOffset), static_cast<float>(yOffset)});
+		EventSystem::Get().Post(MouseEvents::Scroll{ static_cast<float>(xOffset), static_cast<float>(yOffset) });
 	}
 
 	void CursorEnterCallback(GLFWwindow* window, int entered) {
 		if (entered) {
-			//g_Engine.eventManager.Post(MouseEvents::CursorEnter{});
+			EventSystem::Get().Post(MouseEvents::CursorEnter{ });
 		}
 		else {
-			//g_Engine.eventManager.Post(MouseEvents::CursorLeave{});
+			EventSystem::Get().Post(MouseEvents::CursorLeave{ });
 		}
 	}
 
 	void Mouse::StartUp() {
-		//const Window& window = g_Engine.window;
-		//HumanInterfaceDeviceContext& hidContext = g_Engine.humanInterfaceDeviceContext;
+		m_Started = true;
 
-		//hidContext.SetMouseButtonCallback(window.Handle(), MouseButtonCallback);
-		//hidContext.SetMousePositionCallback(window.Handle(), MousePositionCallback);
-		//hidContext.SetScrollCallback(window.Handle(), MouseScrollWheelCallback);
-		//hidContext.SetCursorEnterCallback(window.Handle(), CursorEnterCallback);
+		Window& window = Window::Get();
+		window.SetMouseButtonCallback(MouseButtonCallback);
+		window.SetMousePositionCallback(MousePositionCallback);
+		window.SetScrollWheelCallback(MouseScrollWheelCallback);
+		window.SetCursorEnterCallback(CursorEnterCallback);
 	}
 
-	void Mouse::ShutDown() { }
+	void Mouse::ShutDown() {
+		m_Started = false;
+	}
+
+	Mouse& Mouse::Get() {
+		if (!m_Started) {
+			LOG("Failed to StartUp Mouse, before using it.", LogLevel::TERMINAL);
+		}
+
+		static Mouse mouse;
+		return mouse;
+	}
 
 	Vector2i Mouse::GetPosition() const {
-		//return g_Engine.humanInterfaceDeviceContext.GetMousePosition(g_Engine.window.Handle());
-		return Vector2i{};
+		return Window::Get().GetMousePosition();
 	}
 
-	bool Mouse::GetButton(MouseButton button) const {
-		return false;
-		//return g_Engine.humanInterfaceDeviceContext.GetMouseButton(g_Engine.window.Handle(), button);
+	bool Mouse::GetButton(const MouseButton button) const {
+		return Window::Get().GetMouseButton(button);
 	}
 }

@@ -25,7 +25,6 @@ namespace Gem {
 		EventSystem& operator=(const EventSystem& other) = delete;
 		EventSystem& operator=(EventSystem&& other) noexcept = default;
 
-
 		template <typename T>
 		Ptr<EventTypeManager<T>> GetEventTypeManager() {
 			const EventId id = GetEventId<T>();
@@ -53,6 +52,6 @@ namespace Gem {
 		}
 
 	private:
-		std::vector<Ptr<IEventTypeManager>> m_EventTypeManagers{};
+		std::vector<Ptr<IEventTypeManager>> m_EventTypeManagers{ };
 	};
 }

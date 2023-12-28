@@ -1,6 +1,5 @@
 #pragma once
 #include <GLFW/glfw3.h>
-#include "Gem.h"
 
 namespace Gem {
 	enum class Key {

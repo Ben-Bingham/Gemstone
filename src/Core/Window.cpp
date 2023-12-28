@@ -44,4 +44,40 @@ namespace Gem {
 	bool Window::ShouldClose() {
 		return GLFWContext::Get().WindowShouldClose(m_Handle);
 	}
+
+	bool Window::GetMouseButton(const MouseButton button) {
+		return GLFWContext::Get().GetMouseButtonDown(m_Handle, button);
+	}
+
+	Vector2i Window::GetMousePosition() {
+		return GLFWContext::Get().GetMousePosition(m_Handle);
+	}
+
+	bool Window::GetKeyboardKey(const Key key) {
+		return GLFWContext::Get().GetKeyDown(m_Handle, key);
+	}
+
+	void Window::SetKeyboardKeyCallback(void(* callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods)) {
+		GLFWContext::Get().SetKeyboardKeyCallback(m_Handle, callback);
+	}
+
+	void Window::SetMouseButtonCallback(void(* callback)(WindowHandle callbackHandle, int button, int action, int mods)) {
+		GLFWContext::Get().SetMouseButtonCallback(m_Handle, callback);
+	}
+
+	void Window::SetMousePositionCallback(void(* callback)(WindowHandle callbackHandle, double xPos, double yPos)) {
+		GLFWContext::Get().SetMousePositionCallback(m_Handle, callback);
+	}
+
+	void Window::SetScrollWheelCallback(void(* callback)(WindowHandle callbackHandle, double xOffset, double yOffset)) {
+		GLFWContext::Get().SetScrollWheelCallback(m_Handle, callback);
+	}
+
+	void Window::SetCursorEnterCallback(void(* callback)(WindowHandle callbackHandle, int entered)) {
+		GLFWContext::Get().SetCursorEnterCallback(m_Handle, callback);
+	}
+
+	void Window::SetWindowResizeCallback(void(* callback)(WindowHandle callbackHandle, int width, int height)) {
+		GLFWContext::Get().SetWindowResizeCallback(m_Handle, callback);
+	}
 }

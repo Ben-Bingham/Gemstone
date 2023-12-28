@@ -1,9 +1,7 @@
 #pragma once
-#include "MouseButton.h"
-
 #include <GLFW/glfw3.h>
-
-#include "Gem.h"
+#include "MouseButton.h"
+#include "Math/Vector.h"
 
 namespace Gem {
 	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
@@ -12,11 +10,23 @@ namespace Gem {
 	void CursorEnterCallback(GLFWwindow* window, int entered);
 
 	class Mouse {
-	public:
-		Mouse() = default;
+		friend class Engine;
 
-		void StartUp();
-		void ShutDown();
+		static void StartUp();
+		static void ShutDown();
+
+		Mouse() = default;
+		~Mouse() = default;
+
+		static inline bool m_Started{ false };
+
+	public:
+		static Mouse& Get();
+
+		Mouse(const Mouse& other) = delete;
+		Mouse(Mouse&& other) noexcept = default;
+		Mouse& operator=(const Mouse& other) = delete;
+		Mouse& operator=(Mouse&& other) noexcept = default;
 
 		Vector2i GetPosition() const;
 		bool GetButton(MouseButton button) const;

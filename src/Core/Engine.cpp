@@ -4,7 +4,9 @@
 #include "Core/GLFWContext.h"
 #include "Core/Window.h"
 #include "Rendering/OpenGlContext.h"
-#include "..\..\include\Rendering\Renderer.h"
+#include "Input/Keyboard.h"
+#include "Input/Mouse.h"
+#include "Rendering/Renderer.h"
 
 namespace Gem {
 	Engine::Engine() {
@@ -13,11 +15,15 @@ namespace Gem {
 		Window::StartUp();
 		OpenGlContext::StartUp();
 		Renderer::StartUp();
+		Keyboard::StartUp();
+		Mouse::StartUp();
 		Settings::StartUp();
 	}
 
 	Engine::~Engine() {
 		Settings::ShutDown();
+		Mouse::ShutDown();
+		Keyboard::ShutDown();
 		Renderer::ShutDown();
 		OpenGlContext::ShutDown();
 		Window::ShutDown();

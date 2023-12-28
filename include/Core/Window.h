@@ -26,6 +26,19 @@ namespace Gem {
 
 		bool ShouldClose();
 
+		// ==================== Input ====================
+		bool GetMouseButton(MouseButton button);
+		Vector2i GetMousePosition();
+		bool GetKeyboardKey(Key key);
+
+		// ==================== Call backs ====================
+		void SetKeyboardKeyCallback(void(*callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods));
+		void SetMouseButtonCallback(void(*callback)(WindowHandle callbackHandle, int button, int action, int mods));
+		void SetMousePositionCallback(void(*callback)(WindowHandle callbackHandle, double xPos, double yPos));
+		void SetScrollWheelCallback(void(*callback)(WindowHandle callbackHandle, double xOffset, double yOffset));
+		void SetCursorEnterCallback(void(*callback)(WindowHandle callbackHandle, int entered));
+		void SetWindowResizeCallback(void(*callback)(WindowHandle callbackHandle, int width, int height));
+
 		Vector2ui size{ 640, 480 };
 
 	private:

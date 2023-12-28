@@ -1,10 +1,9 @@
-#include "pch.h"
 #include "Input/Keyboard.h"
 #include "Input/KeyboardEvents.h"
 #include "Input/Keys.h"
-
-#include "Core/Engine.h"
+#include "Core/Window.h"
 #include "Core/Event System/EventHandler.h"
+#include "Utility/Log.h"
 
 namespace Gem {
 	void KeyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods) {
@@ -118,28 +117,37 @@ namespace Gem {
 		}
 
 		if (action == GLFW_PRESS) {
-			//g_Engine.eventManager.Post(KeyboardEvents::KeyDown{ eventKey });
+			EventSystem::Get().Post(KeyboardEvents::KeyDown{ eventKey });
 		}
 		else if (action == GLFW_REPEAT) {
-			//g_Engine.eventManager.Post(KeyboardEvents::KeyHeld{ eventKey });
+			EventSystem::Get().Post(KeyboardEvents::KeyHeld{ eventKey });
 		}
 		else if (action == GLFW_RELEASE) {
-			//g_Engine.eventManager.Post(KeyboardEvents::KeyUp{ eventKey });
+			EventSystem::Get().Post(KeyboardEvents::KeyUp{ eventKey });
 		}
 	}
 
 	void Keyboard::StartUp() {
-		//const Window& window = g_Engine.window;
-		//HumanInterfaceDeviceContext& hidContext = g_Engine.humanInterfaceDeviceContext;
+		m_Started = true;
 
-		//hidContext.SetKeyCallback(window.Handle(), KeyCallback);
-		//hidContext.SetPointerToUserData(window.Handle(), "Keyboard", *this);
+		Window& window = Window::Get();
+		window.SetKeyboardKeyCallback(KeyCallback);
 	}
 
-	void Keyboard::ShutDown() { }
+	void Keyboard::ShutDown() {
+		m_Started = false;
+	}
 
-	bool Keyboard::GetKey(Key key) {
-		return false;
-		//return g_Engine.humanInterfaceDeviceContext.GetKey(g_Engine.window.Handle(), key);
+	Keyboard& Keyboard::Get() {
+		if (!m_Started) {
+			LOG("Failed to StartUp Keyboard, before using it.", LogLevel::TERMINAL);
+		}
+
+		static Keyboard keyboard;
+		return keyboard;
+	}
+
+	bool Keyboard::GetKey(const Key key) {
+		return Window::Get().GetKeyboardKey(key);
 	}
 }

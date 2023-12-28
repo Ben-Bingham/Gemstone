@@ -17,13 +17,6 @@ namespace Gem {
 		Engine& operator=(const Engine& other) = default;
 		Engine& operator=(Engine&& other) noexcept = default;
 
-		//EventSystem eventSystem{ };
-		//GLFWContext glfwContext{ };
-		//Window window{ glfwContext };
-		//OpenGlContext openglContext{ };
-		//Renderer renderer{ openglContext };
-
-
 		//ImGuiContext imGuiContext{};
 		//DebugRenderer debugRenderer{};
 

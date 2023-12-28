@@ -54,6 +54,24 @@ namespace Gem {
 		bool GetMouseButtonUp(WindowHandle handle, MouseButton button) const;
 		Vector2i GetMousePosition(WindowHandle handle) const;
 
+		// ==================== Call backs ====================
+		void SetKeyboardKeyCallback(WindowHandle handle, void(*callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods));
+		void SetMouseButtonCallback(WindowHandle handle, void(*callback)(WindowHandle callbackHandle, int button, int action, int mods));
+		void SetMousePositionCallback(WindowHandle handle, void(*callback)(WindowHandle callbackHandle, double xPos, double yPos));
+		void SetScrollWheelCallback(WindowHandle handle, void(*callback)(WindowHandle callbackHandle, double xOffset, double yOffset));
+		void SetCursorEnterCallback(WindowHandle handle, void(*callback)(WindowHandle callbackHandle, int entered));
+		void SetWindowResizeCallback(WindowHandle handle, void(*callback)(WindowHandle callbackHandle, int width, int height));
+
+	private:
+		bool m_KeyCallback{ false };
+		bool m_MouseButtonCallback{ false };
+		bool m_MousePositionCallback{ false };
+		bool m_ScrollWheelCallback{ false };
+		bool m_CursorEnterCallback{ false };
+		bool m_WindowResizeCallback{ false };
+
+	public:
+
 		// ==================== Miscellaneous ====================
 		double GetElapsedTime();
 
