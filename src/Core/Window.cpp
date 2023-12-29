@@ -45,6 +45,15 @@ namespace Gem {
 		return GLFWContext::Get().WindowShouldClose(m_Handle);
 	}
 
+	void Window::DisableCursor() {
+		GLFWContext::Get().DisableCursor(m_Handle);
+	}
+
+	void Window::EnableCursor() {
+		GLFWContext::Get().EnableCursor(m_Handle);
+	}
+
+	// ==================== Input ====================
 	bool Window::GetMouseButton(const MouseButton button) {
 		return GLFWContext::Get().GetMouseButtonDown(m_Handle, button);
 	}

@@ -26,6 +26,9 @@ namespace Gem {
 
 		bool ShouldClose();
 
+		void DisableCursor();
+		void EnableCursor();
+
 		// ==================== Input ====================
 		bool GetMouseButton(MouseButton button);
 		Vector2i GetMousePosition();

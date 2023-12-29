@@ -12,9 +12,9 @@ namespace Gem {
 	public:
 		Game() = default;
 
-		using ConditionFunction = std::function<bool(Ptr<Level> level)>;
-		// Level will run, as long as the condition function returns true. //TODO flip this
-		void Run(Ptr<Level> level, ConditionFunction conditionFunction = [](Ptr<Level> level)->bool { return true; });
+		using ConditionFunction = std::function<bool(const Ptr<Level>& level)>;
+		// Level will run, as long as the condition function returns true.
+		void Run(Ptr<Level> level, ConditionFunction conditionFunction = [](const Ptr<Level>& level)->bool { return true; });
 
 	private:
 		float DelayFrame(float frameStartTime) const;
