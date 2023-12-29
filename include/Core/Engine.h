@@ -1,5 +1,6 @@
 #pragma once
-#include "Settings.h"
+#include <gl/glew.h>
+#include <GLFW/glfw3.h>
 
 namespace Gem {
 	/*

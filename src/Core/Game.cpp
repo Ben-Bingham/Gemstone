@@ -3,7 +3,7 @@
 #include "Core/Window.h"
 #include "Core/Event System/EventSystem.h"
 
-#include "..\..\include\Rendering\Renderer.h"
+#include "Rendering/Renderer.h"
 
 #include "Utility/Utility.h"
 
@@ -12,6 +12,8 @@ namespace Gem {
 		float dt = 1.0f / (float)Settings::Get().GetMaxFramerate();
 		while (conditionFunction(level) == true && !Window::Get().ShouldClose()) {
 			const float frameStartTime = m_TimeManager.GetTime();
+
+			Time::deltaTime = dt;
 
 			GLFWContext::Get().PollEvents();
 			EventSystem::Get().Distribute();
