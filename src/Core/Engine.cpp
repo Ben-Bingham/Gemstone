@@ -2,6 +2,7 @@
 
 #include "Core/Event System/EventSystem.h"
 #include "Core/GLFWContext.h"
+#include "Core/Settings.h"
 #include "Core/Window.h"
 #include "Rendering/OpenGlContext.h"
 #include "Input/Keyboard.h"
@@ -15,6 +16,7 @@ namespace Gem {
 		Window::StartUp();
 		OpenGlContext::StartUp();
 		Renderer::StartUp();
+		MeshRegister::StartUp();
 		Keyboard::StartUp();
 		Mouse::StartUp();
 		Settings::StartUp();
@@ -24,6 +26,7 @@ namespace Gem {
 		Settings::ShutDown();
 		Mouse::ShutDown();
 		Keyboard::ShutDown();
+		MeshRegister::ShutDown();
 		Renderer::ShutDown();
 		OpenGlContext::ShutDown();
 		Window::ShutDown();

@@ -13,7 +13,7 @@ namespace Gem {
 		std::vector<Renderable> renderables;
 
 		for (auto [ent, mesh, material, transform] : View<Mesh, Material, Transform>(ecs)) {
-			renderables.push_back(Renderable{ Mesh::meshRegister.GetMesh(mesh.hash), material.material, transform.Matrix() });
+			renderables.push_back(Renderable{ MeshRegister::Get().GetMesh(mesh.hash), material.material, transform.Matrix()});
 		}
 
 		// Reassign the list, because it makes future optimizations easier to implement;

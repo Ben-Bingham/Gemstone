@@ -4,6 +4,23 @@
 #include "Utility/Log.h"
 
 namespace Gem {
+	void MeshRegister::StartUp() {
+		m_Started = true;
+	}
+
+	void MeshRegister::ShutDown() {
+		m_Started = false;
+	}
+
+	MeshRegister& MeshRegister::Get() {
+		if (!m_Started) {
+			LOG("Failed to StartUp MeshRegister, before using it.", LogLevel::TERMINAL);
+		}
+
+		static MeshRegister meshRegister;
+		return meshRegister;
+	}
+
 	bool MeshRegister::HasMesh(const MeshHash hash) {
 		if (m_Meshes.contains(hash)) {
 			if (m_Meshes[hash] != nullptr) {

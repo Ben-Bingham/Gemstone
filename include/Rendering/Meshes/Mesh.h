@@ -12,7 +12,5 @@ namespace Gem {
 		// GetRawMesh(some kind of 3d model); // TODO Model loading
 
 		MeshHash hash;
-
-		static MeshRegister meshRegister;
 	};
 }

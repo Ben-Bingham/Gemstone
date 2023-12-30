@@ -3,6 +3,8 @@
 #include "OpenGlContext.h"
 #include "Renderable.h"
 
+#include "Meshes/MeshRegister.h"
+
 namespace Gem {
 	class Renderer {
 		friend class Engine;

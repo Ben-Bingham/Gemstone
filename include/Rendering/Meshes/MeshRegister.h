@@ -9,8 +9,18 @@ namespace Gem {
 	struct MeshObject;
 
 	class MeshRegister {
-	public:
+		friend class Engine;
+
+		static void StartUp();
+		static void ShutDown();
+
 		MeshRegister() = default;
+		~MeshRegister() = default;
+
+		static inline bool m_Started{ false };
+
+	public:
+		static MeshRegister& Get();
 
 		[[nodiscard]] bool HasMesh(MeshHash hash);
 

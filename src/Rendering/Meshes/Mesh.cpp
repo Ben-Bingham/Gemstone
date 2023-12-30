@@ -1,9 +1,8 @@
 #include "Rendering/Meshes/Mesh.h"
+#include "Rendering/Meshes/MeshRegister.h"
 
 namespace Gem {
 	Mesh::Mesh(const Shape& shape) {
-		hash = meshRegister.AddMesh(shape.GetRawMesh());
+		hash = MeshRegister::Get().AddMesh(shape.GetRawMesh());
 	}
-
-	MeshRegister Mesh::meshRegister{ };
 }
