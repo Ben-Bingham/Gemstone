@@ -15,6 +15,7 @@ namespace Gem {
 		~VertexAttributeObject();
 
 		void Bind() const;
+		static void Unbind();
 
 		struct DataElement {
 			OpenGlContext::GlType type;

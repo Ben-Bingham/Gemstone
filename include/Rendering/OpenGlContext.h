@@ -1,6 +1,6 @@
 #pragma once
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
+#include <gl/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "Math/Matrix.h"
 #include "Math/Vector.h"
@@ -22,6 +22,8 @@ namespace Gem {
 #endif
 
 namespace Gem {
+	void APIENTRY GlErrorCallback(GLenum source, GLenum type, unsigned int id, GLenum severity, GLsizei length, const char* message, const void* userParam);
+
 	using OpenGlHandle = GLuint;
 
 	using TextureHandle = OpenGlHandle;
@@ -227,7 +229,14 @@ namespace Gem {
 
 	public:
 		// ------------------------------ Rendering ------------------------------
+		enum class RenderMode {
+			TRIANGLES = GL_TRIANGLES,
+			LINES = GL_LINES,
+			POINTS = GL_POINTS
+		};
+
 		void DrawElements(size_t indexCount);
+		void DrawArrays(size_t vertexCount, RenderMode renderMode = RenderMode::TRIANGLES);
 
 		// ------------------------------ Uniform Uploads ------------------------------
 		[[nodiscard]] UniformLocation GetUniformLocation(ShaderHandle handle, const std::string& uniformName) const;

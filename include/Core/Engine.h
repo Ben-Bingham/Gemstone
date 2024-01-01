@@ -1,7 +1,4 @@
 #pragma once
-#include <gl/glew.h>
-#include <GLFW/glfw3.h>
-
 namespace Gem {
 	/*
 	 * The Engine class represents the engine itself, it has the longest lifetime of any part of the application.
@@ -17,11 +14,5 @@ namespace Gem {
 		Engine(Engine&& other) noexcept = default;
 		Engine& operator=(const Engine& other) = default;
 		Engine& operator=(Engine&& other) noexcept = default;
-
-		//ImGuiContext imGuiContext{};
-		//DebugRenderer debugRenderer{};
-
-		//Keyboard keyboard{};
-		//Mouse mouse{};
 	};
 }

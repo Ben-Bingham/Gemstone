@@ -3,7 +3,7 @@
 #include <vector>
 #include "Units.h"
 
-#include "Collision/Colliders/Collider.h"
+//#include "Collision/Colliders/Collider.h"
 
 namespace Gem {
 	using namespace Literals;
@@ -22,7 +22,7 @@ namespace Gem {
 		//Velocity velocity;
 		Point3D position;
 	private:
-		Collider* collider; //TODO maybe make this a vector
-		std::vector<Collider::Collision> collisions;
+		//Collider* collider; //TODO maybe make this a vector
+		//std::vector<Collider::Collision> collisions;
 	};
 }

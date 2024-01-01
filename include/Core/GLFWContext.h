@@ -1,12 +1,13 @@
 #pragma once
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
+#include <gl/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "Math/Vector.h"
-#include "Input/Keys.h"
 #include "Input/MouseButton.h"
 
 namespace Gem {
+	enum class Key;
+	enum class MouseButton;
 	void GLFWErrorCallback(int error, const char* description);
 
 	using WindowHandle = GLFWwindow*; //TODO replace all uses with Handle

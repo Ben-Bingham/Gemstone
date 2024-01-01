@@ -7,6 +7,7 @@
 #include "Rendering/OpenGlContext.h"
 #include "Input/Keyboard.h"
 #include "Input/Mouse.h"
+
 #include "Rendering/Renderer.h"
 
 namespace Gem {

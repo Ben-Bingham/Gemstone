@@ -1,5 +1,3 @@
-#include <GLFW/glfw3.h>
-
 #include "Core/GLFWContext.h"
 
 #include "Utility/Log.h"

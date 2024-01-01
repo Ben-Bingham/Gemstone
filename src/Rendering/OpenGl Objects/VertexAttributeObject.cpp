@@ -12,6 +12,10 @@ namespace Gem {
 		OpenGlContext::Get().BindVertexAttributeObject(m_Handle);
 	}
 
+	void VertexAttributeObject::Unbind() {
+		OpenGlContext::Get().BindVertexAttributeObject(0);
+	}
+
 	void VertexAttributeObject::SetLayout(const Layout& layout) {
 		for (size_t index{ 0 }; index < m_MaxAttribute; index++) {
 			OpenGlContext::Get().DeleteAttributePointer(m_Handle, index);

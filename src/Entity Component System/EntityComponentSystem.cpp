@@ -1,5 +1,8 @@
 #include "Entity Component System/EntityComponentSystem.h"
 
+#include "Physics/PhysicsSystem_New.h"
+#include "Physics/Visualization/PhysicsVisualizationSystem.h"
+
 #include "Rendering/RenderingSystem.h"
 
 namespace Gem {
@@ -13,5 +16,7 @@ namespace Gem {
 
 	void EntityComponentSystem::AddDefaultSystems() {
 		systemManager.AddSystem(RenderingSystem);
+		systemManager.AddSystem(PhysicsSystem_New);
+		systemManager.AddSystem(PhysicsVisualizationSystem);
 	}
 }
