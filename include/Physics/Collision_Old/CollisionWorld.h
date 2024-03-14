@@ -4,14 +4,14 @@
 #include "Colliders/Collider.h"
 
 namespace Gem {
-	class CollisionWorld {
-	public:
-		CollisionWorld();
-		
-		void step() const;
-		void addCollider(Collider& collider);
+	//class CollisionWorld {
+	//public:
+	//	CollisionWorld();
+	//	
+	//	void step() const;
+	//	void addCollider(Collider& collider);
 
-	private:
-		std::vector<Collider*> colliders;
-	};
+	//private:
+	//	std::vector<Collider*> colliders;
+	//};
 }
