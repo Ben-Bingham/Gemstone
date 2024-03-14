@@ -8,8 +8,8 @@ project "Gemstone"
     pchheader "include/pch.h"
     pchsource "src/pch.cpp"
 
-	targetdir "&{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
-	objdir "&{wks.location}/build/obj/%{cfg.name}/%{prj.name}"
+	targetdir "%{wks.location}/build/bin/%{cfg.name}/%{prj.name}"
+	objdir "%{wks.location}/build/obj/%{cfg.name}/%{prj.name}"
 
     defines { 
         "GLEW_STATIC",
