@@ -1,15 +1,12 @@
-# Annoying files
 .vs/
-
-# Build system
 build/
 
-# Visual Studio files
-**.sln
-**.vcxproj
-**.vcxproj.user
-**.vcxproj.filters
+*.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
 
-# Other
-**.ini
 *.ini
+
+assets/models/minecraftWorld/rungholt.obj
+assets/models/bin/rungholt.assbin
