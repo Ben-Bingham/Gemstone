@@ -43,7 +43,8 @@ project "Gemstone"
         "glew32s",
         "opengl32",
         "glfw3",
-        "ImGui"
+        "ImGui",
+        "glm"
     }
 
     libdirs {
