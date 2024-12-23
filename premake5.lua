@@ -26,7 +26,7 @@ project "Gemstone"
 	filter {}
 
     includedirs {
-        "include",
+        "src",
         "dependencies/GLEW/include",
         "dependencies/GLFW/include",
         "dependencies/ImGui/include/ImGui",
