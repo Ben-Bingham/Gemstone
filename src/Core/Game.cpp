@@ -32,7 +32,7 @@ namespace Gem {
 
 			// ==================== Game Loop ====================
 
-			 Window::Get().SwapBuffers();
+			Window::Get().SwapBuffers();
 
 			dt = DelayFrame(frameStartTime);
 		}
