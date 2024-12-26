@@ -25,11 +25,11 @@ namespace Gem {
 		const Ptr<FixedBoxCollider> fixedA = std::static_pointer_cast<FixedBoxCollider>(colliderA.collider);
 		const Ptr<FixedBoxCollider> fixedB = std::static_pointer_cast<FixedBoxCollider>(colliderB.collider);
 
-		const Vector3f minA = colliderA.transform.position + fixedA->minDistances;
-		const Vector3f maxA = colliderA.transform.position + fixedA->maxDistances;
+		const glm::vec3 minA = colliderA.transform.position + fixedA->minDistances;
+		const glm::vec3 maxA = colliderA.transform.position + fixedA->maxDistances;
 
-		const Vector3f minB = colliderB.transform.position + fixedB->minDistances;
-		const Vector3f maxB = colliderB.transform.position + fixedB->maxDistances;
+		const glm::vec3 minB = colliderB.transform.position + fixedB->minDistances;
+		const glm::vec3 maxB = colliderB.transform.position + fixedB->maxDistances;
 
 		if (maxA.x > minB.x &&
 			minA.x < maxB.x &&

@@ -1,5 +1,5 @@
 #pragma once
-#include "Math/Vector.h"
+#include <glm/glm.hpp>
 
 namespace Gem {
 	// Component;
@@ -9,6 +9,6 @@ namespace Gem {
 
 		float fov{ 60 };
 
-		Vector3f forward{ Vector3f::north };
+		glm::vec3 forward{ glm::vec3{ 0.0f, 0.0f, -1.0f } };
 	};
 }

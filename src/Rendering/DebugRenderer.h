@@ -21,7 +21,7 @@ namespace Gem {
 		void StartUp();
 		void ShutDown();
 
-		void DrawLine(const Vector3f& start, const Vector3f& end, const Colour& colour);
+		void DrawLine(const glm::vec3& start, const glm::vec3& end, const Colour& colour);
 
 		void Render();
 	};

@@ -4,6 +4,6 @@
 
 namespace Gem::WindowEvents {
 	struct Resize {
-		Vector2ui size{ 0 };
+		glm::ivec2 size{ 0 };
 	};
 }

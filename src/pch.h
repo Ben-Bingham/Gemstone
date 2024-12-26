@@ -7,5 +7,3 @@
 
 // Gemstone
 #include "Utility/Log.h"
-#include "Math/Vector.h"
-#include "Math/Matrix.h"

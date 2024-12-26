@@ -6,6 +6,6 @@ namespace Gem {
 	extern const float GravitationalConstant;
 
 	namespace ForceGenerator {
-		Newton3D gravitationalForce(PhysicsObject* supplier, PhysicsObject* reciever);
+		glm::vec3 gravitationalForce(PhysicsObject* supplier, PhysicsObject* reciever);
 	}
 }

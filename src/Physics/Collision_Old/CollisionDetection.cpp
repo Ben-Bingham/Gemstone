@@ -2,8 +2,6 @@
 //#include "Physics/Collision/CollisionDetection.h"
 //#include "Physics/Collision/Colliders/AxisAlignedBoxCollider.h"
 
-#include "Math/Utility.h"
-
 namespace Gem {
 	namespace CollisionDetection {
 	//	Collider::Collision AABBWithAABB(const AxisAlignedBoxCollider* box1, const AxisAlignedBoxCollider* box2) {

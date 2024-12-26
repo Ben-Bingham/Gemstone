@@ -23,7 +23,7 @@ namespace Gem {
 		stbi_image_free(imageData);
 	}
 
-	Image Image::CreateImage(const std::vector<Colour>& content, const Vector2i& dimensions, int channels) {
+	Image Image::CreateImage(const std::vector<Colour>& content, const glm::ivec2& dimensions, int channels) {
 		if ((unsigned int)(dimensions.x * dimensions.y) != content.size()) {
 			LOG("Incorrect number of colours given", LogLevel::ERROR);
 
@@ -33,7 +33,7 @@ namespace Gem {
 		return { content, dimensions, channels };
 	}
 
-	Image Image::CreateImage(const Colour& colour, const Vector2i& dimensions, const int channels) {
+	Image Image::CreateImage(const Colour& colour, const glm::ivec2& dimensions, const int channels) {
 		std::vector<Colour> colours{ (unsigned int)(dimensions.x * dimensions.y) };
 
 		for (auto& col : colours) {
@@ -43,7 +43,7 @@ namespace Gem {
 		return CreateImage(colours, dimensions, channels);
 	}
 
-	Image::Image(const std::vector<Colour> colours, const Vector2i& dimensions, const int channels)
+	Image::Image(const std::vector<Colour> colours, const glm::ivec2& dimensions, const int channels)
 		: content(std::move(colours)), dimensions(dimensions), channels(channels) {
 
 	}

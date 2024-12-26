@@ -14,7 +14,7 @@ namespace Gem {
 			properties.velocity += properties.acceleration * Time::deltaTime;
 			transform.position += properties.velocity * Time::deltaTime;
 
-			properties.netForce = Vector3f{ 0.0f };
+			properties.netForce = glm::vec3{ 0.0f };
 		}
 	}
 }

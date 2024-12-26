@@ -1,9 +1,8 @@
 #pragma once
-#include "Math/Vector.h"
 #include "Gem.h"
 
 namespace Gem {
-	class Colour : Vector4uc {
+	class Colour : glm::ivec4 {
 	public:
 		Colour() = default;
 		Colour(const Colour& other) = default;
@@ -13,17 +12,14 @@ namespace Gem {
 		explicit Colour(int colour);
 		explicit Colour(int red, int green, int blue, int alpha = 255);
 
-		using Vector4uc::r;
-		using Vector4uc::g;
-		using Vector4uc::b;
-		using Vector4uc::a;
+		using glm::ivec4::r;
+		using glm::ivec4::g;
+		using glm::ivec4::b;
+		using glm::ivec4::a;
 
 		unsigned char* Data();
 
-		[[nodiscard]] Vector4f ToVec4f() const;
-
-		using Vector4uc::operator==;
-		using Vector4uc::operator!=;
+		[[nodiscard]] glm::vec4 ToVec4f() const;
 
 		const static Colour Red;
 		const static Colour Blue;

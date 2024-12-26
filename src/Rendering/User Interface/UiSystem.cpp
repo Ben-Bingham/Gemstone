@@ -55,8 +55,8 @@ namespace Gem {
 	//void UiSystem::SimpleMaterialUi(SimpleMaterial& material, size_t entityId) const {
 	//	if (ImGui::TreeNode(std::string{ "Material##" + std::to_string(entityId) }.c_str())) {
 	//		ImGui::Text("Colour:");
-	//		Vector4f colourInFloat = material.colour.ToVec4f();
-	//		const Vector4f colourInFloatBackup = colourInFloat;
+	//		glm::vec4 colourInFloat = material.colour.ToVec4f();
+	//		const glm::vec4 colourInFloatBackup = colourInFloat;
 
 	//		ImGui::Bullet(); ImGui::ColorPicker4("##Colour", colourInFloat.Data());
 

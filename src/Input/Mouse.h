@@ -1,6 +1,5 @@
 #pragma once
 #include "MouseButton.h"
-#include "Math/Vector.h"
 
 namespace Gem {
 	void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
@@ -27,7 +26,7 @@ namespace Gem {
 		Mouse& operator=(const Mouse& other) = delete;
 		Mouse& operator=(Mouse&& other) noexcept = default;
 
-		Vector2i GetPosition() const;
+		glm::ivec2 GetPosition() const;
 		bool GetButton(MouseButton button) const;
 	};
 }

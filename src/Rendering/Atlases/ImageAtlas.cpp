@@ -3,7 +3,7 @@
 
 namespace Gem {
 	ImageAtlas::ImageAtlas()
-		: Image(CreateImage(std::vector{Colour::Black}, Vector2i(1, 1), 4)){
+		: Image(CreateImage(std::vector{Colour::Black}, glm::ivec2(1, 1), 4)){
 		
 	}
 
@@ -19,9 +19,9 @@ namespace Gem {
 		std::vector contentBackup{ content };
 
 		content.clear();
-		const Vector2i oldDimensions = dimensions;
-		const Vector2i newDimensions{ dimensions.x + addedImage.dimensions.x, dimensions.y + addedImage.dimensions.y };
-		const Vector2i newTopLeftCornerForAddedImage = {};
+		const glm::ivec2 oldDimensions = dimensions;
+		const glm::ivec2 newDimensions{ dimensions.x + addedImage.dimensions.x, dimensions.y + addedImage.dimensions.y };
+		const glm::ivec2 newTopLeftCornerForAddedImage = {};
 
 		content.resize((unsigned int)(newDimensions.x * newDimensions.y));
 

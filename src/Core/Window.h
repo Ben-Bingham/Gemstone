@@ -31,7 +31,7 @@ namespace Gem {
 
 		// ==================== Input ====================
 		bool GetMouseButton(MouseButton button);
-		Vector2i GetMousePosition();
+		glm::ivec2 GetMousePosition();
 		bool GetKeyboardKey(Key key);
 
 		// ==================== Call backs ====================
@@ -42,7 +42,7 @@ namespace Gem {
 		void SetCursorEnterCallback(void(*callback)(WindowHandle callbackHandle, int entered));
 		void SetWindowResizeCallback(void(*callback)(WindowHandle callbackHandle, int width, int height));
 
-		Vector2ui size{ 640, 480 };
+		glm::ivec2 size{ 640, 480 };
 
 	private:
 		WindowHandle m_Handle{ nullptr };

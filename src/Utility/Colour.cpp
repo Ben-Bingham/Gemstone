@@ -3,21 +3,21 @@
 
 namespace Gem {
 	Colour::Colour(const int colour)
-		: Vector4uc((unsigned char)colour) {
+		: glm::ivec4((unsigned char)colour) {
 		
 	}
 
 	Colour::Colour(const int red, const int green, const int blue, const int alpha)
-		: Vector4uc((unsigned char)red, (unsigned char)green, (unsigned char)blue, (unsigned char)alpha){
+		: glm::ivec4((unsigned char)red, (unsigned char)green, (unsigned char)blue, (unsigned char)alpha){
 		
 	}
 
 	unsigned char* Colour::Data() {
-		return &r;
+		return (unsigned char*)&r;
 	}
 
-	Vector4f Colour::ToVec4f() const {
-		return Vector4f{ (float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, (float)a / 255.0f };
+	glm::vec4 Colour::ToVec4f() const {
+		return glm::vec4{ (float)r / 255.0f, (float)g / 255.0f, (float)b / 255.0f, (float)a / 255.0f };
 	}
 
 	const Colour Colour::Red		{ 255,   0,   0 };

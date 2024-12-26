@@ -1,14 +1,22 @@
 #include "pch.h"
 #include "Utility/Transform.h"
+#include <glm/glm.hpp>
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/transform.hpp>
 
 namespace Gem {
-	Transform::Transform(const Vector3f& position, const Vector3f& scale, const Vector3f& rotation)
+	Transform::Transform(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& rotation)
 		: position(position), scale(scale), rotation(rotation) {}
 
-	Matrix4f Transform::Matrix() const {
-		Matrix4f model{ 1.0f };
+	glm::mat4 Transform::Matrix() const {
+		glm::mat4 model{ 1.0f };
 
-		model.translate(position).scale(scale).rotate(degreesToRadians(rotation.z), Vector3f::south).rotate(degreesToRadians(rotation.x), Vector3f::east).rotate(degreesToRadians(rotation.y), Vector3f::up);
+		model = glm::translate(model, position);
+		model = glm::scale(model, scale);
+		model = glm::rotate(model, glm::radians(rotation.z), glm::vec3{ 0.0f, 0.0f, 1.0f });
+		model = glm::rotate(model, glm::radians(rotation.x), glm::vec3{ 1.0f, 0.0f, 0.0f });
+		model = glm::rotate(model, glm::radians(rotation.y), glm::vec3{ 0.0f, 1.0f, 0.0f });
 
 		return model;
 	}

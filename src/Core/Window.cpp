@@ -56,7 +56,7 @@ namespace Gem {
 		return GLFWContext::Get().GetMouseButtonDown(m_Handle, button);
 	}
 
-	Vector2i Window::GetMousePosition() {
+	glm::ivec2 Window::GetMousePosition() {
 		return GLFWContext::Get().GetMousePosition(m_Handle);
 	}
 

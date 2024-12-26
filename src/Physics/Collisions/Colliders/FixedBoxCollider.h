@@ -1,14 +1,14 @@
 #pragma once
 #include "BaseCollider.h"
 
-#include "Math/Vector.h"
+#include <glm/glm.hpp>
 
 namespace Gem {
 	class FixedBoxCollider : public BaseCollider {
 	public:
 		FixedBoxCollider();
 
-		Vector3f minDistances{ -1.0f, -1.0f, -1.0f };
-		Vector3f maxDistances{ 1.0f, 1.0f, 1.0f };
+		glm::vec3 minDistances{ -1.0f, -1.0f, -1.0f };
+		glm::vec3 maxDistances{ 1.0f, 1.0f, 1.0f };
 	};
 }

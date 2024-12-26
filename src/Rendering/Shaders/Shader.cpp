@@ -35,15 +35,15 @@ namespace Gem {
 		OpenGlContext::Get().UploadUniform(GetUniformLocation(variableName), value);
 	}
 
-	void Shader::Upload(const std::string& variableName, const Matrix4f& value) {
+	void Shader::Upload(const std::string& variableName, const glm::mat4& value) {
 		OpenGlContext::Get().UploadUniform(GetUniformLocation(variableName), value);
 	}
 
-	void Shader::Upload(const std::string& variableName, const Vector3f& value) {
+	void Shader::Upload(const std::string& variableName, const glm::vec3& value) {
 		OpenGlContext::Get().UploadUniform(GetUniformLocation(variableName), value);
 	}
 
-	void Shader::Upload(const std::string& variableName, const Vector4f& value) {
+	void Shader::Upload(const std::string& variableName, const glm::vec4& value) {
 		OpenGlContext::Get().UploadUniform(GetUniformLocation(variableName), value);
 	}
 

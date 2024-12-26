@@ -2,8 +2,8 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Math/Matrix.h"
-#include "Math/Vector.h"
+#include <glm/glm.hpp>
+
 #include "Utility/Colour.h"
 #include "Utility/Image.h"
 
@@ -62,7 +62,7 @@ namespace Gem {
 		void Clear();
 		Colour clearColour{ 128, 128, 128 };
 
-		void SetViewportSize(const Vector2ui& size);
+		void SetViewportSize(const glm::ivec2& size);
 
 	private:
 		enum class GlTypeName {
@@ -243,9 +243,9 @@ namespace Gem {
 
 		void UploadUniform(UniformLocation location, int value);
 		void UploadUniform(UniformLocation location, float value);
-		void UploadUniform(UniformLocation location, const Matrix4f& value);
-		void UploadUniform(UniformLocation location, const Vector3f& value);
-		void UploadUniform(UniformLocation location, const Vector4f& value);
+		void UploadUniform(UniformLocation location, const glm::mat4& value);
+		void UploadUniform(UniformLocation location, const glm::vec3& value);
+		void UploadUniform(UniformLocation location, const glm::vec4 &value);
 
 		// ------------------------------ Frame Buffers ------------------------------
 		[[nodiscard]] FrameBufferHandle GenerateFrameBuffer();
@@ -266,7 +266,7 @@ namespace Gem {
 		void DeleteRenderBuffer(RenderBufferHandle handle);
 		void BindRenderBuffer(RenderBufferHandle handle);
 
-		void SetRenderBufferStorageType(RenderBufferHandle handle, const Vector2ui& size);
+		void SetRenderBufferStorageType(RenderBufferHandle handle, const glm::ivec2& size);
 
 	private:
 		RenderBufferHandle m_BoundRenderBuffer;

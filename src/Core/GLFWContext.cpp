@@ -33,7 +33,7 @@ namespace Gem {
 	}
 
 	// ==================== Windows ====================
-	WindowHandle GLFWContext::CreateWindow(const Vector2ui size, std::string&& name) {
+	WindowHandle GLFWContext::CreateWindow(const glm::ivec2 size, std::string&& name) {
 		return glfwCreateWindow((int)size.x, (int)size.y, name.c_str(), nullptr, nullptr);
 	}
 
@@ -79,12 +79,12 @@ namespace Gem {
 		return glfwGetMouseButton(handle, (int)button) == GLFW_RELEASE;
 	}
 
-	Vector2i GLFWContext::GetMousePosition(const WindowHandle handle) const {
+	glm::ivec2 GLFWContext::GetMousePosition(const WindowHandle handle) const {
 		double x, y;
 
 		glfwGetCursorPos(handle, &x, &y);
 
-		return Vector2i{ (int)std::floor(x), (int)std::floor(y) };
+		return glm::ivec2{ (int)std::floor(x), (int)std::floor(y) };
 	}
 
 	// ==================== Call backs ====================

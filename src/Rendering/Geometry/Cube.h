@@ -5,7 +5,7 @@ namespace Gem {
 	class Cube final : public Shape {
 	public:
 		// TODO Dimensions do not currently work
-		Cube(const Vector3f& dimensions = Vector3f{ 1.0f, 1.0f, 1.0f });
+		Cube(const glm::vec3& dimensions = glm::vec3{ 1.0f, 1.0f, 1.0f });
 
 		Cube(const Cube& other) = default;
 		Cube(Cube&& other) noexcept = default;
@@ -19,6 +19,6 @@ namespace Gem {
 		[[nodiscard]] std::vector<Vertex> Vertices() const override;
 		[[nodiscard]] std::vector<Index> Indices() const override;
 
-		Vector3f m_Dimensions;
+		glm::vec3 m_Dimensions;
 	};
 }

@@ -1,21 +1,19 @@
 #pragma once
 
-#include "Math/Vector.h"
-
 namespace Gem {
 	using Kilogram = float;
 	using Meter = float;
-	using Point3D = Vector3<Meter>;
-	using Point2D = Vector2<Meter>;
+	//using Point3D = Vector3<Meter>;
+	//using Point2D = Vector2<Meter>;
 	using Second = float;
 	using Newton = float;
-	using Newton3D = Vector3<Newton>;
+	//using Newton3D = Vector3<Newton>;
 	using Speed = float;
-	using Velocity = Vector3<Speed>;
-	using Displacement = Vector3<Meter>;
-	using Direction = Vector3<Meter>;
+	//using Velocity = Vector3<Speed>;
+	//using Displacement = Vector3<Meter>;
+	//using Direction = Vector3<Meter>;
 	using Acceleration = float;
-	using Acceleration3D = Vector3<Acceleration>;
+	//using Acceleration3D = Vector3<Acceleration>;
 	using KilogramMeterPerSeconds = float;
 
 	namespace Literals {

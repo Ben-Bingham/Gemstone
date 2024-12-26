@@ -1,5 +1,6 @@
 #pragma once
-#include "Math/Matrix.h"
+#include <glm/glm.hpp>
+
 #include "Utility/Pointer.h"
 
 namespace Gem {
@@ -9,6 +10,6 @@ namespace Gem {
 	struct Renderable {
 		Ptr<MeshObject> mesh;
 		Ptr<BaseMaterial> material;
-		Matrix4f modelMatrix;
+		glm::mat4 modelMatrix;
 	};
 }

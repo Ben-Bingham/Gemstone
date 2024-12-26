@@ -1,15 +1,15 @@
 #pragma once
 #include <vector>
-#include "Math/Vector.h"
+#include <glm/glm.hpp>
 
 namespace Gem {
 	constexpr size_t ELEMENTS_IN_VERTEX = 8;
 	struct Vertex {
-		Vertex(Vector3f position, Vector3f normal, Vector2f uv);
+		Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 uv);
 
-		Vector3f position;
-		Vector3f normal;
-		Vector2f uv;
+		glm::vec3 position;
+		glm::vec3 normal;
+		glm::vec2 uv;
 	};
 
 	std::vector<float> VertexToFloat(const std::vector<Vertex>& vertices);

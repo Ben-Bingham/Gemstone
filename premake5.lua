@@ -55,7 +55,8 @@ project "Gemstone"
         "3rdParty/GLFW/include",
         "3rdParty/ImGui/include/ImGui",
         "3rdParty/ImGui/include/ImPlot",
-        "3rdParty/stb_image"
+        "3rdParty/stb_image",
+        "3rdParty/glm"
     }
 
     libdirs {

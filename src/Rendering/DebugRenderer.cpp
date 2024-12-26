@@ -14,7 +14,7 @@ namespace Gem {
 #endif
 	}
 
-	void DebugRenderer::DrawLine(const Vector3f& start, const Vector3f& end, const Colour& colour) {
+	void DebugRenderer::DrawLine(const glm::vec3& start, const glm::vec3& end, const Colour& colour) {
 #ifdef DEBUG_RENDERER
 
 #endif

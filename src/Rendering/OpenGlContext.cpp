@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Rendering/Utility/OpenGlError.h"
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Gem {
 	void CheckErrors(const char* filePath, const int lineNumber) {
@@ -253,7 +254,7 @@ namespace Gem {
 
 	// ------------------------------ Miscellaneous ------------------------------
 	void OpenGlContext::Clear() {
-		const Vector4f floatColour{ clearColour.ToVec4f() };
+		const glm::vec4 floatColour{ clearColour.ToVec4f() };
 
 		glClearColor(floatColour.x, floatColour.y, floatColour.z, floatColour.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -261,7 +262,7 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
-	void OpenGlContext::SetViewportSize(const Vector2ui& size) {
+	void OpenGlContext::SetViewportSize(const glm::ivec2& size) {
 		glViewport(0, 0, size.x, size.y);
 
 		CHECK_ERRORS();
@@ -624,19 +625,19 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
-	void OpenGlContext::UploadUniform(UniformLocation location, const Matrix4f& value) {
-		glUniformMatrix4fv(location, 1, GL_FALSE, &value.row1.x);
+	void OpenGlContext::UploadUniform(UniformLocation location, const glm::mat4& value) {
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 
 		CHECK_ERRORS();
 	}
 
-	void OpenGlContext::UploadUniform(UniformLocation location, const Vector3f& value) {
+	void OpenGlContext::UploadUniform(UniformLocation location, const glm::vec3& value) {
 		glUniform3fv(location, 1, &value.x);
 
 		CHECK_ERRORS();
 	}
 
-	void OpenGlContext::UploadUniform(UniformLocation location, const Vector4f& value) {
+	void OpenGlContext::UploadUniform(UniformLocation location, const glm::vec4& value) {
 		glUniform4fv(location, 1, &value.x);
 
 		CHECK_ERRORS();
@@ -723,7 +724,7 @@ namespace Gem {
 		CHECK_ERRORS();
 	}
 
-	void OpenGlContext::SetRenderBufferStorageType(const RenderBufferHandle handle, const Vector2ui& size) {
+	void OpenGlContext::SetRenderBufferStorageType(const RenderBufferHandle handle, const glm::ivec2& size) {
 		BindRenderBuffer(handle);
 
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, (int)size.x, (int)size.y);

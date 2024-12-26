@@ -36,9 +36,9 @@ namespace Gem {
 				collisions.push_back(collision);
 
 				if (Collide(ColliderObject{ colliderA.collider, transformA }, ColliderObject{ colliderB.collider, transformB })) {
-					//Vector3f distanceVector = transformA.position - transformB.position;
+					//glm::vec3 distanceVector = transformA.position - transformB.position;
 					//float distanceMagnitude = distanceVector.Magnitude();
-					//Vector3f distanceDirection = distanceVector.normalize();
+					//glm::vec3 distanceDirection = distanceVector.normalize();
 					
 					//Print("Distance Vector", distanceVector);
 					//Print("Distance Magnitude", distanceMagnitude);
@@ -52,8 +52,8 @@ namespace Gem {
 						PhysicalProperties& bProperties = ecs.componentManager.GetComponent<PhysicalProperties>(entB);
 
 						// TODO need to implement having collisions on only one plane
-						const Vector3f v1 = aProperties.velocity;
-						const Vector3f v2 = bProperties.velocity;
+						const glm::vec3 v1 = aProperties.velocity;
+						const glm::vec3 v2 = bProperties.velocity;
 
 						const float m1 = aProperties.mass;
 						const float m2 = bProperties.mass;
@@ -63,19 +63,19 @@ namespace Gem {
 						// v1' = (m1v1 + m2v2 - ev1m2 + ev2m2) / (m1 + m2)
 						// v2' = (m1v1 + m2v2 - m1v1') / m2
 
-						const Vector3f v1AfterMag = (m1 * v1 + m2 * v2 - e * v1 * m2) / (m1 + m2);
-						const Vector3f v2AfterMag = (m1 * v1 + m2 * v2 - m1 * v1AfterMag) / m2;
+						const glm::vec3 v1AfterMag = (m1 * v1 + m2 * v2 - e * v1 * m2) / (m1 + m2);
+						const glm::vec3 v2AfterMag = (m1 * v1 + m2 * v2 - m1 * v1AfterMag) / m2;
 
 
-						//const Vector3f v1After = (m1 * v1 + m2 * v2 + m2 * e * (v2 - v1)) / (m1 + m2);
-						//const Vector3f v2After = (m1 * v1 + m2 * v2 + m1 * e * (v1 - v2)) / (m1 + m2);
+						//const glm::vec3 v1After = (m1 * v1 + m2 * v2 + m2 * e * (v2 - v1)) / (m1 + m2);
+						//const glm::vec3 v2After = (m1 * v1 + m2 * v2 + m1 * e * (v1 - v2)) / (m1 + m2);
 
-						Vector3f aVelocityDir = (transformA.position - transformB.position).normalize();
-						Vector3f bVelocityDir = (transformB.position - transformA.position).normalize();
+						glm::vec3 aVelocityDir = glm::normalize((transformA.position - transformB.position));
+						glm::vec3 bVelocityDir = glm::normalize((transformB.position - transformA.position));
 
-						Print("=====");
-						Print("AVelocityDir:", aVelocityDir);
-						Print("BVelocityDir:", bVelocityDir);
+						//Print("=====");
+						//Print("AVelocityDir:", aVelocityDir);
+						//Print("BVelocityDir:", bVelocityDir);
 
 						aProperties.velocity = v1AfterMag * aVelocityDir;
 						bProperties.velocity = v2AfterMag * bVelocityDir;

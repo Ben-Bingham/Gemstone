@@ -67,7 +67,7 @@ namespace Gem {
 		return mouse;
 	}
 
-	Vector2i Mouse::GetPosition() const {
+	glm::ivec2 Mouse::GetPosition() const {
 		return Window::Get().GetMousePosition();
 	}
 

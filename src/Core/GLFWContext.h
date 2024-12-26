@@ -1,9 +1,10 @@
 #pragma once
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
-
-#include "Math/Vector.h"
+#include <glm/vec2.hpp>
 #include "Input/MouseButton.h"
+
+#include <string>
 
 namespace Gem {
 	enum class Key;
@@ -31,7 +32,7 @@ namespace Gem {
 		GLFWContext& operator=(GLFWContext&& other) noexcept = default;
 
 		// ==================== Windows ====================
-		WindowHandle CreateWindow(Vector2ui size, std::string&& name);
+		WindowHandle CreateWindow(glm::ivec2 size, std::string&& name);
 		void DestroyWindow(WindowHandle handle);
 
 		bool WindowShouldClose(WindowHandle handle);
@@ -53,7 +54,7 @@ namespace Gem {
 		bool GetKeyUp(WindowHandle handle, Key key) const;
 		bool GetMouseButtonDown(WindowHandle handle, MouseButton button) const;
 		bool GetMouseButtonUp(WindowHandle handle, MouseButton button) const;
-		Vector2i GetMousePosition(WindowHandle handle) const;
+		glm::ivec2 GetMousePosition(WindowHandle handle) const;
 
 		// ==================== Call backs ====================
 		void SetKeyboardKeyCallback(WindowHandle handle, void(*callback)(WindowHandle callbackHandle, int key, int scanCode, int action, int mods));

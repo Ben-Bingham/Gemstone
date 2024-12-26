@@ -5,8 +5,6 @@
 #include "Utility/Pointer.h"
 #include "BaseCollider.h"
 
-#include "Math/Vector.h"
-
 namespace Gem {
 	using CollisionCallback  = std::function<void()>;
 

@@ -35,16 +35,16 @@ namespace Gem {
 
 		class Debug {
 			struct DebugRenderable {
-				std::vector<Vector3f> points;
+				std::vector<glm::vec3> points;
 				Colour colour;
 			};
 
 		public:
 			Debug();
 
-			void Add(Vector3f head, Vector3f tail, const Colour& colour = Colour::Red);
+			void Add(glm::vec3 head, glm::vec3 tail, const Colour& colour = Colour::Red);
 
-			void Render(Matrix4f view, Matrix4f projection);
+			void Render(glm::mat4 view, glm::mat4 projection);
 
 			std::vector<DebugRenderable> debugRenderables;
 

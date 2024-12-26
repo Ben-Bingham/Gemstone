@@ -11,9 +11,9 @@ namespace Gem {
 
 		void Upload(const std::string& variableName, int value);
 		void Upload(const std::string& variableName, float value);
-		void Upload(const std::string& variableName, const Matrix4f& value);
-		void Upload(const std::string& variableName, const Vector3f& value);
-		void Upload(const std::string& variableName, const Vector4f& value);
+		void Upload(const std::string& variableName, const glm::mat4& value);
+		void Upload(const std::string& variableName, const glm::vec3& value);
+		void Upload(const std::string& variableName, const glm::vec4& value);
 
 	private:
 		ShaderProgramHandle m_Handle;

@@ -8,6 +8,10 @@
 
 #include "Utility/Utility.h"
 
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
+
 namespace Gem {
 	void Renderer::StartUp() {
 		m_Started = true;
@@ -36,11 +40,11 @@ namespace Gem {
 		});
 	}
 
-	void Renderer::Debug::Add(Vector3f head, Vector3f tail, const Colour& colour) {
+	void Renderer::Debug::Add(glm::vec3 head, glm::vec3 tail, const Colour& colour) {
 		debugRenderables.push_back(DebugRenderable{ { head, tail }, colour });
 	}
 
-	void Renderer::Debug::Render(Matrix4f view, Matrix4f projection) {
+	void Renderer::Debug::Render(glm::mat4 view, glm::mat4 projection) {
 
 		for (auto debug : debugRenderables) {
 			m_Vao.Bind();
@@ -55,7 +59,7 @@ namespace Gem {
 			m_Vb.SetAllData(floats);
 
 			m_Shader.Bind();
-			Matrix4f vp = view * projection;
+			glm::mat4 vp = view * projection;
 			m_Shader.Upload("u_Matrix", vp);
 			m_Shader.Upload("u_Colour", debug.colour.ToVec4f());
 
@@ -69,10 +73,10 @@ namespace Gem {
 	void Renderer::Render() {
 		OpenGlContext::Get().Clear();
 
-		const Vector2ui windowSize = Window::Get().size;
+		const glm::ivec2 windowSize = Window::Get().size;
 
-		Matrix4f projection = perspective(degreesToRadians(camera.camera.fov), (float)windowSize.x / (float)windowSize.y, 0.1f, 100.0f);
-		Matrix4f view = lookAt(camera.transform.position, camera.transform.position + camera.camera.forward, Vector3f::up);
+		glm::mat4 projection = glm::perspective(glm::radians(camera.camera.fov), (float)windowSize.x / (float)windowSize.y, 0.1f, 100.0f);
+		glm::mat4 view = glm::lookAt(camera.transform.position, camera.transform.position + camera.camera.forward, glm::vec3{ 0.0f, 1.0f, 0.0f });
 
 		for (auto [mesh, material, model] : renderables) {
 			material->Apply();
@@ -80,7 +84,7 @@ namespace Gem {
 
 			UPtr<Shader>& shader = material->GetShader();
 
-			Matrix4f mvp = model * view * projection;
+			glm::mat4 mvp = model * view * projection;
 
 			shader->Upload("u_MVP", mvp);
 

@@ -1,7 +1,7 @@
 #include "Rendering/Utility/Vertex.h"
 
 namespace Gem {
-	Vertex::Vertex(const Vector3f position, const Vector3f normal, const Vector2f uv)
+	Vertex::Vertex(const glm::vec3 position, const glm::vec3 normal, const glm::vec2 uv)
 		: position(position), normal(normal), uv(uv) { }
 
 	std::vector<float> VertexToFloat(const std::vector<Vertex>& vertices) {
